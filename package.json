@@ -1,5 +1,5 @@
 {
-  "name": "wesybag-sdk",
+  "name": "@ilpalbio/wesybag-api-sdk",
   "version": "0.1.0",
   "license": "MIT",
   "main": "./dist/index.js",
@@ -39,7 +39,7 @@
     "prepare": "tsup && npm run build:package",
     "size": "size-limit",
     "analyze": "size-limit --why",
-    "build:package": "echo '{\"name\":\"wesybag-sdk\",\"version\":\"0.1.0\",\"license\":\"MIT\",\"main\":\"./index.js\",\"typings\":\"./index.d.ts\",\"engines\":{\"node\":\">=10\"},\"author\":\"sf-ts-sdk-gen\",\"module\":\"./wesybag-sdk.esm.js\",\"sideEffects\":false}' > dist/package.json"
+    "build:package": "echo '{\"name\":\"@ilpalbio/wesybag-api-sdk\",\"version\":\"0.1.0\",\"license\":\"MIT\",\"main\":\"./index.js\",\"typings\":\"./index.d.ts\",\"engines\":{\"node\":\">=10\"},\"author\":\"sf-ts-sdk-gen\",\"module\":\"./@ilpalbio/wesybag-api-sdk.esm.js\",\"sideEffects\":false}' > dist/package.json"
   },
   "author": "sf-ts-sdk-gen",
   "sideEffects": false,
