@@ -102,7 +102,7 @@ export class ResponseError<T> extends Error {
 }
 
 export const serverUrls: { [env in Env]: string } = {
-  "local": "http://localhost:undefined",
+  "local": "http://localhost:3000",
   "staging": "https://api.wesybag.it"
 }
 
