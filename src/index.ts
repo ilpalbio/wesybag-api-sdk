@@ -3410,6 +3410,65 @@ export async function acceptHelpRequest(data: AcceptHelpRequestRequestSchema, co
 }
 
 /**
+Get all the assistance requests send by a specific user
+*/
+export type AxiosGetAssistanceRequestSuccessResponse = (AxiosResponse<GetAssistanceRequest200ResponseSchema> & { status: 200 })
+export type AxiosGetAssistanceRequestErrorResponse = ((AxiosResponse<GetAssistanceRequest400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetAssistanceRequest401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetAssistanceRequest405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetAssistanceRequest415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetAssistanceRequest429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetAssistanceRequest500ResponseSchema> & { status: 500 })) & { path: "/v1/assistance/getAssistanceRequest" }
+export type AxiosGetAssistanceRequestResponse = AxiosGetAssistanceRequestSuccessResponse | AxiosGetAssistanceRequestErrorResponse
+export async function getAssistanceRequest(data: GetAssistanceRequestRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetAssistanceRequestResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/assistance/getAssistanceRequest"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosGetAssistanceRequestSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosGetAssistanceRequestErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Check if an email is unique
 */
 export type AxiosVerifyUserUniquenessSuccessResponse = (AxiosResponse<VerifyUserUniqueness200ResponseSchema> & { status: 200 })
@@ -6545,6 +6604,49 @@ export type AcceptHelpRequest500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type AcceptHelpRequestRequestSchema = {
   helpRequestId: string
+  [k: string]: unknown
+}
+
+export type GetAssistanceRequest200ResponseSchema = UserAssistanceRequestSchema[]
+
+export type GetAssistanceRequest400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetAssistanceRequest401ResponseSchema = UnauthorizedUserErrorResponseSchema
+
+export type GetAssistanceRequest405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type GetAssistanceRequest415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type GetAssistanceRequest429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type GetAssistanceRequest500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type GetAssistanceRequestRequestSchema = {
+  from?: string
+  to?: string
+  [k: string]: unknown
+}
+
+export type HelpRequestSingleResponsechema = {
+  assistant?: {
+    firstName: string
+    lastName: string
+    [k: string]: unknown
+  }
+  message: string
+  creationTimestamp: string
+  [k: string]: unknown
+}
+
+export type UserAssistanceRequestSchema = {
+  id: string
+  title: string
+  description: string
+  category: "travelCreation" | "general" | "payment"
+  importance: "low" | "medium" | "high"
+  creationTimestamp: string
+  status: "OPEN" | "CLOSED"
+  responses: HelpRequestSingleResponsechema[]
   [k: string]: unknown
 }
 
