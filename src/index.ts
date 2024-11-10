@@ -2540,65 +2540,6 @@ export async function sendHelpResponse(data: SendHelpResponseRequestSchema, conf
 }
 
 /**
-Update a help request status
-*/
-export type AxiosUpdateHelpRequestSuccessResponse = (AxiosResponse<UpdateHelpRequest200ResponseSchema> & { status: 200 })
-export type AxiosUpdateHelpRequestErrorResponse = ((AxiosResponse<UpdateHelpRequest400ResponseSchema> & { status: 400 }) | (AxiosResponse<UpdateHelpRequest404ResponseSchema> & { status: 404 }) | (AxiosResponse<UpdateHelpRequest405ResponseSchema> & { status: 405 }) | (AxiosResponse<UpdateHelpRequest415ResponseSchema> & { status: 415 }) | (AxiosResponse<UpdateHelpRequest429ResponseSchema> & { status: 429 }) | (AxiosResponse<UpdateHelpRequest500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/updateHelpRequest" }
-export type AxiosUpdateHelpRequestResponse = AxiosUpdateHelpRequestSuccessResponse | AxiosUpdateHelpRequestErrorResponse
-export async function updateHelpRequest(data: UpdateHelpRequestRequestSchema, config?: AxiosRequestConfig): Promise<AxiosUpdateHelpRequestResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "404": {
-      "code": [
-        "NOT_FOUND"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/admin/updateHelpRequest"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosUpdateHelpRequestSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosUpdateHelpRequestErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
 Reject a pending travel
 */
 export type AxiosRejectPendingTravelSuccessResponse = (AxiosResponse<RejectPendingTravel200ResponseSchema> & { status: 200 })
@@ -5751,26 +5692,6 @@ export type SendHelpResponseRequestSchema = {
   [k: string]: unknown
 }
 
-export type UpdateHelpRequest200ResponseSchema = OkResponseSchema
-
-export type UpdateHelpRequest400ResponseSchema = ValidationErrorResponseSchema
-
-export type UpdateHelpRequest404ResponseSchema = HelpRequestNotFoundErrorResponseSchema
-
-export type UpdateHelpRequest405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type UpdateHelpRequest415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type UpdateHelpRequest429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type UpdateHelpRequest500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type UpdateHelpRequestRequestSchema = {
-  id: string
-  status: "OPEN" | "CLOSED"
-  [k: string]: unknown
-}
-
 export type RejectPendingTravel200ResponseSchema = OkResponseSchema
 
 export type RejectPendingTravel400ResponseSchema = ValidationErrorResponseSchema
@@ -5866,7 +5787,7 @@ export type HelpRequestSchema = {
   status: "OPEN" | "CLOSED"
   importance: "low" | "medium" | "high"
   category: "travelCreation" | "general" | "payment"
-  responses: HelpRequestResponseSchema[]
+  response?: HelpRequestResponseSchema
   timestamp: string
   user: BaseUserSchema
   [k: string]: unknown
@@ -6628,7 +6549,7 @@ export type GetAssistanceRequestRequestSchema = {
 }
 
 export type HelpRequestSingleResponsechema = {
-  assistant?: {
+  assistant: {
     firstName: string
     lastName: string
     [k: string]: unknown
@@ -6638,17 +6559,26 @@ export type HelpRequestSingleResponsechema = {
   [k: string]: unknown
 }
 
-export type UserAssistanceRequestSchema = {
+export type UserPartialAssistanceRequestSchema = {
   id: string
   title: string
   description: string
   category: "travelCreation" | "general" | "payment"
   importance: "low" | "medium" | "high"
   creationTimestamp: string
-  status: "OPEN" | "CLOSED"
-  responses: HelpRequestSingleResponsechema[]
   [k: string]: unknown
 }
+
+export type UserAssistanceRequestSchema =
+  | (UserPartialAssistanceRequestSchema & {
+      status: "OPEN"
+      [k: string]: unknown
+    })
+  | (UserPartialAssistanceRequestSchema & {
+      status: "CLOSED"
+      response: HelpRequestSingleResponsechema
+      [k: string]: unknown
+    })
 
 export type VerifyUserUniqueness200ResponseSchema = {
   isUnique: boolean
