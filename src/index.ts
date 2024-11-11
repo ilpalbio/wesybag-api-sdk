@@ -2783,10 +2783,10 @@ export async function verifyAuthentication(config?: AxiosRequestConfig): Promise
 /**
 Verify that the authenticated user is an admin
 */
-export type AxiosVerifyAdminSuccessResponse = (AxiosResponse<VerifyAdmin200ResponseSchema> & { status: 200 })
-export type AxiosVerifyAdminErrorResponse = ((AxiosResponse<VerifyAdmin400ResponseSchema> & { status: 400 }) | (AxiosResponse<VerifyAdmin403ResponseSchema> & { status: 403 }) | (AxiosResponse<VerifyAdmin405ResponseSchema> & { status: 405 }) | (AxiosResponse<VerifyAdmin415ResponseSchema> & { status: 415 }) | (AxiosResponse<VerifyAdmin429ResponseSchema> & { status: 429 }) | (AxiosResponse<VerifyAdmin500ResponseSchema> & { status: 500 })) & { path: "/v1/auth/verifyAdmin" }
-export type AxiosVerifyAdminResponse = AxiosVerifyAdminSuccessResponse | AxiosVerifyAdminErrorResponse
-export async function verifyAdmin(config?: AxiosRequestConfig): Promise<AxiosVerifyAdminResponse> {
+export type AxiosVerifyAssistantSuccessResponse = (AxiosResponse<VerifyAssistant200ResponseSchema> & { status: 200 })
+export type AxiosVerifyAssistantErrorResponse = ((AxiosResponse<VerifyAssistant400ResponseSchema> & { status: 400 }) | (AxiosResponse<VerifyAssistant403ResponseSchema> & { status: 403 }) | (AxiosResponse<VerifyAssistant405ResponseSchema> & { status: 405 }) | (AxiosResponse<VerifyAssistant415ResponseSchema> & { status: 415 }) | (AxiosResponse<VerifyAssistant429ResponseSchema> & { status: 429 }) | (AxiosResponse<VerifyAssistant500ResponseSchema> & { status: 500 })) & { path: "/v1/auth/verifyAssistant" }
+export type AxiosVerifyAssistantResponse = AxiosVerifyAssistantSuccessResponse | AxiosVerifyAssistantErrorResponse
+export async function verifyAssistant(config?: AxiosRequestConfig): Promise<AxiosVerifyAssistantResponse> {
   _checkSetup()
   const securityParams: AxiosRequestConfig = {}
   const handledResponses = {
@@ -2825,14 +2825,14 @@ export async function verifyAdmin(config?: AxiosRequestConfig): Promise<AxiosVer
     }
   }
   try {
-    const res = await axios!.post(_getFnUrl("/v1/auth/verifyAdmin"), null, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    const res = await axios!.post(_getFnUrl("/v1/auth/verifyAssistant"), null, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
     _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosVerifyAdminSuccessResponse
+    return res as AxiosVerifyAssistantSuccessResponse
   } catch (e) {
     const { response: res } = e as AxiosError
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosVerifyAdminErrorResponse
+      return res as AxiosVerifyAssistantErrorResponse
     } else {
       throw e
     }
@@ -5909,7 +5909,7 @@ export type VerifyAuthentication200ResponseSchema = {
   lastName: string
   email: EmailSchema
   phone: PhoneNumberSchema
-  isAdmin: boolean
+  isAssistant: boolean
   [k: string]: unknown
 }
 
@@ -5925,26 +5925,26 @@ export type VerifyAuthentication429ResponseSchema = ThrottlingErrorResponseSchem
 
 export type VerifyAuthentication500ResponseSchema = UnexpectedErrorResponseSchema
 
-export type VerifyAdmin200ResponseSchema = {
+export type VerifyAssistant200ResponseSchema = {
   firstName: string
   lastName: string
   email: EmailSchema
   phone: PhoneNumberSchema
-  isAdmin: true
+  isAssistant: true
   [k: string]: unknown
 }
 
-export type VerifyAdmin400ResponseSchema = ValidationErrorResponseSchema
+export type VerifyAssistant400ResponseSchema = ValidationErrorResponseSchema
 
-export type VerifyAdmin403ResponseSchema = GenericForbiddenErrorResponseSchema
+export type VerifyAssistant403ResponseSchema = GenericForbiddenErrorResponseSchema
 
-export type VerifyAdmin405ResponseSchema = MethodNotAllowedErrorResponseSchema
+export type VerifyAssistant405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
-export type VerifyAdmin415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+export type VerifyAssistant415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
 
-export type VerifyAdmin429ResponseSchema = ThrottlingErrorResponseSchema
+export type VerifyAssistant429ResponseSchema = ThrottlingErrorResponseSchema
 
-export type VerifyAdmin500ResponseSchema = UnexpectedErrorResponseSchema
+export type VerifyAssistant500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetLuggagesPackages200ResponseSchema = {
   optimals: PackagesSinglePackageSchema[]
