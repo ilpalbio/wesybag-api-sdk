@@ -2948,6 +2948,65 @@ export async function getHotelOffers(data: GetHotelOffersRequestSchema, config?:
 }
 
 /**
+Get hotel products by id of the hotel
+*/
+export type AxiosGetHotelProductsSuccessResponse = (AxiosResponse<GetHotelProducts200ResponseSchema> & { status: 200 })
+export type AxiosGetHotelProductsErrorResponse = ((AxiosResponse<GetHotelProducts400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetHotelProducts404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetHotelProducts405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetHotelProducts415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetHotelProducts429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetHotelProducts500ResponseSchema> & { status: 500 })) & { path: "/v1/packages/getHotelProducts" }
+export type AxiosGetHotelProductsResponse = AxiosGetHotelProductsSuccessResponse | AxiosGetHotelProductsErrorResponse
+export async function getHotelProducts(data: GetHotelProductsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetHotelProductsResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/packages/getHotelProducts"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosGetHotelProductsSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosGetHotelProductsErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Get available accomodations basic information
 */
 export type AxiosGetAvailableAccomodationsSuccessResponse = (AxiosResponse<GetAvailableAccomodations200ResponseSchema> & { status: 200 })
@@ -5997,6 +6056,30 @@ export type GetHotelOffers500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetHotelOffersRequestSchema = SingleOfferPositionSchema[]
 
+export type GetHotelProducts200ResponseSchema = HotelProductSchema[]
+
+export type GetHotelProducts400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetHotelProducts404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type GetHotelProducts405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type GetHotelProducts415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type GetHotelProducts429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type GetHotelProducts500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type GetHotelProductsRequestSchema = {
+  hotelId: string
+  checkin: string
+  checkout: string
+  adults: number
+  children: number
+  rooms: number
+  [k: string]: unknown
+}
+
 export type SingleOfferPositionSchema = {
   country: string
   city: string
@@ -6073,6 +6156,35 @@ export type SingleOfferSchema = {
     numberOfPackages: number
     [k: string]: unknown
   }
+  [k: string]: unknown
+}
+
+export type OccupancySchema = {
+  adults?: number
+  children?: number
+  [k: string]: unknown
+}
+
+export type HotelProductSchema = {
+  occupancy: OccupancySchema
+  numberAvailableAtThisPrice: number
+  cancellationType: {
+    type: "free_cancellation" | "non_refundable" | "special_conditions"
+    availableUntil?: string
+    [k: string]: unknown
+  }
+  mealPlan: {
+    types?: ("breakfast" | "dinner" | "lunch")[]
+    plan: "all_inclusive" | "breakfast_included" | "full_board" | "half_board" | "no_plan"
+    [k: string]: unknown
+  }
+  payment: {
+    prePaymentrequired: boolean
+    timing: ("pay_at_the_property" | "pay_online_later" | "pay_online_now")[]
+    [k: string]: unknown
+  }
+  totalPrice: string
+  room: number
   [k: string]: unknown
 }
 
