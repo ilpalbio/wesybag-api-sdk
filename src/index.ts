@@ -6185,7 +6185,7 @@ export type HotelProductSchema = {
     [k: string]: unknown
   }
   totalPrice: string
-  room: number
+  roomType?: string
   [k: string]: unknown
 }
 
