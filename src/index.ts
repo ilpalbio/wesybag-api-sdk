@@ -6160,8 +6160,9 @@ export type SingleOfferSchema = {
 }
 
 export type OccupancySchema = {
-  adults?: number
-  children?: number
+  adults: number
+  children: number
+  total: number
   [k: string]: unknown
 }
 
