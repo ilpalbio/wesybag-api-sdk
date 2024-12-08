@@ -6090,6 +6090,7 @@ export type GetLuggagesPackagesRequestSchema = {
   origin: PackagesPrivatePublicPositionSchema
   time: PackagesTimeSchema
   luggages: PackagesLuggageSchema[]
+  filter?: "best" | "cheapest" | "fastest"
   [k: string]: unknown
 }
 
