@@ -3007,6 +3007,65 @@ export async function getHotelProducts(data: GetHotelProductsRequestSchema, conf
 }
 
 /**
+Get the position detail from id
+*/
+export type AxiosGetPositionDetailSuccessResponse = (AxiosResponse<GetPositionDetail200ResponseSchema> & { status: 200 })
+export type AxiosGetPositionDetailErrorResponse = ((AxiosResponse<GetPositionDetail400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetPositionDetail404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetPositionDetail405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetPositionDetail415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetPositionDetail429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetPositionDetail500ResponseSchema> & { status: 500 })) & { path: "/v1/packages/getPositionDetail" }
+export type AxiosGetPositionDetailResponse = AxiosGetPositionDetailSuccessResponse | AxiosGetPositionDetailErrorResponse
+export async function getPositionDetail(data: GetPositionDetailRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetPositionDetailResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/packages/getPositionDetail"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosGetPositionDetailSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosGetPositionDetailErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Get available accomodations basic information
 */
 export type AxiosGetAvailableAccomodationsSuccessResponse = (AxiosResponse<GetAvailableAccomodations200ResponseSchema> & { status: 200 })
@@ -6077,6 +6136,25 @@ export type GetHotelProductsRequestSchema = {
   adults: number
   children: number
   rooms: number
+  [k: string]: unknown
+}
+
+export type GetPositionDetail200ResponseSchema = PackagesPositionDetailSchema
+
+export type GetPositionDetail400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetPositionDetail404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type GetPositionDetail405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type GetPositionDetail415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type GetPositionDetail429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type GetPositionDetail500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type GetPositionDetailRequestSchema = {
+  id: string
   [k: string]: unknown
 }
 
