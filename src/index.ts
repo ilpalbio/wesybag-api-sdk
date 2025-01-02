@@ -5317,6 +5317,7 @@ export type LoginResponseSchema = {
   token?: string
   userId: string
   sessionId: string
+  isAssistant: boolean
   [k: string]: unknown
 }
 
