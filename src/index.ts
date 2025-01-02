@@ -4187,6 +4187,198 @@ export async function getCities(data: GetCitiesRequestSchema, config?: AxiosRequ
   }
 }
 
+/**
+Verify the code sent via email
+*/
+export type AxiosVerify2FaCodeSuccessResponse = (AxiosResponse<Verify2FaCode200ResponseSchema> & { status: 200 })
+export type AxiosVerify2FaCodeErrorResponse = ((AxiosResponse<Verify2FaCode400ResponseSchema> & { status: 400 }) | (AxiosResponse<Verify2FaCode401ResponseSchema> & { status: 401 }) | (AxiosResponse<Verify2FaCode404ResponseSchema> & { status: 404 }) | (AxiosResponse<Verify2FaCode405ResponseSchema> & { status: 405 }) | (AxiosResponse<Verify2FaCode410ResponseSchema> & { status: 410 }) | (AxiosResponse<Verify2FaCode415ResponseSchema> & { status: 415 }) | (AxiosResponse<Verify2FaCode429ResponseSchema> & { status: 429 }) | (AxiosResponse<Verify2FaCode500ResponseSchema> & { status: 500 })) & { path: "/v1/mfa/verify2FaCode" }
+export type AxiosVerify2FaCodeResponse = AxiosVerify2FaCodeSuccessResponse | AxiosVerify2FaCodeErrorResponse
+export async function verify2FaCode(data: Verify2FaCodeRequestSchema, config?: AxiosRequestConfig): Promise<AxiosVerify2FaCodeResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "INVALID_CODE"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "410": {
+      "code": [
+        "CODE_EXPIRED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/mfa/verify2FaCode"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosVerify2FaCodeSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosVerify2FaCodeErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+Update an existing user's 2fa code
+*/
+export type AxiosUpdate2FaCodeSuccessResponse = (AxiosResponse<Update2FaCode200ResponseSchema> & { status: 200 })
+export type AxiosUpdate2FaCodeErrorResponse = ((AxiosResponse<Update2FaCode400ResponseSchema> & { status: 400 }) | (AxiosResponse<Update2FaCode404ResponseSchema> & { status: 404 }) | (AxiosResponse<Update2FaCode405ResponseSchema> & { status: 405 }) | (AxiosResponse<Update2FaCode410ResponseSchema> & { status: 410 }) | (AxiosResponse<Update2FaCode415ResponseSchema> & { status: 415 }) | (AxiosResponse<Update2FaCode429ResponseSchema> & { status: 429 }) | (AxiosResponse<Update2FaCode500ResponseSchema> & { status: 500 })) & { path: "/v1/mfa/update2FaCode" }
+export type AxiosUpdate2FaCodeResponse = AxiosUpdate2FaCodeSuccessResponse | AxiosUpdate2FaCodeErrorResponse
+export async function update2FaCode(data: Update2FaCodeRequestSchema, config?: AxiosRequestConfig): Promise<AxiosUpdate2FaCodeResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "410": {
+      "code": [
+        "CODE_EXPIRED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/mfa/update2FaCode"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosUpdate2FaCodeSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosUpdate2FaCodeErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+Verify 2FA ID to check if it exists or not
+*/
+export type AxiosVerify2FaIdSuccessResponse = (AxiosResponse<Verify2FaId200ResponseSchema> & { status: 200 })
+export type AxiosVerify2FaIdErrorResponse = ((AxiosResponse<Verify2FaId400ResponseSchema> & { status: 400 }) | (AxiosResponse<Verify2FaId404ResponseSchema> & { status: 404 }) | (AxiosResponse<Verify2FaId405ResponseSchema> & { status: 405 }) | (AxiosResponse<Verify2FaId415ResponseSchema> & { status: 415 }) | (AxiosResponse<Verify2FaId429ResponseSchema> & { status: 429 }) | (AxiosResponse<Verify2FaId500ResponseSchema> & { status: 500 })) & { path: "/v1/mfa/verify2FaId" }
+export type AxiosVerify2FaIdResponse = AxiosVerify2FaIdSuccessResponse | AxiosVerify2FaIdErrorResponse
+export async function verify2FaId(data: Verify2FaIdRequestSchema, config?: AxiosRequestConfig): Promise<AxiosVerify2FaIdResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/mfa/verify2FaId"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosVerify2FaIdSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosVerify2FaIdErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
 export type Any =
   | string
   | boolean
@@ -4636,6 +4828,22 @@ export type AlreadyAcceptedHelpRequestErrorResponseSchema = {
   [k: string]: unknown
 }
 
+export type WrongVerificationCodeErrorResponseSchema = {
+  message: string
+  code: "INVALID_CODE"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type VerificationCodeExpiredErrorResponseSchema = {
+  message: string
+  code: "CODE_EXPIRED"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
 export type CreateTravel200ResponseSchema = CreateTravelResponseSchema
 
 export type CreateTravel400ResponseSchema = ValidationErrorResponseSchema
@@ -5028,7 +5236,7 @@ export type CreateTravelResponseSchema = {
 
 export type GetStructuresResponseSchema = SingleStructureSchema[]
 
-export type LogUser200ResponseSchema = LoginResponseSchema
+export type LogUser200ResponseSchema = LoginResponseSchema | MfaLoginResponseSchema
 
 export type LogUser400ResponseSchema = ValidationErrorResponseSchema
 
@@ -5101,6 +5309,7 @@ export type ConfirmUserRequestSchema = {
 }
 
 export type LoginResponseSchema = {
+  mfaRequired: false
   firstName: string
   lastName: string
   email: EmailSchema
@@ -5108,6 +5317,12 @@ export type LoginResponseSchema = {
   token?: string
   userId: string
   sessionId: string
+  [k: string]: unknown
+}
+
+export type MfaLoginResponseSchema = {
+  mfaRequired: true
+  id: string
   [k: string]: unknown
 }
 
@@ -5455,6 +5670,7 @@ export type UserSettingsResponseSchema = {
     id: string
     [k: string]: unknown
   })[]
+  mfaEnabled: boolean
   [k: string]: unknown
 }
 
@@ -7037,5 +7253,70 @@ export type CitySchema = {
   place: string
   cap: string
   coordinates: CoordinatesRequestSchema
+  [k: string]: unknown
+}
+
+export type Verify2FaCode200ResponseSchema = LoginResponseSchema
+
+export type Verify2FaCode400ResponseSchema = ValidationErrorResponseSchema
+
+export type Verify2FaCode401ResponseSchema = WrongVerificationCodeErrorResponseSchema
+
+export type Verify2FaCode404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type Verify2FaCode405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type Verify2FaCode410ResponseSchema = VerificationCodeExpiredErrorResponseSchema
+
+export type Verify2FaCode415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type Verify2FaCode429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type Verify2FaCode500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type Verify2FaCodeRequestSchema = {
+  id: string
+  code: string
+  rememberUser: boolean
+  [k: string]: unknown
+}
+
+export type Update2FaCode200ResponseSchema = OkResponseSchema
+
+export type Update2FaCode400ResponseSchema = ValidationErrorResponseSchema
+
+export type Update2FaCode404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type Update2FaCode405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type Update2FaCode410ResponseSchema = VerificationCodeExpiredErrorResponseSchema
+
+export type Update2FaCode415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type Update2FaCode429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type Update2FaCode500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type Update2FaCodeRequestSchema = {
+  id: string
+  [k: string]: unknown
+}
+
+export type Verify2FaId200ResponseSchema = OkResponseSchema
+
+export type Verify2FaId400ResponseSchema = ValidationErrorResponseSchema
+
+export type Verify2FaId404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type Verify2FaId405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type Verify2FaId415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type Verify2FaId429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type Verify2FaId500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type Verify2FaIdRequestSchema = {
+  id: string
   [k: string]: unknown
 }
