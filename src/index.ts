@@ -4438,6 +4438,70 @@ export async function updateSecuritySettings(data: UpdateSecuritySettingsRequest
   }
 }
 
+/**
+Resend 2FA code to verify user
+*/
+export type AxiosResend2FaCodeSuccessResponse = (AxiosResponse<Resend2FaCode200ResponseSchema> & { status: 200 })
+export type AxiosResend2FaCodeErrorResponse = ((AxiosResponse<Resend2FaCode400ResponseSchema> & { status: 400 }) | (AxiosResponse<Resend2FaCode404ResponseSchema> & { status: 404 }) | (AxiosResponse<Resend2FaCode405ResponseSchema> & { status: 405 }) | (AxiosResponse<Resend2FaCode410ResponseSchema> & { status: 410 }) | (AxiosResponse<Resend2FaCode415ResponseSchema> & { status: 415 }) | (AxiosResponse<Resend2FaCode429ResponseSchema> & { status: 429 }) | (AxiosResponse<Resend2FaCode500ResponseSchema> & { status: 500 })) & { path: "/v1/mfa/resend2FaCode" }
+export type AxiosResend2FaCodeResponse = AxiosResend2FaCodeSuccessResponse | AxiosResend2FaCodeErrorResponse
+export async function resend2FaCode(data: Resend2FaCodeRequestSchema, config?: AxiosRequestConfig): Promise<AxiosResend2FaCodeResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "410": {
+      "code": [
+        "CODE_EXPIRED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/mfa/resend2FaCode"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosResend2FaCodeSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosResend2FaCodeErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
 export type Any =
   | string
   | boolean
@@ -7397,5 +7461,26 @@ export type UpdateSecuritySettings500ResponseSchema = UnexpectedErrorResponseSch
 
 export type UpdateSecuritySettingsRequestSchema = {
   twoFa?: boolean
+  [k: string]: unknown
+}
+
+export type Resend2FaCode200ResponseSchema = OkResponseSchema
+
+export type Resend2FaCode400ResponseSchema = ValidationErrorResponseSchema
+
+export type Resend2FaCode404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type Resend2FaCode405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type Resend2FaCode410ResponseSchema = VerificationCodeExpiredErrorResponseSchema
+
+export type Resend2FaCode415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type Resend2FaCode429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type Resend2FaCode500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type Resend2FaCodeRequestSchema = {
+  id: string
   [k: string]: unknown
 }
