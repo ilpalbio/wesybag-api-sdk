@@ -4379,6 +4379,65 @@ export async function verify2FaId(data: Verify2FaIdRequestSchema, config?: Axios
   }
 }
 
+/**
+Update the security settings of the user
+*/
+export type AxiosUpdateSecuritySettingsSuccessResponse = (AxiosResponse<UpdateSecuritySettings200ResponseSchema> & { status: 200 })
+export type AxiosUpdateSecuritySettingsErrorResponse = ((AxiosResponse<UpdateSecuritySettings400ResponseSchema> & { status: 400 }) | (AxiosResponse<UpdateSecuritySettings401ResponseSchema> & { status: 401 }) | (AxiosResponse<UpdateSecuritySettings405ResponseSchema> & { status: 405 }) | (AxiosResponse<UpdateSecuritySettings415ResponseSchema> & { status: 415 }) | (AxiosResponse<UpdateSecuritySettings429ResponseSchema> & { status: 429 }) | (AxiosResponse<UpdateSecuritySettings500ResponseSchema> & { status: 500 })) & { path: "/v1/mfa/updateSecuritySettings" }
+export type AxiosUpdateSecuritySettingsResponse = AxiosUpdateSecuritySettingsSuccessResponse | AxiosUpdateSecuritySettingsErrorResponse
+export async function updateSecuritySettings(data: UpdateSecuritySettingsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosUpdateSecuritySettingsResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/mfa/updateSecuritySettings"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosUpdateSecuritySettingsSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosUpdateSecuritySettingsErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
 export type Any =
   | string
   | boolean
@@ -7319,5 +7378,24 @@ export type Verify2FaId500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type Verify2FaIdRequestSchema = {
   id: string
+  [k: string]: unknown
+}
+
+export type UpdateSecuritySettings200ResponseSchema = OkResponseSchema
+
+export type UpdateSecuritySettings400ResponseSchema = ValidationErrorResponseSchema
+
+export type UpdateSecuritySettings401ResponseSchema = UnauthorizedUserErrorResponseSchema
+
+export type UpdateSecuritySettings405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type UpdateSecuritySettings415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type UpdateSecuritySettings429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type UpdateSecuritySettings500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type UpdateSecuritySettingsRequestSchema = {
+  twoFa?: boolean
   [k: string]: unknown
 }
