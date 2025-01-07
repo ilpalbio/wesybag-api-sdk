@@ -6435,7 +6435,7 @@ export type GetLuggagesPackagesRequestSchema = {
 }
 
 export type GetHotelOffers200ResponseSchema = {
-  detail: SingleOfferSchema[]
+  offers?: SingleOfferSchema[]
   checkIn: string
   checkOut: string
   numberOfRooms: number
@@ -6454,7 +6454,14 @@ export type GetHotelOffers429ResponseSchema = ThrottlingErrorResponseSchema
 
 export type GetHotelOffers500ResponseSchema = UnexpectedErrorResponseSchema
 
-export type GetHotelOffersRequestSchema = SingleOfferPositionSchema[]
+export type GetHotelOffersRequestSchema = {
+  checkIn: string
+  checkOut: string
+  adultsNumber?: number
+  childrenNumber?: number
+  roomsNumber?: number
+  [k: string]: unknown
+}
 
 export type GetHotelProducts200ResponseSchema = HotelProductSchema[]
 
@@ -6496,12 +6503,6 @@ export type GetPositionDetail500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetPositionDetailRequestSchema = {
   id: string
-  [k: string]: unknown
-}
-
-export type SingleOfferPositionSchema = {
-  country: string
-  city: string
   [k: string]: unknown
 }
 
@@ -6568,13 +6569,11 @@ export type PackagesSinglePackageSchema = {
 }
 
 export type SingleOfferSchema = {
-  country: string
-  city: string
-  detail: {
-    basePrice: number
-    numberOfPackages: number
-    [k: string]: unknown
-  }
+  title: string
+  placeId: string
+  offertId: string
+  packagesNuber: number
+  basePrice: string
   [k: string]: unknown
 }
 
