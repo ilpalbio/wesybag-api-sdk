@@ -6568,6 +6568,7 @@ export type PackagesSinglePackageSchema = {
 }
 
 export type SingleOfferSchema = {
+  id: string
   country: string
   city: string
   detail: {
