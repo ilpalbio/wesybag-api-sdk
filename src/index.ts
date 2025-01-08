@@ -2894,12 +2894,12 @@ export async function getLuggagesPackages(data: GetLuggagesPackagesRequestSchema
 }
 
 /**
-Get hotel offers by city
+Get available hotel offers available
 */
 export type AxiosGetHotelOffersSuccessResponse = (AxiosResponse<GetHotelOffers200ResponseSchema> & { status: 200 })
 export type AxiosGetHotelOffersErrorResponse = ((AxiosResponse<GetHotelOffers400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetHotelOffers405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetHotelOffers415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetHotelOffers429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetHotelOffers500ResponseSchema> & { status: 500 })) & { path: "/v1/packages/getHotelOffers" }
 export type AxiosGetHotelOffersResponse = AxiosGetHotelOffersSuccessResponse | AxiosGetHotelOffersErrorResponse
-export async function getHotelOffers(data: GetHotelOffersRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetHotelOffersResponse> {
+export async function getHotelOffers(config?: AxiosRequestConfig): Promise<AxiosGetHotelOffersResponse> {
   _checkSetup()
   const securityParams: AxiosRequestConfig = {}
   const handledResponses = {
@@ -2933,7 +2933,7 @@ export async function getHotelOffers(data: GetHotelOffersRequestSchema, config?:
     }
   }
   try {
-    const res = await axios!.post(_getFnUrl("/v1/packages/getHotelOffers"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    const res = await axios!.post(_getFnUrl("/v1/packages/getHotelOffers"), null, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
     _throwOnUnexpectedResponse(handledResponses, res)
     return res as AxiosGetHotelOffersSuccessResponse
   } catch (e) {
@@ -6453,15 +6453,6 @@ export type GetHotelOffers415ResponseSchema = UnsupportedMediaTypeErrorResponseS
 export type GetHotelOffers429ResponseSchema = ThrottlingErrorResponseSchema
 
 export type GetHotelOffers500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type GetHotelOffersRequestSchema = {
-  checkIn: string
-  checkOut: string
-  adultsNumber?: number
-  childrenNumber?: number
-  roomsNumber?: number
-  [k: string]: unknown
-}
 
 export type GetHotelProducts200ResponseSchema = HotelProductSchema[]
 
