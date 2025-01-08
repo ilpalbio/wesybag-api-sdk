@@ -2894,12 +2894,12 @@ export async function getLuggagesPackages(data: GetLuggagesPackagesRequestSchema
 }
 
 /**
-Get hotel offers by city
+Get available hotel offers available
 */
 export type AxiosGetHotelOffersSuccessResponse = (AxiosResponse<GetHotelOffers200ResponseSchema> & { status: 200 })
 export type AxiosGetHotelOffersErrorResponse = ((AxiosResponse<GetHotelOffers400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetHotelOffers405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetHotelOffers415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetHotelOffers429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetHotelOffers500ResponseSchema> & { status: 500 })) & { path: "/v1/packages/getHotelOffers" }
 export type AxiosGetHotelOffersResponse = AxiosGetHotelOffersSuccessResponse | AxiosGetHotelOffersErrorResponse
-export async function getHotelOffers(data: GetHotelOffersRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetHotelOffersResponse> {
+export async function getHotelOffers(config?: AxiosRequestConfig): Promise<AxiosGetHotelOffersResponse> {
   _checkSetup()
   const securityParams: AxiosRequestConfig = {}
   const handledResponses = {
@@ -2933,7 +2933,7 @@ export async function getHotelOffers(data: GetHotelOffersRequestSchema, config?:
     }
   }
   try {
-    const res = await axios!.post(_getFnUrl("/v1/packages/getHotelOffers"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    const res = await axios!.post(_getFnUrl("/v1/packages/getHotelOffers"), null, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
     _throwOnUnexpectedResponse(handledResponses, res)
     return res as AxiosGetHotelOffersSuccessResponse
   } catch (e) {
@@ -6434,15 +6434,7 @@ export type GetLuggagesPackagesRequestSchema = {
   [k: string]: unknown
 }
 
-export type GetHotelOffers200ResponseSchema = {
-  detail: SingleOfferSchema[]
-  checkIn: string
-  checkOut: string
-  numberOfRooms: number
-  numberOfAdults: number
-  numberOfChildren: number
-  [k: string]: unknown
-}
+export type GetHotelOffers200ResponseSchema = SingleOfferSchema[]
 
 export type GetHotelOffers400ResponseSchema = ValidationErrorResponseSchema
 
@@ -6453,8 +6445,6 @@ export type GetHotelOffers415ResponseSchema = UnsupportedMediaTypeErrorResponseS
 export type GetHotelOffers429ResponseSchema = ThrottlingErrorResponseSchema
 
 export type GetHotelOffers500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type GetHotelOffersRequestSchema = SingleOfferPositionSchema[]
 
 export type GetHotelProducts200ResponseSchema = HotelProductSchema[]
 
@@ -6496,12 +6486,6 @@ export type GetPositionDetail500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetPositionDetailRequestSchema = {
   id: string
-  [k: string]: unknown
-}
-
-export type SingleOfferPositionSchema = {
-  country: string
-  city: string
   [k: string]: unknown
 }
 
@@ -6568,13 +6552,16 @@ export type PackagesSinglePackageSchema = {
 }
 
 export type SingleOfferSchema = {
-  country: string
-  city: string
-  detail: {
-    basePrice: number
-    numberOfPackages: number
-    [k: string]: unknown
-  }
+  title: string
+  placeId: string
+  offertId: string
+  packagesNuber: number
+  basePrice: string
+  checkIn: string
+  checkOut: string
+  rooms: number
+  adults: number
+  children: number
   [k: string]: unknown
 }
 
