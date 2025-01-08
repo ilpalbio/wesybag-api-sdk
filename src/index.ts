@@ -6562,6 +6562,7 @@ export type SingleOfferSchema = {
   rooms: number
   adults: number
   children: number
+  imageSrc: string
   [k: string]: unknown
 }
 
