@@ -6434,15 +6434,7 @@ export type GetLuggagesPackagesRequestSchema = {
   [k: string]: unknown
 }
 
-export type GetHotelOffers200ResponseSchema = {
-  offers?: SingleOfferSchema[]
-  checkIn: string
-  checkOut: string
-  numberOfRooms: number
-  numberOfAdults: number
-  numberOfChildren: number
-  [k: string]: unknown
-}
+export type GetHotelOffers200ResponseSchema = SingleOfferSchema[]
 
 export type GetHotelOffers400ResponseSchema = ValidationErrorResponseSchema
 
@@ -6565,6 +6557,11 @@ export type SingleOfferSchema = {
   offertId: string
   packagesNuber: number
   basePrice: string
+  checkIn: string
+  checkOut: string
+  rooms: number
+  adults: number
+  children: number
   [k: string]: unknown
 }
 
