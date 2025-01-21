@@ -7148,6 +7148,7 @@ export type SaveSignupRequestSchema = {
   phone: PhoneNumberSchema
   password: string
   dateOfBirth: string
+  companyDetail?: CompanyDetailSchema
   [k: string]: unknown
 }
 
@@ -7274,6 +7275,14 @@ export type CreateUserRequestSchema = SessionIdSchema
 
 export type SessionIdSchema = {
   sessionId: string
+  [k: string]: unknown
+}
+
+export type CompanyDetailSchema = {
+  vat: string
+  fiscalCode: string
+  name: string
+  invoiceRecipientCode: string
   [k: string]: unknown
 }
 
