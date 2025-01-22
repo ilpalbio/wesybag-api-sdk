@@ -4016,6 +4016,63 @@ export async function createUser(data: CreateUserRequestSchema, config?: AxiosRe
 }
 
 /**
+Validate company details sent for signup
+*/
+export type AxiosValidateCompanySuccessResponse = (AxiosResponse<ValidateCompany200ResponseSchema> & { status: 200 })
+export type AxiosValidateCompanyErrorResponse = ((AxiosResponse<ValidateCompany400ResponseSchema> & { status: 400 }) | (AxiosResponse<ValidateCompany405ResponseSchema> & { status: 405 }) | (AxiosResponse<ValidateCompany410ResponseSchema> & { status: 410 }) | (AxiosResponse<ValidateCompany415ResponseSchema> & { status: 415 }) | (AxiosResponse<ValidateCompany429ResponseSchema> & { status: 429 }) | (AxiosResponse<ValidateCompany500ResponseSchema> & { status: 500 })) & { path: "/v1/signup/validateCompany" }
+export type AxiosValidateCompanyResponse = AxiosValidateCompanySuccessResponse | AxiosValidateCompanyErrorResponse
+export async function validateCompany(data: ValidateCompanyRequestSchema, config?: AxiosRequestConfig): Promise<AxiosValidateCompanyResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "410": {
+      "code": null
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/signup/validateCompany"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosValidateCompanySuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosValidateCompanyErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Admin authentication for using the staging environment
 */
 export type AxiosAuthAdminSuccessResponse = (AxiosResponse<AuthAdmin200ResponseSchema> & { status: 200 })
@@ -4962,6 +5019,30 @@ export type WrongVerificationCodeErrorResponseSchema = {
 export type VerificationCodeExpiredErrorResponseSchema = {
   message: string
   code: "CODE_EXPIRED"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type VatCodeAlreadyExistsErrorResponseSchema = {
+  message: string
+  code: "ALREADY_EXISTS"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type InvoiceCodeAlreadyExistsErrorResponseSchema = {
+  message: string
+  code: "ALREADY_EXISTS"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type FiscalCodeAlreadyExistsErrorResponseSchema = {
+  message: string
+  code: "ALREADY_EXISTS"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -7272,6 +7353,25 @@ export type CreateUser429ResponseSchema = ThrottlingErrorResponseSchema
 export type CreateUser500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type CreateUserRequestSchema = SessionIdSchema
+
+export type ValidateCompany200ResponseSchema = OkResponseSchema
+
+export type ValidateCompany400ResponseSchema = ValidationErrorResponseSchema
+
+export type ValidateCompany405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type ValidateCompany410ResponseSchema =
+  | VatCodeAlreadyExistsErrorResponseSchema
+  | InvoiceCodeAlreadyExistsErrorResponseSchema
+  | FiscalCodeAlreadyExistsErrorResponseSchema
+
+export type ValidateCompany415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type ValidateCompany429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type ValidateCompany500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type ValidateCompanyRequestSchema = CompanyDetailSchema
 
 export type SessionIdSchema = {
   sessionId: string
