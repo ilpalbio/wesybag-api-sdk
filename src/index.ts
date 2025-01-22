@@ -4019,7 +4019,7 @@ export async function createUser(data: CreateUserRequestSchema, config?: AxiosRe
 Validate company details sent for signup
 */
 export type AxiosValidateCompanySuccessResponse = (AxiosResponse<ValidateCompany200ResponseSchema> & { status: 200 })
-export type AxiosValidateCompanyErrorResponse = ((AxiosResponse<ValidateCompany400ResponseSchema> & { status: 400 }) | (AxiosResponse<ValidateCompany405ResponseSchema> & { status: 405 }) | (AxiosResponse<ValidateCompany410ResponseSchema> & { status: 410 }) | (AxiosResponse<ValidateCompany415ResponseSchema> & { status: 415 }) | (AxiosResponse<ValidateCompany429ResponseSchema> & { status: 429 }) | (AxiosResponse<ValidateCompany500ResponseSchema> & { status: 500 })) & { path: "/v1/signup/validateCompany" }
+export type AxiosValidateCompanyErrorResponse = ((AxiosResponse<ValidateCompany400ResponseSchema> & { status: 400 }) | (AxiosResponse<ValidateCompany401ResponseSchema> & { status: 401 }) | (AxiosResponse<ValidateCompany405ResponseSchema> & { status: 405 }) | (AxiosResponse<ValidateCompany410ResponseSchema> & { status: 410 }) | (AxiosResponse<ValidateCompany415ResponseSchema> & { status: 415 }) | (AxiosResponse<ValidateCompany429ResponseSchema> & { status: 429 }) | (AxiosResponse<ValidateCompany500ResponseSchema> & { status: 500 })) & { path: "/v1/signup/validateCompany" }
 export type AxiosValidateCompanyResponse = AxiosValidateCompanySuccessResponse | AxiosValidateCompanyErrorResponse
 export async function validateCompany(data: ValidateCompanyRequestSchema, config?: AxiosRequestConfig): Promise<AxiosValidateCompanyResponse> {
   _checkSetup()
@@ -4032,6 +4032,9 @@ export async function validateCompany(data: ValidateCompanyRequestSchema, config
       "code": [
         "VALIDATION_ERROR"
       ]
+    },
+    "401": {
+      "code": null
     },
     "405": {
       "code": [
@@ -5043,6 +5046,30 @@ export type InvoiceCodeAlreadyExistsErrorResponseSchema = {
 export type FiscalCodeAlreadyExistsErrorResponseSchema = {
   message: string
   code: "ALREADY_EXISTS"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type InvalidVatErrorResponseSchema = {
+  message: string
+  code: "INVALID_FIELD"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type InvalidInvoiceCodeErrorResponseSchema = {
+  message: string
+  code: "INVALID_CODE"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type InvalidFiscalCodeErrorResponseSchema = {
+  message: string
+  code: "INVALID_FIELD"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -7357,6 +7384,11 @@ export type CreateUserRequestSchema = SessionIdSchema
 export type ValidateCompany200ResponseSchema = OkResponseSchema
 
 export type ValidateCompany400ResponseSchema = ValidationErrorResponseSchema
+
+export type ValidateCompany401ResponseSchema =
+  | InvalidVatErrorResponseSchema
+  | InvalidFiscalCodeErrorResponseSchema
+  | InvalidInvoiceCodeErrorResponseSchema
 
 export type ValidateCompany405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
