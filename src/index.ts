@@ -4016,6 +4016,60 @@ export async function createUser(data: CreateUserRequestSchema, config?: AxiosRe
 }
 
 /**
+Valiadate VAT code with vies api
+*/
+export type AxiosValidateVatSuccessResponse = (AxiosResponse<ValidateVat200ResponseSchema> & { status: 200 })
+export type AxiosValidateVatErrorResponse = ((AxiosResponse<ValidateVat400ResponseSchema> & { status: 400 }) | (AxiosResponse<ValidateVat405ResponseSchema> & { status: 405 }) | (AxiosResponse<ValidateVat415ResponseSchema> & { status: 415 }) | (AxiosResponse<ValidateVat429ResponseSchema> & { status: 429 }) | (AxiosResponse<ValidateVat500ResponseSchema> & { status: 500 })) & { path: "/v1/signup/validateVat" }
+export type AxiosValidateVatResponse = AxiosValidateVatSuccessResponse | AxiosValidateVatErrorResponse
+export async function validateVat(data: ValidateVatRequestSchema, config?: AxiosRequestConfig): Promise<AxiosValidateVatResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/signup/validateVat"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosValidateVatSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosValidateVatErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Admin authentication for using the staging environment
 */
 export type AxiosAuthAdminSuccessResponse = (AxiosResponse<AuthAdmin200ResponseSchema> & { status: 200 })
@@ -4962,6 +5016,30 @@ export type WrongVerificationCodeErrorResponseSchema = {
 export type VerificationCodeExpiredErrorResponseSchema = {
   message: string
   code: "CODE_EXPIRED"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type VatCodeAlreadyExistsErrorResponseSchema = {
+  message: string
+  code: "ALREADY_EXISTS"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type InvoiceCodeAlreadyExistsErrorResponseSchema = {
+  message: string
+  code: "ALREADY_EXISTS"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type FiscalCodeAlreadyExistsErrorResponseSchema = {
+  message: string
+  code: "ALREADY_EXISTS"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -7148,6 +7226,7 @@ export type SaveSignupRequestSchema = {
   phone: PhoneNumberSchema
   password: string
   dateOfBirth: string
+  companyDetail?: CompanyDetailSchema
   [k: string]: unknown
 }
 
@@ -7272,8 +7351,38 @@ export type CreateUser500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type CreateUserRequestSchema = SessionIdSchema
 
+export type ValidateVat200ResponseSchema = OkResponseSchema
+
+export type ValidateVat400ResponseSchema = ValidationErrorResponseSchema
+
+export type ValidateVat405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type ValidateVat415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type ValidateVat429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type ValidateVat500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type ValidateVatRequestSchema = {
+  socialReason: string
+  vatNumber: string
+  [k: string]: unknown
+}
+
 export type SessionIdSchema = {
   sessionId: string
+  [k: string]: unknown
+}
+
+export type CompanyDetailSchema = {
+  vat: string
+  fiscalCode: string
+  name: string
+  invoiceRecipientCode: string
+  completeAddress: string
+  cap: string
+  city: string
+  province: string
   [k: string]: unknown
 }
 
