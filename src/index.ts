@@ -4016,12 +4016,12 @@ export async function createUser(data: CreateUserRequestSchema, config?: AxiosRe
 }
 
 /**
-Validate company details sent for signup
+Valiadate VAT code with vies api
 */
-export type AxiosValidateCompanySuccessResponse = (AxiosResponse<ValidateCompany200ResponseSchema> & { status: 200 })
-export type AxiosValidateCompanyErrorResponse = ((AxiosResponse<ValidateCompany400ResponseSchema> & { status: 400 }) | (AxiosResponse<ValidateCompany401ResponseSchema> & { status: 401 }) | (AxiosResponse<ValidateCompany405ResponseSchema> & { status: 405 }) | (AxiosResponse<ValidateCompany410ResponseSchema> & { status: 410 }) | (AxiosResponse<ValidateCompany415ResponseSchema> & { status: 415 }) | (AxiosResponse<ValidateCompany429ResponseSchema> & { status: 429 }) | (AxiosResponse<ValidateCompany500ResponseSchema> & { status: 500 })) & { path: "/v1/signup/validateCompany" }
-export type AxiosValidateCompanyResponse = AxiosValidateCompanySuccessResponse | AxiosValidateCompanyErrorResponse
-export async function validateCompany(data: ValidateCompanyRequestSchema, config?: AxiosRequestConfig): Promise<AxiosValidateCompanyResponse> {
+export type AxiosValidateVatSuccessResponse = (AxiosResponse<ValidateVat200ResponseSchema> & { status: 200 })
+export type AxiosValidateVatErrorResponse = ((AxiosResponse<ValidateVat400ResponseSchema> & { status: 400 }) | (AxiosResponse<ValidateVat405ResponseSchema> & { status: 405 }) | (AxiosResponse<ValidateVat415ResponseSchema> & { status: 415 }) | (AxiosResponse<ValidateVat429ResponseSchema> & { status: 429 }) | (AxiosResponse<ValidateVat500ResponseSchema> & { status: 500 })) & { path: "/v1/signup/validateVat" }
+export type AxiosValidateVatResponse = AxiosValidateVatSuccessResponse | AxiosValidateVatErrorResponse
+export async function validateVat(data: ValidateVatRequestSchema, config?: AxiosRequestConfig): Promise<AxiosValidateVatResponse> {
   _checkSetup()
   const securityParams: AxiosRequestConfig = {}
   const handledResponses = {
@@ -4033,16 +4033,10 @@ export async function validateCompany(data: ValidateCompanyRequestSchema, config
         "VALIDATION_ERROR"
       ]
     },
-    "401": {
-      "code": null
-    },
     "405": {
       "code": [
         "METHOD_NOT_ALLOWED"
       ]
-    },
-    "410": {
-      "code": null
     },
     "415": {
       "code": [
@@ -4061,14 +4055,14 @@ export async function validateCompany(data: ValidateCompanyRequestSchema, config
     }
   }
   try {
-    const res = await axios!.post(_getFnUrl("/v1/signup/validateCompany"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    const res = await axios!.post(_getFnUrl("/v1/signup/validateVat"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
     _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosValidateCompanySuccessResponse
+    return res as AxiosValidateVatSuccessResponse
   } catch (e) {
     const { response: res } = e as AxiosError
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosValidateCompanyErrorResponse
+      return res as AxiosValidateVatErrorResponse
     } else {
       throw e
     }
@@ -5046,30 +5040,6 @@ export type InvoiceCodeAlreadyExistsErrorResponseSchema = {
 export type FiscalCodeAlreadyExistsErrorResponseSchema = {
   message: string
   code: "ALREADY_EXISTS"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type InvalidVatErrorResponseSchema = {
-  message: string
-  code: "INVALID_FIELD"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type InvalidInvoiceCodeErrorResponseSchema = {
-  message: string
-  code: "INVALID_CODE"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type InvalidFiscalCodeErrorResponseSchema = {
-  message: string
-  code: "INVALID_FIELD"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -7381,29 +7351,23 @@ export type CreateUser500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type CreateUserRequestSchema = SessionIdSchema
 
-export type ValidateCompany200ResponseSchema = OkResponseSchema
+export type ValidateVat200ResponseSchema = OkResponseSchema
 
-export type ValidateCompany400ResponseSchema = ValidationErrorResponseSchema
+export type ValidateVat400ResponseSchema = ValidationErrorResponseSchema
 
-export type ValidateCompany401ResponseSchema =
-  | InvalidVatErrorResponseSchema
-  | InvalidFiscalCodeErrorResponseSchema
-  | InvalidInvoiceCodeErrorResponseSchema
+export type ValidateVat405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
-export type ValidateCompany405ResponseSchema = MethodNotAllowedErrorResponseSchema
+export type ValidateVat415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
 
-export type ValidateCompany410ResponseSchema =
-  | VatCodeAlreadyExistsErrorResponseSchema
-  | InvoiceCodeAlreadyExistsErrorResponseSchema
-  | FiscalCodeAlreadyExistsErrorResponseSchema
+export type ValidateVat429ResponseSchema = ThrottlingErrorResponseSchema
 
-export type ValidateCompany415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+export type ValidateVat500ResponseSchema = UnexpectedErrorResponseSchema
 
-export type ValidateCompany429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type ValidateCompany500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type ValidateCompanyRequestSchema = CompanyDetailSchema
+export type ValidateVatRequestSchema = {
+  socialReason: string
+  vatNumber: string
+  [k: string]: unknown
+}
 
 export type SessionIdSchema = {
   sessionId: string
