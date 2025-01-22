@@ -7283,6 +7283,10 @@ export type CompanyDetailSchema = {
   fiscalCode: string
   name: string
   invoiceRecipientCode: string
+  completeAddress: string
+  cap: string
+  city: string
+  province: string
   [k: string]: unknown
 }
 
