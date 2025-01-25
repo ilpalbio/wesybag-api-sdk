@@ -3585,7 +3585,7 @@ export async function verifyUserUniqueness(data: VerifyUserUniquenessRequestSche
 Save a new signup session in the database
 */
 export type AxiosSaveSignupSuccessResponse = (AxiosResponse<SaveSignup200ResponseSchema> & { status: 200 })
-export type AxiosSaveSignupErrorResponse = ((AxiosResponse<SaveSignup400ResponseSchema> & { status: 400 }) | (AxiosResponse<SaveSignup405ResponseSchema> & { status: 405 }) | (AxiosResponse<SaveSignup410ResponseSchema> & { status: 410 }) | (AxiosResponse<SaveSignup415ResponseSchema> & { status: 415 }) | (AxiosResponse<SaveSignup429ResponseSchema> & { status: 429 }) | (AxiosResponse<SaveSignup500ResponseSchema> & { status: 500 })) & { path: "/v1/signup/saveSignup" }
+export type AxiosSaveSignupErrorResponse = ((AxiosResponse<SaveSignup400ResponseSchema> & { status: 400 }) | (AxiosResponse<SaveSignup405ResponseSchema> & { status: 405 }) | (AxiosResponse<SaveSignup415ResponseSchema> & { status: 415 }) | (AxiosResponse<SaveSignup429ResponseSchema> & { status: 429 }) | (AxiosResponse<SaveSignup500ResponseSchema> & { status: 500 })) & { path: "/v1/signup/saveSignup" }
 export type AxiosSaveSignupResponse = AxiosSaveSignupSuccessResponse | AxiosSaveSignupErrorResponse
 export async function saveSignup(data: SaveSignupRequestSchema, config?: AxiosRequestConfig): Promise<AxiosSaveSignupResponse> {
   _checkSetup()
@@ -3602,11 +3602,6 @@ export async function saveSignup(data: SaveSignupRequestSchema, config?: AxiosRe
     "405": {
       "code": [
         "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "410": {
-      "code": [
-        "ALREADY_EXISTS"
       ]
     },
     "415": {
@@ -7210,8 +7205,6 @@ export type SaveSignup200ResponseSchema = {
 export type SaveSignup400ResponseSchema = ValidationErrorResponseSchema
 
 export type SaveSignup405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type SaveSignup410ResponseSchema = UserAlreadyExistsErrorResponseSchema
 
 export type SaveSignup415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
 
