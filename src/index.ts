@@ -4664,6 +4664,8 @@ export type CoordinatesRequestSchema = {
 
 export type CurrencySchema = "eur"
 
+export type UuidSchema = string
+
 export type TravelNotFoundErrorResponseSchema = {
   message: string
   code: "NOT_FOUND"
@@ -5080,7 +5082,7 @@ export type GetTravelInformation429ResponseSchema = ThrottlingErrorResponseSchem
 export type GetTravelInformation500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetTravelInformationRequestSchema = {
-  id: string
+  id: UuidSchema
   [k: string]: unknown
 }
 
@@ -5128,8 +5130,8 @@ export type DeleteTravel429ResponseSchema = ThrottlingErrorResponseSchema
 export type DeleteTravel500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type DeleteTravelRequestSchema = {
-  outwardTravelId: string
-  returnTravelId?: string
+  outwardTravelId: UuidSchema
+  returnTravelId?: UuidSchema
   [k: string]: unknown
 }
 
@@ -5192,7 +5194,7 @@ export type GetSingleStructure429ResponseSchema = ThrottlingErrorResponseSchema
 export type GetSingleStructure500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetSingleStructureRequestSchema = {
-  id: string
+  id: UuidSchema
   [k: string]: unknown
 }
 
@@ -5227,7 +5229,7 @@ export type GetPendingTravel429ResponseSchema = ThrottlingErrorResponseSchema
 export type GetPendingTravel500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetPendingTravelRequestSchema = {
-  id: string
+  id: UuidSchema
   [k: string]: unknown
 }
 
@@ -5264,7 +5266,7 @@ export type RoomAndFloorSchema = {
 }
 
 export type PlaceStructureSchema = {
-  id: string
+  id: UuidSchema
   [k: string]: unknown
 }
 
@@ -5771,7 +5773,7 @@ export type GetSavedLuggage429ResponseSchema = ThrottlingErrorResponseSchema
 export type GetSavedLuggage500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetSavedLuggageRequestSchema = {
-  id: string
+  id: UuidSchema
   [k: string]: unknown
 }
 
@@ -5804,7 +5806,7 @@ export type DeleteSavedLuggage429ResponseSchema = ThrottlingErrorResponseSchema
 export type DeleteSavedLuggage500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type DeleteSavedLuggageRequestSchema = {
-  id: string
+  id: UuidSchema
   [k: string]: unknown
 }
 
@@ -5912,7 +5914,7 @@ export type GetUserTravelsResponseSchema = {
 }[]
 
 export type GetLuggagesPackageResponseSchema = {
-  id: string
+  id: UuidSchema
   luggage: SavedLuggageSchemaWithType
   [k: string]: unknown
 }
@@ -5973,14 +5975,14 @@ export type CancelPaymentIntent429ResponseSchema = ThrottlingErrorResponseSchema
 export type CancelPaymentIntent500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type CancelPaymentIntentRequestSchema = {
-  intentId: string
+  intentId: UuidSchema
   reason?: "duplicate" | "fraudulent" | "requested_by_customer" | "abandoned"
   [k: string]: unknown
 }
 
 export type RetrievePaymentIntent200ResponseSchema = {
   clientSecret: string
-  intentId: string
+  intentId: UuidSchema
   [k: string]: unknown
 }
 
@@ -6018,7 +6020,7 @@ export type VerifyPaymentIntent500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type VerifyPaymentIntentRequestSchema = {
   clientSecret: string
-  intentId: string
+  intentId: UuidSchema
   [k: string]: unknown
 }
 
@@ -6037,7 +6039,7 @@ export type CapturePaymentIntent429ResponseSchema = ThrottlingErrorResponseSchem
 export type CapturePaymentIntent500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type CapturePaymentIntentRequestSchema = {
-  intentId: string
+  intentId: UuidSchema
   [k: string]: unknown
 }
 
@@ -6175,7 +6177,7 @@ export type DeleteUserSession429ResponseSchema = ThrottlingErrorResponseSchema
 export type DeleteUserSession500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type DeleteUserSessionRequestSchema = {
-  userId: string
+  userId: UuidSchema
   [k: string]: unknown
 }
 
@@ -6194,7 +6196,7 @@ export type UpdateError429ResponseSchema = ThrottlingErrorResponseSchema
 export type UpdateError500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type UpdateErrorRequestSchema = {
-  id: string
+  id: UuidSchema
   status: "PENDING" | "RESOLVED"
   [k: string]: unknown
 }
@@ -6219,7 +6221,7 @@ export type SendHelpResponse500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type SendHelpResponseRequestSchema = {
   message: string
-  requestId: string
+  requestId: UuidSchema
   [k: string]: unknown
 }
 
@@ -6238,7 +6240,7 @@ export type RejectPendingTravel429ResponseSchema = ThrottlingErrorResponseSchema
 export type RejectPendingTravel500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type RejectPendingTravelRequestSchema = {
-  id: string
+  id: UuidSchema
   motivation: string
   [k: string]: unknown
 }
@@ -6435,7 +6437,7 @@ export type VerifyEmailTokenRequestSchema = {
 }
 
 export type VerifyAuthentication200ResponseSchema = {
-  id: string
+  id: UuidSchema
   firstName: string
   lastName: string
   email: EmailSchema
@@ -6558,7 +6560,7 @@ export type GetPositionDetail429ResponseSchema = ThrottlingErrorResponseSchema
 export type GetPositionDetail500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetPositionDetailRequestSchema = {
-  id: string
+  id: UuidSchema
   [k: string]: unknown
 }
 
@@ -6572,7 +6574,7 @@ export type PackagesPositionDetailSchema = {
 
 export type PackagesPrivatePublicPositionSchema = {
   isPrivate: boolean
-  id: string
+  id: UuidSchema
   [k: string]: unknown
 }
 
@@ -7121,7 +7123,7 @@ export type AcceptHelpRequest429ResponseSchema = ThrottlingErrorResponseSchema
 export type AcceptHelpRequest500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type AcceptHelpRequestRequestSchema = {
-  helpRequestId: string
+  helpRequestId: UuidSchema
   [k: string]: unknown
 }
 
@@ -7363,7 +7365,7 @@ export type ValidateVatRequestSchema = {
 }
 
 export type SessionIdSchema = {
-  sessionId: string
+  sessionId: UuidSchema
   [k: string]: unknown
 }
 
@@ -7449,7 +7451,7 @@ export type PlaceSearchSchema = {
 
 export type IdSearchSchema = {
   searchType: "id"
-  id: string[]
+  id: UuidSchema[]
   [k: string]: unknown
 }
 
@@ -7489,7 +7491,7 @@ export type Verify2FaCode429ResponseSchema = ThrottlingErrorResponseSchema
 export type Verify2FaCode500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type Verify2FaCodeRequestSchema = {
-  id: string
+  id: UuidSchema
   code: string
   rememberUser: boolean
   [k: string]: unknown
@@ -7512,7 +7514,7 @@ export type Update2FaCode429ResponseSchema = ThrottlingErrorResponseSchema
 export type Update2FaCode500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type Update2FaCodeRequestSchema = {
-  id: string
+  id: UuidSchema
   [k: string]: unknown
 }
 
@@ -7531,7 +7533,7 @@ export type Verify2FaId429ResponseSchema = ThrottlingErrorResponseSchema
 export type Verify2FaId500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type Verify2FaIdRequestSchema = {
-  id: string
+  id: UuidSchema
   [k: string]: unknown
 }
 
@@ -7571,6 +7573,6 @@ export type Resend2FaCode429ResponseSchema = ThrottlingErrorResponseSchema
 export type Resend2FaCode500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type Resend2FaCodeRequestSchema = {
-  id: string
+  id: UuidSchema
   [k: string]: unknown
 }
