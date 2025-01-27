@@ -5717,6 +5717,11 @@ export type SavedLuggageSchemaWithType = SavedLuggageSchema & {
   [k: string]: unknown
 }
 
+export type CompanyWithIdSchema = CompanyDetailSchema & {
+  id: string
+  [k: string]: unknown
+}
+
 export type ModifyUserSettingsRequestSchema = {
   firstName: string
   lastName: string
@@ -5747,6 +5752,7 @@ export type UserSettingsResponseSchema = {
     [k: string]: unknown
   })[]
   mfaEnabled: boolean
+  company?: CompanyWithIdSchema
   [k: string]: unknown
 }
 
