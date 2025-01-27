@@ -1714,6 +1714,70 @@ export async function deleteSavedLuggage(data: DeleteSavedLuggageRequestSchema, 
 }
 
 /**
+Add a company to an already registered user
+*/
+export type AxiosAddUserCompanySuccessResponse = (AxiosResponse<AddUserCompany200ResponseSchema> & { status: 200 })
+export type AxiosAddUserCompanyErrorResponse = ((AxiosResponse<AddUserCompany400ResponseSchema> & { status: 400 }) | (AxiosResponse<AddUserCompany401ResponseSchema> & { status: 401 }) | (AxiosResponse<AddUserCompany405ResponseSchema> & { status: 405 }) | (AxiosResponse<AddUserCompany409ResponseSchema> & { status: 409 }) | (AxiosResponse<AddUserCompany415ResponseSchema> & { status: 415 }) | (AxiosResponse<AddUserCompany429ResponseSchema> & { status: 429 }) | (AxiosResponse<AddUserCompany500ResponseSchema> & { status: 500 })) & { path: "/v1/user/addUserCompany" }
+export type AxiosAddUserCompanyResponse = AxiosAddUserCompanySuccessResponse | AxiosAddUserCompanyErrorResponse
+export async function addUserCompany(data: AddUserCompanyRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAddUserCompanyResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "409": {
+      "code": [
+        "CONFLICT"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/user/addUserCompany"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosAddUserCompanySuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosAddUserCompanyErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Create a new stripe payment session
 */
 export type AxiosCreateIntentSuccessResponse = (AxiosResponse<CreateIntent200ResponseSchema> & { status: 200 })
@@ -4895,6 +4959,14 @@ export type VerificationCodeExpiredErrorResponseSchema = {
   [k: string]: unknown
 }
 
+export type ConflictErrorResponseSchema = {
+  message: string
+  code: "CONFLICT"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
 export type VatCodeAlreadyExistsErrorResponseSchema = {
   message: string
   code: "ALREADY_EXISTS"
@@ -5687,6 +5759,24 @@ export type DeleteSavedLuggageRequestSchema = {
   [k: string]: unknown
 }
 
+export type AddUserCompany200ResponseSchema = OkResponseSchema
+
+export type AddUserCompany400ResponseSchema = ValidationErrorResponseSchema
+
+export type AddUserCompany401ResponseSchema = UnauthorizedUserErrorResponseSchema
+
+export type AddUserCompany405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type AddUserCompany409ResponseSchema = ConflictErrorResponseSchema
+
+export type AddUserCompany415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type AddUserCompany429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type AddUserCompany500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type AddUserCompanyRequestSchema = CompanyDetailSchema
+
 export type SingleUserTravelSchema = {
   time: {
     pickup: GenericTimeDetailSchema
@@ -5714,6 +5804,11 @@ export type SavedLuggageSchema = {
 export type SavedLuggageSchemaWithType = SavedLuggageSchema & {
   type: string
   creationTimestamp: string
+  [k: string]: unknown
+}
+
+export type CompanyWithIdSchema = CompanyDetailSchema & {
+  id: string
   [k: string]: unknown
 }
 
@@ -5747,6 +5842,7 @@ export type UserSettingsResponseSchema = {
     [k: string]: unknown
   })[]
   mfaEnabled: boolean
+  company?: CompanyWithIdSchema
   [k: string]: unknown
 }
 
