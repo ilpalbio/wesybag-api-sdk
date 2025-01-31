@@ -2150,7 +2150,7 @@ export async function verifyPaymentIntent(data: VerifyPaymentIntentRequestSchema
 Capture a payment intent
 */
 export type AxiosCapturePaymentIntentSuccessResponse = (AxiosResponse<CapturePaymentIntent200ResponseSchema> & { status: 200 })
-export type AxiosCapturePaymentIntentErrorResponse = ((AxiosResponse<CapturePaymentIntent400ResponseSchema> & { status: 400 }) | (AxiosResponse<CapturePaymentIntent404ResponseSchema> & { status: 404 }) | (AxiosResponse<CapturePaymentIntent405ResponseSchema> & { status: 405 }) | (AxiosResponse<CapturePaymentIntent415ResponseSchema> & { status: 415 }) | (AxiosResponse<CapturePaymentIntent429ResponseSchema> & { status: 429 }) | (AxiosResponse<CapturePaymentIntent500ResponseSchema> & { status: 500 })) & { path: "/v1/payments/capturePaymentIntent" }
+export type AxiosCapturePaymentIntentErrorResponse = ((AxiosResponse<CapturePaymentIntent400ResponseSchema> & { status: 400 }) | (AxiosResponse<CapturePaymentIntent404ResponseSchema> & { status: 404 }) | (AxiosResponse<CapturePaymentIntent405ResponseSchema> & { status: 405 }) | (AxiosResponse<CapturePaymentIntent409ResponseSchema> & { status: 409 }) | (AxiosResponse<CapturePaymentIntent415ResponseSchema> & { status: 415 }) | (AxiosResponse<CapturePaymentIntent429ResponseSchema> & { status: 429 }) | (AxiosResponse<CapturePaymentIntent500ResponseSchema> & { status: 500 })) & { path: "/v1/payments/capturePaymentIntent" }
 export type AxiosCapturePaymentIntentResponse = AxiosCapturePaymentIntentSuccessResponse | AxiosCapturePaymentIntentErrorResponse
 export async function capturePaymentIntent(data: CapturePaymentIntentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosCapturePaymentIntentResponse> {
   _checkSetup()
@@ -2172,6 +2172,11 @@ export async function capturePaymentIntent(data: CapturePaymentIntentRequestSche
     "405": {
       "code": [
         "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "409": {
+      "code": [
+        "CONFLICT"
       ]
     },
     "415": {
@@ -6144,6 +6149,8 @@ export type CapturePaymentIntent400ResponseSchema = ValidationErrorResponseSchem
 export type CapturePaymentIntent404ResponseSchema = StripePaymentIntentNotFoundErrorResponseSchema
 
 export type CapturePaymentIntent405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type CapturePaymentIntent409ResponseSchema = StripePaymentIntentAlreadyCapturedErrorResponseSchema
 
 export type CapturePaymentIntent415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
 
