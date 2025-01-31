@@ -2206,6 +2206,65 @@ export async function capturePaymentIntent(data: CapturePaymentIntentRequestSche
 }
 
 /**
+Send an email with the invoice attached
+*/
+export type AxiosSendEmailInvoiceSuccessResponse = (AxiosResponse<SendEmailInvoice200ResponseSchema> & { status: 200 })
+export type AxiosSendEmailInvoiceErrorResponse = ((AxiosResponse<SendEmailInvoice400ResponseSchema> & { status: 400 }) | (AxiosResponse<SendEmailInvoice404ResponseSchema> & { status: 404 }) | (AxiosResponse<SendEmailInvoice405ResponseSchema> & { status: 405 }) | (AxiosResponse<SendEmailInvoice415ResponseSchema> & { status: 415 }) | (AxiosResponse<SendEmailInvoice429ResponseSchema> & { status: 429 }) | (AxiosResponse<SendEmailInvoice500ResponseSchema> & { status: 500 })) & { path: "/v1/payments/sendEmailInvoice" }
+export type AxiosSendEmailInvoiceResponse = AxiosSendEmailInvoiceSuccessResponse | AxiosSendEmailInvoiceErrorResponse
+export async function sendEmailInvoice(data: SendEmailInvoiceRequestSchema, config?: AxiosRequestConfig): Promise<AxiosSendEmailInvoiceResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/payments/sendEmailInvoice"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosSendEmailInvoiceSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosSendEmailInvoiceErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Get all users in the system
 */
 export type AxiosGetUsersSuccessResponse = (AxiosResponse<GetUsers200ResponseSchema> & { status: 200 })
@@ -6094,6 +6153,25 @@ export type CapturePaymentIntent500ResponseSchema = UnexpectedErrorResponseSchem
 
 export type CapturePaymentIntentRequestSchema = {
   intentId: UuidSchema
+  [k: string]: unknown
+}
+
+export type SendEmailInvoice200ResponseSchema = OkResponseSchema
+
+export type SendEmailInvoice400ResponseSchema = ValidationErrorResponseSchema
+
+export type SendEmailInvoice404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type SendEmailInvoice405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type SendEmailInvoice415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type SendEmailInvoice429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type SendEmailInvoice500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type SendEmailInvoiceRequestSchema = {
+  id: UuidSchema
   [k: string]: unknown
 }
 
