@@ -6244,7 +6244,7 @@ export type CapturePaymentIntent404ResponseSchema = StripePaymentIntentNotFoundE
 
 export type CapturePaymentIntent405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
-export type CapturePaymentIntent409ResponseSchema = StripePaymentIntentAlreadyCapturedErrorResponseSchema
+export type CapturePaymentIntent409ResponseSchema = ConflictErrorResponseSchema
 
 export type CapturePaymentIntent415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
 
