@@ -4730,6 +4730,13 @@ export type CurrencySchema = "eur"
 
 export type UuidSchema = string
 
+export type FiscalCodeSchema = string
+
+export type CapSchema = {
+  cap?: string
+  [k: string]: unknown
+} & string
+
 export type TravelNotFoundErrorResponseSchema = {
   message: string
   code: "NOT_FOUND"
@@ -6160,6 +6167,8 @@ export type CapturePaymentIntent500ResponseSchema = UnexpectedErrorResponseSchem
 
 export type CapturePaymentIntentRequestSchema = {
   intentId: UuidSchema
+  travelId: UuidSchema
+  invoicePersonalData?: PersonalInvoiceDetailSchema
   [k: string]: unknown
 }
 
@@ -6195,6 +6204,15 @@ export type StripeIntentIdRequestSchema = {
 
 export type RetrieveStripePaymentIntentRequestSchema = {
   intentId?: string
+  [k: string]: unknown
+}
+
+export type PersonalInvoiceDetailSchema = {
+  fiscalCode: FiscalCodeSchema
+  completeAddress: string
+  cap: CapSchema
+  city: string
+  province: string
   [k: string]: unknown
 }
 
