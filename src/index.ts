@@ -5529,6 +5529,11 @@ export type SingleStructureSchema = PlaceDetailSchema & {
   [k: string]: unknown
 }
 
+export type GenericTimeDetailWithIdSchema = GenericTimeDetailSchema & {
+  id: string
+  [k: string]: unknown
+}
+
 export type CreateNewTravelRequestSchema = {
   destination: PlaceDetailWithStructureSchema
   origin: OriginDetailSchema
@@ -5578,8 +5583,8 @@ export type GetPendingTravelInformationResponseSchema = {
 }
 
 export type CreateTravelResponseSchema = {
-  outwardTravel: GenericTimeDetailSchema
-  returnTravel?: GenericTimeDetailSchema
+  outwardTravel: GenericTimeDetailWithIdSchema
+  returnTravel?: GenericTimeDetailWithIdSchema
   [k: string]: unknown
 }
 
@@ -6254,7 +6259,7 @@ export type CapturePaymentIntent500ResponseSchema = UnexpectedErrorResponseSchem
 
 export type CapturePaymentIntentRequestSchema = {
   intentId: UuidSchema
-  travelId: UuidSchema
+  outwardTravelId: UuidSchema
   invoicePersonalData?: PersonalInvoiceDetailSchema
   [k: string]: unknown
 }
