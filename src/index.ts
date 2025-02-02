@@ -1778,6 +1778,65 @@ export async function addUserCompany(data: AddUserCompanyRequestSchema, config?:
 }
 
 /**
+Get user invoice by id
+*/
+export type AxiosGetInvoiceSuccessResponse = (AxiosResponse<GetInvoice200ResponseSchema> & { status: 200 })
+export type AxiosGetInvoiceErrorResponse = ((AxiosResponse<GetInvoice400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetInvoice404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetInvoice405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetInvoice415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetInvoice429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetInvoice500ResponseSchema> & { status: 500 })) & { path: "/v1/user/getInvoice" }
+export type AxiosGetInvoiceResponse = AxiosGetInvoiceSuccessResponse | AxiosGetInvoiceErrorResponse
+export async function getInvoice(data: GetInvoiceRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetInvoiceResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/user/getInvoice"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosGetInvoiceSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosGetInvoiceErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Create a new stripe payment session
 */
 export type AxiosCreateIntentSuccessResponse = (AxiosResponse<CreateIntent200ResponseSchema> & { status: 200 })
@@ -2091,9 +2150,73 @@ export async function verifyPaymentIntent(data: VerifyPaymentIntentRequestSchema
 Capture a payment intent
 */
 export type AxiosCapturePaymentIntentSuccessResponse = (AxiosResponse<CapturePaymentIntent200ResponseSchema> & { status: 200 })
-export type AxiosCapturePaymentIntentErrorResponse = ((AxiosResponse<CapturePaymentIntent400ResponseSchema> & { status: 400 }) | (AxiosResponse<CapturePaymentIntent404ResponseSchema> & { status: 404 }) | (AxiosResponse<CapturePaymentIntent405ResponseSchema> & { status: 405 }) | (AxiosResponse<CapturePaymentIntent415ResponseSchema> & { status: 415 }) | (AxiosResponse<CapturePaymentIntent429ResponseSchema> & { status: 429 }) | (AxiosResponse<CapturePaymentIntent500ResponseSchema> & { status: 500 })) & { path: "/v1/payments/capturePaymentIntent" }
+export type AxiosCapturePaymentIntentErrorResponse = ((AxiosResponse<CapturePaymentIntent400ResponseSchema> & { status: 400 }) | (AxiosResponse<CapturePaymentIntent404ResponseSchema> & { status: 404 }) | (AxiosResponse<CapturePaymentIntent405ResponseSchema> & { status: 405 }) | (AxiosResponse<CapturePaymentIntent409ResponseSchema> & { status: 409 }) | (AxiosResponse<CapturePaymentIntent415ResponseSchema> & { status: 415 }) | (AxiosResponse<CapturePaymentIntent429ResponseSchema> & { status: 429 }) | (AxiosResponse<CapturePaymentIntent500ResponseSchema> & { status: 500 })) & { path: "/v1/payments/capturePaymentIntent" }
 export type AxiosCapturePaymentIntentResponse = AxiosCapturePaymentIntentSuccessResponse | AxiosCapturePaymentIntentErrorResponse
 export async function capturePaymentIntent(data: CapturePaymentIntentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosCapturePaymentIntentResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "409": {
+      "code": [
+        "CONFLICT"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/payments/capturePaymentIntent"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosCapturePaymentIntentSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosCapturePaymentIntentErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+Send an email with the invoice attached
+*/
+export type AxiosSendEmailInvoiceSuccessResponse = (AxiosResponse<SendEmailInvoice200ResponseSchema> & { status: 200 })
+export type AxiosSendEmailInvoiceErrorResponse = ((AxiosResponse<SendEmailInvoice400ResponseSchema> & { status: 400 }) | (AxiosResponse<SendEmailInvoice404ResponseSchema> & { status: 404 }) | (AxiosResponse<SendEmailInvoice405ResponseSchema> & { status: 405 }) | (AxiosResponse<SendEmailInvoice415ResponseSchema> & { status: 415 }) | (AxiosResponse<SendEmailInvoice429ResponseSchema> & { status: 429 }) | (AxiosResponse<SendEmailInvoice500ResponseSchema> & { status: 500 })) & { path: "/v1/payments/sendEmailInvoice" }
+export type AxiosSendEmailInvoiceResponse = AxiosSendEmailInvoiceSuccessResponse | AxiosSendEmailInvoiceErrorResponse
+export async function sendEmailInvoice(data: SendEmailInvoiceRequestSchema, config?: AxiosRequestConfig): Promise<AxiosSendEmailInvoiceResponse> {
   _checkSetup()
   const securityParams: AxiosRequestConfig = {}
   const handledResponses = {
@@ -2132,14 +2255,14 @@ export async function capturePaymentIntent(data: CapturePaymentIntentRequestSche
     }
   }
   try {
-    const res = await axios!.post(_getFnUrl("/v1/payments/capturePaymentIntent"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    const res = await axios!.post(_getFnUrl("/v1/payments/sendEmailInvoice"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
     _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosCapturePaymentIntentSuccessResponse
+    return res as AxiosSendEmailInvoiceSuccessResponse
   } catch (e) {
     const { response: res } = e as AxiosError
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosCapturePaymentIntentErrorResponse
+      return res as AxiosSendEmailInvoiceErrorResponse
     } else {
       throw e
     }
@@ -2897,6 +3020,124 @@ export async function verifyAssistant(config?: AxiosRequestConfig): Promise<Axio
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
       return res as AxiosVerifyAssistantErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+Valiadate VAT code with vies api
+*/
+export type AxiosValidateVatSuccessResponse = (AxiosResponse<ValidateVat200ResponseSchema> & { status: 200 })
+export type AxiosValidateVatErrorResponse = ((AxiosResponse<ValidateVat400ResponseSchema> & { status: 400 }) | (AxiosResponse<ValidateVat405ResponseSchema> & { status: 405 }) | (AxiosResponse<ValidateVat415ResponseSchema> & { status: 415 }) | (AxiosResponse<ValidateVat429ResponseSchema> & { status: 429 }) | (AxiosResponse<ValidateVat500ResponseSchema> & { status: 500 })) & { path: "/v1/auth/validateVat" }
+export type AxiosValidateVatResponse = AxiosValidateVatSuccessResponse | AxiosValidateVatErrorResponse
+export async function validateVat(data: ValidateVatRequestSchema, config?: AxiosRequestConfig): Promise<AxiosValidateVatResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/auth/validateVat"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosValidateVatSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosValidateVatErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+Validate fiscal code of the user
+*/
+export type AxiosValidateFiscalCodeSuccessResponse = (AxiosResponse<ValidateFiscalCode200ResponseSchema> & { status: 200 })
+export type AxiosValidateFiscalCodeErrorResponse = ((AxiosResponse<ValidateFiscalCode400ResponseSchema> & { status: 400 }) | (AxiosResponse<ValidateFiscalCode401ResponseSchema> & { status: 401 }) | (AxiosResponse<ValidateFiscalCode405ResponseSchema> & { status: 405 }) | (AxiosResponse<ValidateFiscalCode409ResponseSchema> & { status: 409 }) | (AxiosResponse<ValidateFiscalCode415ResponseSchema> & { status: 415 }) | (AxiosResponse<ValidateFiscalCode429ResponseSchema> & { status: 429 }) | (AxiosResponse<ValidateFiscalCode500ResponseSchema> & { status: 500 })) & { path: "/v1/auth/validateFiscalCode" }
+export type AxiosValidateFiscalCodeResponse = AxiosValidateFiscalCodeSuccessResponse | AxiosValidateFiscalCodeErrorResponse
+export async function validateFiscalCode(data: ValidateFiscalCodeRequestSchema, config?: AxiosRequestConfig): Promise<AxiosValidateFiscalCodeResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHENTICATED"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "409": {
+      "code": [
+        "CONFLICT"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/auth/validateFiscalCode"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosValidateFiscalCodeSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosValidateFiscalCodeErrorResponse
     } else {
       throw e
     }
@@ -3952,60 +4193,6 @@ export async function createUser(data: CreateUserRequestSchema, config?: AxiosRe
 }
 
 /**
-Valiadate VAT code with vies api
-*/
-export type AxiosValidateVatSuccessResponse = (AxiosResponse<ValidateVat200ResponseSchema> & { status: 200 })
-export type AxiosValidateVatErrorResponse = ((AxiosResponse<ValidateVat400ResponseSchema> & { status: 400 }) | (AxiosResponse<ValidateVat405ResponseSchema> & { status: 405 }) | (AxiosResponse<ValidateVat415ResponseSchema> & { status: 415 }) | (AxiosResponse<ValidateVat429ResponseSchema> & { status: 429 }) | (AxiosResponse<ValidateVat500ResponseSchema> & { status: 500 })) & { path: "/v1/signup/validateVat" }
-export type AxiosValidateVatResponse = AxiosValidateVatSuccessResponse | AxiosValidateVatErrorResponse
-export async function validateVat(data: ValidateVatRequestSchema, config?: AxiosRequestConfig): Promise<AxiosValidateVatResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/signup/validateVat"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosValidateVatSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosValidateVatErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
 Admin authentication for using the staging environment
 */
 export type AxiosAuthAdminSuccessResponse = (AxiosResponse<AuthAdmin200ResponseSchema> & { status: 200 })
@@ -4607,6 +4794,13 @@ export type CurrencySchema = "eur"
 
 export type UuidSchema = string
 
+export type FiscalCodeSchema = string
+
+export type CapSchema = {
+  cap?: string
+  [k: string]: unknown
+} & string
+
 export type TravelNotFoundErrorResponseSchema = {
   message: string
   code: "NOT_FOUND"
@@ -4962,6 +5156,14 @@ export type VerificationCodeExpiredErrorResponseSchema = {
 export type ConflictErrorResponseSchema = {
   message: string
   code: "CONFLICT"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type UnauthenticatedErrorResponseSchema = {
+  message: string
+  code: "UNAUTHENTICATED"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -5775,7 +5977,29 @@ export type AddUserCompany429ResponseSchema = ThrottlingErrorResponseSchema
 
 export type AddUserCompany500ResponseSchema = UnexpectedErrorResponseSchema
 
-export type AddUserCompanyRequestSchema = CompanyDetailSchema
+export type AddUserCompanyRequestSchema = JuridicalCompanyDetailSchema
+
+export type GetInvoice200ResponseSchema = {
+  file: string
+  [k: string]: unknown
+}
+
+export type GetInvoice400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetInvoice404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type GetInvoice405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type GetInvoice415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type GetInvoice429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type GetInvoice500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type GetInvoiceRequestSchema = {
+  id: UuidSchema
+  [k: string]: unknown
+}
 
 export type SingleUserTravelSchema = {
   time: {
@@ -5807,7 +6031,22 @@ export type SavedLuggageSchemaWithType = SavedLuggageSchema & {
   [k: string]: unknown
 }
 
-export type CompanyWithIdSchema = CompanyDetailSchema & {
+export type JuridicalCompanyWithIdSchema = JuridicalCompanyDetailSchema & {
+  id: string
+  [k: string]: unknown
+}
+
+export type PersonalCompanySchema = {
+  fiscalCode: string
+  name: string
+  completeAddress: string
+  cap: string
+  city: string
+  province: string
+  [k: string]: unknown
+}
+
+export type PersonalCompanyWithIdSchema = PersonalCompanySchema & {
   id: string
   [k: string]: unknown
 }
@@ -5842,7 +6081,7 @@ export type UserSettingsResponseSchema = {
     [k: string]: unknown
   })[]
   mfaEnabled: boolean
-  company?: CompanyWithIdSchema
+  company?: JuridicalCompanyWithIdSchema | PersonalCompanyWithIdSchema
   [k: string]: unknown
 }
 
@@ -6005,6 +6244,8 @@ export type CapturePaymentIntent404ResponseSchema = StripePaymentIntentNotFoundE
 
 export type CapturePaymentIntent405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
+export type CapturePaymentIntent409ResponseSchema = ConflictErrorResponseSchema
+
 export type CapturePaymentIntent415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
 
 export type CapturePaymentIntent429ResponseSchema = ThrottlingErrorResponseSchema
@@ -6013,6 +6254,27 @@ export type CapturePaymentIntent500ResponseSchema = UnexpectedErrorResponseSchem
 
 export type CapturePaymentIntentRequestSchema = {
   intentId: UuidSchema
+  travelId: UuidSchema
+  invoicePersonalData?: PersonalInvoiceDetailSchema
+  [k: string]: unknown
+}
+
+export type SendEmailInvoice200ResponseSchema = OkResponseSchema
+
+export type SendEmailInvoice400ResponseSchema = ValidationErrorResponseSchema
+
+export type SendEmailInvoice404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type SendEmailInvoice405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type SendEmailInvoice415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type SendEmailInvoice429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type SendEmailInvoice500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type SendEmailInvoiceRequestSchema = {
+  id: UuidSchema
   [k: string]: unknown
 }
 
@@ -6032,8 +6294,20 @@ export type RetrieveStripePaymentIntentRequestSchema = {
   [k: string]: unknown
 }
 
+export type PersonalInvoiceDetailSchema = {
+  fiscalCode: FiscalCodeSchema
+  completeAddress: string
+  cap: CapSchema
+  city: string
+  province: string
+  [k: string]: unknown
+}
+
 export type CreatePaymwentIntent200ResponseSchema = {
   clientSecret: string
+  sessionId: string
+  intentSecret?: string
+  stripeId: string
   [k: string]: unknown
 }
 
@@ -6451,6 +6725,45 @@ export type VerifyAssistant415ResponseSchema = UnsupportedMediaTypeErrorResponse
 export type VerifyAssistant429ResponseSchema = ThrottlingErrorResponseSchema
 
 export type VerifyAssistant500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type ValidateVat200ResponseSchema = OkResponseSchema
+
+export type ValidateVat400ResponseSchema = ValidationErrorResponseSchema
+
+export type ValidateVat405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type ValidateVat415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type ValidateVat429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type ValidateVat500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type ValidateVatRequestSchema = {
+  socialReason: string
+  vatNumber: string
+  [k: string]: unknown
+}
+
+export type ValidateFiscalCode200ResponseSchema = OkResponseSchema
+
+export type ValidateFiscalCode400ResponseSchema = ValidationErrorResponseSchema
+
+export type ValidateFiscalCode401ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type ValidateFiscalCode405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type ValidateFiscalCode409ResponseSchema = ConflictErrorResponseSchema
+
+export type ValidateFiscalCode415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type ValidateFiscalCode429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type ValidateFiscalCode500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type ValidateFiscalCodeRequestSchema = {
+  fiscalCode: FiscalCodeSchema
+  [k: string]: unknown
+}
 
 export type GetLuggagesPackages200ResponseSchema = {
   optimals: PackagesSinglePackageSchema[]
@@ -7194,7 +7507,7 @@ export type SaveSignupRequestSchema = {
   phone: PhoneNumberSchema
   password: string
   dateOfBirth: string
-  companyDetail?: CompanyDetailSchema
+  companyDetail?: JuridicalCompanyDetailSchema
   [k: string]: unknown
 }
 
@@ -7282,30 +7595,12 @@ export type CreateUser500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type CreateUserRequestSchema = SessionIdSchema
 
-export type ValidateVat200ResponseSchema = OkResponseSchema
-
-export type ValidateVat400ResponseSchema = ValidationErrorResponseSchema
-
-export type ValidateVat405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type ValidateVat415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type ValidateVat429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type ValidateVat500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type ValidateVatRequestSchema = {
-  socialReason: string
-  vatNumber: string
-  [k: string]: unknown
-}
-
 export type SessionIdSchema = {
   sessionId: UuidSchema
   [k: string]: unknown
 }
 
-export type CompanyDetailSchema = {
+export type JuridicalCompanyDetailSchema = {
   vat: string
   fiscalCode: string
   name: string
