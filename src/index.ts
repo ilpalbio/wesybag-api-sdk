@@ -4924,10 +4924,7 @@ export type UuidSchema = string
 
 export type FiscalCodeSchema = string
 
-export type CapSchema = {
-  cap?: string
-  [k: string]: unknown
-} & string
+export type CapSchema = string
 
 export type TravelNotFoundErrorResponseSchema = {
   message: string
