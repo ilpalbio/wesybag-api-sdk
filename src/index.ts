@@ -2270,6 +2270,134 @@ export async function sendEmailInvoice(data: SendEmailInvoiceRequestSchema, conf
 }
 
 /**
+Append personal company detail to payment in order to make an invoice
+*/
+export type AxiosAppendPersonalCompanyDetailSuccessResponse = (AxiosResponse<AppendPersonalCompanyDetail200ResponseSchema> & { status: 200 })
+export type AxiosAppendPersonalCompanyDetailErrorResponse = ((AxiosResponse<AppendPersonalCompanyDetail400ResponseSchema> & { status: 400 }) | (AxiosResponse<AppendPersonalCompanyDetail404ResponseSchema> & { status: 404 }) | (AxiosResponse<AppendPersonalCompanyDetail405ResponseSchema> & { status: 405 }) | (AxiosResponse<AppendPersonalCompanyDetail409ResponseSchema> & { status: 409 }) | (AxiosResponse<AppendPersonalCompanyDetail415ResponseSchema> & { status: 415 }) | (AxiosResponse<AppendPersonalCompanyDetail429ResponseSchema> & { status: 429 }) | (AxiosResponse<AppendPersonalCompanyDetail500ResponseSchema> & { status: 500 })) & { path: "/v1/payments/appendPersonalCompanyDetail" }
+export type AxiosAppendPersonalCompanyDetailResponse = AxiosAppendPersonalCompanyDetailSuccessResponse | AxiosAppendPersonalCompanyDetailErrorResponse
+export async function appendPersonalCompanyDetail(data: AppendPersonalCompanyDetailRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAppendPersonalCompanyDetailResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "409": {
+      "code": [
+        "CONFLICT"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/payments/appendPersonalCompanyDetail"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosAppendPersonalCompanyDetailSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosAppendPersonalCompanyDetailErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+Request an invoice on a payment intent
+*/
+export type AxiosRequestInvoiceOnIntentSuccessResponse = (AxiosResponse<RequestInvoiceOnIntent200ResponseSchema> & { status: 200 })
+export type AxiosRequestInvoiceOnIntentErrorResponse = ((AxiosResponse<RequestInvoiceOnIntent400ResponseSchema> & { status: 400 }) | (AxiosResponse<RequestInvoiceOnIntent404ResponseSchema> & { status: 404 }) | (AxiosResponse<RequestInvoiceOnIntent405ResponseSchema> & { status: 405 }) | (AxiosResponse<RequestInvoiceOnIntent409ResponseSchema> & { status: 409 }) | (AxiosResponse<RequestInvoiceOnIntent415ResponseSchema> & { status: 415 }) | (AxiosResponse<RequestInvoiceOnIntent429ResponseSchema> & { status: 429 }) | (AxiosResponse<RequestInvoiceOnIntent500ResponseSchema> & { status: 500 })) & { path: "/v1/payments/requestInvoiceOnIntent" }
+export type AxiosRequestInvoiceOnIntentResponse = AxiosRequestInvoiceOnIntentSuccessResponse | AxiosRequestInvoiceOnIntentErrorResponse
+export async function requestInvoiceOnIntent(data: RequestInvoiceOnIntentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosRequestInvoiceOnIntentResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "409": {
+      "code": [
+        "CONFLICT"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/payments/requestInvoiceOnIntent"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosRequestInvoiceOnIntentSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosRequestInvoiceOnIntentErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Get all users in the system
 */
 export type AxiosGetUsersSuccessResponse = (AxiosResponse<GetUsers200ResponseSchema> & { status: 200 })
@@ -6260,7 +6388,6 @@ export type CapturePaymentIntent500ResponseSchema = UnexpectedErrorResponseSchem
 export type CapturePaymentIntentRequestSchema = {
   intentId: UuidSchema
   outwardTravelId: UuidSchema
-  invoicePersonalData?: PersonalInvoiceDetailSchema
   [k: string]: unknown
 }
 
@@ -6280,6 +6407,59 @@ export type SendEmailInvoice500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type SendEmailInvoiceRequestSchema = {
   id: UuidSchema
+  [k: string]: unknown
+}
+
+export type AppendPersonalCompanyDetail200ResponseSchema = {
+  companyId: string
+  sessionId: string
+  stripeId: string
+  [k: string]: unknown
+}
+
+export type AppendPersonalCompanyDetail400ResponseSchema = ValidationErrorResponseSchema
+
+export type AppendPersonalCompanyDetail404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type AppendPersonalCompanyDetail405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type AppendPersonalCompanyDetail409ResponseSchema = ConflictErrorResponseSchema
+
+export type AppendPersonalCompanyDetail415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type AppendPersonalCompanyDetail429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type AppendPersonalCompanyDetail500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type AppendPersonalCompanyDetailRequestSchema = {
+  personalDetail: PersonalInvoiceDetailSchema
+  intentId: UuidSchema
+  [k: string]: unknown
+}
+
+export type RequestInvoiceOnIntent200ResponseSchema = {
+  sessionId: string
+  stripeId: string
+  [k: string]: unknown
+}
+
+export type RequestInvoiceOnIntent400ResponseSchema = ValidationErrorResponseSchema
+
+export type RequestInvoiceOnIntent404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type RequestInvoiceOnIntent405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type RequestInvoiceOnIntent409ResponseSchema = ConflictErrorResponseSchema
+
+export type RequestInvoiceOnIntent415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type RequestInvoiceOnIntent429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type RequestInvoiceOnIntent500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type RequestInvoiceOnIntentRequestSchema = {
+  intentId: UuidSchema
+  requestInvoice?: boolean
   [k: string]: unknown
 }
 
@@ -6312,6 +6492,15 @@ export type CreatePaymwentIntent200ResponseSchema = {
   clientSecret: string
   sessionId: string
   stripeId: string
+  userCompany?:
+    | (JuridicalCompanyWithIdSchema & {
+        type: "juridical"
+        [k: string]: unknown
+      })
+    | (PersonalCompanyWithIdSchema & {
+        type: "personal"
+        [k: string]: unknown
+      })
   [k: string]: unknown
 }
 
