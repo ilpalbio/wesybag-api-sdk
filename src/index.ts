@@ -6311,7 +6311,6 @@ export type PersonalInvoiceDetailSchema = {
 export type CreatePaymwentIntent200ResponseSchema = {
   clientSecret: string
   sessionId: string
-  intentSecret: string
   stripeId: string
   [k: string]: unknown
 }
