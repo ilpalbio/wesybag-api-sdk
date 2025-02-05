@@ -6360,11 +6360,7 @@ export type VerifyPaymentIntent429ResponseSchema = ThrottlingErrorResponseSchema
 
 export type VerifyPaymentIntent500ResponseSchema = UnexpectedErrorResponseSchema
 
-export type VerifyPaymentIntentRequestSchema = {
-  clientSecret: string
-  intentId: UuidSchema
-  [k: string]: unknown
-}
+export type VerifyPaymentIntentRequestSchema = VerifyUserPaymentIntentRequestSchema
 
 export type CapturePaymentIntent200ResponseSchema = OkResponseSchema
 
@@ -6484,6 +6480,22 @@ export type PersonalInvoiceDetailSchema = {
   province: string
   [k: string]: unknown
 }
+
+export type VerifyUserPaymentIntentRequestSchema = {
+  clientSecret: string
+  [k: string]: unknown
+} & (
+  | {
+      withStripeId: true
+      intentStripeId: string
+      [k: string]: unknown
+    }
+  | {
+      withStripeId: false
+      intentId: UuidSchema
+      [k: string]: unknown
+    }
+)
 
 export type CreatePaymwentIntent200ResponseSchema = {
   clientSecret: string
