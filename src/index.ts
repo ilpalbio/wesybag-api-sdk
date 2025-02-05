@@ -6342,7 +6342,7 @@ export type RetrievePaymentIntent500ResponseSchema = UnexpectedErrorResponseSche
 
 export type RetrievePaymentIntentRequestSchema = RetrieveStripePaymentIntentRequestSchema
 
-export type VerifyPaymentIntent200ResponseSchema = OkResponseSchema
+export type VerifyPaymentIntent200ResponseSchema = CompletePaymentIntentSchema
 
 export type VerifyPaymentIntent400ResponseSchema = ValidationErrorResponseSchema
 
@@ -6453,6 +6453,13 @@ export type RequestInvoiceOnIntent500ResponseSchema = UnexpectedErrorResponseSch
 export type RequestInvoiceOnIntentRequestSchema = {
   intentId: UuidSchema
   requestInvoice?: boolean
+  [k: string]: unknown
+}
+
+export type CompletePaymentIntentSchema = {
+  id: UuidSchema
+  stripeId: string
+  invoiceRequested: boolean
   [k: string]: unknown
 }
 
