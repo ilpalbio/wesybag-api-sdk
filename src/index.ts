@@ -5567,7 +5567,7 @@ export type ShipmentStatusSchema = {
 }
 
 export type TrackDetailSchema = {
-  trackingId: string
+  trackId: string
   [k: string]: unknown
 }
 
@@ -5578,7 +5578,7 @@ export type SingleNormalShipmentSchema = {
   luggages: LuggageWithIdSchema[]
   pickupSchedule: ScheduleSchema
   deliverySchedule: ScheduleSchema
-  trackingDetail: TrackDetailSchema
+  trackDetail: TrackDetailSchema
   cost: CostSchema
   courier: CourierSchema
   shipmentType: "NORMAL" | "PREMIUM"
