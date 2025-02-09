@@ -222,7 +222,7 @@ export async function deleteDraftShipment(data: DeleteDraftShipmentRequestSchema
 Create new draft shipment
 */
 export type AxiosCreateDraftShipmentSuccessResponse = (AxiosResponse<CreateDraftShipment200ResponseSchema> & { status: 200 })
-export type AxiosCreateDraftShipmentErrorResponse = ((AxiosResponse<CreateDraftShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<CreateDraftShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<CreateDraftShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<CreateDraftShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<CreateDraftShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/createDraftShipment" }
+export type AxiosCreateDraftShipmentErrorResponse = ((AxiosResponse<CreateDraftShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<CreateDraftShipment401ResponseSchema> & { status: 401 }) | (AxiosResponse<CreateDraftShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<CreateDraftShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<CreateDraftShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<CreateDraftShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/createDraftShipment" }
 export type AxiosCreateDraftShipmentResponse = AxiosCreateDraftShipmentSuccessResponse | AxiosCreateDraftShipmentErrorResponse
 export async function createDraftShipment(data: CreateDraftShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosCreateDraftShipmentResponse> {
   _checkSetup()
@@ -234,6 +234,11 @@ export async function createDraftShipment(data: CreateDraftShipmentRequestSchema
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHENTICATED"
       ]
     },
     "405": {
@@ -4754,40 +4759,13 @@ export type UnexpectedErrorResponseSchema = {
   [k: string]: unknown
 }
 
-export type WebLink = string
-
-/**
- * timestamp
- */
-export type Timestamp = string
-
-export type NullableTimestamp = Timestamp | null
-
-export type OkResponseSchema = {
-  success: true
-}
-
-export type EmailSchema = string
-
-export type StrongPasswordSchema = string
-
-export type CardNumberSchema = string
+export type CardCvcSchema = string
 
 export type CardExpirationDateSchema = string
 
-export type CardCvcSchema = string
+export type CardNumberSchema = string
 
 export type ConfirmUserCodeSchema = string
-
-export type CountryInformationSchema = "IT"
-
-export type TimeSchema = string
-
-export type PhoneNumberSchema = {
-  phoneNumber: string
-  phonePrefix: string
-  [k: string]: unknown
-}
 
 export type CoordinatesRequestSchema = {
   latitude: number
@@ -4795,83 +4773,38 @@ export type CoordinatesRequestSchema = {
   [k: string]: unknown
 }
 
+export type CountryInformationSchema = "IT"
+
 export type CurrencySchema = "eur"
+
+export type EmailSchema = string
+
+export type NullableTimestamp = Timestamp | null
+
+export type OkResponseSchema = {
+  success: true
+}
+
+export type PhoneNumberSchema = {
+  phoneNumber: string
+  phonePrefix: string
+  [k: string]: unknown
+}
+
+export type StrongPasswordSchema = string
+
+export type TimeSchema = string
+
+/**
+ * timestamp
+ */
+export type Timestamp = string
 
 export type UuidSchema = string
 
-export type TravelNotFoundErrorResponseSchema = {
-  message: string
-  code: "NOT_FOUND"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
+export type WebLink = string
 
-export type UserNotFoundErrorResponseSchema = {
-  message: string
-  code: "NOT_FOUND"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type LuggageNotFoundErrorResponseSchema = {
-  message: string
-  code: "NOT_FOUND"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type HotelNotFoundErrorResponseSchema = {
-  message: string
-  code: "NOT_FOUND"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type InvalidPaymentCardCredentialsErrorResponseSchema = {
-  message: string
-  code: "INVALID_PAYMENT_CARD_CREDENTIALS"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type UserAlreadyExistsErrorResponseSchema = {
-  message: string
-  code: "ALREADY_EXISTS"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type UserSavedCardNotFoundErrorResponseSchema = {
-  message: string
-  code: "NOT_FOUND"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type SameOldAndNewPasswordErrorResponseSchema = {
-  message: string
-  code: "ALREADY_EXISTS"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type TooTightDeadlinesErrorResponseSchema = {
-  message: string
-  code: "TOO_TIGHT_DEADLINE"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type LuggagesAlreadyDeliveredErrorResponseSchema = {
+export type AlreadyAcceptedHelpRequestErrorResponseSchema = {
   message: string
   code: "CONFLICT"
   details?: Any
@@ -4879,33 +4812,9 @@ export type LuggagesAlreadyDeliveredErrorResponseSchema = {
   [k: string]: unknown
 }
 
-export type InvalidConfirmUserCodeErrorResponseSchema = {
+export type AlreadyClosedHelpRequestErrorResponseSchema = {
   message: string
-  code: "INVALID_CODE" | "UNAUTHORIZED"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type PaymentCardAlreadyExistsErrorResponseSchema = {
-  message: string
-  code: "ALREADY_EXISTS"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type UserNotLoggedErrorResponseSchema = {
-  message: string
-  code: "UNAUTHORIZED"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type InvalidChangePasswordTokenErrorResponseSchema = {
-  message: string
-  code: "INVALID TOKEN"
+  code: "CONFLICT"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -4919,31 +4828,7 @@ export type ChangePasswordTokenIsExpiredErrorResponseSchema = {
   [k: string]: unknown
 }
 
-export type HotelAlreadyExistsErrorResponseSchema = {
-  message: string
-  code: "ALREADY_EXISTS"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type UnauthorizedUserErrorResponseSchema = {
-  message: string
-  code: "UNAUTHORIZED"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
 export type ChangePasswordTOkenNotFoundErrorResponseSchema = {
-  message: string
-  code: "NOT_FOUND"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type ConfirmUserPhoneTokenNotFoundErrorResponseSchema = {
   message: string
   code: "NOT_FOUND"
   details?: Any
@@ -4959,7 +4844,7 @@ export type ConfirmUserPhoneTokenIsExpiredErrorResponseSchema = {
   [k: string]: unknown
 }
 
-export type StripePaymentIntentNotFoundErrorResponseSchema = {
+export type ConfirmUserPhoneTokenNotFoundErrorResponseSchema = {
   message: string
   code: "NOT_FOUND"
   details?: Any
@@ -4967,7 +4852,7 @@ export type StripePaymentIntentNotFoundErrorResponseSchema = {
   [k: string]: unknown
 }
 
-export type StripePaymentIntentAlreadyCanceledErrorResponseSchema = {
+export type ConflictErrorResponseSchema = {
   message: string
   code: "CONFLICT"
   details?: Any
@@ -4975,7 +4860,31 @@ export type StripePaymentIntentAlreadyCanceledErrorResponseSchema = {
   [k: string]: unknown
 }
 
-export type UserForbiddenErrorResponseSchema = {
+export type ExpiredRememberTokenErrorResponseSchema = {
+  message: string
+  code: "TOKEN_EXPIRED"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type ExpiredSession = {
+  message: string
+  code: "SESSION EXPIRED"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type FiscalCodeAlreadyExistsErrorResponseSchema = {
+  message: string
+  code: "ALREADY_EXISTS"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type GenericForbiddenErrorResponseSchema = {
   message: string
   code: "FORBIDDEN"
   details?: Any
@@ -4983,15 +4892,31 @@ export type UserForbiddenErrorResponseSchema = {
   [k: string]: unknown
 }
 
-export type StripePaymentIntentAlreadyCapturedErrorResponseSchema = {
+export type GenericNotFoundErrorResponseSchema = {
   message: string
-  code: "CONFLICT"
+  code: "NOT_FOUND"
   details?: Any
   stack?: string
   [k: string]: unknown
 }
 
 export type HelpRequestNotFoundErrorResponseSchema = {
+  message: string
+  code: "NOT_FOUND"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type HotelAlreadyExistsErrorResponseSchema = {
+  message: string
+  code: "ALREADY_EXISTS"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type HotelNotFoundErrorResponseSchema = {
   message: string
   code: "NOT_FOUND"
   details?: Any
@@ -5007,9 +4932,89 @@ export type InitSignupInformationConflictResponseSchema = {
   [k: string]: unknown
 }
 
-export type SignupSessionIdNotFoundErrorResponseSchema = {
+export type InvalidChangePasswordTokenErrorResponseSchema = {
+  message: string
+  code: "INVALID TOKEN"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type InvalidConfirmEmailCodeTokenErrorResponseSchema = {
+  message: string
+  code: "INVALID TOKEN"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type InvalidConfirmUserCodeErrorResponseSchema = {
+  message: string
+  code: "INVALID_CODE" | "UNAUTHORIZED"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type InvalidPaymentCardCredentialsErrorResponseSchema = {
+  message: string
+  code: "INVALID_PAYMENT_CARD_CREDENTIALS"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type InvalidRememberTokenErrorResponseSchema = {
+  message: string
+  code: "INVALID TOKEN"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type InvoiceCodeAlreadyExistsErrorResponseSchema = {
+  message: string
+  code: "ALREADY_EXISTS"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type LuggageNotFoundErrorResponseSchema = {
   message: string
   code: "NOT_FOUND"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type LuggagesAlreadyDeliveredErrorResponseSchema = {
+  message: string
+  code: "CONFLICT"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type LuggagesPackageNotFoundErrorResponseSchema = {
+  message: string
+  code: "NOT_FOUND"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type PaymentCardAlreadyExistsErrorResponseSchema = {
+  message: string
+  code: "ALREADY_EXISTS"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type SameOldAndNewPasswordErrorResponseSchema = {
+  message: string
+  code: "ALREADY_EXISTS"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -5031,9 +5036,33 @@ export type SessionNotFoundErrorResponseSchema = {
   [k: string]: unknown
 }
 
-export type UserHasActiveTravelsErrorResponseSchema = {
+export type SignupSessionIdNotFoundErrorResponseSchema = {
+  message: string
+  code: "NOT_FOUND"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type StripePaymentIntentAlreadyCanceledErrorResponseSchema = {
   message: string
   code: "CONFLICT"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type StripePaymentIntentAlreadyCapturedErrorResponseSchema = {
+  message: string
+  code: "CONFLICT"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type StripePaymentIntentNotFoundErrorResponseSchema = {
+  message: string
+  code: "NOT_FOUND"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -5047,49 +5076,9 @@ export type StructureNotFoundErrorResponseSchema = {
   [k: string]: unknown
 }
 
-export type LuggagesPackageNotFoundErrorResponseSchema = {
-  message: string
-  code: "NOT_FOUND"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type InvalidRememberTokenErrorResponseSchema = {
-  message: string
-  code: "INVALID TOKEN"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type ExpiredRememberTokenErrorResponseSchema = {
-  message: string
-  code: "TOKEN_EXPIRED"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type InvalidConfirmEmailCodeTokenErrorResponseSchema = {
-  message: string
-  code: "INVALID TOKEN"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
 export type TokenExpiredErrorResponseSchema = {
   message: string
   code: "TOKEN_EXPIRED"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type ExpiredSession = {
-  message: string
-  code: "SESSION EXPIRED"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -5103,7 +5092,15 @@ export type TokenNotFoundErrorResponseSchema = {
   [k: string]: unknown
 }
 
-export type GenericNotFoundErrorResponseSchema = {
+export type TooTightDeadlinesErrorResponseSchema = {
+  message: string
+  code: "TOO_TIGHT_DEADLINE"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type TravelNotFoundErrorResponseSchema = {
   message: string
   code: "NOT_FOUND"
   details?: Any
@@ -5111,15 +5108,31 @@ export type GenericNotFoundErrorResponseSchema = {
   [k: string]: unknown
 }
 
-export type AlreadyClosedHelpRequestErrorResponseSchema = {
+export type UnauthenticatedErrorResponseSchema = {
   message: string
-  code: "CONFLICT"
+  code: "UNAUTHENTICATED"
   details?: Any
   stack?: string
   [k: string]: unknown
 }
 
-export type GenericForbiddenErrorResponseSchema = {
+export type UnauthorizedUserErrorResponseSchema = {
+  message: string
+  code: "UNAUTHORIZED"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type UserAlreadyExistsErrorResponseSchema = {
+  message: string
+  code: "ALREADY_EXISTS"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type UserForbiddenErrorResponseSchema = {
   message: string
   code: "FORBIDDEN"
   details?: Any
@@ -5127,7 +5140,7 @@ export type GenericForbiddenErrorResponseSchema = {
   [k: string]: unknown
 }
 
-export type AlreadyAcceptedHelpRequestErrorResponseSchema = {
+export type UserHasActiveTravelsErrorResponseSchema = {
   message: string
   code: "CONFLICT"
   details?: Any
@@ -5135,25 +5148,25 @@ export type AlreadyAcceptedHelpRequestErrorResponseSchema = {
   [k: string]: unknown
 }
 
-export type WrongVerificationCodeErrorResponseSchema = {
+export type UserNotFoundErrorResponseSchema = {
   message: string
-  code: "INVALID_CODE"
+  code: "NOT_FOUND"
   details?: Any
   stack?: string
   [k: string]: unknown
 }
 
-export type VerificationCodeExpiredErrorResponseSchema = {
+export type UserNotLoggedErrorResponseSchema = {
   message: string
-  code: "CODE_EXPIRED"
+  code: "UNAUTHORIZED"
   details?: Any
   stack?: string
   [k: string]: unknown
 }
 
-export type ConflictErrorResponseSchema = {
+export type UserSavedCardNotFoundErrorResponseSchema = {
   message: string
-  code: "CONFLICT"
+  code: "NOT_FOUND"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -5167,17 +5180,17 @@ export type VatCodeAlreadyExistsErrorResponseSchema = {
   [k: string]: unknown
 }
 
-export type InvoiceCodeAlreadyExistsErrorResponseSchema = {
+export type VerificationCodeExpiredErrorResponseSchema = {
   message: string
-  code: "ALREADY_EXISTS"
+  code: "CODE_EXPIRED"
   details?: Any
   stack?: string
   [k: string]: unknown
 }
 
-export type FiscalCodeAlreadyExistsErrorResponseSchema = {
+export type WrongVerificationCodeErrorResponseSchema = {
   message: string
-  code: "ALREADY_EXISTS"
+  code: "INVALID_CODE"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -5204,9 +5217,15 @@ export type DeleteDraftShipmentRequestSchema = {
   [k: string]: unknown
 }
 
-export type CreateDraftShipment200ResponseSchema = DraftWithIdSchema
+export type CreateDraftShipment200ResponseSchema = {
+  outwardShipment: DraftShipmentWithCompletePositionSchema
+  returnShipment?: DraftShipmentWithCompletePositionSchema
+  [k: string]: unknown
+}
 
 export type CreateDraftShipment400ResponseSchema = ValidationErrorResponseSchema
+
+export type CreateDraftShipment401ResponseSchema = UnauthenticatedErrorResponseSchema
 
 export type CreateDraftShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
@@ -5218,7 +5237,7 @@ export type CreateDraftShipment500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type CreateDraftShipmentRequestSchema = DraftShipmentSchema
 
-export type GetDraftShipment200ResponseSchema = DraftWithIdSchema[]
+export type GetDraftShipment200ResponseSchema = DraftShipmentWithCompletePositionSchema[]
 
 export type GetDraftShipment400ResponseSchema = ValidationErrorResponseSchema
 
@@ -5452,6 +5471,40 @@ export type GetPickupScheduleRequestSchema = {
   [k: string]: unknown
 }
 
+export type AdditionalPositionSchema = {
+  country: string
+  city: string
+  province: string
+  postalCode: string
+  coordinates: CoordinatesRequestSchema
+  [k: string]: unknown
+}
+
+export type CompletePositionSchema = PositionSchema & AdditionalPositionSchema
+
+export type CompletePrivateSchema = PrivatePositionSchema & AdditionalPositionSchema
+
+export type CompletePublicSchema = PublicPositionSchema & AdditionalPositionSchema
+
+export type CostSchema = {
+  totalAmount?: number
+  currencya?: CurrencySchema
+  [k: string]: unknown
+}
+
+export type CourierSchema = {
+  id: UuidSchema
+  name: string
+  [k: string]: unknown
+}
+
+export type LuggageWithIdSchema = ShipmentLuggageSchema & {
+  id: UuidSchema
+  [k: string]: unknown
+}
+
+export type PositionSchema = PrivatePositionSchema | PublicPositionSchema
+
 export type PrivatePositionSchema = {
   type: "private"
   placeId: UuidSchema
@@ -5466,22 +5519,20 @@ export type PublicPositionSchema = {
   [k: string]: unknown
 }
 
-export type PositionSchema = PrivatePositionSchema | PublicPositionSchema
-
-export type AdditionalPositionSchema = {
-  country: string
-  city: string
-  province: string
-  postalCode: string
-  coordinates: CoordinatesRequestSchema
+export type ReceiverSchema = {
+  firstName: string
+  lastName: string
+  email: EmailSchema
+  phone: PhoneNumberSchema
   [k: string]: unknown
 }
 
-export type CompletePrivateSchema = PrivatePositionSchema & AdditionalPositionSchema
-
-export type CompletePublicSchema = PublicPositionSchema & AdditionalPositionSchema
-
-export type CompletePositionSchema = PositionSchema & AdditionalPositionSchema
+export type ScheduleSchema = {
+  date: string
+  readyTime: TimeSchema
+  closeTime: TimeSchema
+  [k: string]: unknown
+}
 
 export type ShipmentLuggageSchema = {
   weight: number
@@ -5494,49 +5545,44 @@ export type ShipmentLuggageSchema = {
   [k: string]: unknown
 }
 
-export type LuggageWithIdSchema = ShipmentLuggageSchema & {
-  id: UuidSchema
-  [k: string]: unknown
-}
-
-export type ScheduleSchema = {
-  date: string
-  readyTime: TimeSchema
-  closeTime: TimeSchema
-  [k: string]: unknown
-}
-
-export type ReceiverSchema = {
-  firstName?: string
-  lastName?: string
-  email?: EmailSchema
-  phone?: PhoneNumberSchema
-  [k: string]: unknown
-}
-
-export type CostSchema = {
-  totalAmount?: number
-  currencya?: CurrencySchema
-  [k: string]: unknown
-}
-
-export type CourierSchema = {
-  id: UuidSchema
-  name: string
-  [k: string]: unknown
-}
-
 export type DraftShipmentSchema = {
   origin: PositionSchema
   destination: PositionSchema
   luggages: ShipmentLuggageSchema[]
   pickupSchedule: ScheduleSchema
-  delverySchedule: ScheduleSchema
+  deliverySchedule: ScheduleSchema
   shipmentType: "NORMAL" | "PREMIUM"
   cost: CostSchema
   receiver?: ReceiverSchema
-  returnPickupSchedule?: ScheduleSchema
+  returnSchedules?: {
+    pickup: ScheduleSchema
+    delivery: ScheduleSchema
+    [k: string]: unknown
+  }
   outboundShipmentId?: UuidSchema
+  [k: string]: unknown
+}
+
+export type DraftShipmentWithCompletePositionSchema = {
+  origin: CompletePositionSchema
+  destination: CompletePositionSchema
+  luggages: ShipmentLuggageSchema[]
+  pickupSchedule: ScheduleSchema
+  deliverySchedule: ScheduleSchema
+  shipmentType: "NORMAL" | "PREMIUM"
+  cost: CostSchema
+  receiver?: ReceiverSchema
+  returnSchedules?: {
+    pickup: ScheduleSchema
+    delivery: ScheduleSchema
+    [k: string]: unknown
+  }
+  outboundShipmentId?: UuidSchema
+  [k: string]: unknown
+}
+
+export type DraftWithIdSchema = DraftShipmentSchema & {
+  id: UuidSchema
   [k: string]: unknown
 }
 
@@ -5553,21 +5599,11 @@ export type PartialDraftShipmentSchema = {
   [k: string]: unknown
 }
 
-export type DraftWithIdSchema = DraftShipmentSchema & {
-  id: UuidSchema
-  [k: string]: unknown
-}
-
 export type ShipmentStatusSchema = {
   id: UuidSchema
   code: string
   description: string
   isCurrent: boolean
-  [k: string]: unknown
-}
-
-export type TrackDetailSchema = {
-  trackId: string
   [k: string]: unknown
 }
 
@@ -5588,6 +5624,11 @@ export type SingleNormalShipmentSchema = {
 
 export type SingleNormalShipmentWithStatusSchema = SingleNormalShipmentSchema & {
   status: ShipmentStatusSchema
+  [k: string]: unknown
+}
+
+export type TrackDetailSchema = {
+  trackId: string
   [k: string]: unknown
 }
 
@@ -5649,6 +5690,20 @@ export type VerifyRememberTokenRequestSchema = {
   [k: string]: unknown
 }
 
+export type ConfirmUserRequestSchema = {
+  code: string
+}
+
+export type SignupUserRequestSchema = {
+  firstName: string
+  lastName: string
+  email: EmailSchema
+  password: StrongPasswordSchema
+  dateOfBirth: string
+  phoneNumber: PhoneNumberSchema
+  sessionId: string
+}
+
 export type LoginUserRequestSchema =
   | {
       email: EmailSchema
@@ -5662,20 +5717,6 @@ export type LoginUserRequestSchema =
       emailSelected: false
       rememberMe: boolean
     }
-
-export type SignupUserRequestSchema = {
-  firstName: string
-  lastName: string
-  email: EmailSchema
-  password: StrongPasswordSchema
-  dateOfBirth: string
-  phoneNumber: PhoneNumberSchema
-  sessionId: string
-}
-
-export type ConfirmUserRequestSchema = {
-  code: string
-}
 
 export type LoginResponseSchema = {
   mfaRequired: false
@@ -6000,19 +6041,13 @@ export type AddUserCompany500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type AddUserCompanyRequestSchema = CompanyDetailSchema
 
-export type SavedLuggageSchema = {
-  name: string
-  width: number
-  height: number
-  depth: number
-  content?: string
-  dimensionUnit: string
-  [k: string]: unknown
-}
-
-export type SavedLuggageSchemaWithType = SavedLuggageSchema & {
-  type: string
-  creationTimestamp: string
+export type SaveUserCardCredentialsRequestSchema = {
+  email: EmailSchema
+  cardNumber: CardNumberSchema
+  expirationDate: CardExpirationDateSchema
+  holderFirstName: string
+  holderLastName: string
+  cardCvc: CardCvcSchema
   [k: string]: unknown
 }
 
@@ -6021,21 +6056,29 @@ export type CompanyWithIdSchema = CompanyDetailSchema & {
   [k: string]: unknown
 }
 
-export type ModifyUserSettingsRequestSchema = {
-  firstName: string
-  lastName: string
-  dateOfBirth: string
-  customerId?: string
+export type GetLuggagesPackageResponseSchema = {
+  id: UuidSchema
+  luggage: SavedLuggageSchemaWithType
   [k: string]: unknown
 }
 
-export type SaveUserCardCredentialsRequestSchema = {
-  email: EmailSchema
-  cardNumber: CardNumberSchema
-  expirationDate: CardExpirationDateSchema
-  holderFirstName: string
-  holderLastName: string
-  cardCvc: CardCvcSchema
+export type GetUserCommunicationsResponseSchema = {
+  general: {
+    communicationType: "general"
+    title: string
+    description: string
+    timestamp: string
+    link: string
+    [k: string]: unknown
+  }[]
+  travel: {
+    communicationType: "travel"
+    title: string
+    description: string
+    timestamp: string
+    travelId: string
+    [k: string]: unknown
+  }[]
   [k: string]: unknown
 }
 
@@ -6069,29 +6112,27 @@ export type LogUserResponseSchema =
       rememberMe: boolean
     }
 
-export type GetUserCommunicationsResponseSchema = {
-  general: {
-    communicationType: "general"
-    title: string
-    description: string
-    timestamp: string
-    link: string
-    [k: string]: unknown
-  }[]
-  travel: {
-    communicationType: "travel"
-    title: string
-    description: string
-    timestamp: string
-    travelId: string
-    [k: string]: unknown
-  }[]
+export type ModifyUserSettingsRequestSchema = {
+  firstName: string
+  lastName: string
+  dateOfBirth: string
+  customerId?: string
   [k: string]: unknown
 }
 
-export type GetLuggagesPackageResponseSchema = {
-  id: UuidSchema
-  luggage: SavedLuggageSchemaWithType
+export type SavedLuggageSchema = {
+  name: string
+  width: number
+  height: number
+  depth: number
+  content?: string
+  dimensionUnit: string
+  [k: string]: unknown
+}
+
+export type SavedLuggageSchemaWithType = SavedLuggageSchema & {
+  type: string
+  creationTimestamp: string
   [k: string]: unknown
 }
 
@@ -6219,9 +6260,19 @@ export type CapturePaymentIntentRequestSchema = {
   [k: string]: unknown
 }
 
+export type CreatePaymwentIntent200ResponseSchema = {
+  clientSecret: string
+  [k: string]: unknown
+}
+
 export type CreatePaymentIntentRequestSchema = {
   priceCents: number
   currency: CurrencySchema
+  [k: string]: unknown
+}
+
+export type InitSaveUserPaymentDetails200ResponseSchema = {
+  clientSecret: string
   [k: string]: unknown
 }
 
@@ -6232,16 +6283,6 @@ export type StripeIntentIdRequestSchema = {
 
 export type RetrieveStripePaymentIntentRequestSchema = {
   intentId?: string
-  [k: string]: unknown
-}
-
-export type CreatePaymwentIntent200ResponseSchema = {
-  clientSecret: string
-  [k: string]: unknown
-}
-
-export type InitSaveUserPaymentDetails200ResponseSchema = {
-  clientSecret: string
   [k: string]: unknown
 }
 
@@ -6421,29 +6462,20 @@ export type RejectPendingTravelRequestSchema = {
   [k: string]: unknown
 }
 
-export type BaseUserSchema = {
-  firstName: string
-  lastName: string
-  email: string
-  completePhone: string
+export type AdminTimeSchema = {
+  pickupDate: string
+  arrivalDate: string
+  pickupReadyTime: string
+  pickupCloseTime: string
+  arrivalReadyTime: string
+  arrivalCloseTime: string
+  [k: string]: unknown
+}
+
+export type BaseHelpRequestSchema = {
   id: string
-  [k: string]: unknown
-}
-
-export type StatusSchema = {
   name: string
-  datetime: string
-  isActive: boolean
-  [k: string]: unknown
-}
-
-export type PlaceSchema = {
-  detailedName: string
-  structure?: {
-    name: string
-    link: string
-    [k: string]: unknown
-  }
+  status: "OPEN" | "CLOSED"
   [k: string]: unknown
 }
 
@@ -6456,29 +6488,21 @@ export type BaseTravelSchema = {
   [k: string]: unknown
 }
 
-export type BaseHelpRequestSchema = {
-  id: string
-  name: string
-  status: "OPEN" | "CLOSED"
-  [k: string]: unknown
-}
-
-export type UserDetailSchema = {
-  id: string
+export type BaseUserSchema = {
   firstName: string
   lastName: string
   email: string
-  status: "ACTIVE" | "DELETED"
   completePhone: string
-  travels: BaseTravelSchema[]
-  helpRequests: BaseHelpRequestSchema[]
+  id: string
   [k: string]: unknown
 }
 
-export type OperatorSchema = {
-  type: "CLIENT" | "OPERATOR"
-  firstName: string
-  lastName: string
+export type ErrorSchema = {
+  datetime: string
+  message: string
+  code?: string
+  stack?: string
+  status: "PENDING" | "RESOLVED"
   [k: string]: unknown
 }
 
@@ -6513,13 +6537,29 @@ export type LuggageSchema = {
   [k: string]: unknown
 }
 
-export type AdminTimeSchema = {
-  pickupDate: string
-  arrivalDate: string
-  pickupReadyTime: string
-  pickupCloseTime: string
-  arrivalReadyTime: string
-  arrivalCloseTime: string
+export type OperatorSchema = {
+  type: "CLIENT" | "OPERATOR"
+  firstName: string
+  lastName: string
+  [k: string]: unknown
+}
+
+export type PendingTravelSchema = TravelSchemaWithBaseUser
+
+export type PlaceSchema = {
+  detailedName: string
+  structure?: {
+    name: string
+    link: string
+    [k: string]: unknown
+  }
+  [k: string]: unknown
+}
+
+export type StatusSchema = {
+  name: string
+  datetime: string
+  isActive: boolean
   [k: string]: unknown
 }
 
@@ -6560,16 +6600,17 @@ export type TravelSchemaWithStatus = TravelSchemaWithBaseUser & {
   [k: string]: unknown
 }
 
-export type ErrorSchema = {
-  datetime: string
-  message: string
-  code?: string
-  stack?: string
-  status: "PENDING" | "RESOLVED"
+export type UserDetailSchema = {
+  id: string
+  firstName: string
+  lastName: string
+  email: string
+  status: "ACTIVE" | "DELETED"
+  completePhone: string
+  travels: BaseTravelSchema[]
+  helpRequests: BaseHelpRequestSchema[]
   [k: string]: unknown
 }
-
-export type PendingTravelSchema = TravelSchemaWithBaseUser
 
 export type VerifyUserCredentials200ResponseSchema = OkResponseSchema
 
@@ -6740,89 +6781,6 @@ export type GetPositionDetailRequestSchema = {
   [k: string]: unknown
 }
 
-export type PackagesPositionDetailSchema = {
-  country: string
-  city: string
-  cap: string
-  [k: string]: unknown
-}
-
-export type PackagesPrivatePublicPositionSchema = {
-  isPrivate: boolean
-  id: UuidSchema
-  [k: string]: unknown
-}
-
-export type PackagesTimeSchema = {
-  outwardDate: string
-  returnDate?: string
-  [k: string]: unknown
-}
-
-export type PackagesLuggageSchema = {
-  width: number
-  height: number
-  depth: number
-  weight: number
-  [k: string]: unknown
-}
-
-export type PackagesSinglePackageTimeSchema = {
-  outward: {
-    pickupDate: string
-    [k: string]: unknown
-  }
-  return?: {
-    pickupDate: string
-    [k: string]: unknown
-  }
-  [k: string]: unknown
-}
-
-export type PackagesLuggagesWithTypeSchema = PackagesLuggageSchema & {
-  type: string
-  [k: string]: unknown
-}
-
-export type PackagesPriceSchema = {
-  totalCharge: number
-  totalDiscount: number
-  [k: string]: unknown
-}
-
-export type PackagesSinglePackageSchema = {
-  luggages: PackagesLuggagesWithTypeSchema[]
-  price: PackagesPriceSchema
-  time: PackagesSinglePackageTimeSchema
-  type: "best" | "cheapest" | "fastest"
-  durationDays: number
-  origin: PackagesPositionDetailSchema
-  destination: PackagesPositionDetailSchema
-  [k: string]: unknown
-}
-
-export type SingleOfferSchema = {
-  title: string
-  placeId: string
-  offertId: string
-  packagesNuber: number
-  basePrice: string
-  checkIn: string
-  checkOut: string
-  rooms: number
-  adults: number
-  children: number
-  imageSrc: string
-  [k: string]: unknown
-}
-
-export type OccupancySchema = {
-  adults: number
-  children: number
-  total: number
-  [k: string]: unknown
-}
-
 export type HotelProductSchema = {
   occupancy: OccupancySchema
   numberAvailableAtThisPrice: number
@@ -6847,6 +6805,89 @@ export type HotelProductSchema = {
     id: string
     [k: string]: unknown
   }
+  [k: string]: unknown
+}
+
+export type PackagesLuggageSchema = {
+  width: number
+  height: number
+  depth: number
+  weight: number
+  [k: string]: unknown
+}
+
+export type PackagesLuggagesWithTypeSchema = PackagesLuggageSchema & {
+  type: string
+  [k: string]: unknown
+}
+
+export type OccupancySchema = {
+  adults: number
+  children: number
+  total: number
+  [k: string]: unknown
+}
+
+export type PackagesPositionDetailSchema = {
+  country: string
+  city: string
+  cap: string
+  [k: string]: unknown
+}
+
+export type PackagesPriceSchema = {
+  totalCharge: number
+  totalDiscount: number
+  [k: string]: unknown
+}
+
+export type PackagesPrivatePublicPositionSchema = {
+  isPrivate: boolean
+  id: UuidSchema
+  [k: string]: unknown
+}
+
+export type SingleOfferSchema = {
+  title: string
+  placeId: string
+  offertId: string
+  packagesNuber: number
+  basePrice: string
+  checkIn: string
+  checkOut: string
+  rooms: number
+  adults: number
+  children: number
+  imageSrc: string
+  [k: string]: unknown
+}
+
+export type PackagesSinglePackageSchema = {
+  luggages: PackagesLuggagesWithTypeSchema[]
+  price: PackagesPriceSchema
+  time: PackagesSinglePackageTimeSchema
+  type: "best" | "cheapest" | "fastest"
+  durationDays: number
+  origin: PackagesPositionDetailSchema
+  destination: PackagesPositionDetailSchema
+  [k: string]: unknown
+}
+
+export type PackagesSinglePackageTimeSchema = {
+  outward: {
+    pickupDate: string
+    [k: string]: unknown
+  }
+  return?: {
+    pickupDate: string
+    [k: string]: unknown
+  }
+  [k: string]: unknown
+}
+
+export type PackagesTimeSchema = {
+  outwardDate: string
+  returnDate?: string
   [k: string]: unknown
 }
 
@@ -6980,44 +7021,41 @@ export type GetBestAccomodationsRequestSchema = {
   [k: string]: unknown
 }
 
-export type ChilrenAgesSchema = number[]
-
-export type GuestsSchema = {
-  childrenAges?: ChilrenAgesSchema
-  adults: number
+export type AvailabilityAccomodationSchema = {
+  id: string
+  currency: string
+  products: {
+    id: string
+    maxOccupancy: {
+      adults: number
+      children: number
+      total: number
+      [k: string]: unknown
+    }
+    numberAvailableAtThisPrice: number
+    policies: {
+      cancellation?: {
+        freeCancellationUntil: string
+        type: string
+        [k: string]: unknown
+      }
+      [k: string]: unknown
+    }
+    price: PriceSchema
+    room: {
+      id: string
+      type: string
+      [k: string]: unknown
+    }
+    [k: string]: unknown
+  }[]
+  url: string
   [k: string]: unknown
 }
 
-export type PriceSchema = {
-  base: number
-  book: number
-  total: number
-  [k: string]: unknown
-}
-
-export type PriceWithChargesSchema = PriceSchema & {
-  extraCharges: number
-  [k: string]: unknown
-}
-
-export type CheckInOutSchema = {
-  from: string
-  to: string
-  [k: string]: unknown
-}
-
-export type ContactSchema = {
-  email?: string
-  phone?: string
-  [k: string]: unknown
-}
-
-export type LocationSchema = {
-  country: string
-  city: string
-  coordinates: CoordinatesRequestSchema
-  cap: string
-  address: string
+export type BaseAccomodationConstantSchema = {
+  id: number
+  name: string
   [k: string]: unknown
 }
 
@@ -7046,41 +7084,36 @@ export type BaseAccomodationSchema = {
   [k: string]: unknown
 }
 
-export type ExtendedPhotosSchema = {
-  isMain: boolean
-  tags: string[]
-  url: {
-    large: string
-    standard: string
-    thumbnail: string
-    thumbnailLarge: string
+export type BestAccomodatioDetailSchema = {
+  id: number
+  title: string
+  location: {
+    city: string
+    country: string
     [k: string]: unknown
   }
+  basePrice: number
+  rating: {
+    stars: number
+    numberOfReviews: number
+    reviewScore: number
+    [k: string]: unknown
+  }
+  mainPhotoUrl: string
   [k: string]: unknown
 }
 
-export type RoomDetailSchema = {
-  id: string
-  bedOptions: {
-    configurations: {
-      bedType: string
-      numberOfBeds: number
-      [k: string]: unknown
-    }[]
-    hasBathroom: boolean
-    isBedroom: boolean
-    [k: string]: unknown
-  }
-  cotsAndExtraBeds: {
-    areAllowed: boolean
-    maxCots: number
-    maxExtraBeds: number
-    [k: string]: unknown
-  }
-  description: string
-  name: string
-  photos: ExtendedPhotosSchema[]
-  roomType: string
+export type CheckInOutSchema = {
+  from: string
+  to: string
+  [k: string]: unknown
+}
+
+export type ChilrenAgesSchema = number[]
+
+export type ContactSchema = {
+  email?: string
+  phone?: string
   [k: string]: unknown
 }
 
@@ -7141,35 +7174,16 @@ export type DetailAccomodationSchema = {
   [k: string]: unknown
 }
 
-export type AvailabilityAccomodationSchema = {
-  id: string
-  currency: string
-  products: {
-    id: string
-    maxOccupancy: {
-      adults: number
-      children: number
-      total: number
-      [k: string]: unknown
-    }
-    numberAvailableAtThisPrice: number
-    policies: {
-      cancellation?: {
-        freeCancellationUntil: string
-        type: string
-        [k: string]: unknown
-      }
-      [k: string]: unknown
-    }
-    price: PriceSchema
-    room: {
-      id: string
-      type: string
-      [k: string]: unknown
-    }
+export type ExtendedPhotosSchema = {
+  isMain: boolean
+  tags: string[]
+  url: {
+    large: string
+    standard: string
+    thumbnail: string
+    thumbnailLarge: string
     [k: string]: unknown
-  }[]
-  url: string
+  }
   [k: string]: unknown
 }
 
@@ -7185,15 +7199,36 @@ export type FiltersSchema = {
   [k: string]: unknown
 }
 
-export type BaseAccomodationConstantSchema = {
-  id: number
-  name: string
+export type GuestsSchema = {
+  childrenAges?: ChilrenAgesSchema
+  adults: number
+  [k: string]: unknown
+}
+
+export type LocationSchema = {
+  country: string
+  city: string
+  coordinates: CoordinatesRequestSchema
+  cap: string
+  address: string
   [k: string]: unknown
 }
 
 export type OrderBySchema = {
   field?: "PRICE" | "STARS" | "REVIEWS" | "RECOMMENDED"
   order?: "ASC" | "DESC"
+  [k: string]: unknown
+}
+
+export type PriceSchema = {
+  base: number
+  book: number
+  total: number
+  [k: string]: unknown
+}
+
+export type PriceWithChargesSchema = PriceSchema & {
+  extraCharges: number
   [k: string]: unknown
 }
 
@@ -7216,22 +7251,28 @@ export type RatingDetailSchema = {
   [k: string]: unknown
 }
 
-export type BestAccomodatioDetailSchema = {
-  id: number
-  title: string
-  location: {
-    city: string
-    country: string
+export type RoomDetailSchema = {
+  id: string
+  bedOptions: {
+    configurations: {
+      bedType: string
+      numberOfBeds: number
+      [k: string]: unknown
+    }[]
+    hasBathroom: boolean
+    isBedroom: boolean
     [k: string]: unknown
   }
-  basePrice: number
-  rating: {
-    stars: number
-    numberOfReviews: number
-    reviewScore: number
+  cotsAndExtraBeds: {
+    areAllowed: boolean
+    maxCots: number
+    maxExtraBeds: number
     [k: string]: unknown
   }
-  mainPhotoUrl: string
+  description: string
+  name: string
+  photos: ExtendedPhotosSchema[]
+  roomType: string
   [k: string]: unknown
 }
 
@@ -7333,16 +7374,6 @@ export type HelpRequestSingleResponsechema = {
   [k: string]: unknown
 }
 
-export type UserPartialAssistanceRequestSchema = {
-  id: string
-  title: string
-  description: string
-  category: "travelCreation" | "general" | "payment"
-  importance: "low" | "medium" | "high"
-  creationTimestamp: string
-  [k: string]: unknown
-}
-
 export type UserAssistanceRequestSchema =
   | (UserPartialAssistanceRequestSchema & {
       status: "OPEN"
@@ -7353,6 +7384,16 @@ export type UserAssistanceRequestSchema =
       response: HelpRequestSingleResponsechema
       [k: string]: unknown
     })
+
+export type UserPartialAssistanceRequestSchema = {
+  id: string
+  title: string
+  description: string
+  category: "travelCreation" | "general" | "payment"
+  importance: "low" | "medium" | "high"
+  creationTimestamp: string
+  [k: string]: unknown
+}
 
 export type VerifyUserUniqueness200ResponseSchema = {
   isUnique: boolean
@@ -7502,11 +7543,6 @@ export type ValidateVatRequestSchema = {
   [k: string]: unknown
 }
 
-export type SessionIdSchema = {
-  sessionId: UuidSchema
-  [k: string]: unknown
-}
-
 export type CompanyDetailSchema = {
   vat: string
   fiscalCode: string
@@ -7516,6 +7552,11 @@ export type CompanyDetailSchema = {
   cap: string
   city: string
   province: string
+  [k: string]: unknown
+}
+
+export type SessionIdSchema = {
+  sessionId: UuidSchema
   [k: string]: unknown
 }
 
@@ -7575,15 +7616,14 @@ export type GetCities500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetCitiesRequestSchema = SearchTypeSchema | PlaceSearchSchema | IdSearchSchema
 
-export type SearchTypeSchema = {
-  searchType: "search"
-  search?: string
-  [k: string]: unknown
-}
-
-export type PlaceSearchSchema = {
-  searchType: "place"
-  place: string[]
+export type CitySchema = {
+  id: string
+  country: PositionNameCodeSchema
+  region: string
+  province: PositionNameCodeSchema
+  place: string
+  cap: string
+  coordinates: CoordinatesRequestSchema
   [k: string]: unknown
 }
 
@@ -7593,20 +7633,21 @@ export type IdSearchSchema = {
   [k: string]: unknown
 }
 
+export type PlaceSearchSchema = {
+  searchType: "place"
+  place: string[]
+  [k: string]: unknown
+}
+
 export type PositionNameCodeSchema = {
   name: string
   code: string
   [k: string]: unknown
 }
 
-export type CitySchema = {
-  id: string
-  country: PositionNameCodeSchema
-  region: string
-  province: PositionNameCodeSchema
-  place: string
-  cap: string
-  coordinates: CoordinatesRequestSchema
+export type SearchTypeSchema = {
+  searchType: "search"
+  search?: string
   [k: string]: unknown
 }
 
