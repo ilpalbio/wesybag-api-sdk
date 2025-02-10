@@ -155,252 +155,6 @@ const _checkSetup = (): void => {
 }
 
 /**
-Delete draft shipment by id/ids
-*/
-export type AxiosDeleteDraftShipmentSuccessResponse = (AxiosResponse<DeleteDraftShipment200ResponseSchema> & { status: 200 })
-export type AxiosDeleteDraftShipmentErrorResponse = ((AxiosResponse<DeleteDraftShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<DeleteDraftShipment401ResponseSchema> & { status: 401 }) | (AxiosResponse<DeleteDraftShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<DeleteDraftShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<DeleteDraftShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<DeleteDraftShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<DeleteDraftShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/deleteDraftShipment" }
-export type AxiosDeleteDraftShipmentResponse = AxiosDeleteDraftShipmentSuccessResponse | AxiosDeleteDraftShipmentErrorResponse
-export async function deleteDraftShipment(data: DeleteDraftShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosDeleteDraftShipmentResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "401": {
-      "code": [
-        "UNAUTHORIZED"
-      ]
-    },
-    "404": {
-      "code": [
-        "NOT_FOUND"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/shipments/deleteDraftShipment"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosDeleteDraftShipmentSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosDeleteDraftShipmentErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
-Create new draft shipment
-*/
-export type AxiosCreateDraftShipmentSuccessResponse = (AxiosResponse<CreateDraftShipment200ResponseSchema> & { status: 200 })
-export type AxiosCreateDraftShipmentErrorResponse = ((AxiosResponse<CreateDraftShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<CreateDraftShipment401ResponseSchema> & { status: 401 }) | (AxiosResponse<CreateDraftShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<CreateDraftShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<CreateDraftShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<CreateDraftShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/createDraftShipment" }
-export type AxiosCreateDraftShipmentResponse = AxiosCreateDraftShipmentSuccessResponse | AxiosCreateDraftShipmentErrorResponse
-export async function createDraftShipment(data: CreateDraftShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosCreateDraftShipmentResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "401": {
-      "code": [
-        "UNAUTHENTICATED"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/shipments/createDraftShipment"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosCreateDraftShipmentSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosCreateDraftShipmentErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
-Get draft shipment by id/ids
-*/
-export type AxiosGetDraftShipmentSuccessResponse = (AxiosResponse<GetDraftShipment200ResponseSchema> & { status: 200 })
-export type AxiosGetDraftShipmentErrorResponse = ((AxiosResponse<GetDraftShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetDraftShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetDraftShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetDraftShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetDraftShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetDraftShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getDraftShipment" }
-export type AxiosGetDraftShipmentResponse = AxiosGetDraftShipmentSuccessResponse | AxiosGetDraftShipmentErrorResponse
-export async function getDraftShipment(data: GetDraftShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetDraftShipmentResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "404": {
-      "code": [
-        "NOT_FOUND"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/shipments/getDraftShipment"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosGetDraftShipmentSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosGetDraftShipmentErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
-Update draft shipment by id
-*/
-export type AxiosUpdateDraftShipmentSuccessResponse = (AxiosResponse<UpdateDraftShipment200ResponseSchema> & { status: 200 })
-export type AxiosUpdateDraftShipmentErrorResponse = ((AxiosResponse<UpdateDraftShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<UpdateDraftShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<UpdateDraftShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<UpdateDraftShipment409ResponseSchema> & { status: 409 }) | (AxiosResponse<UpdateDraftShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<UpdateDraftShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<UpdateDraftShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/updateDraftShipment" }
-export type AxiosUpdateDraftShipmentResponse = AxiosUpdateDraftShipmentSuccessResponse | AxiosUpdateDraftShipmentErrorResponse
-export async function updateDraftShipment(data: UpdateDraftShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosUpdateDraftShipmentResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "404": {
-      "code": [
-        "NOT_FOUND"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "409": {
-      "code": [
-        "CONFLICT"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/shipments/updateDraftShipment"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosUpdateDraftShipmentSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosUpdateDraftShipmentErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
 Delete normal shipment by id
 */
 export type AxiosDeleteNormalShipmentSuccessResponse = (AxiosResponse<DeleteNormalShipment200ResponseSchema> & { status: 200 })
@@ -4786,8 +4540,8 @@ export type OkResponseSchema = {
 }
 
 export type PhoneNumberSchema = {
-  phoneNumber: string
-  phonePrefix: string
+  number: string
+  prefix: string
   [k: string]: unknown
 }
 
@@ -5196,88 +4950,6 @@ export type WrongVerificationCodeErrorResponseSchema = {
   [k: string]: unknown
 }
 
-export type DeleteDraftShipment200ResponseSchema = DraftShipmentSchema[]
-
-export type DeleteDraftShipment400ResponseSchema = ValidationErrorResponseSchema
-
-export type DeleteDraftShipment401ResponseSchema = UnauthorizedUserErrorResponseSchema
-
-export type DeleteDraftShipment404ResponseSchema = GenericNotFoundErrorResponseSchema
-
-export type DeleteDraftShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type DeleteDraftShipment415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type DeleteDraftShipment429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type DeleteDraftShipment500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type DeleteDraftShipmentRequestSchema = {
-  ids: UuidSchema[]
-  [k: string]: unknown
-}
-
-export type CreateDraftShipment200ResponseSchema = {
-  outwardShipment: DraftShipmentWithCompletePositionSchema
-  returnShipment?: DraftShipmentWithCompletePositionSchema
-  [k: string]: unknown
-}
-
-export type CreateDraftShipment400ResponseSchema = ValidationErrorResponseSchema
-
-export type CreateDraftShipment401ResponseSchema = UnauthenticatedErrorResponseSchema
-
-export type CreateDraftShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type CreateDraftShipment415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type CreateDraftShipment429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type CreateDraftShipment500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type CreateDraftShipmentRequestSchema = DraftShipmentSchema
-
-export type GetDraftShipment200ResponseSchema = DraftShipmentWithCompletePositionSchema[]
-
-export type GetDraftShipment400ResponseSchema = ValidationErrorResponseSchema
-
-export type GetDraftShipment404ResponseSchema = GenericNotFoundErrorResponseSchema
-
-export type GetDraftShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type GetDraftShipment415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type GetDraftShipment429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type GetDraftShipment500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type GetDraftShipmentRequestSchema = {
-  ids?: UuidSchema[]
-  [k: string]: unknown
-}
-
-export type UpdateDraftShipment200ResponseSchema = OkResponseSchema
-
-export type UpdateDraftShipment400ResponseSchema = ValidationErrorResponseSchema
-
-export type UpdateDraftShipment404ResponseSchema = GenericNotFoundErrorResponseSchema
-
-export type UpdateDraftShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type UpdateDraftShipment409ResponseSchema = ConflictErrorResponseSchema
-
-export type UpdateDraftShipment415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type UpdateDraftShipment429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type UpdateDraftShipment500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type UpdateDraftShipmentRequestSchema = {
-  id: UuidSchema
-  data: PartialDraftShipmentSchema
-  [k: string]: unknown
-}
-
 export type DeleteNormalShipment200ResponseSchema = OkResponseSchema
 
 export type DeleteNormalShipment400ResponseSchema = ValidationErrorResponseSchema
@@ -5343,11 +5015,10 @@ export type CreateNormalShipment429ResponseSchema = ThrottlingErrorResponseSchem
 export type CreateNormalShipment500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type CreateNormalShipmentRequestSchema =
-  | {
-      draftShipmentId: UuidSchema
-      from: "draft"
+  | (CreateShipmentSchema & {
+      from: "scratch"
       [k: string]: unknown
-    }
+    })
   | {
       pendingShipmentId: UuidSchema
       from: "pending"
@@ -5498,6 +5169,18 @@ export type CourierSchema = {
   [k: string]: unknown
 }
 
+export type CreateShipmentSchema = {
+  origin: PositionSchema
+  destination: PositionSchema
+  shipmentType: "NORMAL" | "PREMIUM"
+  luggages: ShipmentLuggageSchema[]
+  deliverySchedule: ScheduleSchema
+  receiver?: ReceiverSchema
+  returnPickupSchedule?: ScheduleSchema
+  outwardShipmentId?: UuidSchema
+  [k: string]: unknown
+}
+
 export type LuggageWithIdSchema = ShipmentLuggageSchema & {
   id: UuidSchema
   [k: string]: unknown
@@ -5510,6 +5193,7 @@ export type PrivatePositionSchema = {
   placeId: UuidSchema
   address: string
   houseNumber: string
+  floor?: string
   [k: string]: unknown
 }
 
@@ -5542,60 +5226,6 @@ export type ShipmentLuggageSchema = {
   length: number
   dimensionsUnit: "CM"
   content: string
-  [k: string]: unknown
-}
-
-export type DraftShipmentSchema = {
-  origin: PositionSchema
-  destination: PositionSchema
-  luggages: ShipmentLuggageSchema[]
-  pickupSchedule: ScheduleSchema
-  deliverySchedule: ScheduleSchema
-  shipmentType: "NORMAL" | "PREMIUM"
-  cost: CostSchema
-  receiver?: ReceiverSchema
-  returnSchedules?: {
-    pickup: ScheduleSchema
-    delivery: ScheduleSchema
-    [k: string]: unknown
-  }
-  outboundShipmentId?: UuidSchema
-  [k: string]: unknown
-}
-
-export type DraftShipmentWithCompletePositionSchema = {
-  origin: CompletePositionSchema
-  destination: CompletePositionSchema
-  luggages: ShipmentLuggageSchema[]
-  pickupSchedule: ScheduleSchema
-  deliverySchedule: ScheduleSchema
-  shipmentType: "NORMAL" | "PREMIUM"
-  cost: CostSchema
-  receiver?: ReceiverSchema
-  returnSchedules?: {
-    pickup: ScheduleSchema
-    delivery: ScheduleSchema
-    [k: string]: unknown
-  }
-  outboundShipmentId?: UuidSchema
-  [k: string]: unknown
-}
-
-export type DraftWithIdSchema = DraftShipmentSchema & {
-  id: UuidSchema
-  [k: string]: unknown
-}
-
-export type PartialDraftShipmentSchema = {
-  origin?: PositionSchema
-  destination?: PositionSchema
-  luggages?: ShipmentLuggageSchema[]
-  pickupSchedule?: ScheduleSchema
-  delverySchedule?: ScheduleSchema
-  shipmentType?: "basic" | "premium"
-  receiver?: ReceiverSchema
-  returnPickupSchedule?: ScheduleSchema
-  outboundShipmentId?: UuidSchema
   [k: string]: unknown
 }
 
@@ -5932,7 +5562,6 @@ export type ResendResetPasswordRequestSchema = {
 }
 
 export type GetUserShipments200ResponseSchema = {
-  draftShipments: DraftWithIdSchema[]
   pendingShipments: SinglePendingShipmentSchema[]
   normalShipments: SingleNormalShipmentWithStatusSchema[]
   [k: string]: unknown
