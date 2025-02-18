@@ -5605,8 +5605,16 @@ export type ResendResetPasswordRequestSchema = {
 }
 
 export type GetUserShipments200ResponseSchema = {
-  pendingShipments: SinglePendingShipmentSchema[]
-  normalShipments: SingleNormalShipmentWithStatusSchema[]
+  pendingShipments: {
+    outwardShipment: SinglePendingShipmentSchema
+    returnShipment?: SinglePendingShipmentSchema
+    [k: string]: unknown
+  }[]
+  normalShipments: {
+    outwardShipment: SingleCompleteNormalShipmentSchema
+    returnShipment?: SingleCompleteNormalShipmentSchema
+    [k: string]: unknown
+  }[]
   [k: string]: unknown
 }
 
@@ -5621,6 +5629,8 @@ export type GetUserShipments429ResponseSchema = ThrottlingErrorResponseSchema
 export type GetUserShipments500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetUserShipmentsRequestSchema = {
+  search?: string
+  field?: "origin" | "destination" | "all"
   [k: string]: unknown
 }
 
@@ -5758,7 +5768,6 @@ export type UserSettingsResponseSchema = {
   phoneNumber: PhoneNumberSchema
   dateOfBirth: string
   email: string
-  password: string
   firstName: string
   lastName: string
   savedLuggages: (SavedLuggageSchemaWithType & {
