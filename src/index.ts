@@ -647,6 +647,65 @@ export async function getPickupSchedule(data: GetPickupScheduleRequestSchema, co
 }
 
 /**
+Get delivery schedule for a shipment
+*/
+export type AxiosGetDeliveryScheduleSuccessResponse = (AxiosResponse<GetDeliverySchedule200ResponseSchema> & { status: 200 })
+export type AxiosGetDeliveryScheduleErrorResponse = ((AxiosResponse<GetDeliverySchedule400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetDeliverySchedule404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetDeliverySchedule405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetDeliverySchedule415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetDeliverySchedule429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetDeliverySchedule500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getDeliverySchedule" }
+export type AxiosGetDeliveryScheduleResponse = AxiosGetDeliveryScheduleSuccessResponse | AxiosGetDeliveryScheduleErrorResponse
+export async function getDeliverySchedule(data: GetDeliveryScheduleRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetDeliveryScheduleResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/shipments/getDeliverySchedule"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosGetDeliveryScheduleSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosGetDeliveryScheduleErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Log the user in
 */
 export type AxiosLogUserSuccessResponse = (AxiosResponse<LogUser200ResponseSchema> & { status: 200 })
@@ -5149,6 +5208,31 @@ export type GetPickupScheduleRequestSchema = {
   origin: PositionSchema
   destination: PositionSchema
   deliverySchedule: DateTimeSchema
+  [k: string]: unknown
+}
+
+export type GetDeliverySchedule200ResponseSchema = {
+  courier: CourierSchema
+  deliverySchedule: DateTimeSchema
+  [k: string]: unknown
+}
+
+export type GetDeliverySchedule400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetDeliverySchedule404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type GetDeliverySchedule405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type GetDeliverySchedule415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type GetDeliverySchedule429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type GetDeliverySchedule500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type GetDeliveryScheduleRequestSchema = {
+  origin: PositionSchema
+  destination: PositionSchema
+  pickupSchedule: DateTimeSchema
   [k: string]: unknown
 }
 
