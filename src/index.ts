@@ -706,6 +706,70 @@ export async function getDeliverySchedule(data: GetDeliveryScheduleRequestSchema
 }
 
 /**
+Get shipments by id without knowing if it is pending or normal
+*/
+export type AxiosGetGenericShipmentSuccessResponse = (AxiosResponse<GetGenericShipment200ResponseSchema> & { status: 200 })
+export type AxiosGetGenericShipmentErrorResponse = ((AxiosResponse<GetGenericShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetGenericShipment401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetGenericShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetGenericShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetGenericShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetGenericShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetGenericShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getGenericShipment" }
+export type AxiosGetGenericShipmentResponse = AxiosGetGenericShipmentSuccessResponse | AxiosGetGenericShipmentErrorResponse
+export async function getGenericShipment(data: GetGenericShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetGenericShipmentResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHENTICATED"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/shipments/getGenericShipment"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosGetGenericShipmentSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosGetGenericShipmentErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Log the user in
 */
 export type AxiosLogUserSuccessResponse = (AxiosResponse<LogUser200ResponseSchema> & { status: 200 })
@@ -5031,11 +5095,7 @@ export type DeleteNormalShipmentRequestSchema = {
   [k: string]: unknown
 }
 
-export type GetNormalShipment200ResponseSchema = {
-  outwardShipment: SingleCompleteNormalShipmentSchema
-  returnShipment?: SingleCompleteNormalShipmentSchema
-  [k: string]: unknown
-}[]
+export type GetNormalShipment200ResponseSchema = GetNormalShipmentResponseSchema[]
 
 export type GetNormalShipment400ResponseSchema = ValidationErrorResponseSchema
 
@@ -5111,11 +5171,7 @@ export type CreatePendingShipmentRequestSchema = CreateShipmentSchema & {
   [k: string]: unknown
 }
 
-export type GetPendingShipment200ResponseSchema = {
-  outwardShipment: SinglePendingShipmentSchema
-  returnShipment?: SinglePendingShipmentSchema
-  [k: string]: unknown
-}[]
+export type GetPendingShipment200ResponseSchema = GetPendingShipmentResponseSchema[]
 
 export type GetPendingShipment400ResponseSchema = ValidationErrorResponseSchema
 
@@ -5236,6 +5292,35 @@ export type GetDeliveryScheduleRequestSchema = {
   [k: string]: unknown
 }
 
+export type GetGenericShipment200ResponseSchema =
+  | (GetPendingShipmentResponseSchema & {
+      type: "PENDING"
+      [k: string]: unknown
+    })
+  | (GetNormalShipmentResponseSchema & {
+      type: "NORMAL"
+      [k: string]: unknown
+    })
+
+export type GetGenericShipment400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetGenericShipment401ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type GetGenericShipment404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type GetGenericShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type GetGenericShipment415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type GetGenericShipment429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type GetGenericShipment500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type GetGenericShipmentRequestSchema = {
+  id: UuidSchema
+  [k: string]: unknown
+}
+
 export type AdditionalPositionSchema = {
   country: string
   city: string
@@ -5338,6 +5423,12 @@ export type ShipmentLuggageSchema = {
   [k: string]: unknown
 }
 
+export type GetNormalShipmentResponseSchema = {
+  outwardShipment: SingleCompleteNormalShipmentSchema
+  returnShipment?: SingleCompleteNormalShipmentSchema
+  [k: string]: unknown
+}
+
 export type ShipmentStatusSchema = {
   id: UuidSchema
   code: string
@@ -5370,7 +5461,7 @@ export type SingleNormalShipmentSchema = {
   trackDetail?: TrackDetailSchema
   cost: CostSchema
   courier: CourierSchema
-  shipmentType: "NORMAL" | "PREMIUM"
+  shipmentType: "PENDING" | "NORMAL"
   receiver?: ReceiverSchema
   [k: string]: unknown
 }
@@ -5387,6 +5478,12 @@ export type SingleNormalShipmentWithStatusSchema = SingleNormalShipmentSchema & 
 
 export type TrackDetailSchema = {
   trackId: string
+  [k: string]: unknown
+}
+
+export type GetPendingShipmentResponseSchema = {
+  outwardShipment: SinglePendingShipmentSchema
+  returnShipment?: SinglePendingShipmentSchema
   [k: string]: unknown
 }
 
