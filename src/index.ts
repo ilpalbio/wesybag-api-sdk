@@ -647,6 +647,65 @@ export async function getPickupSchedule(data: GetPickupScheduleRequestSchema, co
 }
 
 /**
+Get delivery schedule for a shipment
+*/
+export type AxiosGetDeliveryScheduleSuccessResponse = (AxiosResponse<GetDeliverySchedule200ResponseSchema> & { status: 200 })
+export type AxiosGetDeliveryScheduleErrorResponse = ((AxiosResponse<GetDeliverySchedule400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetDeliverySchedule404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetDeliverySchedule405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetDeliverySchedule415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetDeliverySchedule429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetDeliverySchedule500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getDeliverySchedule" }
+export type AxiosGetDeliveryScheduleResponse = AxiosGetDeliveryScheduleSuccessResponse | AxiosGetDeliveryScheduleErrorResponse
+export async function getDeliverySchedule(data: GetDeliveryScheduleRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetDeliveryScheduleResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/shipments/getDeliverySchedule"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosGetDeliveryScheduleSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosGetDeliveryScheduleErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Log the user in
 */
 export type AxiosLogUserSuccessResponse = (AxiosResponse<LogUser200ResponseSchema> & { status: 200 })
@@ -2206,12 +2265,12 @@ export async function getHelpRequests(data: GetHelpRequestsRequestSchema, config
 }
 
 /**
-Get all travels in the system
+Get all shipments in the system
 */
-export type AxiosGetTravelsSuccessResponse = (AxiosResponse<GetTravels200ResponseSchema> & { status: 200 })
-export type AxiosGetTravelsErrorResponse = ((AxiosResponse<GetTravels400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetTravels405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetTravels415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetTravels429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetTravels500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/getTravels" }
-export type AxiosGetTravelsResponse = AxiosGetTravelsSuccessResponse | AxiosGetTravelsErrorResponse
-export async function getTravels(data: GetTravelsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetTravelsResponse> {
+export type AxiosAdminGetNormalShipmentsSuccessResponse = (AxiosResponse<AdminGetNormalShipments200ResponseSchema> & { status: 200 })
+export type AxiosAdminGetNormalShipmentsErrorResponse = ((AxiosResponse<AdminGetNormalShipments400ResponseSchema> & { status: 400 }) | (AxiosResponse<AdminGetNormalShipments405ResponseSchema> & { status: 405 }) | (AxiosResponse<AdminGetNormalShipments415ResponseSchema> & { status: 415 }) | (AxiosResponse<AdminGetNormalShipments429ResponseSchema> & { status: 429 }) | (AxiosResponse<AdminGetNormalShipments500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/adminGetNormalShipments" }
+export type AxiosAdminGetNormalShipmentsResponse = AxiosAdminGetNormalShipmentsSuccessResponse | AxiosAdminGetNormalShipmentsErrorResponse
+export async function adminGetNormalShipments(data: AdminGetNormalShipmentsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminGetNormalShipmentsResponse> {
   _checkSetup()
   const securityParams: AxiosRequestConfig = {}
   const handledResponses = {
@@ -2245,14 +2304,14 @@ export async function getTravels(data: GetTravelsRequestSchema, config?: AxiosRe
     }
   }
   try {
-    const res = await axios!.post(_getFnUrl("/v1/admin/getTravels"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    const res = await axios!.post(_getFnUrl("/v1/admin/adminGetNormalShipments"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
     _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosGetTravelsSuccessResponse
+    return res as AxiosAdminGetNormalShipmentsSuccessResponse
   } catch (e) {
     const { response: res } = e as AxiosError
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosGetTravelsErrorResponse
+      return res as AxiosAdminGetNormalShipmentsErrorResponse
     } else {
       throw e
     }
@@ -2314,12 +2373,12 @@ export async function getErrors(data: GetErrorsRequestSchema, config?: AxiosRequ
 }
 
 /**
-Get all pending travels that need to be confirmed
+Get all pending shipments that need to be confirmed
 */
-export type AxiosGetPendingTravelsSuccessResponse = (AxiosResponse<GetPendingTravels200ResponseSchema> & { status: 200 })
-export type AxiosGetPendingTravelsErrorResponse = ((AxiosResponse<GetPendingTravels400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetPendingTravels405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetPendingTravels415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetPendingTravels429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetPendingTravels500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/getPendingTravels" }
-export type AxiosGetPendingTravelsResponse = AxiosGetPendingTravelsSuccessResponse | AxiosGetPendingTravelsErrorResponse
-export async function getPendingTravels(data: GetPendingTravelsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetPendingTravelsResponse> {
+export type AxiosAdminGetPendingShipmentsSuccessResponse = (AxiosResponse<AdminGetPendingShipments200ResponseSchema> & { status: 200 })
+export type AxiosAdminGetPendingShipmentsErrorResponse = ((AxiosResponse<AdminGetPendingShipments400ResponseSchema> & { status: 400 }) | (AxiosResponse<AdminGetPendingShipments405ResponseSchema> & { status: 405 }) | (AxiosResponse<AdminGetPendingShipments415ResponseSchema> & { status: 415 }) | (AxiosResponse<AdminGetPendingShipments429ResponseSchema> & { status: 429 }) | (AxiosResponse<AdminGetPendingShipments500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/adminGetPendingShipments" }
+export type AxiosAdminGetPendingShipmentsResponse = AxiosAdminGetPendingShipmentsSuccessResponse | AxiosAdminGetPendingShipmentsErrorResponse
+export async function adminGetPendingShipments(data: AdminGetPendingShipmentsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminGetPendingShipmentsResponse> {
   _checkSetup()
   const securityParams: AxiosRequestConfig = {}
   const handledResponses = {
@@ -2353,14 +2412,14 @@ export async function getPendingTravels(data: GetPendingTravelsRequestSchema, co
     }
   }
   try {
-    const res = await axios!.post(_getFnUrl("/v1/admin/getPendingTravels"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    const res = await axios!.post(_getFnUrl("/v1/admin/adminGetPendingShipments"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
     _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosGetPendingTravelsSuccessResponse
+    return res as AxiosAdminGetPendingShipmentsSuccessResponse
   } catch (e) {
     const { response: res } = e as AxiosError
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosGetPendingTravelsErrorResponse
+      return res as AxiosAdminGetPendingShipmentsErrorResponse
     } else {
       throw e
     }
@@ -2557,10 +2616,10 @@ export async function sendHelpResponse(data: SendHelpResponseRequestSchema, conf
 /**
 Reject a pending travel
 */
-export type AxiosRejectPendingTravelSuccessResponse = (AxiosResponse<RejectPendingTravel200ResponseSchema> & { status: 200 })
-export type AxiosRejectPendingTravelErrorResponse = ((AxiosResponse<RejectPendingTravel400ResponseSchema> & { status: 400 }) | (AxiosResponse<RejectPendingTravel404ResponseSchema> & { status: 404 }) | (AxiosResponse<RejectPendingTravel405ResponseSchema> & { status: 405 }) | (AxiosResponse<RejectPendingTravel415ResponseSchema> & { status: 415 }) | (AxiosResponse<RejectPendingTravel429ResponseSchema> & { status: 429 }) | (AxiosResponse<RejectPendingTravel500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/rejectPendingTravel" }
-export type AxiosRejectPendingTravelResponse = AxiosRejectPendingTravelSuccessResponse | AxiosRejectPendingTravelErrorResponse
-export async function rejectPendingTravel(data: RejectPendingTravelRequestSchema, config?: AxiosRequestConfig): Promise<AxiosRejectPendingTravelResponse> {
+export type AxiosRejectPendingShipmentSuccessResponse = (AxiosResponse<RejectPendingShipment200ResponseSchema> & { status: 200 })
+export type AxiosRejectPendingShipmentErrorResponse = ((AxiosResponse<RejectPendingShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<RejectPendingShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<RejectPendingShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<RejectPendingShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<RejectPendingShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<RejectPendingShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/rejectPendingShipment" }
+export type AxiosRejectPendingShipmentResponse = AxiosRejectPendingShipmentSuccessResponse | AxiosRejectPendingShipmentErrorResponse
+export async function rejectPendingShipment(data: RejectPendingShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosRejectPendingShipmentResponse> {
   _checkSetup()
   const securityParams: AxiosRequestConfig = {}
   const handledResponses = {
@@ -2599,14 +2658,14 @@ export async function rejectPendingTravel(data: RejectPendingTravelRequestSchema
     }
   }
   try {
-    const res = await axios!.post(_getFnUrl("/v1/admin/rejectPendingTravel"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    const res = await axios!.post(_getFnUrl("/v1/admin/rejectPendingShipment"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
     _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosRejectPendingTravelSuccessResponse
+    return res as AxiosRejectPendingShipmentSuccessResponse
   } catch (e) {
     const { response: res } = e as AxiosError
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosRejectPendingTravelErrorResponse
+      return res as AxiosRejectPendingShipmentErrorResponse
     } else {
       throw e
     }
@@ -4527,9 +4586,9 @@ export type CoordinatesRequestSchema = {
   [k: string]: unknown
 }
 
-export type CountryInformationSchema = "IT"
-
 export type CurrencySchema = "eur"
+
+export type DateTimeSchema = string
 
 export type EmailSchema = string
 
@@ -4968,12 +5027,13 @@ export type DeleteNormalShipment500ResponseSchema = UnexpectedErrorResponseSchem
 
 export type DeleteNormalShipmentRequestSchema = {
   id: UuidSchema
+  removeReturnShipment: boolean
   [k: string]: unknown
 }
 
 export type GetNormalShipment200ResponseSchema = {
-  outwardShipment: SingleNormalShipmentWithStatusSchema
-  returnShipment?: SingleNormalShipmentWithStatusSchema
+  outwardShipment: SingleCompleteNormalShipmentSchema
+  returnShipment?: SingleCompleteNormalShipmentSchema
   [k: string]: unknown
 }[]
 
@@ -4995,8 +5055,8 @@ export type GetNormalShipmentRequestSchema = {
 }
 
 export type CreateNormalShipment200ResponseSchema = {
-  outwardShipment: SingleNormalShipmentWithStatusSchema
-  returnShipment?: SingleNormalShipmentWithStatusSchema
+  outwardShipment: SingleCompleteNormalShipmentSchema
+  returnShipment?: SingleCompleteNormalShipmentSchema
   [k: string]: unknown
 }
 
@@ -5017,6 +5077,7 @@ export type CreateNormalShipment500ResponseSchema = UnexpectedErrorResponseSchem
 export type CreateNormalShipmentRequestSchema =
   | (CreateShipmentSchema & {
       from: "scratch"
+      courierId: UuidSchema
       [k: string]: unknown
     })
   | {
@@ -5045,8 +5106,8 @@ export type CreatePendingShipment429ResponseSchema = ThrottlingErrorResponseSche
 
 export type CreatePendingShipment500ResponseSchema = UnexpectedErrorResponseSchema
 
-export type CreatePendingShipmentRequestSchema = {
-  draftShipmentId: UuidSchema
+export type CreatePendingShipmentRequestSchema = CreateShipmentSchema & {
+  courierId: UuidSchema
   [k: string]: unknown
 }
 
@@ -5091,10 +5152,16 @@ export type DeletePendingShipment500ResponseSchema = UnexpectedErrorResponseSche
 
 export type DeletePendingShipmentRequestSchema = {
   id: UuidSchema
+  removeReturnShipment: boolean
   [k: string]: unknown
 }
 
 export type GetCostEstimate200ResponseSchema = {
+  courier: {
+    oneWayShipment: CourierSchema
+    roundTripShipment?: CourierSchema
+    [k: string]: unknown
+  }
   estimateCost: CostSchema
   [k: string]: unknown
 }
@@ -5115,11 +5182,13 @@ export type GetCostEstimateRequestSchema = {
   origin: PositionSchema
   destination: PositionSchema
   luggages: ShipmentLuggageSchema[]
+  type: "oneWay" | "roundTrip"
   [k: string]: unknown
 }
 
 export type GetPickupSchedule200ResponseSchema = {
-  pickupSchedule: ScheduleSchema
+  courier: CourierSchema
+  pickupSchedule: DateTimeSchema
   [k: string]: unknown
 }
 
@@ -5138,7 +5207,32 @@ export type GetPickupSchedule500ResponseSchema = UnexpectedErrorResponseSchema
 export type GetPickupScheduleRequestSchema = {
   origin: PositionSchema
   destination: PositionSchema
-  deliverySchedule: ScheduleSchema
+  deliverySchedule: DateTimeSchema
+  [k: string]: unknown
+}
+
+export type GetDeliverySchedule200ResponseSchema = {
+  courier: CourierSchema
+  deliverySchedule: DateTimeSchema
+  [k: string]: unknown
+}
+
+export type GetDeliverySchedule400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetDeliverySchedule404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type GetDeliverySchedule405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type GetDeliverySchedule415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type GetDeliverySchedule429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type GetDeliverySchedule500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type GetDeliveryScheduleRequestSchema = {
+  origin: PositionSchema
+  destination: PositionSchema
+  pickupSchedule: DateTimeSchema
   [k: string]: unknown
 }
 
@@ -5151,6 +5245,17 @@ export type AdditionalPositionSchema = {
   [k: string]: unknown
 }
 
+export type CompleteLuggageSchema = {
+  weight: number
+  weightUnit: "kg"
+  height: number
+  width: number
+  length: number
+  dimensionUnit: "cm"
+  content: LuggageContentSchema[]
+  [k: string]: unknown
+}
+
 export type CompletePositionSchema = PositionSchema & AdditionalPositionSchema
 
 export type CompletePrivateSchema = PrivatePositionSchema & AdditionalPositionSchema
@@ -5158,8 +5263,8 @@ export type CompletePrivateSchema = PrivatePositionSchema & AdditionalPositionSc
 export type CompletePublicSchema = PublicPositionSchema & AdditionalPositionSchema
 
 export type CostSchema = {
-  totalAmount?: number
-  currencya?: CurrencySchema
+  totalAmount: number
+  currency: CurrencySchema
   [k: string]: unknown
 }
 
@@ -5172,12 +5277,17 @@ export type CourierSchema = {
 export type CreateShipmentSchema = {
   origin: PositionSchema
   destination: PositionSchema
-  shipmentType: "NORMAL" | "PREMIUM"
   luggages: ShipmentLuggageSchema[]
-  deliverySchedule: ScheduleSchema
+  deliverySchedule: DateTimeSchema
   receiver?: ReceiverSchema
-  returnPickupSchedule?: ScheduleSchema
+  returnShipment?: ReturnShipmentSchema
   outwardShipmentId?: UuidSchema
+  [k: string]: unknown
+}
+
+export type LuggageContentSchema = {
+  id: UuidSchema
+  name: string
   [k: string]: unknown
 }
 
@@ -5211,21 +5321,20 @@ export type ReceiverSchema = {
   [k: string]: unknown
 }
 
-export type ScheduleSchema = {
-  date: string
-  readyTime: TimeSchema
-  closeTime: TimeSchema
+export type ReturnShipmentSchema = {
+  pickupSchedule: DateTimeSchema
+  courierId: UuidSchema
   [k: string]: unknown
 }
 
 export type ShipmentLuggageSchema = {
   weight: number
-  weightUnit: "KGS"
+  weightUnit: "kg"
   height: number
   width: number
   length: number
-  dimensionsUnit: "CM"
-  content: string
+  dimensionUnit: "cm"
+  contentIds: UuidSchema[]
   [k: string]: unknown
 }
 
@@ -5237,18 +5346,37 @@ export type ShipmentStatusSchema = {
   [k: string]: unknown
 }
 
+export type SingleCompleteNormalShipmentSchema = {
+  id: UuidSchema
+  origin: CompletePositionSchema
+  destination: CompletePositionSchema
+  luggages: CompleteLuggageSchema[]
+  pickupSchedule: DateTimeSchema
+  deliverySchedule: DateTimeSchema
+  trackDetail?: TrackDetailSchema
+  cost: CostSchema
+  courier: CourierSchema
+  receiver?: ReceiverSchema
+  [k: string]: unknown
+}
+
 export type SingleNormalShipmentSchema = {
   id: UuidSchema
   origin: CompletePositionSchema
   destination: CompletePositionSchema
   luggages: LuggageWithIdSchema[]
-  pickupSchedule: ScheduleSchema
-  deliverySchedule: ScheduleSchema
-  trackDetail: TrackDetailSchema
+  pickupSchedule: DateTimeSchema
+  deliverySchedule: DateTimeSchema
+  trackDetail?: TrackDetailSchema
   cost: CostSchema
   courier: CourierSchema
   shipmentType: "NORMAL" | "PREMIUM"
   receiver?: ReceiverSchema
+  [k: string]: unknown
+}
+
+export type SingleNormalShipmentWithCourierSchema = SingleNormalShipmentSchema & {
+  courierId: UuidSchema
   [k: string]: unknown
 }
 
@@ -5266,12 +5394,11 @@ export type SinglePendingShipmentSchema = {
   id: UuidSchema
   origin: CompletePositionSchema
   destination: CompletePositionSchema
-  luggages: ShipmentLuggageSchema[]
-  pickupSchedule: ScheduleSchema
-  deliverySchedule: ScheduleSchema
+  luggages: CompleteLuggageSchema[]
+  pickupSchedule: DateTimeSchema
+  deliverySchedule: DateTimeSchema
   cost: CostSchema
   courier: CourierSchema
-  shipmentType: "PREMIUM"
   receiver?: ReceiverSchema
   [k: string]: unknown
 }
@@ -5562,8 +5689,16 @@ export type ResendResetPasswordRequestSchema = {
 }
 
 export type GetUserShipments200ResponseSchema = {
-  pendingShipments: SinglePendingShipmentSchema[]
-  normalShipments: SingleNormalShipmentWithStatusSchema[]
+  pendingShipments: {
+    outwardShipment: SinglePendingShipmentSchema
+    returnShipment?: SinglePendingShipmentSchema
+    [k: string]: unknown
+  }[]
+  normalShipments: {
+    outwardShipment: SingleCompleteNormalShipmentSchema
+    returnShipment?: SingleCompleteNormalShipmentSchema
+    [k: string]: unknown
+  }[]
   [k: string]: unknown
 }
 
@@ -5578,6 +5713,8 @@ export type GetUserShipments429ResponseSchema = ThrottlingErrorResponseSchema
 export type GetUserShipments500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetUserShipmentsRequestSchema = {
+  search?: string
+  field?: "origin" | "destination" | "all"
   [k: string]: unknown
 }
 
@@ -5715,7 +5852,6 @@ export type UserSettingsResponseSchema = {
   phoneNumber: PhoneNumberSchema
   dateOfBirth: string
   email: string
-  password: string
   firstName: string
   lastName: string
   savedLuggages: (SavedLuggageSchemaWithType & {
@@ -5953,19 +6089,23 @@ export type GetHelpRequestsRequestSchema = {
   [k: string]: unknown
 }
 
-export type GetTravels200ResponseSchema = TravelSchemaWithStatus[]
+export type AdminGetNormalShipments200ResponseSchema = {
+  outwardShipment: SingleCompleteNormalShipmentSchema
+  returnShipment?: SingleCompleteNormalShipmentSchema
+  [k: string]: unknown
+}[]
 
-export type GetTravels400ResponseSchema = ValidationErrorResponseSchema
+export type AdminGetNormalShipments400ResponseSchema = ValidationErrorResponseSchema
 
-export type GetTravels405ResponseSchema = MethodNotAllowedErrorResponseSchema
+export type AdminGetNormalShipments405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
-export type GetTravels415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+export type AdminGetNormalShipments415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
 
-export type GetTravels429ResponseSchema = ThrottlingErrorResponseSchema
+export type AdminGetNormalShipments429ResponseSchema = ThrottlingErrorResponseSchema
 
-export type GetTravels500ResponseSchema = UnexpectedErrorResponseSchema
+export type AdminGetNormalShipments500ResponseSchema = UnexpectedErrorResponseSchema
 
-export type GetTravelsRequestSchema = {
+export type AdminGetNormalShipmentsRequestSchema = {
   users?: string[]
   status?: string[]
   search?: string
@@ -5991,19 +6131,23 @@ export type GetErrorsRequestSchema = {
   [k: string]: unknown
 }
 
-export type GetPendingTravels200ResponseSchema = PendingTravelSchema[]
+export type AdminGetPendingShipments200ResponseSchema = {
+  outwardShipment: SinglePendingShipmentSchema
+  returnShipment?: SinglePendingShipmentSchema
+  [k: string]: unknown
+}[]
 
-export type GetPendingTravels400ResponseSchema = ValidationErrorResponseSchema
+export type AdminGetPendingShipments400ResponseSchema = ValidationErrorResponseSchema
 
-export type GetPendingTravels405ResponseSchema = MethodNotAllowedErrorResponseSchema
+export type AdminGetPendingShipments405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
-export type GetPendingTravels415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+export type AdminGetPendingShipments415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
 
-export type GetPendingTravels429ResponseSchema = ThrottlingErrorResponseSchema
+export type AdminGetPendingShipments429ResponseSchema = ThrottlingErrorResponseSchema
 
-export type GetPendingTravels500ResponseSchema = UnexpectedErrorResponseSchema
+export type AdminGetPendingShipments500ResponseSchema = UnexpectedErrorResponseSchema
 
-export type GetPendingTravelsRequestSchema = {
+export type AdminGetPendingShipmentsRequestSchema = {
   dateSort?: "ASC" | "DESC"
   [k: string]: unknown
 }
@@ -6071,33 +6215,23 @@ export type SendHelpResponseRequestSchema = {
   [k: string]: unknown
 }
 
-export type RejectPendingTravel200ResponseSchema = OkResponseSchema
+export type RejectPendingShipment200ResponseSchema = OkResponseSchema
 
-export type RejectPendingTravel400ResponseSchema = ValidationErrorResponseSchema
+export type RejectPendingShipment400ResponseSchema = ValidationErrorResponseSchema
 
-export type RejectPendingTravel404ResponseSchema = TravelNotFoundErrorResponseSchema
+export type RejectPendingShipment404ResponseSchema = TravelNotFoundErrorResponseSchema
 
-export type RejectPendingTravel405ResponseSchema = MethodNotAllowedErrorResponseSchema
+export type RejectPendingShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
-export type RejectPendingTravel415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+export type RejectPendingShipment415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
 
-export type RejectPendingTravel429ResponseSchema = ThrottlingErrorResponseSchema
+export type RejectPendingShipment429ResponseSchema = ThrottlingErrorResponseSchema
 
-export type RejectPendingTravel500ResponseSchema = UnexpectedErrorResponseSchema
+export type RejectPendingShipment500ResponseSchema = UnexpectedErrorResponseSchema
 
-export type RejectPendingTravelRequestSchema = {
+export type RejectPendingShipmentRequestSchema = {
   id: UuidSchema
   motivation: string
-  [k: string]: unknown
-}
-
-export type AdminTimeSchema = {
-  pickupDate: string
-  arrivalDate: string
-  pickupReadyTime: string
-  pickupCloseTime: string
-  arrivalReadyTime: string
-  arrivalCloseTime: string
   [k: string]: unknown
 }
 
@@ -6105,24 +6239,6 @@ export type BaseHelpRequestSchema = {
   id: string
   name: string
   status: "OPEN" | "CLOSED"
-  [k: string]: unknown
-}
-
-export type BaseTravelSchema = {
-  id: string
-  completeDestination: PlaceSchema
-  completeOrigin: PlaceSchema
-  status: StatusSchema
-  luggagesNumber: number
-  [k: string]: unknown
-}
-
-export type BaseUserSchema = {
-  firstName: string
-  lastName: string
-  email: string
-  completePhone: string
-  id: string
   [k: string]: unknown
 }
 
@@ -6155,6 +6271,47 @@ export type HelpRequestSchema = {
   [k: string]: unknown
 }
 
+export type OperatorSchema = {
+  type: "CLIENT" | "OPERATOR"
+  firstName: string
+  lastName: string
+  [k: string]: unknown
+}
+
+export type TravelSchemaWithCompleteUser = ShipmentSchema & {
+  user: UserDetailSchema
+  [k: string]: unknown
+}
+
+export type TravelSchemaWithStatus = ShipmentSchemaWithBaseUser & {
+  status: StatusSchema[]
+  [k: string]: unknown
+}
+
+export type AdminTimeSchema = {
+  pickupDatetime: string
+  deliveryDatetime: string
+  [k: string]: unknown
+}
+
+export type BaseShipmentSchema = {
+  id: string
+  completeDestination: PlaceSchema
+  completeOrigin: PlaceSchema
+  status: StatusSchema
+  luggagesNumber: number
+  [k: string]: unknown
+}
+
+export type BaseUserSchema = {
+  firstName: string
+  lastName: string
+  email: string
+  completePhone: string
+  id: string
+  [k: string]: unknown
+}
+
 export type LuggageSchema = {
   content: string
   weight: string
@@ -6166,14 +6323,7 @@ export type LuggageSchema = {
   [k: string]: unknown
 }
 
-export type OperatorSchema = {
-  type: "CLIENT" | "OPERATOR"
-  firstName: string
-  lastName: string
-  [k: string]: unknown
-}
-
-export type PendingTravelSchema = TravelSchemaWithBaseUser
+export type PendingShipmentSchema = ShipmentSchemaWithBaseUser
 
 export type PlaceSchema = {
   detailedName: string
@@ -6185,14 +6335,7 @@ export type PlaceSchema = {
   [k: string]: unknown
 }
 
-export type StatusSchema = {
-  name: string
-  datetime: string
-  isActive: boolean
-  [k: string]: unknown
-}
-
-export type TravelAdditionalSchema = {
+export type ShipmentAdditionalSchema = {
   differentReceiver?: {
     firstName: string
     lastName: string
@@ -6203,29 +6346,27 @@ export type TravelAdditionalSchema = {
   [k: string]: unknown
 }
 
-export type TravelSchema = {
+export type ShipmentSchema = {
   id: string
   destination: PlaceSchema
   origin: PlaceSchema
-  luggages: LuggageSchema[]
+  luggages: CompleteLuggageSchema[]
   outwardTime: AdminTimeSchema
   returnTime?: AdminTimeSchema
-  additional?: TravelAdditionalSchema
+  additional?: ShipmentAdditionalSchema
   [k: string]: unknown
 }
 
-export type TravelSchemaWithBaseUser = TravelSchema & {
+export type ShipmentSchemaWithBaseUser = ShipmentSchema & {
   user: BaseUserSchema
   [k: string]: unknown
 }
 
-export type TravelSchemaWithCompleteUser = TravelSchema & {
-  user: UserDetailSchema
-  [k: string]: unknown
-}
-
-export type TravelSchemaWithStatus = TravelSchemaWithBaseUser & {
-  status: StatusSchema[]
+export type StatusSchema = {
+  code: string
+  description: string
+  creationTimestamp: DateTimeSchema
+  isActive: boolean
   [k: string]: unknown
 }
 
@@ -6236,7 +6377,7 @@ export type UserDetailSchema = {
   email: string
   status: "ACTIVE" | "DELETED"
   completePhone: string
-  travels: BaseTravelSchema[]
+  shipments: BaseShipmentSchema[]
   helpRequests: BaseHelpRequestSchema[]
   [k: string]: unknown
 }
