@@ -155,194 +155,12 @@ const _checkSetup = (): void => {
 }
 
 /**
-Create a new travel for the luggages
+Delete normal shipment by id
 */
-export type AxiosCreateTravelSuccessResponse = (AxiosResponse<CreateTravel200ResponseSchema> & { status: 200 })
-export type AxiosCreateTravelErrorResponse = ((AxiosResponse<CreateTravel400ResponseSchema> & { status: 400 }) | (AxiosResponse<CreateTravel404ResponseSchema> & { status: 404 }) | (AxiosResponse<CreateTravel405ResponseSchema> & { status: 405 }) | (AxiosResponse<CreateTravel415ResponseSchema> & { status: 415 }) | (AxiosResponse<CreateTravel429ResponseSchema> & { status: 429 }) | (AxiosResponse<CreateTravel500ResponseSchema> & { status: 500 })) & { path: "/v1/travel/createTravel" }
-export type AxiosCreateTravelResponse = AxiosCreateTravelSuccessResponse | AxiosCreateTravelErrorResponse
-export async function createTravel(data: CreateTravelRequestSchema, config?: AxiosRequestConfig): Promise<AxiosCreateTravelResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "404": {
-      "code": [
-        "NOT_FOUND"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/travel/createTravel"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosCreateTravelSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosCreateTravelErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
-Get travel information
-*/
-export type AxiosGetTravelInformationSuccessResponse = (AxiosResponse<GetTravelInformation200ResponseSchema> & { status: 200 })
-export type AxiosGetTravelInformationErrorResponse = ((AxiosResponse<GetTravelInformation400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetTravelInformation404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetTravelInformation405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetTravelInformation415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetTravelInformation429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetTravelInformation500ResponseSchema> & { status: 500 })) & { path: "/v1/travel/getTravelInformation" }
-export type AxiosGetTravelInformationResponse = AxiosGetTravelInformationSuccessResponse | AxiosGetTravelInformationErrorResponse
-export async function getTravelInformation(data: GetTravelInformationRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetTravelInformationResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "404": {
-      "code": [
-        "NOT_FOUND"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/travel/getTravelInformation"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosGetTravelInformationSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosGetTravelInformationErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
-Calculate the cost of the travel
-*/
-export type AxiosCalculateTravelCostSuccessResponse = (AxiosResponse<CalculateTravelCost200ResponseSchema> & { status: 200 })
-export type AxiosCalculateTravelCostErrorResponse = ((AxiosResponse<CalculateTravelCost400ResponseSchema> & { status: 400 }) | (AxiosResponse<CalculateTravelCost403ResponseSchema> & { status: 403 }) | (AxiosResponse<CalculateTravelCost404ResponseSchema> & { status: 404 }) | (AxiosResponse<CalculateTravelCost405ResponseSchema> & { status: 405 }) | (AxiosResponse<CalculateTravelCost415ResponseSchema> & { status: 415 }) | (AxiosResponse<CalculateTravelCost429ResponseSchema> & { status: 429 }) | (AxiosResponse<CalculateTravelCost500ResponseSchema> & { status: 500 })) & { path: "/v1/travel/calculateTravelCost" }
-export type AxiosCalculateTravelCostResponse = AxiosCalculateTravelCostSuccessResponse | AxiosCalculateTravelCostErrorResponse
-export async function calculateTravelCost(data: CalculateTravelCostRequestSchema, config?: AxiosRequestConfig): Promise<AxiosCalculateTravelCostResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "403": {
-      "code": [
-        "TOO_TIGHT_DEADLINE"
-      ]
-    },
-    "404": {
-      "code": [
-        "NOT_FOUND"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/travel/calculateTravelCost"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosCalculateTravelCostSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosCalculateTravelCostErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
-Delete travel
-*/
-export type AxiosDeleteTravelSuccessResponse = (AxiosResponse<DeleteTravel200ResponseSchema> & { status: 200 })
-export type AxiosDeleteTravelErrorResponse = ((AxiosResponse<DeleteTravel400ResponseSchema> & { status: 400 }) | (AxiosResponse<DeleteTravel404ResponseSchema> & { status: 404 }) | (AxiosResponse<DeleteTravel405ResponseSchema> & { status: 405 }) | (AxiosResponse<DeleteTravel409ResponseSchema> & { status: 409 }) | (AxiosResponse<DeleteTravel415ResponseSchema> & { status: 415 }) | (AxiosResponse<DeleteTravel429ResponseSchema> & { status: 429 }) | (AxiosResponse<DeleteTravel500ResponseSchema> & { status: 500 })) & { path: "/v1/travel/deleteTravel" }
-export type AxiosDeleteTravelResponse = AxiosDeleteTravelSuccessResponse | AxiosDeleteTravelErrorResponse
-export async function deleteTravel(data: DeleteTravelRequestSchema, config?: AxiosRequestConfig): Promise<AxiosDeleteTravelResponse> {
+export type AxiosDeleteNormalShipmentSuccessResponse = (AxiosResponse<DeleteNormalShipment200ResponseSchema> & { status: 200 })
+export type AxiosDeleteNormalShipmentErrorResponse = ((AxiosResponse<DeleteNormalShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<DeleteNormalShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<DeleteNormalShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<DeleteNormalShipment409ResponseSchema> & { status: 409 }) | (AxiosResponse<DeleteNormalShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<DeleteNormalShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<DeleteNormalShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/deleteNormalShipment" }
+export type AxiosDeleteNormalShipmentResponse = AxiosDeleteNormalShipmentSuccessResponse | AxiosDeleteNormalShipmentErrorResponse
+export async function deleteNormalShipment(data: DeleteNormalShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosDeleteNormalShipmentResponse> {
   _checkSetup()
   const securityParams: AxiosRequestConfig = {}
   const handledResponses = {
@@ -386,14 +204,14 @@ export async function deleteTravel(data: DeleteTravelRequestSchema, config?: Axi
     }
   }
   try {
-    const res = await axios!.post(_getFnUrl("/v1/travel/deleteTravel"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    const res = await axios!.post(_getFnUrl("/v1/shipments/deleteNormalShipment"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
     _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosDeleteTravelSuccessResponse
+    return res as AxiosDeleteNormalShipmentSuccessResponse
   } catch (e) {
     const { response: res } = e as AxiosError
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosDeleteTravelErrorResponse
+      return res as AxiosDeleteNormalShipmentErrorResponse
     } else {
       throw e
     }
@@ -401,12 +219,12 @@ export async function deleteTravel(data: DeleteTravelRequestSchema, config?: Axi
 }
 
 /**
-Suggest the optimal arrival date and time for the travel
+Get shipment by id/ids
 */
-export type AxiosSuggestPickupSuccessResponse = (AxiosResponse<SuggestPickup200ResponseSchema> & { status: 200 })
-export type AxiosSuggestPickupErrorResponse = ((AxiosResponse<SuggestPickup400ResponseSchema> & { status: 400 }) | (AxiosResponse<SuggestPickup404ResponseSchema> & { status: 404 }) | (AxiosResponse<SuggestPickup405ResponseSchema> & { status: 405 }) | (AxiosResponse<SuggestPickup415ResponseSchema> & { status: 415 }) | (AxiosResponse<SuggestPickup429ResponseSchema> & { status: 429 }) | (AxiosResponse<SuggestPickup500ResponseSchema> & { status: 500 })) & { path: "/v1/travel/suggestPickup" }
-export type AxiosSuggestPickupResponse = AxiosSuggestPickupSuccessResponse | AxiosSuggestPickupErrorResponse
-export async function suggestPickup(data: SuggestPickupRequestSchema, config?: AxiosRequestConfig): Promise<AxiosSuggestPickupResponse> {
+export type AxiosGetNormalShipmentSuccessResponse = (AxiosResponse<GetNormalShipment200ResponseSchema> & { status: 200 })
+export type AxiosGetNormalShipmentErrorResponse = ((AxiosResponse<GetNormalShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetNormalShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetNormalShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetNormalShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetNormalShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetNormalShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getNormalShipment" }
+export type AxiosGetNormalShipmentResponse = AxiosGetNormalShipmentSuccessResponse | AxiosGetNormalShipmentErrorResponse
+export async function getNormalShipment(data: GetNormalShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetNormalShipmentResponse> {
   _checkSetup()
   const securityParams: AxiosRequestConfig = {}
   const handledResponses = {
@@ -445,14 +263,14 @@ export async function suggestPickup(data: SuggestPickupRequestSchema, config?: A
     }
   }
   try {
-    const res = await axios!.post(_getFnUrl("/v1/travel/suggestPickup"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    const res = await axios!.post(_getFnUrl("/v1/shipments/getNormalShipment"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
     _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosSuggestPickupSuccessResponse
+    return res as AxiosGetNormalShipmentSuccessResponse
   } catch (e) {
     const { response: res } = e as AxiosError
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosSuggestPickupErrorResponse
+      return res as AxiosGetNormalShipmentErrorResponse
     } else {
       throw e
     }
@@ -460,12 +278,12 @@ export async function suggestPickup(data: SuggestPickupRequestSchema, config?: A
 }
 
 /**
-get all structures
+Create new travel from draft or pending shipment
 */
-export type AxiosGetStructuresSuccessResponse = (AxiosResponse<GetStructures200ResponseSchema> & { status: 200 })
-export type AxiosGetStructuresErrorResponse = ((AxiosResponse<GetStructures400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetStructures405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetStructures415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetStructures429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetStructures500ResponseSchema> & { status: 500 })) & { path: "/v1/travel/getStructures" }
-export type AxiosGetStructuresResponse = AxiosGetStructuresSuccessResponse | AxiosGetStructuresErrorResponse
-export async function getStructures(data: GetStructuresRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetStructuresResponse> {
+export type AxiosCreateNormalShipmentSuccessResponse = (AxiosResponse<CreateNormalShipment200ResponseSchema> & { status: 200 })
+export type AxiosCreateNormalShipmentErrorResponse = ((AxiosResponse<CreateNormalShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<CreateNormalShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<CreateNormalShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<CreateNormalShipment409ResponseSchema> & { status: 409 }) | (AxiosResponse<CreateNormalShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<CreateNormalShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<CreateNormalShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/createNormalShipment" }
+export type AxiosCreateNormalShipmentResponse = AxiosCreateNormalShipmentSuccessResponse | AxiosCreateNormalShipmentErrorResponse
+export async function createNormalShipment(data: CreateNormalShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosCreateNormalShipmentResponse> {
   _checkSetup()
   const securityParams: AxiosRequestConfig = {}
   const handledResponses = {
@@ -477,9 +295,19 @@ export async function getStructures(data: GetStructuresRequestSchema, config?: A
         "VALIDATION_ERROR"
       ]
     },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
     "405": {
       "code": [
         "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "409": {
+      "code": [
+        "CONFLICT"
       ]
     },
     "415": {
@@ -499,14 +327,14 @@ export async function getStructures(data: GetStructuresRequestSchema, config?: A
     }
   }
   try {
-    const res = await axios!.post(_getFnUrl("/v1/travel/getStructures"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    const res = await axios!.post(_getFnUrl("/v1/shipments/createNormalShipment"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
     _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosGetStructuresSuccessResponse
+    return res as AxiosCreateNormalShipmentSuccessResponse
   } catch (e) {
     const { response: res } = e as AxiosError
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosGetStructuresErrorResponse
+      return res as AxiosCreateNormalShipmentErrorResponse
     } else {
       throw e
     }
@@ -514,12 +342,76 @@ export async function getStructures(data: GetStructuresRequestSchema, config?: A
 }
 
 /**
-Get a single structure
+Create new pending shipment by draft
 */
-export type AxiosGetSingleStructureSuccessResponse = (AxiosResponse<GetSingleStructure200ResponseSchema> & { status: 200 })
-export type AxiosGetSingleStructureErrorResponse = ((AxiosResponse<GetSingleStructure400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetSingleStructure404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetSingleStructure405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetSingleStructure415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetSingleStructure429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetSingleStructure500ResponseSchema> & { status: 500 })) & { path: "/v1/travel/getSingleStructure" }
-export type AxiosGetSingleStructureResponse = AxiosGetSingleStructureSuccessResponse | AxiosGetSingleStructureErrorResponse
-export async function getSingleStructure(data: GetSingleStructureRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetSingleStructureResponse> {
+export type AxiosCreatePendingShipmentSuccessResponse = (AxiosResponse<CreatePendingShipment200ResponseSchema> & { status: 200 })
+export type AxiosCreatePendingShipmentErrorResponse = ((AxiosResponse<CreatePendingShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<CreatePendingShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<CreatePendingShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<CreatePendingShipment409ResponseSchema> & { status: 409 }) | (AxiosResponse<CreatePendingShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<CreatePendingShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<CreatePendingShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/createPendingShipment" }
+export type AxiosCreatePendingShipmentResponse = AxiosCreatePendingShipmentSuccessResponse | AxiosCreatePendingShipmentErrorResponse
+export async function createPendingShipment(data: CreatePendingShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosCreatePendingShipmentResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "409": {
+      "code": [
+        "CONFLICT"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/shipments/createPendingShipment"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosCreatePendingShipmentSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosCreatePendingShipmentErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+Get pending shipment by id/ids
+*/
+export type AxiosGetPendingShipmentSuccessResponse = (AxiosResponse<GetPendingShipment200ResponseSchema> & { status: 200 })
+export type AxiosGetPendingShipmentErrorResponse = ((AxiosResponse<GetPendingShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetPendingShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetPendingShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetPendingShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetPendingShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetPendingShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getPendingShipment" }
+export type AxiosGetPendingShipmentResponse = AxiosGetPendingShipmentSuccessResponse | AxiosGetPendingShipmentErrorResponse
+export async function getPendingShipment(data: GetPendingShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetPendingShipmentResponse> {
   _checkSetup()
   const securityParams: AxiosRequestConfig = {}
   const handledResponses = {
@@ -558,14 +450,14 @@ export async function getSingleStructure(data: GetSingleStructureRequestSchema, 
     }
   }
   try {
-    const res = await axios!.post(_getFnUrl("/v1/travel/getSingleStructure"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    const res = await axios!.post(_getFnUrl("/v1/shipments/getPendingShipment"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
     _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosGetSingleStructureSuccessResponse
+    return res as AxiosGetPendingShipmentSuccessResponse
   } catch (e) {
     const { response: res } = e as AxiosError
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosGetSingleStructureErrorResponse
+      return res as AxiosGetPendingShipmentErrorResponse
     } else {
       throw e
     }
@@ -573,12 +465,76 @@ export async function getSingleStructure(data: GetSingleStructureRequestSchema, 
 }
 
 /**
-Create a new pending travel, this is a travel with a premium package
+Delete pending shipment by id
 */
-export type AxiosCreatePendingTravelSuccessResponse = (AxiosResponse<CreatePendingTravel200ResponseSchema> & { status: 200 })
-export type AxiosCreatePendingTravelErrorResponse = ((AxiosResponse<CreatePendingTravel400ResponseSchema> & { status: 400 }) | (AxiosResponse<CreatePendingTravel404ResponseSchema> & { status: 404 }) | (AxiosResponse<CreatePendingTravel405ResponseSchema> & { status: 405 }) | (AxiosResponse<CreatePendingTravel415ResponseSchema> & { status: 415 }) | (AxiosResponse<CreatePendingTravel429ResponseSchema> & { status: 429 }) | (AxiosResponse<CreatePendingTravel500ResponseSchema> & { status: 500 })) & { path: "/v1/travel/createPendingTravel" }
-export type AxiosCreatePendingTravelResponse = AxiosCreatePendingTravelSuccessResponse | AxiosCreatePendingTravelErrorResponse
-export async function createPendingTravel(data: CreatePendingTravelRequestSchema, config?: AxiosRequestConfig): Promise<AxiosCreatePendingTravelResponse> {
+export type AxiosDeletePendingShipmentSuccessResponse = (AxiosResponse<DeletePendingShipment200ResponseSchema> & { status: 200 })
+export type AxiosDeletePendingShipmentErrorResponse = ((AxiosResponse<DeletePendingShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<DeletePendingShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<DeletePendingShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<DeletePendingShipment409ResponseSchema> & { status: 409 }) | (AxiosResponse<DeletePendingShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<DeletePendingShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<DeletePendingShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/deletePendingShipment" }
+export type AxiosDeletePendingShipmentResponse = AxiosDeletePendingShipmentSuccessResponse | AxiosDeletePendingShipmentErrorResponse
+export async function deletePendingShipment(data: DeletePendingShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosDeletePendingShipmentResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "409": {
+      "code": [
+        "CONFLICT"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/shipments/deletePendingShipment"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosDeletePendingShipmentSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosDeletePendingShipmentErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+Calculate an estimate cost of a shipment
+*/
+export type AxiosGetCostEstimateSuccessResponse = (AxiosResponse<GetCostEstimate200ResponseSchema> & { status: 200 })
+export type AxiosGetCostEstimateErrorResponse = ((AxiosResponse<GetCostEstimate400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetCostEstimate404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetCostEstimate405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetCostEstimate415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetCostEstimate429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetCostEstimate500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getCostEstimate" }
+export type AxiosGetCostEstimateResponse = AxiosGetCostEstimateSuccessResponse | AxiosGetCostEstimateErrorResponse
+export async function getCostEstimate(data: GetCostEstimateRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetCostEstimateResponse> {
   _checkSetup()
   const securityParams: AxiosRequestConfig = {}
   const handledResponses = {
@@ -617,14 +573,14 @@ export async function createPendingTravel(data: CreatePendingTravelRequestSchema
     }
   }
   try {
-    const res = await axios!.post(_getFnUrl("/v1/travel/createPendingTravel"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    const res = await axios!.post(_getFnUrl("/v1/shipments/getCostEstimate"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
     _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosCreatePendingTravelSuccessResponse
+    return res as AxiosGetCostEstimateSuccessResponse
   } catch (e) {
     const { response: res } = e as AxiosError
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosCreatePendingTravelErrorResponse
+      return res as AxiosGetCostEstimateErrorResponse
     } else {
       throw e
     }
@@ -632,12 +588,12 @@ export async function createPendingTravel(data: CreatePendingTravelRequestSchema
 }
 
 /**
-Get all information about a pending travel
+Get the pickup schedule of a shipment
 */
-export type AxiosGetPendingTravelSuccessResponse = (AxiosResponse<GetPendingTravel200ResponseSchema> & { status: 200 })
-export type AxiosGetPendingTravelErrorResponse = ((AxiosResponse<GetPendingTravel400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetPendingTravel404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetPendingTravel405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetPendingTravel415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetPendingTravel429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetPendingTravel500ResponseSchema> & { status: 500 })) & { path: "/v1/travel/getPendingTravel" }
-export type AxiosGetPendingTravelResponse = AxiosGetPendingTravelSuccessResponse | AxiosGetPendingTravelErrorResponse
-export async function getPendingTravel(data: GetPendingTravelRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetPendingTravelResponse> {
+export type AxiosGetPickupScheduleSuccessResponse = (AxiosResponse<GetPickupSchedule200ResponseSchema> & { status: 200 })
+export type AxiosGetPickupScheduleErrorResponse = ((AxiosResponse<GetPickupSchedule400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetPickupSchedule404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetPickupSchedule405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetPickupSchedule415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetPickupSchedule429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetPickupSchedule500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getPickupSchedule" }
+export type AxiosGetPickupScheduleResponse = AxiosGetPickupScheduleSuccessResponse | AxiosGetPickupScheduleErrorResponse
+export async function getPickupSchedule(data: GetPickupScheduleRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetPickupScheduleResponse> {
   _checkSetup()
   const securityParams: AxiosRequestConfig = {}
   const handledResponses = {
@@ -676,14 +632,73 @@ export async function getPendingTravel(data: GetPendingTravelRequestSchema, conf
     }
   }
   try {
-    const res = await axios!.post(_getFnUrl("/v1/travel/getPendingTravel"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    const res = await axios!.post(_getFnUrl("/v1/shipments/getPickupSchedule"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
     _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosGetPendingTravelSuccessResponse
+    return res as AxiosGetPickupScheduleSuccessResponse
   } catch (e) {
     const { response: res } = e as AxiosError
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosGetPendingTravelErrorResponse
+      return res as AxiosGetPickupScheduleErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+Get delivery schedule for a shipment
+*/
+export type AxiosGetDeliveryScheduleSuccessResponse = (AxiosResponse<GetDeliverySchedule200ResponseSchema> & { status: 200 })
+export type AxiosGetDeliveryScheduleErrorResponse = ((AxiosResponse<GetDeliverySchedule400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetDeliverySchedule404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetDeliverySchedule405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetDeliverySchedule415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetDeliverySchedule429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetDeliverySchedule500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getDeliverySchedule" }
+export type AxiosGetDeliveryScheduleResponse = AxiosGetDeliveryScheduleSuccessResponse | AxiosGetDeliveryScheduleErrorResponse
+export async function getDeliverySchedule(data: GetDeliveryScheduleRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetDeliveryScheduleResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/shipments/getDeliverySchedule"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosGetDeliveryScheduleSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosGetDeliveryScheduleErrorResponse
     } else {
       throw e
     }
@@ -1419,12 +1434,12 @@ export async function resendResetPassword(data: ResendResetPasswordRequestSchema
 }
 
 /**
-Get all user travels with basic description
+Get user shipments
 */
-export type AxiosGetUserTravelsSuccessResponse = (AxiosResponse<GetUserTravels200ResponseSchema> & { status: 200 })
-export type AxiosGetUserTravelsErrorResponse = ((AxiosResponse<GetUserTravels400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetUserTravels404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetUserTravels405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetUserTravels415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetUserTravels429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetUserTravels500ResponseSchema> & { status: 500 })) & { path: "/v1/user/getUserTravels" }
-export type AxiosGetUserTravelsResponse = AxiosGetUserTravelsSuccessResponse | AxiosGetUserTravelsErrorResponse
-export async function getUserTravels(data: GetUserTravelsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetUserTravelsResponse> {
+export type AxiosGetUserShipmentsSuccessResponse = (AxiosResponse<GetUserShipments200ResponseSchema> & { status: 200 })
+export type AxiosGetUserShipmentsErrorResponse = ((AxiosResponse<GetUserShipments400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetUserShipments405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetUserShipments415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetUserShipments429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetUserShipments500ResponseSchema> & { status: 500 })) & { path: "/v1/user/getUserShipments" }
+export type AxiosGetUserShipmentsResponse = AxiosGetUserShipmentsSuccessResponse | AxiosGetUserShipmentsErrorResponse
+export async function getUserShipments(data: GetUserShipmentsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetUserShipmentsResponse> {
   _checkSetup()
   const securityParams: AxiosRequestConfig = {}
   const handledResponses = {
@@ -1434,11 +1449,6 @@ export async function getUserTravels(data: GetUserTravelsRequestSchema, config?:
     "400": {
       "code": [
         "VALIDATION_ERROR"
-      ]
-    },
-    "404": {
-      "code": [
-        "NOT_FOUND"
       ]
     },
     "405": {
@@ -1463,14 +1473,14 @@ export async function getUserTravels(data: GetUserTravelsRequestSchema, config?:
     }
   }
   try {
-    const res = await axios!.post(_getFnUrl("/v1/user/getUserTravels"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    const res = await axios!.post(_getFnUrl("/v1/user/getUserShipments"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
     _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosGetUserTravelsSuccessResponse
+    return res as AxiosGetUserShipmentsSuccessResponse
   } catch (e) {
     const { response: res } = e as AxiosError
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosGetUserTravelsErrorResponse
+      return res as AxiosGetUserShipmentsErrorResponse
     } else {
       throw e
     }
@@ -1771,65 +1781,6 @@ export async function addUserCompany(data: AddUserCompanyRequestSchema, config?:
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
       return res as AxiosAddUserCompanyErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
-Get user invoice by id
-*/
-export type AxiosGetInvoiceSuccessResponse = (AxiosResponse<GetInvoice200ResponseSchema> & { status: 200 })
-export type AxiosGetInvoiceErrorResponse = ((AxiosResponse<GetInvoice400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetInvoice404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetInvoice405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetInvoice415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetInvoice429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetInvoice500ResponseSchema> & { status: 500 })) & { path: "/v1/user/getInvoice" }
-export type AxiosGetInvoiceResponse = AxiosGetInvoiceSuccessResponse | AxiosGetInvoiceErrorResponse
-export async function getInvoice(data: GetInvoiceRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetInvoiceResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "404": {
-      "code": [
-        "NOT_FOUND"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/user/getInvoice"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosGetInvoiceSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosGetInvoiceErrorResponse
     } else {
       throw e
     }
@@ -2150,7 +2101,7 @@ export async function verifyPaymentIntent(data: VerifyPaymentIntentRequestSchema
 Capture a payment intent
 */
 export type AxiosCapturePaymentIntentSuccessResponse = (AxiosResponse<CapturePaymentIntent200ResponseSchema> & { status: 200 })
-export type AxiosCapturePaymentIntentErrorResponse = ((AxiosResponse<CapturePaymentIntent400ResponseSchema> & { status: 400 }) | (AxiosResponse<CapturePaymentIntent404ResponseSchema> & { status: 404 }) | (AxiosResponse<CapturePaymentIntent405ResponseSchema> & { status: 405 }) | (AxiosResponse<CapturePaymentIntent409ResponseSchema> & { status: 409 }) | (AxiosResponse<CapturePaymentIntent415ResponseSchema> & { status: 415 }) | (AxiosResponse<CapturePaymentIntent429ResponseSchema> & { status: 429 }) | (AxiosResponse<CapturePaymentIntent500ResponseSchema> & { status: 500 })) & { path: "/v1/payments/capturePaymentIntent" }
+export type AxiosCapturePaymentIntentErrorResponse = ((AxiosResponse<CapturePaymentIntent400ResponseSchema> & { status: 400 }) | (AxiosResponse<CapturePaymentIntent404ResponseSchema> & { status: 404 }) | (AxiosResponse<CapturePaymentIntent405ResponseSchema> & { status: 405 }) | (AxiosResponse<CapturePaymentIntent415ResponseSchema> & { status: 415 }) | (AxiosResponse<CapturePaymentIntent429ResponseSchema> & { status: 429 }) | (AxiosResponse<CapturePaymentIntent500ResponseSchema> & { status: 500 })) & { path: "/v1/payments/capturePaymentIntent" }
 export type AxiosCapturePaymentIntentResponse = AxiosCapturePaymentIntentSuccessResponse | AxiosCapturePaymentIntentErrorResponse
 export async function capturePaymentIntent(data: CapturePaymentIntentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosCapturePaymentIntentResponse> {
   _checkSetup()
@@ -2172,11 +2123,6 @@ export async function capturePaymentIntent(data: CapturePaymentIntentRequestSche
     "405": {
       "code": [
         "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "409": {
-      "code": [
-        "CONFLICT"
       ]
     },
     "415": {
@@ -2204,193 +2150,6 @@ export async function capturePaymentIntent(data: CapturePaymentIntentRequestSche
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
       return res as AxiosCapturePaymentIntentErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
-Send an email with the invoice attached
-*/
-export type AxiosSendEmailInvoiceSuccessResponse = (AxiosResponse<SendEmailInvoice200ResponseSchema> & { status: 200 })
-export type AxiosSendEmailInvoiceErrorResponse = ((AxiosResponse<SendEmailInvoice400ResponseSchema> & { status: 400 }) | (AxiosResponse<SendEmailInvoice404ResponseSchema> & { status: 404 }) | (AxiosResponse<SendEmailInvoice405ResponseSchema> & { status: 405 }) | (AxiosResponse<SendEmailInvoice415ResponseSchema> & { status: 415 }) | (AxiosResponse<SendEmailInvoice429ResponseSchema> & { status: 429 }) | (AxiosResponse<SendEmailInvoice500ResponseSchema> & { status: 500 })) & { path: "/v1/payments/sendEmailInvoice" }
-export type AxiosSendEmailInvoiceResponse = AxiosSendEmailInvoiceSuccessResponse | AxiosSendEmailInvoiceErrorResponse
-export async function sendEmailInvoice(data: SendEmailInvoiceRequestSchema, config?: AxiosRequestConfig): Promise<AxiosSendEmailInvoiceResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "404": {
-      "code": [
-        "NOT_FOUND"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/payments/sendEmailInvoice"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosSendEmailInvoiceSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosSendEmailInvoiceErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
-Append personal company detail to payment in order to make an invoice
-*/
-export type AxiosAppendPersonalCompanyDetailSuccessResponse = (AxiosResponse<AppendPersonalCompanyDetail200ResponseSchema> & { status: 200 })
-export type AxiosAppendPersonalCompanyDetailErrorResponse = ((AxiosResponse<AppendPersonalCompanyDetail400ResponseSchema> & { status: 400 }) | (AxiosResponse<AppendPersonalCompanyDetail404ResponseSchema> & { status: 404 }) | (AxiosResponse<AppendPersonalCompanyDetail405ResponseSchema> & { status: 405 }) | (AxiosResponse<AppendPersonalCompanyDetail409ResponseSchema> & { status: 409 }) | (AxiosResponse<AppendPersonalCompanyDetail415ResponseSchema> & { status: 415 }) | (AxiosResponse<AppendPersonalCompanyDetail429ResponseSchema> & { status: 429 }) | (AxiosResponse<AppendPersonalCompanyDetail500ResponseSchema> & { status: 500 })) & { path: "/v1/payments/appendPersonalCompanyDetail" }
-export type AxiosAppendPersonalCompanyDetailResponse = AxiosAppendPersonalCompanyDetailSuccessResponse | AxiosAppendPersonalCompanyDetailErrorResponse
-export async function appendPersonalCompanyDetail(data: AppendPersonalCompanyDetailRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAppendPersonalCompanyDetailResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "404": {
-      "code": [
-        "NOT_FOUND"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "409": {
-      "code": [
-        "CONFLICT"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/payments/appendPersonalCompanyDetail"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosAppendPersonalCompanyDetailSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosAppendPersonalCompanyDetailErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
-Request an invoice on a payment intent
-*/
-export type AxiosRequestInvoiceOnIntentSuccessResponse = (AxiosResponse<RequestInvoiceOnIntent200ResponseSchema> & { status: 200 })
-export type AxiosRequestInvoiceOnIntentErrorResponse = ((AxiosResponse<RequestInvoiceOnIntent400ResponseSchema> & { status: 400 }) | (AxiosResponse<RequestInvoiceOnIntent404ResponseSchema> & { status: 404 }) | (AxiosResponse<RequestInvoiceOnIntent405ResponseSchema> & { status: 405 }) | (AxiosResponse<RequestInvoiceOnIntent409ResponseSchema> & { status: 409 }) | (AxiosResponse<RequestInvoiceOnIntent415ResponseSchema> & { status: 415 }) | (AxiosResponse<RequestInvoiceOnIntent429ResponseSchema> & { status: 429 }) | (AxiosResponse<RequestInvoiceOnIntent500ResponseSchema> & { status: 500 })) & { path: "/v1/payments/requestInvoiceOnIntent" }
-export type AxiosRequestInvoiceOnIntentResponse = AxiosRequestInvoiceOnIntentSuccessResponse | AxiosRequestInvoiceOnIntentErrorResponse
-export async function requestInvoiceOnIntent(data: RequestInvoiceOnIntentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosRequestInvoiceOnIntentResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "404": {
-      "code": [
-        "NOT_FOUND"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "409": {
-      "code": [
-        "CONFLICT"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/payments/requestInvoiceOnIntent"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosRequestInvoiceOnIntentSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosRequestInvoiceOnIntentErrorResponse
     } else {
       throw e
     }
@@ -2506,12 +2265,12 @@ export async function getHelpRequests(data: GetHelpRequestsRequestSchema, config
 }
 
 /**
-Get all travels in the system
+Get all shipments in the system
 */
-export type AxiosGetTravelsSuccessResponse = (AxiosResponse<GetTravels200ResponseSchema> & { status: 200 })
-export type AxiosGetTravelsErrorResponse = ((AxiosResponse<GetTravels400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetTravels405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetTravels415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetTravels429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetTravels500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/getTravels" }
-export type AxiosGetTravelsResponse = AxiosGetTravelsSuccessResponse | AxiosGetTravelsErrorResponse
-export async function getTravels(data: GetTravelsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetTravelsResponse> {
+export type AxiosAdminGetNormalShipmentsSuccessResponse = (AxiosResponse<AdminGetNormalShipments200ResponseSchema> & { status: 200 })
+export type AxiosAdminGetNormalShipmentsErrorResponse = ((AxiosResponse<AdminGetNormalShipments400ResponseSchema> & { status: 400 }) | (AxiosResponse<AdminGetNormalShipments405ResponseSchema> & { status: 405 }) | (AxiosResponse<AdminGetNormalShipments415ResponseSchema> & { status: 415 }) | (AxiosResponse<AdminGetNormalShipments429ResponseSchema> & { status: 429 }) | (AxiosResponse<AdminGetNormalShipments500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/adminGetNormalShipments" }
+export type AxiosAdminGetNormalShipmentsResponse = AxiosAdminGetNormalShipmentsSuccessResponse | AxiosAdminGetNormalShipmentsErrorResponse
+export async function adminGetNormalShipments(data: AdminGetNormalShipmentsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminGetNormalShipmentsResponse> {
   _checkSetup()
   const securityParams: AxiosRequestConfig = {}
   const handledResponses = {
@@ -2545,14 +2304,14 @@ export async function getTravels(data: GetTravelsRequestSchema, config?: AxiosRe
     }
   }
   try {
-    const res = await axios!.post(_getFnUrl("/v1/admin/getTravels"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    const res = await axios!.post(_getFnUrl("/v1/admin/adminGetNormalShipments"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
     _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosGetTravelsSuccessResponse
+    return res as AxiosAdminGetNormalShipmentsSuccessResponse
   } catch (e) {
     const { response: res } = e as AxiosError
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosGetTravelsErrorResponse
+      return res as AxiosAdminGetNormalShipmentsErrorResponse
     } else {
       throw e
     }
@@ -2614,12 +2373,12 @@ export async function getErrors(data: GetErrorsRequestSchema, config?: AxiosRequ
 }
 
 /**
-Get all pending travels that need to be confirmed
+Get all pending shipments that need to be confirmed
 */
-export type AxiosGetPendingTravelsSuccessResponse = (AxiosResponse<GetPendingTravels200ResponseSchema> & { status: 200 })
-export type AxiosGetPendingTravelsErrorResponse = ((AxiosResponse<GetPendingTravels400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetPendingTravels405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetPendingTravels415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetPendingTravels429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetPendingTravels500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/getPendingTravels" }
-export type AxiosGetPendingTravelsResponse = AxiosGetPendingTravelsSuccessResponse | AxiosGetPendingTravelsErrorResponse
-export async function getPendingTravels(data: GetPendingTravelsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetPendingTravelsResponse> {
+export type AxiosAdminGetPendingShipmentsSuccessResponse = (AxiosResponse<AdminGetPendingShipments200ResponseSchema> & { status: 200 })
+export type AxiosAdminGetPendingShipmentsErrorResponse = ((AxiosResponse<AdminGetPendingShipments400ResponseSchema> & { status: 400 }) | (AxiosResponse<AdminGetPendingShipments405ResponseSchema> & { status: 405 }) | (AxiosResponse<AdminGetPendingShipments415ResponseSchema> & { status: 415 }) | (AxiosResponse<AdminGetPendingShipments429ResponseSchema> & { status: 429 }) | (AxiosResponse<AdminGetPendingShipments500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/adminGetPendingShipments" }
+export type AxiosAdminGetPendingShipmentsResponse = AxiosAdminGetPendingShipmentsSuccessResponse | AxiosAdminGetPendingShipmentsErrorResponse
+export async function adminGetPendingShipments(data: AdminGetPendingShipmentsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminGetPendingShipmentsResponse> {
   _checkSetup()
   const securityParams: AxiosRequestConfig = {}
   const handledResponses = {
@@ -2653,14 +2412,14 @@ export async function getPendingTravels(data: GetPendingTravelsRequestSchema, co
     }
   }
   try {
-    const res = await axios!.post(_getFnUrl("/v1/admin/getPendingTravels"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    const res = await axios!.post(_getFnUrl("/v1/admin/adminGetPendingShipments"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
     _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosGetPendingTravelsSuccessResponse
+    return res as AxiosAdminGetPendingShipmentsSuccessResponse
   } catch (e) {
     const { response: res } = e as AxiosError
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosGetPendingTravelsErrorResponse
+      return res as AxiosAdminGetPendingShipmentsErrorResponse
     } else {
       throw e
     }
@@ -2857,10 +2616,10 @@ export async function sendHelpResponse(data: SendHelpResponseRequestSchema, conf
 /**
 Reject a pending travel
 */
-export type AxiosRejectPendingTravelSuccessResponse = (AxiosResponse<RejectPendingTravel200ResponseSchema> & { status: 200 })
-export type AxiosRejectPendingTravelErrorResponse = ((AxiosResponse<RejectPendingTravel400ResponseSchema> & { status: 400 }) | (AxiosResponse<RejectPendingTravel404ResponseSchema> & { status: 404 }) | (AxiosResponse<RejectPendingTravel405ResponseSchema> & { status: 405 }) | (AxiosResponse<RejectPendingTravel415ResponseSchema> & { status: 415 }) | (AxiosResponse<RejectPendingTravel429ResponseSchema> & { status: 429 }) | (AxiosResponse<RejectPendingTravel500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/rejectPendingTravel" }
-export type AxiosRejectPendingTravelResponse = AxiosRejectPendingTravelSuccessResponse | AxiosRejectPendingTravelErrorResponse
-export async function rejectPendingTravel(data: RejectPendingTravelRequestSchema, config?: AxiosRequestConfig): Promise<AxiosRejectPendingTravelResponse> {
+export type AxiosRejectPendingShipmentSuccessResponse = (AxiosResponse<RejectPendingShipment200ResponseSchema> & { status: 200 })
+export type AxiosRejectPendingShipmentErrorResponse = ((AxiosResponse<RejectPendingShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<RejectPendingShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<RejectPendingShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<RejectPendingShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<RejectPendingShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<RejectPendingShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/rejectPendingShipment" }
+export type AxiosRejectPendingShipmentResponse = AxiosRejectPendingShipmentSuccessResponse | AxiosRejectPendingShipmentErrorResponse
+export async function rejectPendingShipment(data: RejectPendingShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosRejectPendingShipmentResponse> {
   _checkSetup()
   const securityParams: AxiosRequestConfig = {}
   const handledResponses = {
@@ -2899,14 +2658,14 @@ export async function rejectPendingTravel(data: RejectPendingTravelRequestSchema
     }
   }
   try {
-    const res = await axios!.post(_getFnUrl("/v1/admin/rejectPendingTravel"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    const res = await axios!.post(_getFnUrl("/v1/admin/rejectPendingShipment"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
     _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosRejectPendingTravelSuccessResponse
+    return res as AxiosRejectPendingShipmentSuccessResponse
   } catch (e) {
     const { response: res } = e as AxiosError
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosRejectPendingTravelErrorResponse
+      return res as AxiosRejectPendingShipmentErrorResponse
     } else {
       throw e
     }
@@ -3148,124 +2907,6 @@ export async function verifyAssistant(config?: AxiosRequestConfig): Promise<Axio
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
       return res as AxiosVerifyAssistantErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
-Valiadate VAT code with vies api
-*/
-export type AxiosValidateVatSuccessResponse = (AxiosResponse<ValidateVat200ResponseSchema> & { status: 200 })
-export type AxiosValidateVatErrorResponse = ((AxiosResponse<ValidateVat400ResponseSchema> & { status: 400 }) | (AxiosResponse<ValidateVat405ResponseSchema> & { status: 405 }) | (AxiosResponse<ValidateVat415ResponseSchema> & { status: 415 }) | (AxiosResponse<ValidateVat429ResponseSchema> & { status: 429 }) | (AxiosResponse<ValidateVat500ResponseSchema> & { status: 500 })) & { path: "/v1/auth/validateVat" }
-export type AxiosValidateVatResponse = AxiosValidateVatSuccessResponse | AxiosValidateVatErrorResponse
-export async function validateVat(data: ValidateVatRequestSchema, config?: AxiosRequestConfig): Promise<AxiosValidateVatResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/auth/validateVat"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosValidateVatSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosValidateVatErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
-Validate fiscal code of the user
-*/
-export type AxiosValidateFiscalCodeSuccessResponse = (AxiosResponse<ValidateFiscalCode200ResponseSchema> & { status: 200 })
-export type AxiosValidateFiscalCodeErrorResponse = ((AxiosResponse<ValidateFiscalCode400ResponseSchema> & { status: 400 }) | (AxiosResponse<ValidateFiscalCode401ResponseSchema> & { status: 401 }) | (AxiosResponse<ValidateFiscalCode405ResponseSchema> & { status: 405 }) | (AxiosResponse<ValidateFiscalCode409ResponseSchema> & { status: 409 }) | (AxiosResponse<ValidateFiscalCode415ResponseSchema> & { status: 415 }) | (AxiosResponse<ValidateFiscalCode429ResponseSchema> & { status: 429 }) | (AxiosResponse<ValidateFiscalCode500ResponseSchema> & { status: 500 })) & { path: "/v1/auth/validateFiscalCode" }
-export type AxiosValidateFiscalCodeResponse = AxiosValidateFiscalCodeSuccessResponse | AxiosValidateFiscalCodeErrorResponse
-export async function validateFiscalCode(data: ValidateFiscalCodeRequestSchema, config?: AxiosRequestConfig): Promise<AxiosValidateFiscalCodeResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "401": {
-      "code": [
-        "UNAUTHENTICATED"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "409": {
-      "code": [
-        "CONFLICT"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/auth/validateFiscalCode"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosValidateFiscalCodeSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosValidateFiscalCodeErrorResponse
     } else {
       throw e
     }
@@ -4321,6 +3962,60 @@ export async function createUser(data: CreateUserRequestSchema, config?: AxiosRe
 }
 
 /**
+Valiadate VAT code with vies api
+*/
+export type AxiosValidateVatSuccessResponse = (AxiosResponse<ValidateVat200ResponseSchema> & { status: 200 })
+export type AxiosValidateVatErrorResponse = ((AxiosResponse<ValidateVat400ResponseSchema> & { status: 400 }) | (AxiosResponse<ValidateVat405ResponseSchema> & { status: 405 }) | (AxiosResponse<ValidateVat415ResponseSchema> & { status: 415 }) | (AxiosResponse<ValidateVat429ResponseSchema> & { status: 429 }) | (AxiosResponse<ValidateVat500ResponseSchema> & { status: 500 })) & { path: "/v1/signup/validateVat" }
+export type AxiosValidateVatResponse = AxiosValidateVatSuccessResponse | AxiosValidateVatErrorResponse
+export async function validateVat(data: ValidateVatRequestSchema, config?: AxiosRequestConfig): Promise<AxiosValidateVatResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/signup/validateVat"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosValidateVatSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosValidateVatErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Admin authentication for using the staging environment
 */
 export type AxiosAuthAdminSuccessResponse = (AxiosResponse<AuthAdmin200ResponseSchema> & { status: 200 })
@@ -4877,40 +4572,13 @@ export type UnexpectedErrorResponseSchema = {
   [k: string]: unknown
 }
 
-export type WebLink = string
-
-/**
- * timestamp
- */
-export type Timestamp = string
-
-export type NullableTimestamp = Timestamp | null
-
-export type OkResponseSchema = {
-  success: true
-}
-
-export type EmailSchema = string
-
-export type StrongPasswordSchema = string
-
-export type CardNumberSchema = string
+export type CardCvcSchema = string
 
 export type CardExpirationDateSchema = string
 
-export type CardCvcSchema = string
+export type CardNumberSchema = string
 
 export type ConfirmUserCodeSchema = string
-
-export type CountryInformationSchema = "IT"
-
-export type TimeSchema = string
-
-export type PhoneNumberSchema = {
-  phoneNumber: string
-  phonePrefix: string
-  [k: string]: unknown
-}
 
 export type CoordinatesRequestSchema = {
   latitude: number
@@ -4920,85 +4588,36 @@ export type CoordinatesRequestSchema = {
 
 export type CurrencySchema = "eur"
 
+export type DateTimeSchema = string
+
+export type EmailSchema = string
+
+export type NullableTimestamp = Timestamp | null
+
+export type OkResponseSchema = {
+  success: true
+}
+
+export type PhoneNumberSchema = {
+  number: string
+  prefix: string
+  [k: string]: unknown
+}
+
+export type StrongPasswordSchema = string
+
+export type TimeSchema = string
+
+/**
+ * timestamp
+ */
+export type Timestamp = string
+
 export type UuidSchema = string
 
-export type FiscalCodeSchema = string
+export type WebLink = string
 
-export type CapSchema = string
-
-export type TravelNotFoundErrorResponseSchema = {
-  message: string
-  code: "NOT_FOUND"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type UserNotFoundErrorResponseSchema = {
-  message: string
-  code: "NOT_FOUND"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type LuggageNotFoundErrorResponseSchema = {
-  message: string
-  code: "NOT_FOUND"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type HotelNotFoundErrorResponseSchema = {
-  message: string
-  code: "NOT_FOUND"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type InvalidPaymentCardCredentialsErrorResponseSchema = {
-  message: string
-  code: "INVALID_PAYMENT_CARD_CREDENTIALS"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type UserAlreadyExistsErrorResponseSchema = {
-  message: string
-  code: "ALREADY_EXISTS"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type UserSavedCardNotFoundErrorResponseSchema = {
-  message: string
-  code: "NOT_FOUND"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type SameOldAndNewPasswordErrorResponseSchema = {
-  message: string
-  code: "ALREADY_EXISTS"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type TooTightDeadlinesErrorResponseSchema = {
-  message: string
-  code: "TOO_TIGHT_DEADLINE"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type LuggagesAlreadyDeliveredErrorResponseSchema = {
+export type AlreadyAcceptedHelpRequestErrorResponseSchema = {
   message: string
   code: "CONFLICT"
   details?: Any
@@ -5006,33 +4625,9 @@ export type LuggagesAlreadyDeliveredErrorResponseSchema = {
   [k: string]: unknown
 }
 
-export type InvalidConfirmUserCodeErrorResponseSchema = {
+export type AlreadyClosedHelpRequestErrorResponseSchema = {
   message: string
-  code: "INVALID_CODE" | "UNAUTHORIZED"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type PaymentCardAlreadyExistsErrorResponseSchema = {
-  message: string
-  code: "ALREADY_EXISTS"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type UserNotLoggedErrorResponseSchema = {
-  message: string
-  code: "UNAUTHORIZED"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type InvalidChangePasswordTokenErrorResponseSchema = {
-  message: string
-  code: "INVALID TOKEN"
+  code: "CONFLICT"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -5046,31 +4641,7 @@ export type ChangePasswordTokenIsExpiredErrorResponseSchema = {
   [k: string]: unknown
 }
 
-export type HotelAlreadyExistsErrorResponseSchema = {
-  message: string
-  code: "ALREADY_EXISTS"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type UnauthorizedUserErrorResponseSchema = {
-  message: string
-  code: "UNAUTHORIZED"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
 export type ChangePasswordTOkenNotFoundErrorResponseSchema = {
-  message: string
-  code: "NOT_FOUND"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type ConfirmUserPhoneTokenNotFoundErrorResponseSchema = {
   message: string
   code: "NOT_FOUND"
   details?: Any
@@ -5086,7 +4657,7 @@ export type ConfirmUserPhoneTokenIsExpiredErrorResponseSchema = {
   [k: string]: unknown
 }
 
-export type StripePaymentIntentNotFoundErrorResponseSchema = {
+export type ConfirmUserPhoneTokenNotFoundErrorResponseSchema = {
   message: string
   code: "NOT_FOUND"
   details?: Any
@@ -5094,7 +4665,7 @@ export type StripePaymentIntentNotFoundErrorResponseSchema = {
   [k: string]: unknown
 }
 
-export type StripePaymentIntentAlreadyCanceledErrorResponseSchema = {
+export type ConflictErrorResponseSchema = {
   message: string
   code: "CONFLICT"
   details?: Any
@@ -5102,7 +4673,31 @@ export type StripePaymentIntentAlreadyCanceledErrorResponseSchema = {
   [k: string]: unknown
 }
 
-export type UserForbiddenErrorResponseSchema = {
+export type ExpiredRememberTokenErrorResponseSchema = {
+  message: string
+  code: "TOKEN_EXPIRED"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type ExpiredSession = {
+  message: string
+  code: "SESSION EXPIRED"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type FiscalCodeAlreadyExistsErrorResponseSchema = {
+  message: string
+  code: "ALREADY_EXISTS"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type GenericForbiddenErrorResponseSchema = {
   message: string
   code: "FORBIDDEN"
   details?: Any
@@ -5110,15 +4705,31 @@ export type UserForbiddenErrorResponseSchema = {
   [k: string]: unknown
 }
 
-export type StripePaymentIntentAlreadyCapturedErrorResponseSchema = {
+export type GenericNotFoundErrorResponseSchema = {
   message: string
-  code: "CONFLICT"
+  code: "NOT_FOUND"
   details?: Any
   stack?: string
   [k: string]: unknown
 }
 
 export type HelpRequestNotFoundErrorResponseSchema = {
+  message: string
+  code: "NOT_FOUND"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type HotelAlreadyExistsErrorResponseSchema = {
+  message: string
+  code: "ALREADY_EXISTS"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type HotelNotFoundErrorResponseSchema = {
   message: string
   code: "NOT_FOUND"
   details?: Any
@@ -5134,9 +4745,89 @@ export type InitSignupInformationConflictResponseSchema = {
   [k: string]: unknown
 }
 
-export type SignupSessionIdNotFoundErrorResponseSchema = {
+export type InvalidChangePasswordTokenErrorResponseSchema = {
+  message: string
+  code: "INVALID TOKEN"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type InvalidConfirmEmailCodeTokenErrorResponseSchema = {
+  message: string
+  code: "INVALID TOKEN"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type InvalidConfirmUserCodeErrorResponseSchema = {
+  message: string
+  code: "INVALID_CODE" | "UNAUTHORIZED"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type InvalidPaymentCardCredentialsErrorResponseSchema = {
+  message: string
+  code: "INVALID_PAYMENT_CARD_CREDENTIALS"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type InvalidRememberTokenErrorResponseSchema = {
+  message: string
+  code: "INVALID TOKEN"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type InvoiceCodeAlreadyExistsErrorResponseSchema = {
+  message: string
+  code: "ALREADY_EXISTS"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type LuggageNotFoundErrorResponseSchema = {
   message: string
   code: "NOT_FOUND"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type LuggagesAlreadyDeliveredErrorResponseSchema = {
+  message: string
+  code: "CONFLICT"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type LuggagesPackageNotFoundErrorResponseSchema = {
+  message: string
+  code: "NOT_FOUND"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type PaymentCardAlreadyExistsErrorResponseSchema = {
+  message: string
+  code: "ALREADY_EXISTS"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type SameOldAndNewPasswordErrorResponseSchema = {
+  message: string
+  code: "ALREADY_EXISTS"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -5158,9 +4849,33 @@ export type SessionNotFoundErrorResponseSchema = {
   [k: string]: unknown
 }
 
-export type UserHasActiveTravelsErrorResponseSchema = {
+export type SignupSessionIdNotFoundErrorResponseSchema = {
+  message: string
+  code: "NOT_FOUND"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type StripePaymentIntentAlreadyCanceledErrorResponseSchema = {
   message: string
   code: "CONFLICT"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type StripePaymentIntentAlreadyCapturedErrorResponseSchema = {
+  message: string
+  code: "CONFLICT"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type StripePaymentIntentNotFoundErrorResponseSchema = {
+  message: string
+  code: "NOT_FOUND"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -5174,49 +4889,9 @@ export type StructureNotFoundErrorResponseSchema = {
   [k: string]: unknown
 }
 
-export type LuggagesPackageNotFoundErrorResponseSchema = {
-  message: string
-  code: "NOT_FOUND"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type InvalidRememberTokenErrorResponseSchema = {
-  message: string
-  code: "INVALID TOKEN"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type ExpiredRememberTokenErrorResponseSchema = {
-  message: string
-  code: "TOKEN_EXPIRED"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type InvalidConfirmEmailCodeTokenErrorResponseSchema = {
-  message: string
-  code: "INVALID TOKEN"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
 export type TokenExpiredErrorResponseSchema = {
   message: string
   code: "TOKEN_EXPIRED"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type ExpiredSession = {
-  message: string
-  code: "SESSION EXPIRED"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -5230,57 +4905,17 @@ export type TokenNotFoundErrorResponseSchema = {
   [k: string]: unknown
 }
 
-export type GenericNotFoundErrorResponseSchema = {
+export type TooTightDeadlinesErrorResponseSchema = {
+  message: string
+  code: "TOO_TIGHT_DEADLINE"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type TravelNotFoundErrorResponseSchema = {
   message: string
   code: "NOT_FOUND"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type AlreadyClosedHelpRequestErrorResponseSchema = {
-  message: string
-  code: "CONFLICT"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type GenericForbiddenErrorResponseSchema = {
-  message: string
-  code: "FORBIDDEN"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type AlreadyAcceptedHelpRequestErrorResponseSchema = {
-  message: string
-  code: "CONFLICT"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type WrongVerificationCodeErrorResponseSchema = {
-  message: string
-  code: "INVALID_CODE"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type VerificationCodeExpiredErrorResponseSchema = {
-  message: string
-  code: "CODE_EXPIRED"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
-
-export type ConflictErrorResponseSchema = {
-  message: string
-  code: "CONFLICT"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -5294,6 +4929,62 @@ export type UnauthenticatedErrorResponseSchema = {
   [k: string]: unknown
 }
 
+export type UnauthorizedUserErrorResponseSchema = {
+  message: string
+  code: "UNAUTHORIZED"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type UserAlreadyExistsErrorResponseSchema = {
+  message: string
+  code: "ALREADY_EXISTS"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type UserForbiddenErrorResponseSchema = {
+  message: string
+  code: "FORBIDDEN"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type UserHasActiveTravelsErrorResponseSchema = {
+  message: string
+  code: "CONFLICT"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type UserNotFoundErrorResponseSchema = {
+  message: string
+  code: "NOT_FOUND"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type UserNotLoggedErrorResponseSchema = {
+  message: string
+  code: "UNAUTHORIZED"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type UserSavedCardNotFoundErrorResponseSchema = {
+  message: string
+  code: "NOT_FOUND"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
 export type VatCodeAlreadyExistsErrorResponseSchema = {
   message: string
   code: "ALREADY_EXISTS"
@@ -5302,214 +4993,327 @@ export type VatCodeAlreadyExistsErrorResponseSchema = {
   [k: string]: unknown
 }
 
-export type InvoiceCodeAlreadyExistsErrorResponseSchema = {
+export type VerificationCodeExpiredErrorResponseSchema = {
   message: string
-  code: "ALREADY_EXISTS"
+  code: "CODE_EXPIRED"
   details?: Any
   stack?: string
   [k: string]: unknown
 }
 
-export type FiscalCodeAlreadyExistsErrorResponseSchema = {
+export type WrongVerificationCodeErrorResponseSchema = {
   message: string
-  code: "ALREADY_EXISTS"
+  code: "INVALID_CODE"
   details?: Any
   stack?: string
   [k: string]: unknown
 }
 
-export type CreateTravel200ResponseSchema = CreateTravelResponseSchema
+export type DeleteNormalShipment200ResponseSchema = OkResponseSchema
 
-export type CreateTravel400ResponseSchema = ValidationErrorResponseSchema
+export type DeleteNormalShipment400ResponseSchema = ValidationErrorResponseSchema
 
-export type CreateTravel404ResponseSchema = UserNotFoundErrorResponseSchema
+export type DeleteNormalShipment404ResponseSchema = GenericNotFoundErrorResponseSchema
 
-export type CreateTravel405ResponseSchema = MethodNotAllowedErrorResponseSchema
+export type DeleteNormalShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
-export type CreateTravel415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+export type DeleteNormalShipment409ResponseSchema = ConflictErrorResponseSchema
 
-export type CreateTravel429ResponseSchema = ThrottlingErrorResponseSchema
+export type DeleteNormalShipment415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
 
-export type CreateTravel500ResponseSchema = UnexpectedErrorResponseSchema
+export type DeleteNormalShipment429ResponseSchema = ThrottlingErrorResponseSchema
 
-export type CreateTravelRequestSchema =
-  | (CreateNewTravelRequestSchema & {
-      withPendingId: false
+export type DeleteNormalShipment500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type DeleteNormalShipmentRequestSchema = {
+  id: UuidSchema
+  removeReturnShipment: boolean
+  [k: string]: unknown
+}
+
+export type GetNormalShipment200ResponseSchema = {
+  outwardShipment: SingleCompleteNormalShipmentSchema
+  returnShipment?: SingleCompleteNormalShipmentSchema
+  [k: string]: unknown
+}[]
+
+export type GetNormalShipment400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetNormalShipment404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type GetNormalShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type GetNormalShipment415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type GetNormalShipment429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type GetNormalShipment500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type GetNormalShipmentRequestSchema = {
+  ids?: UuidSchema[]
+  [k: string]: unknown
+}
+
+export type CreateNormalShipment200ResponseSchema = {
+  outwardShipment: SingleCompleteNormalShipmentSchema
+  returnShipment?: SingleCompleteNormalShipmentSchema
+  [k: string]: unknown
+}
+
+export type CreateNormalShipment400ResponseSchema = ValidationErrorResponseSchema
+
+export type CreateNormalShipment404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type CreateNormalShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type CreateNormalShipment409ResponseSchema = ConflictErrorResponseSchema
+
+export type CreateNormalShipment415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type CreateNormalShipment429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type CreateNormalShipment500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type CreateNormalShipmentRequestSchema =
+  | (CreateShipmentSchema & {
+      from: "scratch"
+      courierId: UuidSchema
       [k: string]: unknown
     })
   | {
-      pendingTravelId: string
-      withPendingId: true
+      pendingShipmentId: UuidSchema
+      from: "pending"
       [k: string]: unknown
     }
 
-export type GetTravelInformation200ResponseSchema = GetTravelInformationResponseSchema
-
-export type GetTravelInformation400ResponseSchema = ValidationErrorResponseSchema
-
-export type GetTravelInformation404ResponseSchema = TravelNotFoundErrorResponseSchema
-
-export type GetTravelInformation405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type GetTravelInformation415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type GetTravelInformation429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type GetTravelInformation500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type GetTravelInformationRequestSchema = {
-  id: UuidSchema
+export type CreatePendingShipment200ResponseSchema = {
+  outwardShipment: SinglePendingShipmentSchema
+  returnShipment?: SinglePendingShipmentSchema
   [k: string]: unknown
 }
 
-export type CalculateTravelCost200ResponseSchema = {
-  travelCost: string
-  currencyValue: string
-  alerts?: {
-    code?: string
-    description?: string
+export type CreatePendingShipment400ResponseSchema = ValidationErrorResponseSchema
+
+export type CreatePendingShipment404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type CreatePendingShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type CreatePendingShipment409ResponseSchema = ConflictErrorResponseSchema
+
+export type CreatePendingShipment415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type CreatePendingShipment429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type CreatePendingShipment500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type CreatePendingShipmentRequestSchema = CreateShipmentSchema & {
+  courierId: UuidSchema
+  [k: string]: unknown
+}
+
+export type GetPendingShipment200ResponseSchema = {
+  outwardShipment: SinglePendingShipmentSchema
+  returnShipment?: SinglePendingShipmentSchema
+  [k: string]: unknown
+}[]
+
+export type GetPendingShipment400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetPendingShipment404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type GetPendingShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type GetPendingShipment415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type GetPendingShipment429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type GetPendingShipment500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type GetPendingShipmentRequestSchema = {
+  ids?: UuidSchema[]
+  [k: string]: unknown
+}
+
+export type DeletePendingShipment200ResponseSchema = OkResponseSchema
+
+export type DeletePendingShipment400ResponseSchema = ValidationErrorResponseSchema
+
+export type DeletePendingShipment404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type DeletePendingShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type DeletePendingShipment409ResponseSchema = ConflictErrorResponseSchema
+
+export type DeletePendingShipment415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type DeletePendingShipment429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type DeletePendingShipment500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type DeletePendingShipmentRequestSchema = {
+  id: UuidSchema
+  removeReturnShipment: boolean
+  [k: string]: unknown
+}
+
+export type GetCostEstimate200ResponseSchema = {
+  courier: {
+    oneWayShipment: CourierSchema
+    roundTripShipment?: CourierSchema
     [k: string]: unknown
-  }[]
+  }
+  estimateCost: CostSchema
   [k: string]: unknown
 }
 
-export type CalculateTravelCost400ResponseSchema = ValidationErrorResponseSchema
+export type GetCostEstimate400ResponseSchema = ValidationErrorResponseSchema
 
-export type CalculateTravelCost403ResponseSchema = TooTightDeadlinesErrorResponseSchema
+export type GetCostEstimate404ResponseSchema = GenericNotFoundErrorResponseSchema
 
-export type CalculateTravelCost404ResponseSchema = UserNotFoundErrorResponseSchema
+export type GetCostEstimate405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
-export type CalculateTravelCost405ResponseSchema = MethodNotAllowedErrorResponseSchema
+export type GetCostEstimate415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
 
-export type CalculateTravelCost415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+export type GetCostEstimate429ResponseSchema = ThrottlingErrorResponseSchema
 
-export type CalculateTravelCost429ResponseSchema = ThrottlingErrorResponseSchema
+export type GetCostEstimate500ResponseSchema = UnexpectedErrorResponseSchema
 
-export type CalculateTravelCost500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type CalculateTravelCostRequestSchema = RateTravelRequestSchema
-
-export type DeleteTravel200ResponseSchema = OkResponseSchema
-
-export type DeleteTravel400ResponseSchema = ValidationErrorResponseSchema
-
-export type DeleteTravel404ResponseSchema = TravelNotFoundErrorResponseSchema
-
-export type DeleteTravel405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type DeleteTravel409ResponseSchema = LuggagesAlreadyDeliveredErrorResponseSchema
-
-export type DeleteTravel415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type DeleteTravel429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type DeleteTravel500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type DeleteTravelRequestSchema = {
-  outwardTravelId: UuidSchema
-  returnTravelId?: UuidSchema
+export type GetCostEstimateRequestSchema = {
+  origin: PositionSchema
+  destination: PositionSchema
+  luggages: ShipmentLuggageSchema[]
+  type: "oneWay" | "roundTrip"
   [k: string]: unknown
 }
 
-export type SuggestPickup200ResponseSchema = {
-  pickupDate: string
-  pickupTime: TimeSchema
+export type GetPickupSchedule200ResponseSchema = {
+  courier: CourierSchema
+  pickupSchedule: DateTimeSchema
   [k: string]: unknown
 }
 
-export type SuggestPickup400ResponseSchema = ValidationErrorResponseSchema
+export type GetPickupSchedule400ResponseSchema = ValidationErrorResponseSchema
 
-export type SuggestPickup404ResponseSchema = UserNotFoundErrorResponseSchema
+export type GetPickupSchedule404ResponseSchema = GenericNotFoundErrorResponseSchema
 
-export type SuggestPickup405ResponseSchema = MethodNotAllowedErrorResponseSchema
+export type GetPickupSchedule405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
-export type SuggestPickup415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+export type GetPickupSchedule415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
 
-export type SuggestPickup429ResponseSchema = ThrottlingErrorResponseSchema
+export type GetPickupSchedule429ResponseSchema = ThrottlingErrorResponseSchema
 
-export type SuggestPickup500ResponseSchema = UnexpectedErrorResponseSchema
+export type GetPickupSchedule500ResponseSchema = UnexpectedErrorResponseSchema
 
-export type SuggestPickupRequestSchema = {
-  origin: CompletePlaceDetailSchema
-  destination: PlaceDetailWithStructureSchema
-  luggage: LuggagesInformationSchema
-  arrivalDate: string
+export type GetPickupScheduleRequestSchema = {
+  origin: PositionSchema
+  destination: PositionSchema
+  deliverySchedule: DateTimeSchema
   [k: string]: unknown
 }
 
-export type GetStructures200ResponseSchema = GetStructuresResponseSchema
-
-export type GetStructures400ResponseSchema = ValidationErrorResponseSchema
-
-export type GetStructures405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type GetStructures415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type GetStructures429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type GetStructures500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type GetStructuresRequestSchema = {
-  search?: string
-  limit: number
+export type GetDeliverySchedule200ResponseSchema = {
+  courier: CourierSchema
+  deliverySchedule: DateTimeSchema
   [k: string]: unknown
 }
 
-export type GetSingleStructure200ResponseSchema = SingleStructureSchema
+export type GetDeliverySchedule400ResponseSchema = ValidationErrorResponseSchema
 
-export type GetSingleStructure400ResponseSchema = ValidationErrorResponseSchema
+export type GetDeliverySchedule404ResponseSchema = GenericNotFoundErrorResponseSchema
 
-export type GetSingleStructure404ResponseSchema = StructureNotFoundErrorResponseSchema
+export type GetDeliverySchedule405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
-export type GetSingleStructure405ResponseSchema = MethodNotAllowedErrorResponseSchema
+export type GetDeliverySchedule415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
 
-export type GetSingleStructure415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+export type GetDeliverySchedule429ResponseSchema = ThrottlingErrorResponseSchema
 
-export type GetSingleStructure429ResponseSchema = ThrottlingErrorResponseSchema
+export type GetDeliverySchedule500ResponseSchema = UnexpectedErrorResponseSchema
 
-export type GetSingleStructure500ResponseSchema = UnexpectedErrorResponseSchema
+export type GetDeliveryScheduleRequestSchema = {
+  origin: PositionSchema
+  destination: PositionSchema
+  pickupSchedule: DateTimeSchema
+  [k: string]: unknown
+}
 
-export type GetSingleStructureRequestSchema = {
+export type AdditionalPositionSchema = {
+  country: string
+  city: string
+  province: string
+  postalCode: string
+  coordinates: CoordinatesRequestSchema
+  [k: string]: unknown
+}
+
+export type CompleteLuggageSchema = {
+  weight: number
+  weightUnit: "kg"
+  height: number
+  width: number
+  length: number
+  dimensionUnit: "cm"
+  content: LuggageContentSchema[]
+  [k: string]: unknown
+}
+
+export type CompletePositionSchema = PositionSchema & AdditionalPositionSchema
+
+export type CompletePrivateSchema = PrivatePositionSchema & AdditionalPositionSchema
+
+export type CompletePublicSchema = PublicPositionSchema & AdditionalPositionSchema
+
+export type CostSchema = {
+  totalAmount: number
+  currency: CurrencySchema
+  [k: string]: unknown
+}
+
+export type CourierSchema = {
+  id: UuidSchema
+  name: string
+  [k: string]: unknown
+}
+
+export type CreateShipmentSchema = {
+  origin: PositionSchema
+  destination: PositionSchema
+  luggages: ShipmentLuggageSchema[]
+  deliverySchedule: DateTimeSchema
+  receiver?: ReceiverSchema
+  returnShipment?: ReturnShipmentSchema
+  outwardShipmentId?: UuidSchema
+  [k: string]: unknown
+}
+
+export type LuggageContentSchema = {
+  id: UuidSchema
+  name: string
+  [k: string]: unknown
+}
+
+export type LuggageWithIdSchema = ShipmentLuggageSchema & {
   id: UuidSchema
   [k: string]: unknown
 }
 
-export type CreatePendingTravel200ResponseSchema = CreateTravelResponseSchema
+export type PositionSchema = PrivatePositionSchema | PublicPositionSchema
 
-export type CreatePendingTravel400ResponseSchema = ValidationErrorResponseSchema
-
-export type CreatePendingTravel404ResponseSchema = UserNotFoundErrorResponseSchema
-
-export type CreatePendingTravel405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type CreatePendingTravel415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type CreatePendingTravel429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type CreatePendingTravel500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type CreatePendingTravelRequestSchema = CreatePendingTravelSchema
-
-export type GetPendingTravel200ResponseSchema = GetPendingTravelInformationResponseSchema
-
-export type GetPendingTravel400ResponseSchema = ValidationErrorResponseSchema
-
-export type GetPendingTravel404ResponseSchema = TravelNotFoundErrorResponseSchema
-
-export type GetPendingTravel405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type GetPendingTravel415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type GetPendingTravel429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type GetPendingTravel500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type GetPendingTravelRequestSchema = {
-  id: UuidSchema
+export type PrivatePositionSchema = {
+  type: "private"
+  placeId: UuidSchema
+  address: string
+  houseNumber: string
+  floor?: string
   [k: string]: unknown
 }
 
-export type DifferentReceiverSchema = {
+export type PublicPositionSchema = {
+  type: "public"
+  placeId: UuidSchema
+  [k: string]: unknown
+}
+
+export type ReceiverSchema = {
   firstName: string
   lastName: string
   email: EmailSchema
@@ -5517,203 +5321,87 @@ export type DifferentReceiverSchema = {
   [k: string]: unknown
 }
 
-export type SignleLuggageDetailSchema = {
+export type ReturnShipmentSchema = {
+  pickupSchedule: DateTimeSchema
+  courierId: UuidSchema
+  [k: string]: unknown
+}
+
+export type ShipmentLuggageSchema = {
   weight: number
-  weightUnit: "KGS" | "LBS"
+  weightUnit: "kg"
   height: number
   width: number
-  depth: number
-  dimensionsUnit: "CM" | "IN"
-  content: string
+  length: number
+  dimensionUnit: "cm"
+  contentIds: UuidSchema[]
   [k: string]: unknown
 }
 
-export type LuggagesInformationSchema = SignleLuggageDetailSchema[]
-
-export type LuggagesInformationWithTypeSchema = (SignleLuggageDetailSchema & {
-  type: string
-  [k: string]: unknown
-})[]
-
-export type RoomAndFloorSchema = {
-  room?: string
-  floor?: string
-  [k: string]: unknown
-}
-
-export type PlaceStructureSchema = {
+export type ShipmentStatusSchema = {
   id: UuidSchema
-  [k: string]: unknown
-}
-
-export type PlaceStructureWithNameSchema = {
-  id: string
-  name: string
-  [k: string]: unknown
-}
-
-export type PlaceDetailSchema = {
-  country: string
-  city: string
-  address: string
-  cap: string
-  houseNumber?: string
-  [k: string]: unknown
-}
-
-export type PlaceDetailWithAdditionalSchema = PlaceDetailSchema & {
-  additional?: RoomAndFloorSchema
-  [k: string]: unknown
-}
-
-export type PlaceDetailWithStructureSchema = PlaceDetailSchema & {
-  structure?: PlaceStructureSchema
-  [k: string]: unknown
-}
-
-export type CompletePlaceDetailSchema = PlaceDetailWithStructureSchema & {
-  additional: RoomAndFloorSchema
-  [k: string]: unknown
-}
-
-export type GetTravelPlaceSchema = PlaceDetailSchema & {
-  coordinates: CoordinatesRequestSchema
-  structure?: PlaceStructureWithNameSchema
-  [k: string]: unknown
-}
-
-export type OriginDetailSchema = {
-  basic: PlaceDetailWithStructureSchema
-  additional: RoomAndFloorSchema
-  [k: string]: unknown
-}
-
-export type PlaceNameSchema =
-  | (PlaceDetailSchema & {
-      isResidential: true
-      coordinates: CoordinatesRequestSchema
-      [k: string]: unknown
-    })
-  | (PlaceStructureWithNameSchema & {
-      isResidential: false
-      coordinates: CoordinatesRequestSchema
-      [k: string]: unknown
-    })
-
-export type GenericTimeDetailSchema = {
-  date: string
-  readyTime: TimeSchema
-  closeTime: TimeSchema
-  [k: string]: unknown
-}
-
-export type GetTravelStatusSchema = {
   code: string
   description: string
-  creationTimestamp: string
+  isCurrent: boolean
   [k: string]: unknown
 }
 
-export type SingleTravelInformationSchema = {
-  id: string
-  cost: number
-  luggage: LuggagesInformationWithTypeSchema
-  destination: GetTravelPlaceSchema
-  origin: GetTravelPlaceSchema
-  status: GetTravelStatusSchema[]
-  time: {
-    pickup: GenericTimeDetailSchema
-    delivery: GenericTimeDetailSchema
-    [k: string]: unknown
-  }
+export type SingleCompleteNormalShipmentSchema = {
+  id: UuidSchema
+  origin: CompletePositionSchema
+  destination: CompletePositionSchema
+  luggages: CompleteLuggageSchema[]
+  pickupSchedule: DateTimeSchema
+  deliverySchedule: DateTimeSchema
+  trackDetail?: TrackDetailSchema
+  cost: CostSchema
+  courier: CourierSchema
+  receiver?: ReceiverSchema
   [k: string]: unknown
 }
 
-export type SinglePendingTravelInformatioSchema = {
-  id: string
-  luggage: LuggagesInformationWithTypeSchema
-  destination: GetTravelPlaceSchema
-  origin: GetTravelPlaceSchema
-  time: {
-    pickup: GenericTimeDetailSchema
-    delivery: GenericTimeDetailSchema
-    [k: string]: unknown
-  }
-  receiver?: DifferentReceiverSchema
+export type SingleNormalShipmentSchema = {
+  id: UuidSchema
+  origin: CompletePositionSchema
+  destination: CompletePositionSchema
+  luggages: LuggageWithIdSchema[]
+  pickupSchedule: DateTimeSchema
+  deliverySchedule: DateTimeSchema
+  trackDetail?: TrackDetailSchema
+  cost: CostSchema
+  courier: CourierSchema
+  shipmentType: "NORMAL" | "PREMIUM"
+  receiver?: ReceiverSchema
   [k: string]: unknown
 }
 
-export type SingleTravelInformationWithReceiverSchema = SingleTravelInformationSchema & {
-  receiver?: DifferentReceiverSchema
+export type SingleNormalShipmentWithCourierSchema = SingleNormalShipmentSchema & {
+  courierId: UuidSchema
   [k: string]: unknown
 }
 
-export type SingleStructureSchema = PlaceDetailSchema & {
-  id: string
-  name: string
+export type SingleNormalShipmentWithStatusSchema = SingleNormalShipmentSchema & {
+  status: ShipmentStatusSchema
   [k: string]: unknown
 }
 
-export type GenericTimeDetailWithIdSchema = GenericTimeDetailSchema & {
-  id: string
+export type TrackDetailSchema = {
+  trackId: string
   [k: string]: unknown
 }
 
-export type CreateNewTravelRequestSchema = {
-  destination: PlaceDetailWithStructureSchema
-  origin: OriginDetailSchema
-  luggage: LuggagesInformationSchema
-  time: {
-    pickup: GenericTimeDetailSchema
-    [k: string]: unknown
-  }
-  additional?:
-    | {
-        travelType: "returnTravel"
-        returnTravel: {
-          pickup: GenericTimeDetailSchema
-          [k: string]: unknown
-        }
-        [k: string]: unknown
-      }
-    | {
-        travelType: "onlyReturn"
-        outwardTravelId: string
-        [k: string]: unknown
-      }
-  differentReceiver?: DifferentReceiverSchema
+export type SinglePendingShipmentSchema = {
+  id: UuidSchema
+  origin: CompletePositionSchema
+  destination: CompletePositionSchema
+  luggages: CompleteLuggageSchema[]
+  pickupSchedule: DateTimeSchema
+  deliverySchedule: DateTimeSchema
+  cost: CostSchema
+  courier: CourierSchema
+  receiver?: ReceiverSchema
   [k: string]: unknown
 }
-
-export type CreatePendingTravelSchema = CreateNewTravelRequestSchema
-
-export type RateTravelRequestSchema = {
-  luggage: LuggagesInformationSchema
-  destination: PlaceDetailWithStructureSchema
-  origin: CompletePlaceDetailSchema
-  pickup: GenericTimeDetailSchema
-  [k: string]: unknown
-}
-
-export type GetTravelInformationResponseSchema = {
-  outwardTravel: SingleTravelInformationWithReceiverSchema
-  returnTravel?: SingleTravelInformationWithReceiverSchema
-  [k: string]: unknown
-}
-
-export type GetPendingTravelInformationResponseSchema = {
-  outwardTravel: SinglePendingTravelInformatioSchema
-  returnTravel?: SinglePendingTravelInformatioSchema
-  [k: string]: unknown
-}
-
-export type CreateTravelResponseSchema = {
-  outwardTravel: GenericTimeDetailWithIdSchema
-  returnTravel?: GenericTimeDetailWithIdSchema
-  [k: string]: unknown
-}
-
-export type GetStructuresResponseSchema = SingleStructureSchema[]
 
 export type LogUser200ResponseSchema = LoginResponseSchema | MfaLoginResponseSchema
 
@@ -5759,6 +5447,20 @@ export type VerifyRememberTokenRequestSchema = {
   [k: string]: unknown
 }
 
+export type ConfirmUserRequestSchema = {
+  code: string
+}
+
+export type SignupUserRequestSchema = {
+  firstName: string
+  lastName: string
+  email: EmailSchema
+  password: StrongPasswordSchema
+  dateOfBirth: string
+  phoneNumber: PhoneNumberSchema
+  sessionId: string
+}
+
 export type LoginUserRequestSchema =
   | {
       email: EmailSchema
@@ -5772,20 +5474,6 @@ export type LoginUserRequestSchema =
       emailSelected: false
       rememberMe: boolean
     }
-
-export type SignupUserRequestSchema = {
-  firstName: string
-  lastName: string
-  email: EmailSchema
-  password: StrongPasswordSchema
-  dateOfBirth: string
-  phoneNumber: PhoneNumberSchema
-  sessionId: string
-}
-
-export type ConfirmUserRequestSchema = {
-  code: string
-}
 
 export type LoginResponseSchema = {
   mfaRequired: false
@@ -6000,21 +5688,31 @@ export type ResendResetPasswordRequestSchema = {
   [k: string]: unknown
 }
 
-export type GetUserTravels200ResponseSchema = GetUserTravelsResponseSchema
+export type GetUserShipments200ResponseSchema = {
+  pendingShipments: {
+    outwardShipment: SinglePendingShipmentSchema
+    returnShipment?: SinglePendingShipmentSchema
+    [k: string]: unknown
+  }[]
+  normalShipments: {
+    outwardShipment: SingleCompleteNormalShipmentSchema
+    returnShipment?: SingleCompleteNormalShipmentSchema
+    [k: string]: unknown
+  }[]
+  [k: string]: unknown
+}
 
-export type GetUserTravels400ResponseSchema = ValidationErrorResponseSchema
+export type GetUserShipments400ResponseSchema = ValidationErrorResponseSchema
 
-export type GetUserTravels404ResponseSchema = UserNotFoundErrorResponseSchema
+export type GetUserShipments405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
-export type GetUserTravels405ResponseSchema = MethodNotAllowedErrorResponseSchema
+export type GetUserShipments415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
 
-export type GetUserTravels415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+export type GetUserShipments429ResponseSchema = ThrottlingErrorResponseSchema
 
-export type GetUserTravels429ResponseSchema = ThrottlingErrorResponseSchema
+export type GetUserShipments500ResponseSchema = UnexpectedErrorResponseSchema
 
-export type GetUserTravels500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type GetUserTravelsRequestSchema = {
+export type GetUserShipmentsRequestSchema = {
   search?: string
   field?: "origin" | "destination" | "all"
   [k: string]: unknown
@@ -6107,87 +5805,7 @@ export type AddUserCompany429ResponseSchema = ThrottlingErrorResponseSchema
 
 export type AddUserCompany500ResponseSchema = UnexpectedErrorResponseSchema
 
-export type AddUserCompanyRequestSchema = JuridicalCompanyDetailSchema
-
-export type GetInvoice200ResponseSchema = {
-  file: string
-  [k: string]: unknown
-}
-
-export type GetInvoice400ResponseSchema = ValidationErrorResponseSchema
-
-export type GetInvoice404ResponseSchema = GenericNotFoundErrorResponseSchema
-
-export type GetInvoice405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type GetInvoice415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type GetInvoice429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type GetInvoice500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type GetInvoiceRequestSchema = {
-  id: UuidSchema
-  [k: string]: unknown
-}
-
-export type SingleUserTravelSchema = {
-  time: {
-    pickup: GenericTimeDetailSchema
-    delivery: GenericTimeDetailSchema
-    [k: string]: unknown
-  }
-  destinationName: PlaceNameSchema
-  originName: PlaceNameSchema
-  travelStatus: string
-  travelId: string
-  creationTimestamp: string
-  [k: string]: unknown
-}
-
-export type SavedLuggageSchema = {
-  name: string
-  width: number
-  height: number
-  depth: number
-  content?: string
-  dimensionUnit: string
-  [k: string]: unknown
-}
-
-export type SavedLuggageSchemaWithType = SavedLuggageSchema & {
-  type: string
-  creationTimestamp: string
-  [k: string]: unknown
-}
-
-export type JuridicalCompanyWithIdSchema = JuridicalCompanyDetailSchema & {
-  id: string
-  [k: string]: unknown
-}
-
-export type PersonalCompanySchema = {
-  fiscalCode: string
-  name: string
-  completeAddress: string
-  cap: string
-  city: string
-  province: string
-  [k: string]: unknown
-}
-
-export type PersonalCompanyWithIdSchema = PersonalCompanySchema & {
-  id: string
-  [k: string]: unknown
-}
-
-export type ModifyUserSettingsRequestSchema = {
-  firstName: string
-  lastName: string
-  dateOfBirth: string
-  customerId?: string
-  [k: string]: unknown
-}
+export type AddUserCompanyRequestSchema = CompanyDetailSchema
 
 export type SaveUserCardCredentialsRequestSchema = {
   email: EmailSchema
@@ -6199,35 +5817,16 @@ export type SaveUserCardCredentialsRequestSchema = {
   [k: string]: unknown
 }
 
-export type UserSettingsResponseSchema = {
-  phoneNumber: PhoneNumberSchema
-  dateOfBirth: string
-  email: string
-  password: string
-  firstName: string
-  lastName: string
-  savedLuggages: (SavedLuggageSchemaWithType & {
-    id: string
-    [k: string]: unknown
-  })[]
-  mfaEnabled: boolean
-  company?: JuridicalCompanyWithIdSchema | PersonalCompanyWithIdSchema
+export type CompanyWithIdSchema = CompanyDetailSchema & {
+  id: string
   [k: string]: unknown
 }
 
-export type LogUserResponseSchema =
-  | {
-      email: EmailSchema
-      password: StrongPasswordSchema
-      emailSelected: true
-      rememberMe: boolean
-    }
-  | {
-      phoneNumber: PhoneNumberSchema
-      password: StrongPasswordSchema
-      emailSelected: false
-      rememberMe: boolean
-    }
+export type GetLuggagesPackageResponseSchema = {
+  id: UuidSchema
+  luggage: SavedLuggageSchemaWithType
+  [k: string]: unknown
+}
 
 export type GetUserCommunicationsResponseSchema = {
   general: {
@@ -6249,15 +5848,56 @@ export type GetUserCommunicationsResponseSchema = {
   [k: string]: unknown
 }
 
-export type GetUserTravelsResponseSchema = {
-  outwardTravel: SingleUserTravelSchema
-  returnTravel?: SingleUserTravelSchema
+export type UserSettingsResponseSchema = {
+  phoneNumber: PhoneNumberSchema
+  dateOfBirth: string
+  email: string
+  firstName: string
+  lastName: string
+  savedLuggages: (SavedLuggageSchemaWithType & {
+    id: string
+    [k: string]: unknown
+  })[]
+  mfaEnabled: boolean
+  company?: CompanyWithIdSchema
   [k: string]: unknown
-}[]
+}
 
-export type GetLuggagesPackageResponseSchema = {
-  id: UuidSchema
-  luggage: SavedLuggageSchemaWithType
+export type LogUserResponseSchema =
+  | {
+      email: EmailSchema
+      password: StrongPasswordSchema
+      emailSelected: true
+      rememberMe: boolean
+    }
+  | {
+      phoneNumber: PhoneNumberSchema
+      password: StrongPasswordSchema
+      emailSelected: false
+      rememberMe: boolean
+    }
+
+export type ModifyUserSettingsRequestSchema = {
+  firstName: string
+  lastName: string
+  dateOfBirth: string
+  customerId?: string
+  [k: string]: unknown
+}
+
+export type SavedLuggageSchema = {
+  name: string
+  width: number
+  height: number
+  depth: number
+  content?: string
+  dimensionUnit: string
+  [k: string]: unknown
+}
+
+export type SavedLuggageSchemaWithType = SavedLuggageSchema & {
+  type: string
+  creationTimestamp: string
   [k: string]: unknown
 }
 
@@ -6342,7 +5982,7 @@ export type RetrievePaymentIntent500ResponseSchema = UnexpectedErrorResponseSche
 
 export type RetrievePaymentIntentRequestSchema = RetrieveStripePaymentIntentRequestSchema
 
-export type VerifyPaymentIntent200ResponseSchema = CompletePaymentIntentSchema
+export type VerifyPaymentIntent200ResponseSchema = OkResponseSchema
 
 export type VerifyPaymentIntent400ResponseSchema = ValidationErrorResponseSchema
 
@@ -6360,7 +6000,11 @@ export type VerifyPaymentIntent429ResponseSchema = ThrottlingErrorResponseSchema
 
 export type VerifyPaymentIntent500ResponseSchema = UnexpectedErrorResponseSchema
 
-export type VerifyPaymentIntentRequestSchema = VerifyUserPaymentIntentRequestSchema
+export type VerifyPaymentIntentRequestSchema = {
+  clientSecret: string
+  intentId: UuidSchema
+  [k: string]: unknown
+}
 
 export type CapturePaymentIntent200ResponseSchema = OkResponseSchema
 
@@ -6370,8 +6014,6 @@ export type CapturePaymentIntent404ResponseSchema = StripePaymentIntentNotFoundE
 
 export type CapturePaymentIntent405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
-export type CapturePaymentIntent409ResponseSchema = ConflictErrorResponseSchema
-
 export type CapturePaymentIntent415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
 
 export type CapturePaymentIntent429ResponseSchema = ThrottlingErrorResponseSchema
@@ -6380,92 +6022,22 @@ export type CapturePaymentIntent500ResponseSchema = UnexpectedErrorResponseSchem
 
 export type CapturePaymentIntentRequestSchema = {
   intentId: UuidSchema
-  outwardTravelId: UuidSchema
   [k: string]: unknown
 }
 
-export type SendEmailInvoice200ResponseSchema = OkResponseSchema
-
-export type SendEmailInvoice400ResponseSchema = ValidationErrorResponseSchema
-
-export type SendEmailInvoice404ResponseSchema = GenericNotFoundErrorResponseSchema
-
-export type SendEmailInvoice405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type SendEmailInvoice415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type SendEmailInvoice429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type SendEmailInvoice500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type SendEmailInvoiceRequestSchema = {
-  id: UuidSchema
-  [k: string]: unknown
-}
-
-export type AppendPersonalCompanyDetail200ResponseSchema = {
-  companyId: string
-  sessionId: string
-  stripeId: string
-  [k: string]: unknown
-}
-
-export type AppendPersonalCompanyDetail400ResponseSchema = ValidationErrorResponseSchema
-
-export type AppendPersonalCompanyDetail404ResponseSchema = GenericNotFoundErrorResponseSchema
-
-export type AppendPersonalCompanyDetail405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type AppendPersonalCompanyDetail409ResponseSchema = ConflictErrorResponseSchema
-
-export type AppendPersonalCompanyDetail415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type AppendPersonalCompanyDetail429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type AppendPersonalCompanyDetail500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type AppendPersonalCompanyDetailRequestSchema = {
-  personalDetail: PersonalInvoiceDetailSchema
-  intentId: UuidSchema
-  [k: string]: unknown
-}
-
-export type RequestInvoiceOnIntent200ResponseSchema = {
-  sessionId: string
-  stripeId: string
-  [k: string]: unknown
-}
-
-export type RequestInvoiceOnIntent400ResponseSchema = ValidationErrorResponseSchema
-
-export type RequestInvoiceOnIntent404ResponseSchema = GenericNotFoundErrorResponseSchema
-
-export type RequestInvoiceOnIntent405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type RequestInvoiceOnIntent409ResponseSchema = ConflictErrorResponseSchema
-
-export type RequestInvoiceOnIntent415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type RequestInvoiceOnIntent429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type RequestInvoiceOnIntent500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type RequestInvoiceOnIntentRequestSchema = {
-  intentId: UuidSchema
-  requestInvoice?: boolean
-  [k: string]: unknown
-}
-
-export type CompletePaymentIntentSchema = {
-  id: UuidSchema
-  stripeId: string
-  invoiceRequested: boolean
+export type CreatePaymwentIntent200ResponseSchema = {
+  clientSecret: string
   [k: string]: unknown
 }
 
 export type CreatePaymentIntentRequestSchema = {
   priceCents: number
   currency: CurrencySchema
+  [k: string]: unknown
+}
+
+export type InitSaveUserPaymentDetails200ResponseSchema = {
+  clientSecret: string
   [k: string]: unknown
 }
 
@@ -6476,52 +6048,6 @@ export type StripeIntentIdRequestSchema = {
 
 export type RetrieveStripePaymentIntentRequestSchema = {
   intentId?: string
-  [k: string]: unknown
-}
-
-export type PersonalInvoiceDetailSchema = {
-  fiscalCode: FiscalCodeSchema
-  completeAddress: string
-  cap: CapSchema
-  city: string
-  province: string
-  [k: string]: unknown
-}
-
-export type VerifyUserPaymentIntentRequestSchema = {
-  clientSecret: string
-  [k: string]: unknown
-} & (
-  | {
-      withStripeId: true
-      intentStripeId: string
-      [k: string]: unknown
-    }
-  | {
-      withStripeId: false
-      intentId: UuidSchema
-      [k: string]: unknown
-    }
-)
-
-export type CreatePaymwentIntent200ResponseSchema = {
-  clientSecret: string
-  sessionId: string
-  stripeId: string
-  userCompany?:
-    | (JuridicalCompanyWithIdSchema & {
-        type: "juridical"
-        [k: string]: unknown
-      })
-    | (PersonalCompanyWithIdSchema & {
-        type: "personal"
-        [k: string]: unknown
-      })
-  [k: string]: unknown
-}
-
-export type InitSaveUserPaymentDetails200ResponseSchema = {
-  clientSecret: string
   [k: string]: unknown
 }
 
@@ -6563,19 +6089,23 @@ export type GetHelpRequestsRequestSchema = {
   [k: string]: unknown
 }
 
-export type GetTravels200ResponseSchema = TravelSchemaWithStatus[]
+export type AdminGetNormalShipments200ResponseSchema = {
+  outwardShipment: SingleCompleteNormalShipmentSchema
+  returnShipment?: SingleCompleteNormalShipmentSchema
+  [k: string]: unknown
+}[]
 
-export type GetTravels400ResponseSchema = ValidationErrorResponseSchema
+export type AdminGetNormalShipments400ResponseSchema = ValidationErrorResponseSchema
 
-export type GetTravels405ResponseSchema = MethodNotAllowedErrorResponseSchema
+export type AdminGetNormalShipments405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
-export type GetTravels415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+export type AdminGetNormalShipments415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
 
-export type GetTravels429ResponseSchema = ThrottlingErrorResponseSchema
+export type AdminGetNormalShipments429ResponseSchema = ThrottlingErrorResponseSchema
 
-export type GetTravels500ResponseSchema = UnexpectedErrorResponseSchema
+export type AdminGetNormalShipments500ResponseSchema = UnexpectedErrorResponseSchema
 
-export type GetTravelsRequestSchema = {
+export type AdminGetNormalShipmentsRequestSchema = {
   users?: string[]
   status?: string[]
   search?: string
@@ -6601,19 +6131,23 @@ export type GetErrorsRequestSchema = {
   [k: string]: unknown
 }
 
-export type GetPendingTravels200ResponseSchema = PendingTravelSchema[]
+export type AdminGetPendingShipments200ResponseSchema = {
+  outwardShipment: SinglePendingShipmentSchema
+  returnShipment?: SinglePendingShipmentSchema
+  [k: string]: unknown
+}[]
 
-export type GetPendingTravels400ResponseSchema = ValidationErrorResponseSchema
+export type AdminGetPendingShipments400ResponseSchema = ValidationErrorResponseSchema
 
-export type GetPendingTravels405ResponseSchema = MethodNotAllowedErrorResponseSchema
+export type AdminGetPendingShipments405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
-export type GetPendingTravels415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+export type AdminGetPendingShipments415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
 
-export type GetPendingTravels429ResponseSchema = ThrottlingErrorResponseSchema
+export type AdminGetPendingShipments429ResponseSchema = ThrottlingErrorResponseSchema
 
-export type GetPendingTravels500ResponseSchema = UnexpectedErrorResponseSchema
+export type AdminGetPendingShipments500ResponseSchema = UnexpectedErrorResponseSchema
 
-export type GetPendingTravelsRequestSchema = {
+export type AdminGetPendingShipmentsRequestSchema = {
   dateSort?: "ASC" | "DESC"
   [k: string]: unknown
 }
@@ -6681,58 +6215,23 @@ export type SendHelpResponseRequestSchema = {
   [k: string]: unknown
 }
 
-export type RejectPendingTravel200ResponseSchema = OkResponseSchema
+export type RejectPendingShipment200ResponseSchema = OkResponseSchema
 
-export type RejectPendingTravel400ResponseSchema = ValidationErrorResponseSchema
+export type RejectPendingShipment400ResponseSchema = ValidationErrorResponseSchema
 
-export type RejectPendingTravel404ResponseSchema = TravelNotFoundErrorResponseSchema
+export type RejectPendingShipment404ResponseSchema = TravelNotFoundErrorResponseSchema
 
-export type RejectPendingTravel405ResponseSchema = MethodNotAllowedErrorResponseSchema
+export type RejectPendingShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
-export type RejectPendingTravel415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+export type RejectPendingShipment415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
 
-export type RejectPendingTravel429ResponseSchema = ThrottlingErrorResponseSchema
+export type RejectPendingShipment429ResponseSchema = ThrottlingErrorResponseSchema
 
-export type RejectPendingTravel500ResponseSchema = UnexpectedErrorResponseSchema
+export type RejectPendingShipment500ResponseSchema = UnexpectedErrorResponseSchema
 
-export type RejectPendingTravelRequestSchema = {
+export type RejectPendingShipmentRequestSchema = {
   id: UuidSchema
   motivation: string
-  [k: string]: unknown
-}
-
-export type BaseUserSchema = {
-  firstName: string
-  lastName: string
-  email: string
-  completePhone: string
-  id: string
-  [k: string]: unknown
-}
-
-export type StatusSchema = {
-  name: string
-  datetime: string
-  isActive: boolean
-  [k: string]: unknown
-}
-
-export type PlaceSchema = {
-  detailedName: string
-  structure?: {
-    name: string
-    link: string
-    [k: string]: unknown
-  }
-  [k: string]: unknown
-}
-
-export type BaseTravelSchema = {
-  id: string
-  completeDestination: PlaceSchema
-  completeOrigin: PlaceSchema
-  status: StatusSchema
-  luggagesNumber: number
   [k: string]: unknown
 }
 
@@ -6743,22 +6242,12 @@ export type BaseHelpRequestSchema = {
   [k: string]: unknown
 }
 
-export type UserDetailSchema = {
-  id: string
-  firstName: string
-  lastName: string
-  email: string
-  status: "ACTIVE" | "DELETED"
-  completePhone: string
-  travels: BaseTravelSchema[]
-  helpRequests: BaseHelpRequestSchema[]
-  [k: string]: unknown
-}
-
-export type OperatorSchema = {
-  type: "CLIENT" | "OPERATOR"
-  firstName: string
-  lastName: string
+export type ErrorSchema = {
+  datetime: string
+  message: string
+  code?: string
+  stack?: string
+  status: "PENDING" | "RESOLVED"
   [k: string]: unknown
 }
 
@@ -6782,6 +6271,47 @@ export type HelpRequestSchema = {
   [k: string]: unknown
 }
 
+export type OperatorSchema = {
+  type: "CLIENT" | "OPERATOR"
+  firstName: string
+  lastName: string
+  [k: string]: unknown
+}
+
+export type TravelSchemaWithCompleteUser = ShipmentSchema & {
+  user: UserDetailSchema
+  [k: string]: unknown
+}
+
+export type TravelSchemaWithStatus = ShipmentSchemaWithBaseUser & {
+  status: StatusSchema[]
+  [k: string]: unknown
+}
+
+export type AdminTimeSchema = {
+  pickupDatetime: string
+  deliveryDatetime: string
+  [k: string]: unknown
+}
+
+export type BaseShipmentSchema = {
+  id: string
+  completeDestination: PlaceSchema
+  completeOrigin: PlaceSchema
+  status: StatusSchema
+  luggagesNumber: number
+  [k: string]: unknown
+}
+
+export type BaseUserSchema = {
+  firstName: string
+  lastName: string
+  email: string
+  completePhone: string
+  id: string
+  [k: string]: unknown
+}
+
 export type LuggageSchema = {
   content: string
   weight: string
@@ -6793,17 +6323,19 @@ export type LuggageSchema = {
   [k: string]: unknown
 }
 
-export type AdminTimeSchema = {
-  pickupDate: string
-  arrivalDate: string
-  pickupReadyTime: string
-  pickupCloseTime: string
-  arrivalReadyTime: string
-  arrivalCloseTime: string
+export type PendingShipmentSchema = ShipmentSchemaWithBaseUser
+
+export type PlaceSchema = {
+  detailedName: string
+  structure?: {
+    name: string
+    link: string
+    [k: string]: unknown
+  }
   [k: string]: unknown
 }
 
-export type TravelAdditionalSchema = {
+export type ShipmentAdditionalSchema = {
   differentReceiver?: {
     firstName: string
     lastName: string
@@ -6814,42 +6346,41 @@ export type TravelAdditionalSchema = {
   [k: string]: unknown
 }
 
-export type TravelSchema = {
+export type ShipmentSchema = {
   id: string
   destination: PlaceSchema
   origin: PlaceSchema
-  luggages: LuggageSchema[]
+  luggages: CompleteLuggageSchema[]
   outwardTime: AdminTimeSchema
   returnTime?: AdminTimeSchema
-  additional?: TravelAdditionalSchema
+  additional?: ShipmentAdditionalSchema
   [k: string]: unknown
 }
 
-export type TravelSchemaWithBaseUser = TravelSchema & {
+export type ShipmentSchemaWithBaseUser = ShipmentSchema & {
   user: BaseUserSchema
   [k: string]: unknown
 }
 
-export type TravelSchemaWithCompleteUser = TravelSchema & {
-  user: UserDetailSchema
+export type StatusSchema = {
+  code: string
+  description: string
+  creationTimestamp: DateTimeSchema
+  isActive: boolean
   [k: string]: unknown
 }
 
-export type TravelSchemaWithStatus = TravelSchemaWithBaseUser & {
-  status: StatusSchema[]
+export type UserDetailSchema = {
+  id: string
+  firstName: string
+  lastName: string
+  email: string
+  status: "ACTIVE" | "DELETED"
+  completePhone: string
+  shipments: BaseShipmentSchema[]
+  helpRequests: BaseHelpRequestSchema[]
   [k: string]: unknown
 }
-
-export type ErrorSchema = {
-  datetime: string
-  message: string
-  code?: string
-  stack?: string
-  status: "PENDING" | "RESOLVED"
-  [k: string]: unknown
-}
-
-export type PendingTravelSchema = TravelSchemaWithBaseUser
 
 export type VerifyUserCredentials200ResponseSchema = OkResponseSchema
 
@@ -6934,45 +6465,6 @@ export type VerifyAssistant415ResponseSchema = UnsupportedMediaTypeErrorResponse
 export type VerifyAssistant429ResponseSchema = ThrottlingErrorResponseSchema
 
 export type VerifyAssistant500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type ValidateVat200ResponseSchema = OkResponseSchema
-
-export type ValidateVat400ResponseSchema = ValidationErrorResponseSchema
-
-export type ValidateVat405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type ValidateVat415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type ValidateVat429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type ValidateVat500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type ValidateVatRequestSchema = {
-  socialReason: string
-  vatNumber: string
-  [k: string]: unknown
-}
-
-export type ValidateFiscalCode200ResponseSchema = OkResponseSchema
-
-export type ValidateFiscalCode400ResponseSchema = ValidationErrorResponseSchema
-
-export type ValidateFiscalCode401ResponseSchema = UnauthenticatedErrorResponseSchema
-
-export type ValidateFiscalCode405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type ValidateFiscalCode409ResponseSchema = ConflictErrorResponseSchema
-
-export type ValidateFiscalCode415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type ValidateFiscalCode429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type ValidateFiscalCode500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type ValidateFiscalCodeRequestSchema = {
-  fiscalCode: FiscalCodeSchema
-  [k: string]: unknown
-}
 
 export type GetLuggagesPackages200ResponseSchema = {
   optimals: PackagesSinglePackageSchema[]
@@ -7059,90 +6551,6 @@ export type GetPositionDetailRequestSchema = {
   [k: string]: unknown
 }
 
-export type PackagesPositionDetailSchema = {
-  country: string
-  city: string
-  cap: string
-  structure?: PlaceStructureWithNameSchema
-  [k: string]: unknown
-}
-
-export type PackagesPrivatePublicPositionSchema = {
-  isPrivate: boolean
-  id: UuidSchema
-  [k: string]: unknown
-}
-
-export type PackagesTimeSchema = {
-  outwardDate: string
-  returnDate?: string
-  [k: string]: unknown
-}
-
-export type PackagesLuggageSchema = {
-  width: number
-  height: number
-  depth: number
-  weight: number
-  [k: string]: unknown
-}
-
-export type PackagesSinglePackageTimeSchema = {
-  outward: {
-    pickupDate: string
-    [k: string]: unknown
-  }
-  return?: {
-    pickupDate: string
-    [k: string]: unknown
-  }
-  [k: string]: unknown
-}
-
-export type PackagesLuggagesWithTypeSchema = PackagesLuggageSchema & {
-  type: string
-  [k: string]: unknown
-}
-
-export type PackagesPriceSchema = {
-  totalCharge: number
-  totalDiscount: number
-  [k: string]: unknown
-}
-
-export type PackagesSinglePackageSchema = {
-  luggages: PackagesLuggagesWithTypeSchema[]
-  price: PackagesPriceSchema
-  time: PackagesSinglePackageTimeSchema
-  type: "best" | "cheapest" | "fastest"
-  durationDays: number
-  origin: PackagesPositionDetailSchema
-  destination: PackagesPositionDetailSchema
-  [k: string]: unknown
-}
-
-export type SingleOfferSchema = {
-  title: string
-  placeId: string
-  offertId: string
-  packagesNuber: number
-  basePrice: string
-  checkIn: string
-  checkOut: string
-  rooms: number
-  adults: number
-  children: number
-  imageSrc: string
-  [k: string]: unknown
-}
-
-export type OccupancySchema = {
-  adults: number
-  children: number
-  total: number
-  [k: string]: unknown
-}
-
 export type HotelProductSchema = {
   occupancy: OccupancySchema
   numberAvailableAtThisPrice: number
@@ -7167,6 +6575,89 @@ export type HotelProductSchema = {
     id: string
     [k: string]: unknown
   }
+  [k: string]: unknown
+}
+
+export type PackagesLuggageSchema = {
+  width: number
+  height: number
+  depth: number
+  weight: number
+  [k: string]: unknown
+}
+
+export type PackagesLuggagesWithTypeSchema = PackagesLuggageSchema & {
+  type: string
+  [k: string]: unknown
+}
+
+export type OccupancySchema = {
+  adults: number
+  children: number
+  total: number
+  [k: string]: unknown
+}
+
+export type PackagesPositionDetailSchema = {
+  country: string
+  city: string
+  cap: string
+  [k: string]: unknown
+}
+
+export type PackagesPriceSchema = {
+  totalCharge: number
+  totalDiscount: number
+  [k: string]: unknown
+}
+
+export type PackagesPrivatePublicPositionSchema = {
+  isPrivate: boolean
+  id: UuidSchema
+  [k: string]: unknown
+}
+
+export type SingleOfferSchema = {
+  title: string
+  placeId: string
+  offertId: string
+  packagesNuber: number
+  basePrice: string
+  checkIn: string
+  checkOut: string
+  rooms: number
+  adults: number
+  children: number
+  imageSrc: string
+  [k: string]: unknown
+}
+
+export type PackagesSinglePackageSchema = {
+  luggages: PackagesLuggagesWithTypeSchema[]
+  price: PackagesPriceSchema
+  time: PackagesSinglePackageTimeSchema
+  type: "best" | "cheapest" | "fastest"
+  durationDays: number
+  origin: PackagesPositionDetailSchema
+  destination: PackagesPositionDetailSchema
+  [k: string]: unknown
+}
+
+export type PackagesSinglePackageTimeSchema = {
+  outward: {
+    pickupDate: string
+    [k: string]: unknown
+  }
+  return?: {
+    pickupDate: string
+    [k: string]: unknown
+  }
+  [k: string]: unknown
+}
+
+export type PackagesTimeSchema = {
+  outwardDate: string
+  returnDate?: string
   [k: string]: unknown
 }
 
@@ -7300,44 +6791,41 @@ export type GetBestAccomodationsRequestSchema = {
   [k: string]: unknown
 }
 
-export type ChilrenAgesSchema = number[]
-
-export type GuestsSchema = {
-  childrenAges?: ChilrenAgesSchema
-  adults: number
+export type AvailabilityAccomodationSchema = {
+  id: string
+  currency: string
+  products: {
+    id: string
+    maxOccupancy: {
+      adults: number
+      children: number
+      total: number
+      [k: string]: unknown
+    }
+    numberAvailableAtThisPrice: number
+    policies: {
+      cancellation?: {
+        freeCancellationUntil: string
+        type: string
+        [k: string]: unknown
+      }
+      [k: string]: unknown
+    }
+    price: PriceSchema
+    room: {
+      id: string
+      type: string
+      [k: string]: unknown
+    }
+    [k: string]: unknown
+  }[]
+  url: string
   [k: string]: unknown
 }
 
-export type PriceSchema = {
-  base: number
-  book: number
-  total: number
-  [k: string]: unknown
-}
-
-export type PriceWithChargesSchema = PriceSchema & {
-  extraCharges: number
-  [k: string]: unknown
-}
-
-export type CheckInOutSchema = {
-  from: string
-  to: string
-  [k: string]: unknown
-}
-
-export type ContactSchema = {
-  email?: string
-  phone?: string
-  [k: string]: unknown
-}
-
-export type LocationSchema = {
-  country: string
-  city: string
-  coordinates: CoordinatesRequestSchema
-  cap: string
-  address: string
+export type BaseAccomodationConstantSchema = {
+  id: number
+  name: string
   [k: string]: unknown
 }
 
@@ -7366,41 +6854,36 @@ export type BaseAccomodationSchema = {
   [k: string]: unknown
 }
 
-export type ExtendedPhotosSchema = {
-  isMain: boolean
-  tags: string[]
-  url: {
-    large: string
-    standard: string
-    thumbnail: string
-    thumbnailLarge: string
+export type BestAccomodatioDetailSchema = {
+  id: number
+  title: string
+  location: {
+    city: string
+    country: string
     [k: string]: unknown
   }
+  basePrice: number
+  rating: {
+    stars: number
+    numberOfReviews: number
+    reviewScore: number
+    [k: string]: unknown
+  }
+  mainPhotoUrl: string
   [k: string]: unknown
 }
 
-export type RoomDetailSchema = {
-  id: string
-  bedOptions: {
-    configurations: {
-      bedType: string
-      numberOfBeds: number
-      [k: string]: unknown
-    }[]
-    hasBathroom: boolean
-    isBedroom: boolean
-    [k: string]: unknown
-  }
-  cotsAndExtraBeds: {
-    areAllowed: boolean
-    maxCots: number
-    maxExtraBeds: number
-    [k: string]: unknown
-  }
-  description: string
-  name: string
-  photos: ExtendedPhotosSchema[]
-  roomType: string
+export type CheckInOutSchema = {
+  from: string
+  to: string
+  [k: string]: unknown
+}
+
+export type ChilrenAgesSchema = number[]
+
+export type ContactSchema = {
+  email?: string
+  phone?: string
   [k: string]: unknown
 }
 
@@ -7461,35 +6944,16 @@ export type DetailAccomodationSchema = {
   [k: string]: unknown
 }
 
-export type AvailabilityAccomodationSchema = {
-  id: string
-  currency: string
-  products: {
-    id: string
-    maxOccupancy: {
-      adults: number
-      children: number
-      total: number
-      [k: string]: unknown
-    }
-    numberAvailableAtThisPrice: number
-    policies: {
-      cancellation?: {
-        freeCancellationUntil: string
-        type: string
-        [k: string]: unknown
-      }
-      [k: string]: unknown
-    }
-    price: PriceSchema
-    room: {
-      id: string
-      type: string
-      [k: string]: unknown
-    }
+export type ExtendedPhotosSchema = {
+  isMain: boolean
+  tags: string[]
+  url: {
+    large: string
+    standard: string
+    thumbnail: string
+    thumbnailLarge: string
     [k: string]: unknown
-  }[]
-  url: string
+  }
   [k: string]: unknown
 }
 
@@ -7505,15 +6969,36 @@ export type FiltersSchema = {
   [k: string]: unknown
 }
 
-export type BaseAccomodationConstantSchema = {
-  id: number
-  name: string
+export type GuestsSchema = {
+  childrenAges?: ChilrenAgesSchema
+  adults: number
+  [k: string]: unknown
+}
+
+export type LocationSchema = {
+  country: string
+  city: string
+  coordinates: CoordinatesRequestSchema
+  cap: string
+  address: string
   [k: string]: unknown
 }
 
 export type OrderBySchema = {
   field?: "PRICE" | "STARS" | "REVIEWS" | "RECOMMENDED"
   order?: "ASC" | "DESC"
+  [k: string]: unknown
+}
+
+export type PriceSchema = {
+  base: number
+  book: number
+  total: number
+  [k: string]: unknown
+}
+
+export type PriceWithChargesSchema = PriceSchema & {
+  extraCharges: number
   [k: string]: unknown
 }
 
@@ -7536,22 +7021,28 @@ export type RatingDetailSchema = {
   [k: string]: unknown
 }
 
-export type BestAccomodatioDetailSchema = {
-  id: number
-  title: string
-  location: {
-    city: string
-    country: string
+export type RoomDetailSchema = {
+  id: string
+  bedOptions: {
+    configurations: {
+      bedType: string
+      numberOfBeds: number
+      [k: string]: unknown
+    }[]
+    hasBathroom: boolean
+    isBedroom: boolean
     [k: string]: unknown
   }
-  basePrice: number
-  rating: {
-    stars: number
-    numberOfReviews: number
-    reviewScore: number
+  cotsAndExtraBeds: {
+    areAllowed: boolean
+    maxCots: number
+    maxExtraBeds: number
     [k: string]: unknown
   }
-  mainPhotoUrl: string
+  description: string
+  name: string
+  photos: ExtendedPhotosSchema[]
+  roomType: string
   [k: string]: unknown
 }
 
@@ -7653,16 +7144,6 @@ export type HelpRequestSingleResponsechema = {
   [k: string]: unknown
 }
 
-export type UserPartialAssistanceRequestSchema = {
-  id: string
-  title: string
-  description: string
-  category: "travelCreation" | "general" | "payment"
-  importance: "low" | "medium" | "high"
-  creationTimestamp: string
-  [k: string]: unknown
-}
-
 export type UserAssistanceRequestSchema =
   | (UserPartialAssistanceRequestSchema & {
       status: "OPEN"
@@ -7673,6 +7154,16 @@ export type UserAssistanceRequestSchema =
       response: HelpRequestSingleResponsechema
       [k: string]: unknown
     })
+
+export type UserPartialAssistanceRequestSchema = {
+  id: string
+  title: string
+  description: string
+  category: "travelCreation" | "general" | "payment"
+  importance: "low" | "medium" | "high"
+  creationTimestamp: string
+  [k: string]: unknown
+}
 
 export type VerifyUserUniqueness200ResponseSchema = {
   isUnique: boolean
@@ -7716,7 +7207,7 @@ export type SaveSignupRequestSchema = {
   phone: PhoneNumberSchema
   password: string
   dateOfBirth: string
-  companyDetail?: JuridicalCompanyDetailSchema
+  companyDetail?: CompanyDetailSchema
   [k: string]: unknown
 }
 
@@ -7804,12 +7295,25 @@ export type CreateUser500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type CreateUserRequestSchema = SessionIdSchema
 
-export type SessionIdSchema = {
-  sessionId: UuidSchema
+export type ValidateVat200ResponseSchema = OkResponseSchema
+
+export type ValidateVat400ResponseSchema = ValidationErrorResponseSchema
+
+export type ValidateVat405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type ValidateVat415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type ValidateVat429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type ValidateVat500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type ValidateVatRequestSchema = {
+  socialReason: string
+  vatNumber: string
   [k: string]: unknown
 }
 
-export type JuridicalCompanyDetailSchema = {
+export type CompanyDetailSchema = {
   vat: string
   fiscalCode: string
   name: string
@@ -7818,6 +7322,11 @@ export type JuridicalCompanyDetailSchema = {
   cap: string
   city: string
   province: string
+  [k: string]: unknown
+}
+
+export type SessionIdSchema = {
+  sessionId: UuidSchema
   [k: string]: unknown
 }
 
@@ -7877,15 +7386,14 @@ export type GetCities500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetCitiesRequestSchema = SearchTypeSchema | PlaceSearchSchema | IdSearchSchema
 
-export type SearchTypeSchema = {
-  searchType: "search"
-  search?: string
-  [k: string]: unknown
-}
-
-export type PlaceSearchSchema = {
-  searchType: "place"
-  place: string[]
+export type CitySchema = {
+  id: string
+  country: PositionNameCodeSchema
+  region: string
+  province: PositionNameCodeSchema
+  place: string
+  cap: string
+  coordinates: CoordinatesRequestSchema
   [k: string]: unknown
 }
 
@@ -7895,20 +7403,21 @@ export type IdSearchSchema = {
   [k: string]: unknown
 }
 
+export type PlaceSearchSchema = {
+  searchType: "place"
+  place: string[]
+  [k: string]: unknown
+}
+
 export type PositionNameCodeSchema = {
   name: string
   code: string
   [k: string]: unknown
 }
 
-export type CitySchema = {
-  id: string
-  country: PositionNameCodeSchema
-  region: string
-  province: PositionNameCodeSchema
-  place: string
-  cap: string
-  coordinates: CoordinatesRequestSchema
+export type SearchTypeSchema = {
+  searchType: "search"
+  search?: string
   [k: string]: unknown
 }
 
