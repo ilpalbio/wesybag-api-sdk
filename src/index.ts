@@ -5448,6 +5448,7 @@ export type SingleCompleteNormalShipmentSchema = {
   cost: CostSchema
   courier: CourierSchema
   receiver?: ReceiverSchema
+  statusesDetail: ShipmentStatusSchema[]
   [k: string]: unknown
 }
 
