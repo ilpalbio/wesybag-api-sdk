@@ -5629,6 +5629,10 @@ export type GetStructuresRequestSchema =
       search: string
       [k: string]: unknown
     }
+  | {
+      with: "all"
+      [k: string]: unknown
+    }
 
 export type ConfirmUserRequestSchema = {
   code: string
