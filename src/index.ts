@@ -1630,7 +1630,7 @@ export async function saveLuggage(data: SaveLuggageRequestSchema, config?: Axios
     },
     "401": {
       "code": [
-        "UNAUTHORIZED"
+        "UNAUTHENTICATED"
       ]
     },
     "405": {
@@ -1748,7 +1748,7 @@ export async function getAllSavedLuggages(config?: AxiosRequestConfig): Promise<
     },
     "401": {
       "code": [
-        "UNAUTHORIZED"
+        "UNAUTHENTICATED"
       ]
     },
     "405": {
@@ -1866,7 +1866,7 @@ export async function addUserCompany(data: AddUserCompanyRequestSchema, config?:
     },
     "401": {
       "code": [
-        "UNAUTHORIZED"
+        "UNAUTHENTICATED"
       ]
     },
     "405": {
@@ -2687,7 +2687,7 @@ export async function sendHelpResponse(data: SendHelpResponseRequestSchema, conf
     },
     "401": {
       "code": [
-        "UNAUTHORIZED"
+        "UNAUTHENTICATED"
       ]
     },
     "404": {
@@ -2938,7 +2938,7 @@ export async function verifyAuthentication(config?: AxiosRequestConfig): Promise
     },
     "401": {
       "code": [
-        "UNAUTHORIZED"
+        "UNAUTHENTICATED"
       ]
     },
     "405": {
@@ -3611,7 +3611,7 @@ export async function acceptHelpRequest(data: AcceptHelpRequestRequestSchema, co
     },
     "401": {
       "code": [
-        "UNAUTHORIZED"
+        "UNAUTHENTICATED"
       ]
     },
     "403": {
@@ -3685,7 +3685,7 @@ export async function getAssistanceRequest(data: GetAssistanceRequestRequestSche
     },
     "401": {
       "code": [
-        "UNAUTHORIZED"
+        "UNAUTHENTICATED"
       ]
     },
     "405": {
@@ -4158,7 +4158,7 @@ export async function authAdmin(data: AuthAdminRequestSchema, config?: AxiosRequ
     },
     "401": {
       "code": [
-        "UNAUTHORIZED"
+        "UNAUTHENTICATED"
       ]
     },
     "405": {
@@ -4217,7 +4217,7 @@ export async function verifyStagingToken(data: VerifyStagingTokenRequestSchema, 
     },
     "401": {
       "code": [
-        "UNAUTHORIZED"
+        "UNAUTHENTICATED"
       ]
     },
     "405": {
@@ -4522,7 +4522,7 @@ export async function updateSecuritySettings(data: UpdateSecuritySettingsRequest
     },
     "401": {
       "code": [
-        "UNAUTHORIZED"
+        "UNAUTHENTICATED"
       ]
     },
     "405": {
@@ -5923,7 +5923,7 @@ export type SaveLuggage200ResponseSchema = OkResponseSchema
 
 export type SaveLuggage400ResponseSchema = ValidationErrorResponseSchema
 
-export type SaveLuggage401ResponseSchema = UnauthorizedUserErrorResponseSchema
+export type SaveLuggage401ResponseSchema = UnauthenticatedErrorResponseSchema
 
 export type SaveLuggage405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
@@ -5961,7 +5961,7 @@ export type GetAllSavedLuggages200ResponseSchema = GetLuggagesPackageResponseSch
 
 export type GetAllSavedLuggages400ResponseSchema = ValidationErrorResponseSchema
 
-export type GetAllSavedLuggages401ResponseSchema = UnauthorizedUserErrorResponseSchema
+export type GetAllSavedLuggages401ResponseSchema = UnauthenticatedErrorResponseSchema
 
 export type GetAllSavedLuggages405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
@@ -5994,7 +5994,7 @@ export type AddUserCompany200ResponseSchema = OkResponseSchema
 
 export type AddUserCompany400ResponseSchema = ValidationErrorResponseSchema
 
-export type AddUserCompany401ResponseSchema = UnauthorizedUserErrorResponseSchema
+export type AddUserCompany401ResponseSchema = UnauthenticatedErrorResponseSchema
 
 export type AddUserCompany405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
@@ -6396,7 +6396,7 @@ export type SendHelpResponse200ResponseSchema = OkResponseSchema
 
 export type SendHelpResponse400ResponseSchema = ValidationErrorResponseSchema
 
-export type SendHelpResponse401ResponseSchema = UnauthorizedUserErrorResponseSchema
+export type SendHelpResponse401ResponseSchema = UnauthenticatedErrorResponseSchema
 
 export type SendHelpResponse404ResponseSchema = GenericNotFoundErrorResponseSchema
 
@@ -6636,7 +6636,7 @@ export type VerifyAuthentication200ResponseSchema = {
 
 export type VerifyAuthentication400ResponseSchema = ValidationErrorResponseSchema
 
-export type VerifyAuthentication401ResponseSchema = UnauthorizedUserErrorResponseSchema
+export type VerifyAuthentication401ResponseSchema = UnauthenticatedErrorResponseSchema
 
 export type VerifyAuthentication405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
@@ -7293,7 +7293,7 @@ export type AcceptHelpRequest200ResponseSchema = OkResponseSchema
 
 export type AcceptHelpRequest400ResponseSchema = ValidationErrorResponseSchema
 
-export type AcceptHelpRequest401ResponseSchema = UnauthorizedUserErrorResponseSchema
+export type AcceptHelpRequest401ResponseSchema = UnauthenticatedErrorResponseSchema
 
 export type AcceptHelpRequest403ResponseSchema = GenericForbiddenErrorResponseSchema
 
@@ -7318,7 +7318,7 @@ export type GetAssistanceRequest200ResponseSchema = UserAssistanceRequestSchema[
 
 export type GetAssistanceRequest400ResponseSchema = ValidationErrorResponseSchema
 
-export type GetAssistanceRequest401ResponseSchema = UnauthorizedUserErrorResponseSchema
+export type GetAssistanceRequest401ResponseSchema = UnauthenticatedErrorResponseSchema
 
 export type GetAssistanceRequest405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
@@ -7538,7 +7538,7 @@ export type AuthAdmin200ResponseSchema = {
 
 export type AuthAdmin400ResponseSchema = ValidationErrorResponseSchema
 
-export type AuthAdmin401ResponseSchema = UnauthorizedUserErrorResponseSchema
+export type AuthAdmin401ResponseSchema = UnauthenticatedErrorResponseSchema
 
 export type AuthAdmin405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
@@ -7558,7 +7558,7 @@ export type VerifyStagingToken200ResponseSchema = OkResponseSchema
 
 export type VerifyStagingToken400ResponseSchema = ValidationErrorResponseSchema
 
-export type VerifyStagingToken401ResponseSchema = UnauthorizedUserErrorResponseSchema
+export type VerifyStagingToken401ResponseSchema = UnauthenticatedErrorResponseSchema
 
 export type VerifyStagingToken405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
@@ -7691,7 +7691,7 @@ export type UpdateSecuritySettings200ResponseSchema = OkResponseSchema
 
 export type UpdateSecuritySettings400ResponseSchema = ValidationErrorResponseSchema
 
-export type UpdateSecuritySettings401ResponseSchema = UnauthorizedUserErrorResponseSchema
+export type UpdateSecuritySettings401ResponseSchema = UnauthenticatedErrorResponseSchema
 
 export type UpdateSecuritySettings405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
