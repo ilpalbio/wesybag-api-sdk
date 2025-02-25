@@ -1458,7 +1458,7 @@ export async function logout(config?: AxiosRequestConfig): Promise<AxiosLogoutRe
     },
     "401": {
       "code": [
-        "UNAUTHORIZED"
+        "UNAUTHENTICATED"
       ]
     },
     "405": {
@@ -5094,7 +5094,7 @@ export type UserNotFoundErrorResponseSchema = {
 
 export type UserNotLoggedErrorResponseSchema = {
   message: string
-  code: "UNAUTHORIZED"
+  code: "UNAUTHENTICATED"
   details?: Any
   stack?: string
   [k: string]: unknown
