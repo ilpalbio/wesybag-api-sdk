@@ -5470,13 +5470,24 @@ export type GetCostEstimate429ResponseSchema = ThrottlingErrorResponseSchema
 
 export type GetCostEstimate500ResponseSchema = UnexpectedErrorResponseSchema
 
-export type GetCostEstimateRequestSchema = {
-  origin: PositionSchema
-  destination: PositionSchema
-  luggages: ShipmentLuggageSchema[]
-  type: "oneWay" | "roundTrip"
-  [k: string]: unknown
-}
+export type GetCostEstimateRequestSchema =
+  | {
+      courierId?: UuidSchema
+      origin: PositionSchema
+      destination: PositionSchema
+      luggages: ShipmentLuggageSchema[]
+      type: "oneWay"
+      [k: string]: unknown
+    }
+  | {
+      courierId?: UuidSchema
+      returnCourierId?: UuidSchema
+      origin: PositionSchema
+      destination: PositionSchema
+      luggages: ShipmentLuggageSchema[]
+      type: "roundTrip"
+      [k: string]: unknown
+    }
 
 export type GetPickupSchedule200ResponseSchema = {
   courier: CourierSchema
@@ -5497,6 +5508,7 @@ export type GetPickupSchedule429ResponseSchema = ThrottlingErrorResponseSchema
 export type GetPickupSchedule500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetPickupScheduleRequestSchema = {
+  courierId?: UuidSchema
   origin: PositionSchema
   destination: PositionSchema
   deliverySchedule: DateTimeSchema
@@ -5522,6 +5534,7 @@ export type GetDeliverySchedule429ResponseSchema = ThrottlingErrorResponseSchema
 export type GetDeliverySchedule500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetDeliveryScheduleRequestSchema = {
+  courierId?: UuidSchema
   origin: PositionSchema
   destination: PositionSchema
   pickupSchedule: DateTimeSchema
