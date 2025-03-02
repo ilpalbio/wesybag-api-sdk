@@ -947,6 +947,65 @@ export async function getStructures(data: GetStructuresRequestSchema, config?: A
 }
 
 /**
+Get available luggage contents
+*/
+export type AxiosGetLuggageContentsSuccessResponse = (AxiosResponse<GetLuggageContents200ResponseSchema> & { status: 200 })
+export type AxiosGetLuggageContentsErrorResponse = ((AxiosResponse<GetLuggageContents400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetLuggageContents404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetLuggageContents405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetLuggageContents415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetLuggageContents429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetLuggageContents500ResponseSchema> & { status: 500 })) & { path: "/v1/base/getLuggageContents" }
+export type AxiosGetLuggageContentsResponse = AxiosGetLuggageContentsSuccessResponse | AxiosGetLuggageContentsErrorResponse
+export async function getLuggageContents(data: GetLuggageContentsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetLuggageContentsResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/base/getLuggageContents"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosGetLuggageContentsSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosGetLuggageContentsErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Return user settings
 */
 export type AxiosGetUserSettingsSuccessResponse = (AxiosResponse<GetUserSettings200ResponseSchema> & { status: 200 })
@@ -5432,6 +5491,7 @@ export type CreateShipmentSchema = {
 export type LuggageContentSchema = {
   id: UuidSchema
   name: string
+  description?: string
   [k: string]: unknown
 }
 
@@ -5633,6 +5693,25 @@ export type GetStructuresRequestSchema =
       with: "all"
       [k: string]: unknown
     }
+
+export type GetLuggageContents200ResponseSchema = LuggageContentSchema[]
+
+export type GetLuggageContents400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetLuggageContents404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type GetLuggageContents405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type GetLuggageContents415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type GetLuggageContents429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type GetLuggageContents500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type GetLuggageContentsRequestSchema = {
+  ids?: UuidSchema[]
+  [k: string]: unknown
+}
 
 export type ConfirmUserRequestSchema = {
   code: string
