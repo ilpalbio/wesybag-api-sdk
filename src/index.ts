@@ -770,6 +770,124 @@ export async function getGenericShipment(data: GetGenericShipmentRequestSchema, 
 }
 
 /**
+Get the optimal courier for a shipment based on position and luggages
+*/
+export type AxiosGetOptimalCourierSuccessResponse = (AxiosResponse<GetOptimalCourier200ResponseSchema> & { status: 200 })
+export type AxiosGetOptimalCourierErrorResponse = ((AxiosResponse<GetOptimalCourier400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetOptimalCourier404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetOptimalCourier405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetOptimalCourier415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetOptimalCourier429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetOptimalCourier500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getOptimalCourier" }
+export type AxiosGetOptimalCourierResponse = AxiosGetOptimalCourierSuccessResponse | AxiosGetOptimalCourierErrorResponse
+export async function getOptimalCourier(data: GetOptimalCourierRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetOptimalCourierResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/shipments/getOptimalCourier"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosGetOptimalCourierSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosGetOptimalCourierErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+Get courier additional options such as insurance, cash on delivery, etc.
+*/
+export type AxiosGetCourierAdditionalsSuccessResponse = (AxiosResponse<GetCourierAdditionals200ResponseSchema> & { status: 200 })
+export type AxiosGetCourierAdditionalsErrorResponse = ((AxiosResponse<GetCourierAdditionals400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetCourierAdditionals404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetCourierAdditionals405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetCourierAdditionals415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetCourierAdditionals429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetCourierAdditionals500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getCourierAdditionals" }
+export type AxiosGetCourierAdditionalsResponse = AxiosGetCourierAdditionalsSuccessResponse | AxiosGetCourierAdditionalsErrorResponse
+export async function getCourierAdditionals(data: GetCourierAdditionalsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetCourierAdditionalsResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/shipments/getCourierAdditionals"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosGetCourierAdditionalsSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosGetCourierAdditionalsErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Log the user in
 */
 export type AxiosLogUserSuccessResponse = (AxiosResponse<LogUser200ResponseSchema> & { status: 200 })
@@ -5439,6 +5557,58 @@ export type GetGenericShipmentRequestSchema = {
   [k: string]: unknown
 }
 
+export type GetOptimalCourier200ResponseSchema = {
+  courier: {
+    oneWayShipment: CourierSchema
+    roundTripShipment?: CourierSchema
+    [k: string]: unknown
+  }
+  [k: string]: unknown
+}
+
+export type GetOptimalCourier400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetOptimalCourier404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type GetOptimalCourier405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type GetOptimalCourier415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type GetOptimalCourier429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type GetOptimalCourier500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type GetOptimalCourierRequestSchema = {
+  origin: PositionSchema
+  destination: PositionSchema
+  luggages: ShipmentLuggageSchema[]
+  type: "oneWay" | "roundTrip"
+  [k: string]: unknown
+}
+
+export type GetCourierAdditionals200ResponseSchema = {
+  id: UuidSchema
+  insurcances?: InsuranceSchema[]
+  [k: string]: unknown
+}
+
+export type GetCourierAdditionals400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetCourierAdditionals404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type GetCourierAdditionals405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type GetCourierAdditionals415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type GetCourierAdditionals429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type GetCourierAdditionals500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type GetCourierAdditionalsRequestSchema = {
+  id: UuidSchema
+  [k: string]: unknown
+}
+
 export type AdditionalPositionSchema = {
   country: string
   city: string
@@ -5485,6 +5655,14 @@ export type CreateShipmentSchema = {
   receiver?: ReceiverSchema
   returnShipment?: ReturnShipmentSchema
   outwardShipmentId?: UuidSchema
+  [k: string]: unknown
+}
+
+export type InsuranceSchema = {
+  id: UuidSchema
+  name: string
+  description?: string
+  cost: CostSchema
   [k: string]: unknown
 }
 
