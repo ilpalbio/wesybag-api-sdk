@@ -5966,7 +5966,7 @@ export type StructureSchema = {
     address: string
     houseNumber: string
     [k: string]: unknown
-  } & AdditionalPositionSchema
+  } & GeneralPositionSchema
   [k: string]: unknown
 }
 
@@ -6759,6 +6759,16 @@ export type TravelSchemaWithStatus = ShipmentSchemaWithBaseUser & {
   [k: string]: unknown
 }
 
+export type AdminPlaceSchema = {
+  detailedName: string
+  structure?: {
+    name: string
+    link: string
+    [k: string]: unknown
+  }
+  [k: string]: unknown
+}
+
 export type AdminTimeSchema = {
   pickupDatetime: string
   deliveryDatetime: string
@@ -6767,8 +6777,8 @@ export type AdminTimeSchema = {
 
 export type BaseShipmentSchema = {
   id: string
-  completeDestination: PlaceSchema
-  completeOrigin: PlaceSchema
+  completeDestination: AdminPlaceSchema
+  completeOrigin: AdminPlaceSchema
   status: StatusSchema
   luggagesNumber: number
   [k: string]: unknown
@@ -6796,16 +6806,6 @@ export type LuggageSchema = {
 
 export type PendingShipmentSchema = ShipmentSchemaWithBaseUser
 
-export type PlaceSchema = {
-  detailedName: string
-  structure?: {
-    name: string
-    link: string
-    [k: string]: unknown
-  }
-  [k: string]: unknown
-}
-
 export type ShipmentAdditionalSchema = {
   differentReceiver?: {
     firstName: string
@@ -6819,8 +6819,8 @@ export type ShipmentAdditionalSchema = {
 
 export type ShipmentSchema = {
   id: string
-  destination: PlaceSchema
-  origin: PlaceSchema
+  destination: AdminPlaceSchema
+  origin: AdminPlaceSchema
   luggages: CompleteLuggageSchema[]
   outwardTime: AdminTimeSchema
   returnTime?: AdminTimeSchema
@@ -7843,7 +7843,7 @@ export type VerifyStagingTokenRequestSchema = {
   [k: string]: unknown
 }
 
-export type GetCities200ResponseSchema = CitySchema[]
+export type GetCities200ResponseSchema = GeneralPositionSchema[]
 
 export type GetCities400ResponseSchema = ValidationErrorResponseSchema
 
@@ -7857,20 +7857,20 @@ export type GetCities500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetCitiesRequestSchema = SearchTypeSchema | PlaceSearchSchema | IdSearchSchema
 
-export type CitySchema = {
-  id: string
-  country: PositionNameCodeSchema
-  region: string
-  province: PositionNameCodeSchema
-  place: string
-  cap: string
-  coordinates: CoordinatesRequestSchema
-  [k: string]: unknown
-}
-
 export type IdSearchSchema = {
   searchType: "id"
   id: UuidSchema[]
+  [k: string]: unknown
+}
+
+export type GeneralPositionSchema = {
+  id: UuidSchema
+  country: string
+  region: string
+  province: ProvinceSchema
+  city: string
+  postalCode: string
+  coordinates: CoordinatesRequestSchema
   [k: string]: unknown
 }
 
@@ -7881,6 +7881,12 @@ export type PlaceSearchSchema = {
 }
 
 export type PositionNameCodeSchema = {
+  name: string
+  code: string
+  [k: string]: unknown
+}
+
+export type ProvinceSchema = {
   name: string
   code: string
   [k: string]: unknown
