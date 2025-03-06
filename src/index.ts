@@ -5457,6 +5457,7 @@ export type GetCostEstimate200ResponseSchema = {
     [k: string]: unknown
   }
   estimateCost: CostSchema
+  partialCosts: ShipmentCostPartialSchema
   [k: string]: unknown
 }
 
@@ -5478,6 +5479,7 @@ export type GetCostEstimateRequestSchema =
       origin: PositionSchema
       destination: PositionSchema
       luggages: ShipmentLuggageSchema[]
+      additionals?: AdditionalCostSchema
       type: "oneWay"
       [k: string]: unknown
     }
@@ -5487,6 +5489,7 @@ export type GetCostEstimateRequestSchema =
       origin: PositionSchema
       destination: PositionSchema
       luggages: ShipmentLuggageSchema[]
+      additionals?: AdditionalCostSchema
       type: "roundTrip"
       [k: string]: unknown
     }
@@ -5624,6 +5627,12 @@ export type GetCourierAdditionalsRequestSchema = {
   [k: string]: unknown
 }
 
+export type AdditionalCostSchema = {
+  insurance?: UuidSchema
+  shipmentType?: "PENDING" | "NORMAL"
+  [k: string]: unknown
+}
+
 export type AdditionalPositionSchema = {
   country: string
   city: string
@@ -5721,6 +5730,14 @@ export type ReceiverSchema = {
 export type ReturnShipmentSchema = {
   pickupSchedule: DateTimeSchema
   courierId: UuidSchema
+  [k: string]: unknown
+}
+
+export type ShipmentCostPartialSchema = {
+  insurance?: CostSchema
+  shipmentType?: CostSchema
+  shipment: CostSchema
+  returnShipment?: CostSchema
   [k: string]: unknown
 }
 
