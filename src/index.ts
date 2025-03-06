@@ -2088,7 +2088,7 @@ export async function addUserCompany(data: AddUserCompanyRequestSchema, config?:
 }
 
 /**
-Create a new stripe payment session
+Create a new stripe payment intent from price or shipment details
 */
 export type AxiosCreateIntentSuccessResponse = (AxiosResponse<CreateIntent200ResponseSchema> & { status: 200 })
 export type AxiosCreateIntentErrorResponse = ((AxiosResponse<CreateIntent400ResponseSchema> & { status: 400 }) | (AxiosResponse<CreateIntent404ResponseSchema> & { status: 404 }) | (AxiosResponse<CreateIntent405ResponseSchema> & { status: 405 }) | (AxiosResponse<CreateIntent415ResponseSchema> & { status: 415 }) | (AxiosResponse<CreateIntent429ResponseSchema> & { status: 429 }) | (AxiosResponse<CreateIntent500ResponseSchema> & { status: 500 })) & { path: "/v1/payments/createIntent" }
@@ -4888,6 +4888,8 @@ export type CoordinatesRequestSchema = {
 
 export type CurrencySchema = "eur"
 
+export type DateSchema = string
+
 export type DateTimeSchema = string
 
 export type EmailSchema = string
@@ -6372,7 +6374,11 @@ export type SavedLuggageSchemaWithType = SavedLuggageSchema & {
   [k: string]: unknown
 }
 
-export type CreateIntent200ResponseSchema = CreatePaymwentIntent200ResponseSchema
+export type CreateIntent200ResponseSchema = {
+  cost: CostSchema
+  intent: StripeIntentSchema
+  [k: string]: unknown
+}
 
 export type CreateIntent400ResponseSchema = ValidationErrorResponseSchema
 
@@ -6386,7 +6392,22 @@ export type CreateIntent429ResponseSchema = ThrottlingErrorResponseSchema
 
 export type CreateIntent500ResponseSchema = UnexpectedErrorResponseSchema
 
-export type CreateIntentRequestSchema = CreatePaymentIntentRequestSchema
+export type CreateIntentRequestSchema =
+  | {
+      from: "price"
+      priceCents: number
+      currency: CurrencySchema
+      [k: string]: unknown
+    }
+  | {
+      from: "shipment"
+      courierId: UuidSchema
+      origin: PositionSchema
+      destination: PositionSchema
+      luggages: ShipmentLuggageSchema[]
+      type: "oneWay" | "roundTrip"
+      [k: string]: unknown
+    }
 
 export type UpdatePaymentIntent200ResponseSchema = {
   clientSecret: string
@@ -6519,6 +6540,15 @@ export type StripeIntentIdRequestSchema = {
 
 export type RetrieveStripePaymentIntentRequestSchema = {
   intentId?: string
+  [k: string]: unknown
+}
+
+export type StripeIntentSchema = {
+  id: string
+  clientSecret: string
+  amount: number
+  currency: string
+  createdAt: DateSchema
   [k: string]: unknown
 }
 
