@@ -1850,7 +1850,7 @@ export async function saveLuggage(data: SaveLuggageRequestSchema, config?: Axios
 get single luggages package
 */
 export type AxiosGetSavedLuggageSuccessResponse = (AxiosResponse<GetSavedLuggage200ResponseSchema> & { status: 200 })
-export type AxiosGetSavedLuggageErrorResponse = ((AxiosResponse<GetSavedLuggage400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetSavedLuggage404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetSavedLuggage405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetSavedLuggage415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetSavedLuggage429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetSavedLuggage500ResponseSchema> & { status: 500 })) & { path: "/v1/user/getSavedLuggage" }
+export type AxiosGetSavedLuggageErrorResponse = ((AxiosResponse<GetSavedLuggage400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetSavedLuggage401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetSavedLuggage404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetSavedLuggage405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetSavedLuggage415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetSavedLuggage429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetSavedLuggage500ResponseSchema> & { status: 500 })) & { path: "/v1/user/getSavedLuggage" }
 export type AxiosGetSavedLuggageResponse = AxiosGetSavedLuggageSuccessResponse | AxiosGetSavedLuggageErrorResponse
 export async function getSavedLuggage(data: GetSavedLuggageRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetSavedLuggageResponse> {
   _checkSetup()
@@ -1862,6 +1862,11 @@ export async function getSavedLuggage(data: GetSavedLuggageRequestSchema, config
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHENTICATED"
       ]
     },
     "404": {
@@ -1899,65 +1904,6 @@ export async function getSavedLuggage(data: GetSavedLuggageRequestSchema, config
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
       return res as AxiosGetSavedLuggageErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
-get all luggages package
-*/
-export type AxiosGetAllSavedLuggagesSuccessResponse = (AxiosResponse<GetAllSavedLuggages200ResponseSchema> & { status: 200 })
-export type AxiosGetAllSavedLuggagesErrorResponse = ((AxiosResponse<GetAllSavedLuggages400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetAllSavedLuggages401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetAllSavedLuggages405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetAllSavedLuggages415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetAllSavedLuggages429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetAllSavedLuggages500ResponseSchema> & { status: 500 })) & { path: "/v1/user/getAllSavedLuggages" }
-export type AxiosGetAllSavedLuggagesResponse = AxiosGetAllSavedLuggagesSuccessResponse | AxiosGetAllSavedLuggagesErrorResponse
-export async function getAllSavedLuggages(config?: AxiosRequestConfig): Promise<AxiosGetAllSavedLuggagesResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "401": {
-      "code": [
-        "UNAUTHENTICATED"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/user/getAllSavedLuggages"), null, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosGetAllSavedLuggagesSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosGetAllSavedLuggagesErrorResponse
     } else {
       throw e
     }
@@ -5478,7 +5424,10 @@ export type GetCostEstimateRequestSchema =
       courierId?: UuidSchema
       origin: PositionSchema
       destination: PositionSchema
-      luggages: ShipmentLuggageSchema[]
+      /**
+       * @minItems 1
+       */
+      luggages: [ShipmentLuggageSchema, ...ShipmentLuggageSchema[]]
       additionals?: AdditionalCostSchema
       type: "oneWay"
       [k: string]: unknown
@@ -5488,7 +5437,10 @@ export type GetCostEstimateRequestSchema =
       returnCourierId?: UuidSchema
       origin: PositionSchema
       destination: PositionSchema
-      luggages: ShipmentLuggageSchema[]
+      /**
+       * @minItems 1
+       */
+      luggages: [ShipmentLuggageSchema, ...ShipmentLuggageSchema[]]
       additionals?: AdditionalCostSchema
       type: "roundTrip"
       [k: string]: unknown
@@ -5599,7 +5551,10 @@ export type GetOptimalCourier500ResponseSchema = UnexpectedErrorResponseSchema
 export type GetOptimalCourierRequestSchema = {
   origin: PositionSchema
   destination: PositionSchema
-  luggages: ShipmentLuggageSchema[]
+  /**
+   * @minItems 1
+   */
+  luggages: [ShipmentLuggageSchema, ...ShipmentLuggageSchema[]]
   type: "oneWay" | "roundTrip"
   [k: string]: unknown
 }
@@ -5649,7 +5604,10 @@ export type CompleteLuggageSchema = {
   width: number
   length: number
   dimensionUnit: "cm"
-  content: LuggageContentSchema[]
+  /**
+   * @minItems 1
+   */
+  content: [LuggageContentSchema, ...LuggageContentSchema[]]
   [k: string]: unknown
 }
 
@@ -5674,7 +5632,10 @@ export type CourierSchema = {
 export type CreateShipmentSchema = {
   origin: PositionSchema
   destination: PositionSchema
-  luggages: ShipmentLuggageSchema[]
+  /**
+   * @minItems 1
+   */
+  luggages: [ShipmentLuggageSchema, ...ShipmentLuggageSchema[]]
   deliverySchedule: DateTimeSchema
   receiver?: ReceiverSchema
   returnShipment?: ReturnShipmentSchema
@@ -5748,7 +5709,10 @@ export type ShipmentLuggageSchema = {
   width: number
   length: number
   dimensionUnit: "cm"
-  contentIds: UuidSchema[]
+  /**
+   * @minItems 1
+   */
+  contentIds: [UuidSchema, ...UuidSchema[]]
   [k: string]: unknown
 }
 
@@ -5770,7 +5734,10 @@ export type SingleCompleteNormalShipmentSchema = {
   id: UuidSchema
   origin: CompletePositionSchema
   destination: CompletePositionSchema
-  luggages: CompleteLuggageSchema[]
+  /**
+   * @minItems 1
+   */
+  luggages: [CompleteLuggageSchema, ...CompleteLuggageSchema[]]
   pickupSchedule: DateTimeSchema
   deliverySchedule: DateTimeSchema
   trackDetail?: TrackDetailSchema
@@ -5821,7 +5788,10 @@ export type SinglePendingShipmentSchema = {
   id: UuidSchema
   origin: CompletePositionSchema
   destination: CompletePositionSchema
-  luggages: CompleteLuggageSchema[]
+  /**
+   * @minItems 1
+   */
+  luggages: [CompleteLuggageSchema, ...CompleteLuggageSchema[]]
   pickupSchedule: DateTimeSchema
   deliverySchedule: DateTimeSchema
   cost: CostSchema
@@ -5897,10 +5867,12 @@ export type GetStructuresRequestSchema =
   | {
       with: "search"
       search: string
+      limit?: number
       [k: string]: unknown
     }
   | {
       with: "all"
+      limit?: number
       [k: string]: unknown
     }
 
@@ -6227,9 +6199,11 @@ export type SaveLuggageRequestSchema = {
   [k: string]: unknown
 }
 
-export type GetSavedLuggage200ResponseSchema = GetLuggagesPackageResponseSchema
+export type GetSavedLuggage200ResponseSchema = SavedLuggageSchemaWithType[]
 
 export type GetSavedLuggage400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetSavedLuggage401ResponseSchema = UnauthenticatedErrorResponseSchema
 
 export type GetSavedLuggage404ResponseSchema = LuggageNotFoundErrorResponseSchema
 
@@ -6242,23 +6216,9 @@ export type GetSavedLuggage429ResponseSchema = ThrottlingErrorResponseSchema
 export type GetSavedLuggage500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetSavedLuggageRequestSchema = {
-  id: UuidSchema
+  ids?: UuidSchema[]
   [k: string]: unknown
 }
-
-export type GetAllSavedLuggages200ResponseSchema = GetLuggagesPackageResponseSchema[]
-
-export type GetAllSavedLuggages400ResponseSchema = ValidationErrorResponseSchema
-
-export type GetAllSavedLuggages401ResponseSchema = UnauthenticatedErrorResponseSchema
-
-export type GetAllSavedLuggages405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type GetAllSavedLuggages415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type GetAllSavedLuggages429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type GetAllSavedLuggages500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type DeleteSavedLuggage200ResponseSchema = OkResponseSchema
 
@@ -6379,15 +6339,15 @@ export type SavedLuggageSchema = {
   name: string
   width: number
   height: number
-  depth: number
-  content?: string
+  length: number
+  content?: LuggageContentSchema[]
   dimensionUnit: string
   [k: string]: unknown
 }
 
 export type SavedLuggageSchemaWithType = SavedLuggageSchema & {
   type: string
-  creationTimestamp: string
+  creationTimestamp: DateSchema
   [k: string]: unknown
 }
 
@@ -7099,7 +7059,7 @@ export type HotelProductSchema = {
 export type PackagesLuggageSchema = {
   width: number
   height: number
-  depth: number
+  length: number
   weight: number
   [k: string]: unknown
 }
