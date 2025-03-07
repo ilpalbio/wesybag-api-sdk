@@ -5734,10 +5734,7 @@ export type SingleCompleteNormalShipmentSchema = {
   id: UuidSchema
   origin: CompletePositionSchema
   destination: CompletePositionSchema
-  /**
-   * @minItems 1
-   */
-  luggages: [CompleteLuggageSchema, ...CompleteLuggageSchema[]]
+  luggages: CompleteLuggageSchema[]
   pickupSchedule: DateTimeSchema
   deliverySchedule: DateTimeSchema
   trackDetail?: TrackDetailSchema
