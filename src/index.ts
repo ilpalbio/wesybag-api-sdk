@@ -5264,12 +5264,12 @@ export type CreateNormalShipmentRequestSchema =
       from: "scratch"
       courierId: UuidSchema
       [k: string]: unknown
-    })
-  | {
+    } & PaymentIntentSchema)
+  | ({
       pendingShipmentId: UuidSchema
       from: "pending"
       [k: string]: unknown
-    }
+    } & PaymentIntentSchema)
 
 export type CreatePendingShipment200ResponseSchema = {
   outwardShipment: SinglePendingShipmentSchema
@@ -5294,7 +5294,7 @@ export type CreatePendingShipment500ResponseSchema = UnexpectedErrorResponseSche
 export type CreatePendingShipmentRequestSchema = CreateShipmentSchema & {
   courierId: UuidSchema
   [k: string]: unknown
-}
+} & PaymentIntentSchema
 
 export type GetPendingShipment200ResponseSchema = GetPendingShipmentResponseSchema[]
 
@@ -5601,6 +5601,11 @@ export type LuggageContentSchema = {
 
 export type LuggageWithIdSchema = ShipmentLuggageSchema & {
   id: UuidSchema
+  [k: string]: unknown
+}
+
+export type PaymentIntentSchema = {
+  intentId: string
   [k: string]: unknown
 }
 
