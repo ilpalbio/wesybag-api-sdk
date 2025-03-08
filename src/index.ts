@@ -3160,6 +3160,60 @@ export async function verifyAssistant(config?: AxiosRequestConfig): Promise<Axio
 }
 
 /**
+Check if phone number is already in use or not
+*/
+export type AxiosIsPhoneUniqueSuccessResponse = (AxiosResponse<IsPhoneUnique200ResponseSchema> & { status: 200 })
+export type AxiosIsPhoneUniqueErrorResponse = ((AxiosResponse<IsPhoneUnique400ResponseSchema> & { status: 400 }) | (AxiosResponse<IsPhoneUnique405ResponseSchema> & { status: 405 }) | (AxiosResponse<IsPhoneUnique415ResponseSchema> & { status: 415 }) | (AxiosResponse<IsPhoneUnique429ResponseSchema> & { status: 429 }) | (AxiosResponse<IsPhoneUnique500ResponseSchema> & { status: 500 })) & { path: "/v1/auth/isPhoneUnique" }
+export type AxiosIsPhoneUniqueResponse = AxiosIsPhoneUniqueSuccessResponse | AxiosIsPhoneUniqueErrorResponse
+export async function isPhoneUnique(data: IsPhoneUniqueRequestSchema, config?: AxiosRequestConfig): Promise<AxiosIsPhoneUniqueResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/auth/isPhoneUnique"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosIsPhoneUniqueSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosIsPhoneUniqueErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Get luggages packages
 */
 export type AxiosGetLuggagesPackagesSuccessResponse = (AxiosResponse<GetLuggagesPackages200ResponseSchema> & { status: 200 })
@@ -6886,6 +6940,26 @@ export type VerifyAssistant415ResponseSchema = UnsupportedMediaTypeErrorResponse
 export type VerifyAssistant429ResponseSchema = ThrottlingErrorResponseSchema
 
 export type VerifyAssistant500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type IsPhoneUnique200ResponseSchema = {
+  isUnique: boolean
+  [k: string]: unknown
+}
+
+export type IsPhoneUnique400ResponseSchema = ValidationErrorResponseSchema
+
+export type IsPhoneUnique405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type IsPhoneUnique415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type IsPhoneUnique429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type IsPhoneUnique500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type IsPhoneUniqueRequestSchema = {
+  phone: PhoneNumberSchema
+  [k: string]: unknown
+}
 
 export type GetLuggagesPackages200ResponseSchema = {
   optimals: PackagesSinglePackageSchema[]
