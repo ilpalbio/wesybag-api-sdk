@@ -6109,8 +6109,9 @@ export type GetUserCommunications429ResponseSchema = ThrottlingErrorResponseSche
 export type GetUserCommunications500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetUserCommunicationsRequestSchema = {
+  limit?: number
   generalOrder?: "ASC" | "DESC"
-  travelOrder?: "ASC" | "DESC"
+  shipmentOrder?: "ASC" | "DESC"
   [k: string]: unknown
 }
 
@@ -6264,6 +6265,14 @@ export type SaveUserCardCredentialsRequestSchema = {
   [k: string]: unknown
 }
 
+export type CommunicationSchema = {
+  id: UuidSchema
+  title: string
+  description: string
+  creationTimestamp: DateSchema
+  [k: string]: unknown
+}
+
 export type CompanyWithIdSchema = CompanyDetailSchema & {
   id: string
   [k: string]: unknown
@@ -6276,22 +6285,16 @@ export type GetLuggagesPackageResponseSchema = {
 }
 
 export type GetUserCommunicationsResponseSchema = {
-  general: {
+  general: (CommunicationSchema & {
     communicationType: "general"
-    title: string
-    description: string
-    timestamp: string
     link: string
     [k: string]: unknown
-  }[]
-  travel: {
+  })[]
+  shipment: (CommunicationSchema & {
     communicationType: "travel"
-    title: string
-    description: string
-    timestamp: string
-    travelId: string
+    shipmentId: UuidSchema
     [k: string]: unknown
-  }[]
+  })[]
   [k: string]: unknown
 }
 
