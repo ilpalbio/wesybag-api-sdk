@@ -5606,7 +5606,7 @@ export type CompleteLuggageSchema = {
   [k: string]: unknown
 }
 
-export type CompletePositionSchema = PositionSchema & AdditionalPositionSchema
+export type CompletePositionSchema = PositionSchema & GeneralPositionSchema
 
 export type CompletePrivateSchema = PrivatePositionSchema & AdditionalPositionSchema
 
@@ -5674,9 +5674,16 @@ export type PrivatePositionSchema = {
   [k: string]: unknown
 }
 
+export type PublicPlaceSchema = {
+  id: UuidSchema
+  name: string
+  [k: string]: unknown
+}
+
 export type PublicPositionSchema = {
   type: "public"
-  placeId: UuidSchema
+  placeId: PublicPlaceSchema
+  address: string
   [k: string]: unknown
 }
 
