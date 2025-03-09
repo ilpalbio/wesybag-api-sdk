@@ -5695,6 +5695,15 @@ export type ReceiverSchema = {
   [k: string]: unknown
 }
 
+export type RequestPositionSchema = RequestPublicPositionSchema | PrivatePositionSchema
+
+export type RequestPublicPositionSchema = {
+  type: "public"
+  placeId: UuidSchema
+  address: string
+  [k: string]: unknown
+}
+
 export type ReturnShipmentSchema = {
   pickupSchedule: DateTimeSchema
   courierId: UuidSchema
@@ -6390,8 +6399,8 @@ export type CreateIntentRequestSchema =
   | {
       from: "shipment"
       courierId: UuidSchema
-      origin: PositionSchema
-      destination: PositionSchema
+      origin: RequestPositionSchema
+      destination: RequestPositionSchema
       luggages: ShipmentLuggageSchema[]
       type: "oneWay" | "roundTrip"
       [k: string]: unknown
