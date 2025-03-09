@@ -6162,10 +6162,13 @@ export type GetUserShipments200ResponseSchema = {
     [k: string]: unknown
   }[]
   normalShipments: {
-    outwardShipment: SingleCompleteNormalShipmentSchema
-    returnShipment?: SingleCompleteNormalShipmentSchema
+    notConfirmed: GetNormalShipmentResponseSchema[]
+    inProgress: GetNormalShipmentResponseSchema[]
+    completed: GetNormalShipmentResponseSchema[]
+    cancelled: GetNormalShipmentResponseSchema[]
+    all: GetNormalShipmentResponseSchema[]
     [k: string]: unknown
-  }[]
+  }
   [k: string]: unknown
 }
 
@@ -6182,6 +6185,7 @@ export type GetUserShipments500ResponseSchema = UnexpectedErrorResponseSchema
 export type GetUserShipmentsRequestSchema = {
   search?: string
   field?: "origin" | "destination" | "all"
+  limit?: number
   [k: string]: unknown
 }
 
