@@ -5658,6 +5658,12 @@ export type LuggageWithIdSchema = ShipmentLuggageSchema & {
   [k: string]: unknown
 }
 
+export type MinimalPositionSchema = {
+  type: "private" | "public"
+  placeId: UuidSchema
+  [k: string]: unknown
+}
+
 export type PaymentIntentSchema = {
   intentId: string
   [k: string]: unknown
@@ -6988,8 +6994,8 @@ export type GetLuggagesPackages200ResponseSchema = {
   optimals: PackagesSinglePackageSchema[]
   others: PackagesSinglePackageSchema[]
   request: {
-    origin: PackagesPositionDetailSchema
-    destination: PackagesPositionDetailSchema
+    origin: PackagePositionSchema
+    destination: PackagePositionSchema
     [k: string]: unknown
   }
   [k: string]: unknown
@@ -7006,8 +7012,8 @@ export type GetLuggagesPackages429ResponseSchema = ThrottlingErrorResponseSchema
 export type GetLuggagesPackages500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetLuggagesPackagesRequestSchema = {
-  destination: PackagesPrivatePublicPositionSchema
-  origin: PackagesPrivatePublicPositionSchema
+  destination: MinimalPositionSchema
+  origin: MinimalPositionSchema
   time: PackagesTimeSchema
   luggages: PackagesLuggageSchema[]
   filter?: "best" | "cheapest" | "fastest"
@@ -7097,6 +7103,17 @@ export type OccupancySchema = {
   [k: string]: unknown
 }
 
+export type PackagePositionSchema =
+  | (GeneralPositionSchema & {
+      type: "private"
+      [k: string]: unknown
+    })
+  | {
+      type: "public"
+      structure: StructureSchema
+      [k: string]: unknown
+    }
+
 export type PackagesPositionDetailSchema = {
   country: string
   city: string
@@ -7132,23 +7149,23 @@ export type SingleOfferSchema = {
 }
 
 export type PackagesSinglePackageSchema = {
+  origin: PackagePositionSchema
+  destination: PackagePositionSchema
+  time: PackagesSinglePackageTimeSchema
   luggages: PackagesLuggagesWithTypeSchema[]
   price: PackagesPriceSchema
-  time: PackagesSinglePackageTimeSchema
   type: "best" | "cheapest" | "fastest"
   durationDays: number
-  origin: PackagesPositionDetailSchema
-  destination: PackagesPositionDetailSchema
   [k: string]: unknown
 }
 
 export type PackagesSinglePackageTimeSchema = {
   outward: {
-    pickupDate: string
+    pickupDate: DateSchema
     [k: string]: unknown
   }
   return?: {
-    pickupDate: string
+    pickupDate: DateSchema
     [k: string]: unknown
   }
   [k: string]: unknown
