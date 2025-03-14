@@ -7177,7 +7177,14 @@ export type PackagesTimeSchema = {
   [k: string]: unknown
 }
 
-export type GetAvailableAccomodations200ResponseSchema = BaseAccomodationSchema[]
+export type GetAvailableAccomodations200ResponseSchema = {
+  accomodations: BaseAccomodationSchema[]
+  request: {
+    place: AccomodationPlaceSchema
+    [k: string]: unknown
+  }
+  [k: string]: unknown
+}
 
 export type GetAvailableAccomodations400ResponseSchema = ValidationErrorResponseSchema
 
@@ -7554,6 +7561,17 @@ export type RoomDetailSchema = {
   name: string
   photos: ExtendedPhotosSchema[]
   roomType: string
+  [k: string]: unknown
+}
+
+export type AccomodationPlaceSchema = {
+  id: UuidSchema
+  state: string
+  region: string
+  province: ProvinceSchema
+  place: string
+  cap: string
+  coordinates: CoordinatesRequestSchema
   [k: string]: unknown
 }
 
