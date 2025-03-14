@@ -7190,12 +7190,7 @@ export type GetAvailableAccomodations429ResponseSchema = ThrottlingErrorResponse
 export type GetAvailableAccomodations500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetAvailableAccomodationsRequestSchema = {
-  placeDetail: {
-    country: string
-    city: string
-    coordinates: CoordinatesRequestSchema
-    [k: string]: unknown
-  }
+  placeId: UuidSchema
   checkIn: string
   checkOut: string
   guests: GuestsSchema
