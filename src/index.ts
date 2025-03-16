@@ -3384,7 +3384,7 @@ export async function getHotelProducts(data: GetHotelProductsRequestSchema, conf
 Get available accomodations basic information
 */
 export type AxiosGetAvailableAccomodationsSuccessResponse = (AxiosResponse<GetAvailableAccomodations200ResponseSchema> & { status: 200 })
-export type AxiosGetAvailableAccomodationsErrorResponse = ((AxiosResponse<GetAvailableAccomodations400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetAvailableAccomodations405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetAvailableAccomodations415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetAvailableAccomodations429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetAvailableAccomodations500ResponseSchema> & { status: 500 })) & { path: "/v1/accomodations/getAvailableAccomodations" }
+export type AxiosGetAvailableAccomodationsErrorResponse = ((AxiosResponse<GetAvailableAccomodations400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetAvailableAccomodations404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetAvailableAccomodations405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetAvailableAccomodations415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetAvailableAccomodations429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetAvailableAccomodations500ResponseSchema> & { status: 500 })) & { path: "/v1/accomodations/getAvailableAccomodations" }
 export type AxiosGetAvailableAccomodationsResponse = AxiosGetAvailableAccomodationsSuccessResponse | AxiosGetAvailableAccomodationsErrorResponse
 export async function getAvailableAccomodations(data: GetAvailableAccomodationsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetAvailableAccomodationsResponse> {
   _checkSetup()
@@ -3396,6 +3396,11 @@ export async function getAvailableAccomodations(data: GetAvailableAccomodationsR
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
       ]
     },
     "405": {
@@ -7187,6 +7192,8 @@ export type GetAvailableAccomodations200ResponseSchema = {
 }
 
 export type GetAvailableAccomodations400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetAvailableAccomodations404ResponseSchema = GenericNotFoundErrorResponseSchema
 
 export type GetAvailableAccomodations405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
