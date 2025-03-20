@@ -5664,7 +5664,6 @@ export type LuggageWithIdSchema = ShipmentLuggageSchema & {
 }
 
 export type MinimalPositionSchema = {
-  type: "private" | "public"
   placeId: UuidSchema
   [k: string]: unknown
 }
@@ -5674,10 +5673,12 @@ export type PaymentIntentSchema = {
   [k: string]: unknown
 }
 
-export type PositionSchema = PrivatePositionSchema | PublicPositionSchema
+export type PositionSchema = PrivatePositionSchema & {
+  structureName?: string
+  [k: string]: unknown
+}
 
 export type PrivatePositionSchema = {
-  type: "private"
   placeId: UuidSchema
   address: string
   houseNumber: string
@@ -6801,7 +6802,6 @@ export type AdminPlaceSchema = {
   detailedName: string
   structure?: {
     name: string
-    link: string
     [k: string]: unknown
   }
   [k: string]: unknown
@@ -7108,16 +7108,7 @@ export type OccupancySchema = {
   [k: string]: unknown
 }
 
-export type PackagePositionSchema =
-  | (GeneralPositionSchema & {
-      type: "private"
-      [k: string]: unknown
-    })
-  | {
-      type: "public"
-      structure: StructureSchema
-      [k: string]: unknown
-    }
+export type PackagePositionSchema = GeneralPositionSchema
 
 export type PackagesPositionDetailSchema = {
   country: string
