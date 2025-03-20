@@ -5674,10 +5674,12 @@ export type PaymentIntentSchema = {
   [k: string]: unknown
 }
 
-export type PositionSchema = PrivatePositionSchema | PublicPositionSchema
+export type PositionSchema = PrivatePositionSchema & {
+  structureName?: string
+  [k: string]: unknown
+}
 
 export type PrivatePositionSchema = {
-  type: "private"
   placeId: UuidSchema
   address: string
   houseNumber: string
@@ -6801,7 +6803,6 @@ export type AdminPlaceSchema = {
   detailedName: string
   structure?: {
     name: string
-    link: string
     [k: string]: unknown
   }
   [k: string]: unknown
