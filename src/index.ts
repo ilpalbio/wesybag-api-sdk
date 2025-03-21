@@ -103,7 +103,7 @@ export class ResponseError<T> extends Error {
 
 export const serverUrls: { [env in Env]: string } = {
   "local": "http://localhost:3000",
-  "staging": "http://wesybag.it/api"
+  "staging": "http://localhost:3000"
 }
 
 function _getFnUrl(endpoint: string, options?: { path?: { [key: string]: any }, params?: { [key: string]: any } }): string {
