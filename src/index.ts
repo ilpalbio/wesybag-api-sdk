@@ -7157,10 +7157,12 @@ export type PackagesSinglePackageSchema = {
 
 export type PackagesSinglePackageTimeSchema = {
   outward: {
+    deliveryDate: DateSchema
     pickupDate: DateSchema
     [k: string]: unknown
   }
   return?: {
+    deliveryDate: DateSchema
     pickupDate: DateSchema
     [k: string]: unknown
   }
