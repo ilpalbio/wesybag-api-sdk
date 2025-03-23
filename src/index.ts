@@ -6996,11 +6996,11 @@ export type IsPhoneUniqueRequestSchema = {
 }
 
 export type GetLuggagesPackages200ResponseSchema = {
-  optimals: PackagesSinglePackageSchema[]
-  others: PackagesSinglePackageSchema[]
+  packages?: PackagesSinglePackageSchema[]
   request: {
     origin: PackagePositionSchema
     destination: PackagePositionSchema
+    luggages?: PackagesLuggagesWithTypeSchema[]
     [k: string]: unknown
   }
   [k: string]: unknown
@@ -7108,6 +7108,13 @@ export type OccupancySchema = {
   [k: string]: unknown
 }
 
+export type PackagesOptionalPriceSchema = {
+  price: number
+  currency: CurrencySchema
+  perKgs?: number
+  [k: string]: unknown
+}
+
 export type PackagePositionSchema = GeneralPositionSchema
 
 export type PackagesPositionDetailSchema = {
@@ -7129,6 +7136,14 @@ export type PackagesPrivatePublicPositionSchema = {
   [k: string]: unknown
 }
 
+export type PackagesShipmentPackageOptionalSchema = {
+  id: UuidSchema
+  name: string
+  description: string
+  price: PackagesOptionalPriceSchema
+  [k: string]: unknown
+}
+
 export type SingleOfferSchema = {
   title: string
   placeId: string
@@ -7145,13 +7160,11 @@ export type SingleOfferSchema = {
 }
 
 export type PackagesSinglePackageSchema = {
-  origin: PackagePositionSchema
-  destination: PackagePositionSchema
   time: PackagesSinglePackageTimeSchema
-  luggages: PackagesLuggagesWithTypeSchema[]
-  price: PackagesPriceSchema
-  type: "best" | "cheapest" | "fastest"
   durationDays: number
+  title: string
+  description: string
+  optionals: PackagesShipmentPackageOptionalSchema[]
   [k: string]: unknown
 }
 
