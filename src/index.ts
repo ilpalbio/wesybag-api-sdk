@@ -5588,6 +5588,12 @@ export type AdditionalCostSchema = {
   [k: string]: unknown
 }
 
+export type AdditionalOptionsSchema = {
+  courier: CourierAdditionalOptionsSchema
+  shipment: number[]
+  [k: string]: unknown
+}
+
 export type AdditionalPositionSchema = {
   country: string
   city: string
@@ -5623,6 +5629,13 @@ export type CostSchema = {
   [k: string]: unknown
 }
 
+export type CourierAdditionalOptionsSchema = {
+  callBeforeDelivery?: boolean
+  saturdayDelivery?: boolean
+  expressDelivery?: boolean
+  [k: string]: unknown
+}
+
 export type CourierSchema = {
   id: UuidSchema
   name: string
@@ -5640,6 +5653,7 @@ export type CreateShipmentSchema = {
   receiver?: ReceiverSchema
   returnShipment?: ReturnShipmentSchema
   outwardShipmentId?: UuidSchema
+  additionalOptions?: AdditionalOptionsSchema
   [k: string]: unknown
 }
 
