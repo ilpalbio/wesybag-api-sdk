@@ -5428,7 +5428,7 @@ export type GetCostEstimateRequestSchema =
        * @minItems 1
        */
       luggages: [ShipmentLuggageSchema, ...ShipmentLuggageSchema[]]
-      additionals?: AdditionalCostSchema
+      additionals?: AdditionalOptionsSchema
       type: "oneWay"
       [k: string]: unknown
     }
@@ -5441,7 +5441,7 @@ export type GetCostEstimateRequestSchema =
        * @minItems 1
        */
       luggages: [ShipmentLuggageSchema, ...ShipmentLuggageSchema[]]
-      additionals?: AdditionalCostSchema
+      additionals?: AdditionalOptionsSchema
       type: "roundTrip"
       [k: string]: unknown
     }
@@ -5579,12 +5579,6 @@ export type GetCourierAdditionals500ResponseSchema = UnexpectedErrorResponseSche
 
 export type GetCourierAdditionalsRequestSchema = {
   id: UuidSchema
-  [k: string]: unknown
-}
-
-export type AdditionalCostSchema = {
-  insurance?: UuidSchema
-  shipmentType?: "PENDING" | "NORMAL"
   [k: string]: unknown
 }
 
