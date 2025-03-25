@@ -888,6 +888,60 @@ export async function getCourierAdditionals(data: GetCourierAdditionalsRequestSc
 }
 
 /**
+Get all shipment optionals available
+*/
+export type AxiosGetShipmentOptionalsSuccessResponse = (AxiosResponse<GetShipmentOptionals200ResponseSchema> & { status: 200 })
+export type AxiosGetShipmentOptionalsErrorResponse = ((AxiosResponse<GetShipmentOptionals400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetShipmentOptionals405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetShipmentOptionals415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetShipmentOptionals429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetShipmentOptionals500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getShipmentOptionals" }
+export type AxiosGetShipmentOptionalsResponse = AxiosGetShipmentOptionalsSuccessResponse | AxiosGetShipmentOptionalsErrorResponse
+export async function getShipmentOptionals(config?: AxiosRequestConfig): Promise<AxiosGetShipmentOptionalsResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/shipments/getShipmentOptionals"), null, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosGetShipmentOptionalsSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosGetShipmentOptionalsErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Log the user in
 */
 export type AxiosLogUserSuccessResponse = (AxiosResponse<LogUser200ResponseSchema> & { status: 200 })
@@ -5582,6 +5636,18 @@ export type GetCourierAdditionalsRequestSchema = {
   [k: string]: unknown
 }
 
+export type GetShipmentOptionals200ResponseSchema = ShipmentCompleteOptionalSchema[]
+
+export type GetShipmentOptionals400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetShipmentOptionals405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type GetShipmentOptionals415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type GetShipmentOptionals429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type GetShipmentOptionals500ResponseSchema = UnexpectedErrorResponseSchema
+
 export type AdditionalOptionsSchema = {
   courier: CourierAdditionalOptionsSchema
   shipment: number[]
@@ -5727,6 +5793,14 @@ export type RequestPublicPositionSchema = {
 export type ReturnShipmentSchema = {
   pickupSchedule: DateTimeSchema
   courierId: UuidSchema
+  [k: string]: unknown
+}
+
+export type ShipmentCompleteOptionalSchema = {
+  id: number
+  cost: CostSchema
+  title: string
+  description: string
   [k: string]: unknown
 }
 
