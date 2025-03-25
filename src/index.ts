@@ -49,15 +49,6 @@ export type Env = "local" | "staging" | string
 
 export let env: Env | undefined
 
-const _auth: { "SessionHanlder": string | null } = { "SessionHanlder": null }
-
-export function setAuth(securitySchemaName: keyof typeof _auth, value: string | null): void {
-  if (typeof _auth[securitySchemaName] === "undefined") {
-    throw new Error(`Invalid security schema name: ${securitySchemaName}`)
-  }
-  _auth[securitySchemaName] = value
-}
-
 export type HandledResponses = { [status: string]: { code: string[] | null } }
 
 const _throwOnUnexpectedResponse = (handledResponses: HandledResponses, response: AxiosResponse): void => {
@@ -80,14 +71,6 @@ const _throwOnUnexpectedResponse = (handledResponses: HandledResponses, response
       response
     })
   }
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function _getAuth(keys: Set<string>): { headers: { [key: string]: string }, params: URLSearchParams, withCredentials: boolean } {
-  const headers: { [key: string]: string } = {}
-  const params = new URLSearchParams()
-  
-  return { headers, params, withCredentials: true }
 }
 
 export class ResponseError<T> extends Error {
@@ -881,6 +864,60 @@ export async function getCourierAdditionals(data: GetCourierAdditionalsRequestSc
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
       return res as AxiosGetCourierAdditionalsErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+Get all shipment optionals available
+*/
+export type AxiosGetShipmentOptionalsSuccessResponse = (AxiosResponse<GetShipmentOptionals200ResponseSchema> & { status: 200 })
+export type AxiosGetShipmentOptionalsErrorResponse = ((AxiosResponse<GetShipmentOptionals400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetShipmentOptionals405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetShipmentOptionals415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetShipmentOptionals429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetShipmentOptionals500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getShipmentOptionals" }
+export type AxiosGetShipmentOptionalsResponse = AxiosGetShipmentOptionalsSuccessResponse | AxiosGetShipmentOptionalsErrorResponse
+export async function getShipmentOptionals(config?: AxiosRequestConfig): Promise<AxiosGetShipmentOptionalsResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/shipments/getShipmentOptionals"), null, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosGetShipmentOptionalsSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosGetShipmentOptionalsErrorResponse
     } else {
       throw e
     }
@@ -5428,7 +5465,7 @@ export type GetCostEstimateRequestSchema =
        * @minItems 1
        */
       luggages: [ShipmentLuggageSchema, ...ShipmentLuggageSchema[]]
-      additionals?: AdditionalCostSchema
+      additionals?: AdditionalOptionsSchema
       type: "oneWay"
       [k: string]: unknown
     }
@@ -5441,7 +5478,7 @@ export type GetCostEstimateRequestSchema =
        * @minItems 1
        */
       luggages: [ShipmentLuggageSchema, ...ShipmentLuggageSchema[]]
-      additionals?: AdditionalCostSchema
+      additionals?: AdditionalOptionsSchema
       type: "roundTrip"
       [k: string]: unknown
     }
@@ -5582,9 +5619,25 @@ export type GetCourierAdditionalsRequestSchema = {
   [k: string]: unknown
 }
 
-export type AdditionalCostSchema = {
-  insurance?: UuidSchema
-  shipmentType?: "PENDING" | "NORMAL"
+export type GetShipmentOptionals200ResponseSchema = {
+  structureCall: ShipmentOptionalSchema
+  oneDayCancellation: ShipmentOptionalSchema
+  [k: string]: unknown
+}
+
+export type GetShipmentOptionals400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetShipmentOptionals405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type GetShipmentOptionals415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type GetShipmentOptionals429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type GetShipmentOptionals500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type AdditionalOptionsSchema = {
+  courier: CourierAdditionalOptionsSchema
+  shipment: number[]
   [k: string]: unknown
 }
 
@@ -5623,6 +5676,13 @@ export type CostSchema = {
   [k: string]: unknown
 }
 
+export type CourierAdditionalOptionsSchema = {
+  callBeforeDelivery?: boolean
+  saturdayDelivery?: boolean
+  expressDelivery?: boolean
+  [k: string]: unknown
+}
+
 export type CourierSchema = {
   id: UuidSchema
   name: string
@@ -5640,6 +5700,7 @@ export type CreateShipmentSchema = {
   receiver?: ReceiverSchema
   returnShipment?: ReturnShipmentSchema
   outwardShipmentId?: UuidSchema
+  additionalOptions?: AdditionalOptionsSchema
   [k: string]: unknown
 }
 
@@ -5741,6 +5802,12 @@ export type ShipmentLuggageSchema = {
    * @minItems 1
    */
   contentIds: [UuidSchema, ...UuidSchema[]]
+  [k: string]: unknown
+}
+
+export type ShipmentOptionalSchema = {
+  id: number
+  cost: CostSchema
   [k: string]: unknown
 }
 
@@ -6996,11 +7063,11 @@ export type IsPhoneUniqueRequestSchema = {
 }
 
 export type GetLuggagesPackages200ResponseSchema = {
-  optimals: PackagesSinglePackageSchema[]
-  others: PackagesSinglePackageSchema[]
+  packages?: PackagesSinglePackageSchema[]
   request: {
     origin: PackagePositionSchema
     destination: PackagePositionSchema
+    luggages?: PackagesLuggagesWithTypeSchema[]
     [k: string]: unknown
   }
   [k: string]: unknown
@@ -7108,6 +7175,13 @@ export type OccupancySchema = {
   [k: string]: unknown
 }
 
+export type PackagesOptionalPriceSchema = {
+  price: number
+  currency: CurrencySchema
+  perKgs?: number
+  [k: string]: unknown
+}
+
 export type PackagePositionSchema = GeneralPositionSchema
 
 export type PackagesPositionDetailSchema = {
@@ -7129,6 +7203,14 @@ export type PackagesPrivatePublicPositionSchema = {
   [k: string]: unknown
 }
 
+export type PackagesShipmentPackageOptionalSchema = {
+  id: UuidSchema
+  name: string
+  description: string
+  price: PackagesOptionalPriceSchema
+  [k: string]: unknown
+}
+
 export type SingleOfferSchema = {
   title: string
   placeId: string
@@ -7145,13 +7227,11 @@ export type SingleOfferSchema = {
 }
 
 export type PackagesSinglePackageSchema = {
-  origin: PackagePositionSchema
-  destination: PackagePositionSchema
   time: PackagesSinglePackageTimeSchema
-  luggages: PackagesLuggagesWithTypeSchema[]
-  price: PackagesPriceSchema
-  type: "best" | "cheapest" | "fastest"
   durationDays: number
+  title: string
+  description: string
+  optionals: PackagesShipmentPackageOptionalSchema[]
   [k: string]: unknown
 }
 
