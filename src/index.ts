@@ -3254,7 +3254,7 @@ export async function isPhoneUnique(data: IsPhoneUniqueRequestSchema, config?: A
 Get luggages packages
 */
 export type AxiosGetLuggagesPackagesSuccessResponse = (AxiosResponse<GetLuggagesPackages200ResponseSchema> & { status: 200 })
-export type AxiosGetLuggagesPackagesErrorResponse = ((AxiosResponse<GetLuggagesPackages400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetLuggagesPackages405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetLuggagesPackages415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetLuggagesPackages429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetLuggagesPackages500ResponseSchema> & { status: 500 })) & { path: "/v1/packages/getLuggagesPackages" }
+export type AxiosGetLuggagesPackagesErrorResponse = ((AxiosResponse<GetLuggagesPackages400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetLuggagesPackages404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetLuggagesPackages405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetLuggagesPackages415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetLuggagesPackages429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetLuggagesPackages500ResponseSchema> & { status: 500 })) & { path: "/v1/packages/getLuggagesPackages" }
 export type AxiosGetLuggagesPackagesResponse = AxiosGetLuggagesPackagesSuccessResponse | AxiosGetLuggagesPackagesErrorResponse
 export async function getLuggagesPackages(data: GetLuggagesPackagesRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetLuggagesPackagesResponse> {
   _checkSetup()
@@ -3266,6 +3266,11 @@ export async function getLuggagesPackages(data: GetLuggagesPackagesRequestSchema
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
       ]
     },
     "405": {
@@ -5680,6 +5685,7 @@ export type CourierAdditionalOptionsSchema = {
   callBeforeDelivery?: boolean
   saturdayDelivery?: boolean
   expressDelivery?: boolean
+  withInsurance?: boolean
   [k: string]: unknown
 }
 
@@ -7063,7 +7069,7 @@ export type IsPhoneUniqueRequestSchema = {
 }
 
 export type GetLuggagesPackages200ResponseSchema = {
-  packages?: PackagesSinglePackageSchema[]
+  packages: PackagesSinglePackageSchema[]
   request: {
     origin: PackagePositionSchema
     destination: PackagePositionSchema
@@ -7074,6 +7080,8 @@ export type GetLuggagesPackages200ResponseSchema = {
 }
 
 export type GetLuggagesPackages400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetLuggagesPackages404ResponseSchema = GenericNotFoundErrorResponseSchema
 
 export type GetLuggagesPackages405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
@@ -7088,7 +7096,6 @@ export type GetLuggagesPackagesRequestSchema = {
   origin: MinimalPositionSchema
   time: PackagesTimeSchema
   luggages: PackagesLuggageSchema[]
-  filter?: "best" | "cheapest" | "fastest"
   [k: string]: unknown
 }
 
@@ -7125,6 +7132,14 @@ export type GetHotelProductsRequestSchema = {
   adults: number
   children: number
   rooms: number
+  [k: string]: unknown
+}
+
+export type PackagesShipmentPackageOptionalSchema = {
+  id: UuidSchema
+  name: string
+  description: string
+  price: PackagesOptionalPriceSchema
   [k: string]: unknown
 }
 
@@ -7203,14 +7218,6 @@ export type PackagesPrivatePublicPositionSchema = {
   [k: string]: unknown
 }
 
-export type PackagesShipmentPackageOptionalSchema = {
-  id: UuidSchema
-  name: string
-  description: string
-  price: PackagesOptionalPriceSchema
-  [k: string]: unknown
-}
-
 export type SingleOfferSchema = {
   title: string
   placeId: string
@@ -7231,7 +7238,9 @@ export type PackagesSinglePackageSchema = {
   durationDays: number
   title: string
   description: string
-  optionals: PackagesShipmentPackageOptionalSchema[]
+  courierOptionals: PackagesShipmentPackageOptionalSchema[]
+  shipmentOptionals: ShipmentOptionalSchema[]
+  insurance?: InsuranceSchema
   [k: string]: unknown
 }
 
