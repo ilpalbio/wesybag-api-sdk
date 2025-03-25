@@ -49,15 +49,6 @@ export type Env = "local" | "staging" | string
 
 export let env: Env | undefined
 
-const _auth: { "SessionHanlder": string | null } = { "SessionHanlder": null }
-
-export function setAuth(securitySchemaName: keyof typeof _auth, value: string | null): void {
-  if (typeof _auth[securitySchemaName] === "undefined") {
-    throw new Error(`Invalid security schema name: ${securitySchemaName}`)
-  }
-  _auth[securitySchemaName] = value
-}
-
 export type HandledResponses = { [status: string]: { code: string[] | null } }
 
 const _throwOnUnexpectedResponse = (handledResponses: HandledResponses, response: AxiosResponse): void => {
@@ -80,14 +71,6 @@ const _throwOnUnexpectedResponse = (handledResponses: HandledResponses, response
       response
     })
   }
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function _getAuth(keys: Set<string>): { headers: { [key: string]: string }, params: URLSearchParams, withCredentials: boolean } {
-  const headers: { [key: string]: string } = {}
-  const params = new URLSearchParams()
-  
-  return { headers, params, withCredentials: true }
 }
 
 export class ResponseError<T> extends Error {
@@ -5636,7 +5619,11 @@ export type GetCourierAdditionalsRequestSchema = {
   [k: string]: unknown
 }
 
-export type GetShipmentOptionals200ResponseSchema = ShipmentCompleteOptionalSchema[]
+export type GetShipmentOptionals200ResponseSchema = {
+  structureCall: ShipmentOptionalSchema
+  oneDayCancellation: ShipmentOptionalSchema
+  [k: string]: unknown
+}
 
 export type GetShipmentOptionals400ResponseSchema = ValidationErrorResponseSchema
 
@@ -5796,14 +5783,6 @@ export type ReturnShipmentSchema = {
   [k: string]: unknown
 }
 
-export type ShipmentCompleteOptionalSchema = {
-  id: number
-  cost: CostSchema
-  title: string
-  description: string
-  [k: string]: unknown
-}
-
 export type ShipmentCostPartialSchema = {
   insurance?: CostSchema
   shipmentType?: CostSchema
@@ -5823,6 +5802,12 @@ export type ShipmentLuggageSchema = {
    * @minItems 1
    */
   contentIds: [UuidSchema, ...UuidSchema[]]
+  [k: string]: unknown
+}
+
+export type ShipmentOptionalSchema = {
+  id: number
+  cost: CostSchema
   [k: string]: unknown
 }
 
