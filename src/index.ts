@@ -5602,8 +5602,9 @@ export type GetOptimalCourierRequestSchema = {
 }
 
 export type GetCourierAdditionals200ResponseSchema = {
-  id: UuidSchema
-  insurcances?: InsuranceSchema[]
+  optionals: PackagesShipmentPackageOptionalSchema[]
+  shipmentOptionals: ShipmentOptionalSchema[]
+  insurances: InsuranceSchema[]
   [k: string]: unknown
 }
 
