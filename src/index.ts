@@ -7241,6 +7241,8 @@ export type PackagesSinglePackageSchema = {
   courierOptionals: PackagesShipmentPackageOptionalSchema[]
   shipmentOptionals: ShipmentOptionalSchema[]
   insurance?: InsuranceSchema
+  code: "BASIC" | "PREMIUM" | "ALL_INCLUSIVE_PUBLIC" | "ALL_INCLUSIVE_PRIVATE" | "LAST_MINUTE"
+  cost: CostSchema
   [k: string]: unknown
 }
 
