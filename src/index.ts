@@ -5813,6 +5813,7 @@ export type ShipmentLuggageSchema = {
 
 export type ShipmentOptionalSchema = {
   id: number
+  code: "structureCall" | "oneDayCancellation"
   cost: CostSchema
   [k: string]: unknown
 }
@@ -7137,6 +7138,7 @@ export type GetHotelProductsRequestSchema = {
 
 export type PackagesShipmentPackageOptionalSchema = {
   id: UuidSchema
+  code: "CALL_BEFORE_DELIVERY" | "SATURDAY_DELIVERY" | "EXPRESS_DELIVERY" | "INSURANCE"
   name: string
   description: string
   price: PackagesOptionalPriceSchema
