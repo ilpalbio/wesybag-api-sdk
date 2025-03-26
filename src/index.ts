@@ -7236,6 +7236,8 @@ export type SingleOfferSchema = {
 }
 
 export type PackagesSinglePackageSchema = {
+  origin: PackagePositionSchema
+  destination: PackagePositionSchema
   time: PackagesSinglePackageTimeSchema
   durationDays: number
   title: string
