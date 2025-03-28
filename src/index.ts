@@ -6476,22 +6476,15 @@ export type CreateIntent429ResponseSchema = ThrottlingErrorResponseSchema
 
 export type CreateIntent500ResponseSchema = UnexpectedErrorResponseSchema
 
-export type CreateIntentRequestSchema =
-  | {
-      from: "price"
-      priceCents: number
-      currency: CurrencySchema
-      [k: string]: unknown
-    }
-  | {
-      from: "shipment"
-      courierId: UuidSchema
-      origin: RequestPositionSchema
-      destination: RequestPositionSchema
-      luggages: ShipmentLuggageSchema[]
-      type: "oneWay" | "roundTrip"
-      [k: string]: unknown
-    }
+export type CreateIntentRequestSchema = {
+  courierId: UuidSchema
+  origin: RequestPositionSchema
+  destination: RequestPositionSchema
+  luggages: ShipmentLuggageSchema[]
+  type: "oneWay" | "roundTrip"
+  optionals: AdditionalOptionsSchema
+  [k: string]: unknown
+}
 
 export type UpdatePaymentIntent200ResponseSchema = {
   clientSecret: string
