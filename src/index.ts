@@ -138,6 +138,178 @@ const _checkSetup = (): void => {
 }
 
 /**
+Get luggages packages
+*/
+export type AxiosGetLuggagesPackagesSuccessResponse = (AxiosResponse<GetLuggagesPackages200ResponseSchema> & { status: 200 })
+export type AxiosGetLuggagesPackagesErrorResponse = ((AxiosResponse<GetLuggagesPackages400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetLuggagesPackages404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetLuggagesPackages405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetLuggagesPackages415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetLuggagesPackages429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetLuggagesPackages500ResponseSchema> & { status: 500 })) & { path: "/v1/packages/getLuggagesPackages" }
+export type AxiosGetLuggagesPackagesResponse = AxiosGetLuggagesPackagesSuccessResponse | AxiosGetLuggagesPackagesErrorResponse
+export async function getLuggagesPackages(data: GetLuggagesPackagesRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetLuggagesPackagesResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/packages/getLuggagesPackages"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosGetLuggagesPackagesSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosGetLuggagesPackagesErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+Get available hotel offers available
+*/
+export type AxiosGetHotelOffersSuccessResponse = (AxiosResponse<GetHotelOffers200ResponseSchema> & { status: 200 })
+export type AxiosGetHotelOffersErrorResponse = ((AxiosResponse<GetHotelOffers400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetHotelOffers405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetHotelOffers415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetHotelOffers429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetHotelOffers500ResponseSchema> & { status: 500 })) & { path: "/v1/packages/getHotelOffers" }
+export type AxiosGetHotelOffersResponse = AxiosGetHotelOffersSuccessResponse | AxiosGetHotelOffersErrorResponse
+export async function getHotelOffers(config?: AxiosRequestConfig): Promise<AxiosGetHotelOffersResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/packages/getHotelOffers"), null, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosGetHotelOffersSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosGetHotelOffersErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+Get hotel products by id of the hotel
+*/
+export type AxiosGetHotelProductsSuccessResponse = (AxiosResponse<GetHotelProducts200ResponseSchema> & { status: 200 })
+export type AxiosGetHotelProductsErrorResponse = ((AxiosResponse<GetHotelProducts400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetHotelProducts404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetHotelProducts405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetHotelProducts415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetHotelProducts429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetHotelProducts500ResponseSchema> & { status: 500 })) & { path: "/v1/packages/getHotelProducts" }
+export type AxiosGetHotelProductsResponse = AxiosGetHotelProductsSuccessResponse | AxiosGetHotelProductsErrorResponse
+export async function getHotelProducts(data: GetHotelProductsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetHotelProductsResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/packages/getHotelProducts"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosGetHotelProductsSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosGetHotelProductsErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Delete normal shipment by id
 */
 export type AxiosDeleteNormalShipmentSuccessResponse = (AxiosResponse<DeleteNormalShipment200ResponseSchema> & { status: 200 })
@@ -3251,178 +3423,6 @@ export async function isPhoneUnique(data: IsPhoneUniqueRequestSchema, config?: A
 }
 
 /**
-Get luggages packages
-*/
-export type AxiosGetLuggagesPackagesSuccessResponse = (AxiosResponse<GetLuggagesPackages200ResponseSchema> & { status: 200 })
-export type AxiosGetLuggagesPackagesErrorResponse = ((AxiosResponse<GetLuggagesPackages400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetLuggagesPackages404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetLuggagesPackages405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetLuggagesPackages415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetLuggagesPackages429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetLuggagesPackages500ResponseSchema> & { status: 500 })) & { path: "/v1/packages/getLuggagesPackages" }
-export type AxiosGetLuggagesPackagesResponse = AxiosGetLuggagesPackagesSuccessResponse | AxiosGetLuggagesPackagesErrorResponse
-export async function getLuggagesPackages(data: GetLuggagesPackagesRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetLuggagesPackagesResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "404": {
-      "code": [
-        "NOT_FOUND"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/packages/getLuggagesPackages"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosGetLuggagesPackagesSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosGetLuggagesPackagesErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
-Get available hotel offers available
-*/
-export type AxiosGetHotelOffersSuccessResponse = (AxiosResponse<GetHotelOffers200ResponseSchema> & { status: 200 })
-export type AxiosGetHotelOffersErrorResponse = ((AxiosResponse<GetHotelOffers400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetHotelOffers405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetHotelOffers415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetHotelOffers429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetHotelOffers500ResponseSchema> & { status: 500 })) & { path: "/v1/packages/getHotelOffers" }
-export type AxiosGetHotelOffersResponse = AxiosGetHotelOffersSuccessResponse | AxiosGetHotelOffersErrorResponse
-export async function getHotelOffers(config?: AxiosRequestConfig): Promise<AxiosGetHotelOffersResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/packages/getHotelOffers"), null, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosGetHotelOffersSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosGetHotelOffersErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
-Get hotel products by id of the hotel
-*/
-export type AxiosGetHotelProductsSuccessResponse = (AxiosResponse<GetHotelProducts200ResponseSchema> & { status: 200 })
-export type AxiosGetHotelProductsErrorResponse = ((AxiosResponse<GetHotelProducts400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetHotelProducts404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetHotelProducts405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetHotelProducts415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetHotelProducts429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetHotelProducts500ResponseSchema> & { status: 500 })) & { path: "/v1/packages/getHotelProducts" }
-export type AxiosGetHotelProductsResponse = AxiosGetHotelProductsSuccessResponse | AxiosGetHotelProductsErrorResponse
-export async function getHotelProducts(data: GetHotelProductsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetHotelProductsResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "404": {
-      "code": [
-        "NOT_FOUND"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/packages/getHotelProducts"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosGetHotelProductsSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosGetHotelProductsErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
 Get available accomodations basic information
 */
 export type AxiosGetAvailableAccomodationsSuccessResponse = (AxiosResponse<GetAvailableAccomodations200ResponseSchema> & { status: 200 })
@@ -5299,6 +5299,207 @@ export type WrongVerificationCodeErrorResponseSchema = {
   [k: string]: unknown
 }
 
+export type GetLuggagesPackages200ResponseSchema = {
+  packages: PackagesSinglePackageSchema[]
+  request: {
+    origin: PackagePositionSchema
+    destination: PackagePositionSchema
+    luggages?: PackagesLuggagesWithTypeSchema[]
+    [k: string]: unknown
+  }
+  [k: string]: unknown
+}
+
+export type GetLuggagesPackages400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetLuggagesPackages404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type GetLuggagesPackages405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type GetLuggagesPackages415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type GetLuggagesPackages429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type GetLuggagesPackages500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type GetLuggagesPackagesRequestSchema = {
+  destination: MinimalPositionSchema
+  origin: MinimalPositionSchema
+  time: PackagesTimeSchema
+  luggages: PackagesLuggageSchema[]
+  [k: string]: unknown
+}
+
+export type GetHotelOffers200ResponseSchema = SingleOfferSchema[]
+
+export type GetHotelOffers400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetHotelOffers405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type GetHotelOffers415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type GetHotelOffers429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type GetHotelOffers500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type GetHotelProducts200ResponseSchema = HotelProductSchema[]
+
+export type GetHotelProducts400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetHotelProducts404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type GetHotelProducts405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type GetHotelProducts415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type GetHotelProducts429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type GetHotelProducts500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type GetHotelProductsRequestSchema = {
+  hotelId: string
+  checkin: string
+  checkout: string
+  adults: number
+  children: number
+  rooms: number
+  [k: string]: unknown
+}
+
+export type PackagesShipmentPackageOptionalSchema = {
+  id: UuidSchema
+  code: "CALL_BEFORE_DELIVERY" | "SATURDAY_DELIVERY" | "EXPRESS_DELIVERY" | "INSURANCE"
+  name: string
+  description: string
+  price: PackagesOptionalPriceSchema
+  [k: string]: unknown
+}
+
+export type HotelProductSchema = {
+  occupancy: OccupancySchema
+  numberAvailableAtThisPrice: number
+  cancellationType: {
+    type: "free_cancellation" | "non_refundable" | "special_conditions"
+    availableUntil?: string
+    [k: string]: unknown
+  }
+  mealPlan: {
+    types?: ("breakfast" | "dinner" | "lunch")[]
+    plan: "all_inclusive" | "breakfast_included" | "full_board" | "half_board" | "no_plan"
+    [k: string]: unknown
+  }
+  payment: {
+    prePaymentrequired: boolean
+    timing: ("pay_at_the_property" | "pay_online_later" | "pay_online_now")[]
+    [k: string]: unknown
+  }
+  totalPrice: string
+  room: {
+    type: string
+    id: string
+    [k: string]: unknown
+  }
+  [k: string]: unknown
+}
+
+export type PackagesLuggageSchema = {
+  width: number
+  height: number
+  length: number
+  weight: number
+  [k: string]: unknown
+}
+
+export type PackagesLuggagesWithTypeSchema = PackagesLuggageSchema & {
+  type: string
+  [k: string]: unknown
+}
+
+export type OccupancySchema = {
+  adults: number
+  children: number
+  total: number
+  [k: string]: unknown
+}
+
+export type PackagesOptionalPriceSchema = {
+  price: number
+  currency: CurrencySchema
+  perKgs?: number
+  [k: string]: unknown
+}
+
+export type PackagePositionSchema = GeneralPositionSchema
+
+export type PackagesPositionDetailSchema = {
+  country: string
+  city: string
+  cap: string
+  [k: string]: unknown
+}
+
+export type PackagesPriceSchema = {
+  totalCharge: number
+  totalDiscount: number
+  [k: string]: unknown
+}
+
+export type PackagesPrivatePublicPositionSchema = {
+  isPrivate: boolean
+  id: UuidSchema
+  [k: string]: unknown
+}
+
+export type SingleOfferSchema = {
+  title: string
+  placeId: string
+  offertId: string
+  packagesNuber: number
+  basePrice: string
+  checkIn: string
+  checkOut: string
+  rooms: number
+  adults: number
+  children: number
+  imageSrc: string
+  [k: string]: unknown
+}
+
+export type PackagesSinglePackageSchema = {
+  origin: PackagePositionSchema
+  destination: PackagePositionSchema
+  time: PackagesSinglePackageTimeSchema
+  durationDays: number
+  title: string
+  description: string
+  courierOptionals: PackagesShipmentPackageOptionalSchema[]
+  shipmentOptionals: ShipmentOptionalSchema[]
+  insurance?: InsuranceSchema
+  code: "BASIC" | "PREMIUM" | "ALL_INCLUSIVE_PUBLIC" | "ALL_INCLUSIVE_PRIVATE" | "LAST_MINUTE"
+  cost: CostSchema
+  [k: string]: unknown
+}
+
+export type PackagesSinglePackageTimeSchema = {
+  outward: {
+    deliveryDate: DateSchema
+    pickupDate: DateSchema
+    [k: string]: unknown
+  }
+  return?: {
+    deliveryDate: DateSchema
+    pickupDate: DateSchema
+    [k: string]: unknown
+  }
+  [k: string]: unknown
+}
+
+export type PackagesTimeSchema = {
+  outwardDate: string
+  returnDate?: string
+  [k: string]: unknown
+}
+
 export type DeleteNormalShipment200ResponseSchema = OkResponseSchema
 
 export type DeleteNormalShipment400ResponseSchema = ValidationErrorResponseSchema
@@ -5445,7 +5646,11 @@ export type GetCostEstimate200ResponseSchema = {
     [k: string]: unknown
   }
   estimateCost: CostSchema
-  partialCosts: ShipmentCostPartialSchema
+  partialCosts: {
+    courierOptionals: PackagesShipmentPackageOptionalSchema[]
+    shipmentOptionals: ShipmentOptionalSchema[]
+    [k: string]: unknown
+  }
   [k: string]: unknown
 }
 
@@ -5787,14 +5992,6 @@ export type RequestPublicPositionSchema = {
 export type ReturnShipmentSchema = {
   pickupSchedule: DateTimeSchema
   courierId: UuidSchema
-  [k: string]: unknown
-}
-
-export type ShipmentCostPartialSchema = {
-  insurance?: CostSchema
-  shipmentType?: CostSchema
-  shipment: CostSchema
-  returnShipment?: CostSchema
   [k: string]: unknown
 }
 
@@ -7060,207 +7257,6 @@ export type IsPhoneUnique500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type IsPhoneUniqueRequestSchema = {
   phone: PhoneNumberSchema
-  [k: string]: unknown
-}
-
-export type GetLuggagesPackages200ResponseSchema = {
-  packages: PackagesSinglePackageSchema[]
-  request: {
-    origin: PackagePositionSchema
-    destination: PackagePositionSchema
-    luggages?: PackagesLuggagesWithTypeSchema[]
-    [k: string]: unknown
-  }
-  [k: string]: unknown
-}
-
-export type GetLuggagesPackages400ResponseSchema = ValidationErrorResponseSchema
-
-export type GetLuggagesPackages404ResponseSchema = GenericNotFoundErrorResponseSchema
-
-export type GetLuggagesPackages405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type GetLuggagesPackages415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type GetLuggagesPackages429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type GetLuggagesPackages500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type GetLuggagesPackagesRequestSchema = {
-  destination: MinimalPositionSchema
-  origin: MinimalPositionSchema
-  time: PackagesTimeSchema
-  luggages: PackagesLuggageSchema[]
-  [k: string]: unknown
-}
-
-export type GetHotelOffers200ResponseSchema = SingleOfferSchema[]
-
-export type GetHotelOffers400ResponseSchema = ValidationErrorResponseSchema
-
-export type GetHotelOffers405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type GetHotelOffers415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type GetHotelOffers429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type GetHotelOffers500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type GetHotelProducts200ResponseSchema = HotelProductSchema[]
-
-export type GetHotelProducts400ResponseSchema = ValidationErrorResponseSchema
-
-export type GetHotelProducts404ResponseSchema = GenericNotFoundErrorResponseSchema
-
-export type GetHotelProducts405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type GetHotelProducts415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type GetHotelProducts429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type GetHotelProducts500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type GetHotelProductsRequestSchema = {
-  hotelId: string
-  checkin: string
-  checkout: string
-  adults: number
-  children: number
-  rooms: number
-  [k: string]: unknown
-}
-
-export type PackagesShipmentPackageOptionalSchema = {
-  id: UuidSchema
-  code: "CALL_BEFORE_DELIVERY" | "SATURDAY_DELIVERY" | "EXPRESS_DELIVERY" | "INSURANCE"
-  name: string
-  description: string
-  price: PackagesOptionalPriceSchema
-  [k: string]: unknown
-}
-
-export type HotelProductSchema = {
-  occupancy: OccupancySchema
-  numberAvailableAtThisPrice: number
-  cancellationType: {
-    type: "free_cancellation" | "non_refundable" | "special_conditions"
-    availableUntil?: string
-    [k: string]: unknown
-  }
-  mealPlan: {
-    types?: ("breakfast" | "dinner" | "lunch")[]
-    plan: "all_inclusive" | "breakfast_included" | "full_board" | "half_board" | "no_plan"
-    [k: string]: unknown
-  }
-  payment: {
-    prePaymentrequired: boolean
-    timing: ("pay_at_the_property" | "pay_online_later" | "pay_online_now")[]
-    [k: string]: unknown
-  }
-  totalPrice: string
-  room: {
-    type: string
-    id: string
-    [k: string]: unknown
-  }
-  [k: string]: unknown
-}
-
-export type PackagesLuggageSchema = {
-  width: number
-  height: number
-  length: number
-  weight: number
-  [k: string]: unknown
-}
-
-export type PackagesLuggagesWithTypeSchema = PackagesLuggageSchema & {
-  type: string
-  [k: string]: unknown
-}
-
-export type OccupancySchema = {
-  adults: number
-  children: number
-  total: number
-  [k: string]: unknown
-}
-
-export type PackagesOptionalPriceSchema = {
-  price: number
-  currency: CurrencySchema
-  perKgs?: number
-  [k: string]: unknown
-}
-
-export type PackagePositionSchema = GeneralPositionSchema
-
-export type PackagesPositionDetailSchema = {
-  country: string
-  city: string
-  cap: string
-  [k: string]: unknown
-}
-
-export type PackagesPriceSchema = {
-  totalCharge: number
-  totalDiscount: number
-  [k: string]: unknown
-}
-
-export type PackagesPrivatePublicPositionSchema = {
-  isPrivate: boolean
-  id: UuidSchema
-  [k: string]: unknown
-}
-
-export type SingleOfferSchema = {
-  title: string
-  placeId: string
-  offertId: string
-  packagesNuber: number
-  basePrice: string
-  checkIn: string
-  checkOut: string
-  rooms: number
-  adults: number
-  children: number
-  imageSrc: string
-  [k: string]: unknown
-}
-
-export type PackagesSinglePackageSchema = {
-  origin: PackagePositionSchema
-  destination: PackagePositionSchema
-  time: PackagesSinglePackageTimeSchema
-  durationDays: number
-  title: string
-  description: string
-  courierOptionals: PackagesShipmentPackageOptionalSchema[]
-  shipmentOptionals: ShipmentOptionalSchema[]
-  insurance?: InsuranceSchema
-  code: "BASIC" | "PREMIUM" | "ALL_INCLUSIVE_PUBLIC" | "ALL_INCLUSIVE_PRIVATE" | "LAST_MINUTE"
-  cost: CostSchema
-  [k: string]: unknown
-}
-
-export type PackagesSinglePackageTimeSchema = {
-  outward: {
-    deliveryDate: DateSchema
-    pickupDate: DateSchema
-    [k: string]: unknown
-  }
-  return?: {
-    deliveryDate: DateSchema
-    pickupDate: DateSchema
-    [k: string]: unknown
-  }
-  [k: string]: unknown
-}
-
-export type PackagesTimeSchema = {
-  outwardDate: string
-  returnDate?: string
   [k: string]: unknown
 }
 
