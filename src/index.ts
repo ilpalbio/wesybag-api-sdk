@@ -5893,7 +5893,7 @@ export type SinglePendingShipmentSchema = {
 }
 
 export type SingleShipmentCostSchema = {
-  estimateCost: CostSchema
+  completePrice: CostSchema
   partialCosts: {
     shipment: CostSchema
     courierOptionals: PackagesShipmentPackageOptionalSchema[]
