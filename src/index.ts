@@ -261,70 +261,6 @@ export async function getNormalShipment(data: GetNormalShipmentRequestSchema, co
 }
 
 /**
-Create new travel from draft or pending shipment
-*/
-export type AxiosCreateNormalShipmentSuccessResponse = (AxiosResponse<CreateNormalShipment200ResponseSchema> & { status: 200 })
-export type AxiosCreateNormalShipmentErrorResponse = ((AxiosResponse<CreateNormalShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<CreateNormalShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<CreateNormalShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<CreateNormalShipment409ResponseSchema> & { status: 409 }) | (AxiosResponse<CreateNormalShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<CreateNormalShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<CreateNormalShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/createNormalShipment" }
-export type AxiosCreateNormalShipmentResponse = AxiosCreateNormalShipmentSuccessResponse | AxiosCreateNormalShipmentErrorResponse
-export async function createNormalShipment(data: CreateNormalShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosCreateNormalShipmentResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "404": {
-      "code": [
-        "NOT_FOUND"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "409": {
-      "code": [
-        "CONFLICT"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/shipments/createNormalShipment"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosCreateNormalShipmentSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosCreateNormalShipmentErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
 Create new pending shipment by draft
 */
 export type AxiosCreatePendingShipmentSuccessResponse = (AxiosResponse<CreatePendingShipment200ResponseSchema> & { status: 200 })
@@ -5339,38 +5275,6 @@ export type GetNormalShipmentRequestSchema = {
   ids?: UuidSchema[]
   [k: string]: unknown
 }
-
-export type CreateNormalShipment200ResponseSchema = {
-  outwardShipment: SingleCompleteNormalShipmentSchema
-  returnShipment?: SingleCompleteNormalShipmentSchema
-  [k: string]: unknown
-}
-
-export type CreateNormalShipment400ResponseSchema = ValidationErrorResponseSchema
-
-export type CreateNormalShipment404ResponseSchema = GenericNotFoundErrorResponseSchema
-
-export type CreateNormalShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type CreateNormalShipment409ResponseSchema = ConflictErrorResponseSchema
-
-export type CreateNormalShipment415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type CreateNormalShipment429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type CreateNormalShipment500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type CreateNormalShipmentRequestSchema =
-  | (CreateShipmentSchema & {
-      from: "scratch"
-      courierId: UuidSchema
-      [k: string]: unknown
-    } & PaymentIntentSchema)
-  | ({
-      pendingShipmentId: UuidSchema
-      from: "pending"
-      [k: string]: unknown
-    } & PaymentIntentSchema)
 
 export type CreatePendingShipment200ResponseSchema = {
   outwardShipment: SinglePendingShipmentSchema
