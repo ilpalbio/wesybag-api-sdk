@@ -3064,6 +3064,80 @@ export async function rejectPendingShipment(data: RejectPendingShipmentRequestSc
 }
 
 /**
+Accept a pending shipment (admin)
+*/
+export type AxiosAcceptPendingShipmentSuccessResponse = (AxiosResponse<AcceptPendingShipment200ResponseSchema> & { status: 200 })
+export type AxiosAcceptPendingShipmentErrorResponse = ((AxiosResponse<AcceptPendingShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<AcceptPendingShipment401ResponseSchema> & { status: 401 }) | (AxiosResponse<AcceptPendingShipment403ResponseSchema> & { status: 403 }) | (AxiosResponse<AcceptPendingShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<AcceptPendingShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<AcceptPendingShipment409ResponseSchema> & { status: 409 }) | (AxiosResponse<AcceptPendingShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<AcceptPendingShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<AcceptPendingShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/acceptPendingShipment" }
+export type AxiosAcceptPendingShipmentResponse = AxiosAcceptPendingShipmentSuccessResponse | AxiosAcceptPendingShipmentErrorResponse
+export async function acceptPendingShipment(data: AcceptPendingShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAcceptPendingShipmentResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "409": {
+      "code": [
+        "CONFLICT"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/admin/acceptPendingShipment"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosAcceptPendingShipmentSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosAcceptPendingShipmentErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Verify user credentials
 */
 export type AxiosVerifyUserCredentialsSuccessResponse = (AxiosResponse<VerifyUserCredentials200ResponseSchema> & { status: 200 })
@@ -6918,6 +6992,33 @@ export type RejectPendingShipment500ResponseSchema = UnexpectedErrorResponseSche
 export type RejectPendingShipmentRequestSchema = {
   id: UuidSchema
   motivation: string
+  [k: string]: unknown
+}
+
+export type AcceptPendingShipment200ResponseSchema = GetNormalShipmentResponseSchema
+
+export type AcceptPendingShipment400ResponseSchema = ValidationErrorResponseSchema
+
+export type AcceptPendingShipment401ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type AcceptPendingShipment403ResponseSchema = UnauthorizedUserErrorResponseSchema
+
+export type AcceptPendingShipment404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type AcceptPendingShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type AcceptPendingShipment409ResponseSchema = ConflictErrorResponseSchema
+
+export type AcceptPendingShipment415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type AcceptPendingShipment429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type AcceptPendingShipment500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type AcceptPendingShipmentRequestSchema = {
+  id: UuidSchema
+  outwardTrackingNumber: string
+  returnTrackingNumber?: string
   [k: string]: unknown
 }
 
