@@ -3005,10 +3005,10 @@ export async function sendHelpResponse(data: SendHelpResponseRequestSchema, conf
 }
 
 /**
-Reject a pending travel
+Reject pending shipment
 */
 export type AxiosRejectPendingShipmentSuccessResponse = (AxiosResponse<RejectPendingShipment200ResponseSchema> & { status: 200 })
-export type AxiosRejectPendingShipmentErrorResponse = ((AxiosResponse<RejectPendingShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<RejectPendingShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<RejectPendingShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<RejectPendingShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<RejectPendingShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<RejectPendingShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/rejectPendingShipment" }
+export type AxiosRejectPendingShipmentErrorResponse = ((AxiosResponse<RejectPendingShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<RejectPendingShipment401ResponseSchema> & { status: 401 }) | (AxiosResponse<RejectPendingShipment403ResponseSchema> & { status: 403 }) | (AxiosResponse<RejectPendingShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<RejectPendingShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<RejectPendingShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<RejectPendingShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<RejectPendingShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/rejectPendingShipment" }
 export type AxiosRejectPendingShipmentResponse = AxiosRejectPendingShipmentSuccessResponse | AxiosRejectPendingShipmentErrorResponse
 export async function rejectPendingShipment(data: RejectPendingShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosRejectPendingShipmentResponse> {
   _checkSetup()
@@ -3020,6 +3020,16 @@ export async function rejectPendingShipment(data: RejectPendingShipmentRequestSc
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "UNAUTHORIZED"
       ]
     },
     "404": {
@@ -6975,11 +6985,15 @@ export type SendHelpResponseRequestSchema = {
   [k: string]: unknown
 }
 
-export type RejectPendingShipment200ResponseSchema = OkResponseSchema
+export type RejectPendingShipment200ResponseSchema = GetPendingShipmentResponseSchema
 
 export type RejectPendingShipment400ResponseSchema = ValidationErrorResponseSchema
 
-export type RejectPendingShipment404ResponseSchema = TravelNotFoundErrorResponseSchema
+export type RejectPendingShipment401ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type RejectPendingShipment403ResponseSchema = UnauthorizedUserErrorResponseSchema
+
+export type RejectPendingShipment404ResponseSchema = GenericNotFoundErrorResponseSchema
 
 export type RejectPendingShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
