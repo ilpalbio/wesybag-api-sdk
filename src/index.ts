@@ -4794,7 +4794,7 @@ export async function resend2FaCode(data: Resend2FaCodeRequestSchema, config?: A
 Get all offers for the current season
 */
 export type AxiosGetSeasonOffersSuccessResponse = (AxiosResponse<GetSeasonOffers200ResponseSchema> & { status: 200 })
-export type AxiosGetSeasonOffersErrorResponse = ((AxiosResponse<GetSeasonOffers400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetSeasonOffers405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetSeasonOffers415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetSeasonOffers429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetSeasonOffers500ResponseSchema> & { status: 500 })) & { path: "/v1/offers/getSeasonOffers" }
+export type AxiosGetSeasonOffersErrorResponse = ((AxiosResponse<GetSeasonOffers400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetSeasonOffers404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetSeasonOffers405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetSeasonOffers415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetSeasonOffers429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetSeasonOffers500ResponseSchema> & { status: 500 })) & { path: "/v1/offers/getSeasonOffers" }
 export type AxiosGetSeasonOffersResponse = AxiosGetSeasonOffersSuccessResponse | AxiosGetSeasonOffersErrorResponse
 export async function getSeasonOffers(data: GetSeasonOffersRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetSeasonOffersResponse> {
   _checkSetup()
@@ -4806,6 +4806,11 @@ export async function getSeasonOffers(data: GetSeasonOffersRequestSchema, config
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
       ]
     },
     "405": {
@@ -8211,6 +8216,8 @@ export type GetSeasonOffers200ResponseSchema = SeasonOfferSchema[]
 
 export type GetSeasonOffers400ResponseSchema = ValidationErrorResponseSchema
 
+export type GetSeasonOffers404ResponseSchema = GenericNotFoundErrorResponseSchema
+
 export type GetSeasonOffers405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
 export type GetSeasonOffers415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
@@ -8220,12 +8227,12 @@ export type GetSeasonOffers429ResponseSchema = ThrottlingErrorResponseSchema
 export type GetSeasonOffers500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetSeasonOffersRequestSchema = {
-  ids?: UuidSchema[]
+  ids?: number[]
   [k: string]: unknown
 }
 
 export type SeasonOfferSchema = {
-  id: UuidSchema
+  id: number
   destination: GeneralPositionSchema
   luggages: PackagesLuggageSchema[]
   type: "FAMILY" | "COUPLE" | "FRIENDS"
