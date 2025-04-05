@@ -8233,6 +8233,7 @@ export type GetSeasonOffersRequestSchema = {
 
 export type SeasonOfferSchema = {
   id: number
+  origin: GeneralPositionSchema
   destination: GeneralPositionSchema
   luggages: PackagesLuggageSchema[]
   type: "FAMILY" | "COUPLE" | "FRIENDS"
