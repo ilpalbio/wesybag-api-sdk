@@ -8301,7 +8301,7 @@ export type GetSeasonOffers429ResponseSchema = ThrottlingErrorResponseSchema
 export type GetSeasonOffers500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetSeasonOffersRequestSchema = {
-  ids?: number[]
+  coordinates?: CoordinatesRequestSchema
   [k: string]: unknown
 }
 
