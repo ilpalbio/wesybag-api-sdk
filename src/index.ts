@@ -1269,6 +1269,60 @@ export async function getLuggageContents(data: GetLuggageContentsRequestSchema, 
 }
 
 /**
+Get the closest place given the coordinates and the accuracy
+*/
+export type AxiosGetClosestPlaceSuccessResponse = (AxiosResponse<GetClosestPlace200ResponseSchema> & { status: 200 })
+export type AxiosGetClosestPlaceErrorResponse = ((AxiosResponse<GetClosestPlace400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetClosestPlace405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetClosestPlace415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetClosestPlace429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetClosestPlace500ResponseSchema> & { status: 500 })) & { path: "/v1/base/getClosestPlace" }
+export type AxiosGetClosestPlaceResponse = AxiosGetClosestPlaceSuccessResponse | AxiosGetClosestPlaceErrorResponse
+export async function getClosestPlace(data: GetClosestPlaceRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetClosestPlaceResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/base/getClosestPlace"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosGetClosestPlaceSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosGetClosestPlaceErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Return user settings
 */
 export type AxiosGetUserSettingsSuccessResponse = (AxiosResponse<GetUserSettings200ResponseSchema> & { status: 200 })
@@ -5076,6 +5130,65 @@ export async function resend2FaCode(data: Resend2FaCodeRequestSchema, config?: A
   }
 }
 
+/**
+Get all offers for the current season
+*/
+export type AxiosGetSeasonOffersSuccessResponse = (AxiosResponse<GetSeasonOffers200ResponseSchema> & { status: 200 })
+export type AxiosGetSeasonOffersErrorResponse = ((AxiosResponse<GetSeasonOffers400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetSeasonOffers404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetSeasonOffers405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetSeasonOffers415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetSeasonOffers429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetSeasonOffers500ResponseSchema> & { status: 500 })) & { path: "/v1/offers/getSeasonOffers" }
+export type AxiosGetSeasonOffersResponse = AxiosGetSeasonOffersSuccessResponse | AxiosGetSeasonOffersErrorResponse
+export async function getSeasonOffers(data: GetSeasonOffersRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetSeasonOffersResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/offers/getSeasonOffers"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosGetSeasonOffersSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosGetSeasonOffersErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
 export type Any =
   | string
   | boolean
@@ -6450,6 +6563,26 @@ export type GetLuggageContents500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetLuggageContentsRequestSchema = {
   ids?: UuidSchema[]
+  [k: string]: unknown
+}
+
+export type GetClosestPlace200ResponseSchema = {
+  place: GeneralPositionSchema
+  [k: string]: unknown
+}
+
+export type GetClosestPlace400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetClosestPlace405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type GetClosestPlace415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type GetClosestPlace429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type GetClosestPlace500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type GetClosestPlaceRequestSchema = {
+  coordinates: CoordinatesRequestSchema
   [k: string]: unknown
 }
 
@@ -8538,5 +8671,36 @@ export type Resend2FaCode500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type Resend2FaCodeRequestSchema = {
   id: UuidSchema
+  [k: string]: unknown
+}
+
+export type GetSeasonOffers200ResponseSchema = SeasonOfferSchema[]
+
+export type GetSeasonOffers400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetSeasonOffers404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type GetSeasonOffers405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type GetSeasonOffers415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type GetSeasonOffers429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type GetSeasonOffers500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type GetSeasonOffersRequestSchema = {
+  coordinates?: CoordinatesRequestSchema
+  [k: string]: unknown
+}
+
+export type SeasonOfferSchema = {
+  id: number
+  origin: GeneralPositionSchema
+  destination: GeneralPositionSchema
+  luggages: PackagesLuggageSchema[]
+  type: "FAMILY" | "COUPLE" | "FRIENDS"
+  esteemCost: CostSchema
+  startDate: DateSchema
+  endDate?: DateSchema
   [k: string]: unknown
 }
