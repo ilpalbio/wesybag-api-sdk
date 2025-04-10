@@ -7453,10 +7453,15 @@ export type ListPendingShipments500ResponseSchema = UnexpectedErrorResponseSchem
 
 export type ListPendingShipmentsRequestSchema = {
   filters?: ListShipmentFilterSchema
+  pagination?: ListingPaginationSchema
   [k: string]: unknown
 }
 
-export type ListNormalShipments200ResponseSchema = GetNormalShipmentResponseSchema[]
+export type ListNormalShipments200ResponseSchema = {
+  shipments: GetNormalShipmentResponseSchema[]
+  pagination: ListingPaginationResponseSchema
+  [k: string]: unknown
+}
 
 export type ListNormalShipments400ResponseSchema = ValidationErrorResponseSchema
 
@@ -7474,6 +7479,7 @@ export type ListNormalShipments500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type ListNormalShipmentsRequestSchema = {
   filters?: ListShipmentFilterSchema
+  pagination?: ListingPaginationSchema
   [k: string]: unknown
 }
 
@@ -7621,6 +7627,22 @@ export type ListShipmentFilterSchema = {
   destinationSearch?: string
   deliveryDate?: DateSchema
   ids?: UuidSchema[]
+  [k: string]: unknown
+}
+
+export type ListingPaginationResponseSchema = {
+  perPage: number
+  currentPage: number
+  totalPages: number
+  totalItems: number
+  hasNextPage: boolean
+  hasPreviousPage: boolean
+  [k: string]: unknown
+}
+
+export type ListingPaginationSchema = {
+  perPage?: number
+  currentPage?: number
   [k: string]: unknown
 }
 
