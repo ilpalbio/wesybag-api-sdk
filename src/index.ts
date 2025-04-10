@@ -2656,60 +2656,6 @@ export async function capturePaymentIntent(data: CapturePaymentIntentRequestSche
 }
 
 /**
-Get all users in the system
-*/
-export type AxiosGetUsersSuccessResponse = (AxiosResponse<GetUsers200ResponseSchema> & { status: 200 })
-export type AxiosGetUsersErrorResponse = ((AxiosResponse<GetUsers400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetUsers405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetUsers415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetUsers429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetUsers500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/getUsers" }
-export type AxiosGetUsersResponse = AxiosGetUsersSuccessResponse | AxiosGetUsersErrorResponse
-export async function getUsers(data: GetUsersRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetUsersResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/admin/getUsers"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosGetUsersSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosGetUsersErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
 Get all help requests in the system
 */
 export type AxiosGetHelpRequestsSuccessResponse = (AxiosResponse<GetHelpRequests200ResponseSchema> & { status: 200 })
@@ -2757,286 +2703,6 @@ export async function getHelpRequests(data: GetHelpRequestsRequestSchema, config
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
       return res as AxiosGetHelpRequestsErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
-Get all shipments in the system
-*/
-export type AxiosAdminGetNormalShipmentsSuccessResponse = (AxiosResponse<AdminGetNormalShipments200ResponseSchema> & { status: 200 })
-export type AxiosAdminGetNormalShipmentsErrorResponse = ((AxiosResponse<AdminGetNormalShipments400ResponseSchema> & { status: 400 }) | (AxiosResponse<AdminGetNormalShipments405ResponseSchema> & { status: 405 }) | (AxiosResponse<AdminGetNormalShipments415ResponseSchema> & { status: 415 }) | (AxiosResponse<AdminGetNormalShipments429ResponseSchema> & { status: 429 }) | (AxiosResponse<AdminGetNormalShipments500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/adminGetNormalShipments" }
-export type AxiosAdminGetNormalShipmentsResponse = AxiosAdminGetNormalShipmentsSuccessResponse | AxiosAdminGetNormalShipmentsErrorResponse
-export async function adminGetNormalShipments(data: AdminGetNormalShipmentsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminGetNormalShipmentsResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/admin/adminGetNormalShipments"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosAdminGetNormalShipmentsSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosAdminGetNormalShipmentsErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
-Get all errors in the system
-*/
-export type AxiosGetErrorsSuccessResponse = (AxiosResponse<GetErrors200ResponseSchema> & { status: 200 })
-export type AxiosGetErrorsErrorResponse = ((AxiosResponse<GetErrors400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetErrors405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetErrors415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetErrors429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetErrors500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/getErrors" }
-export type AxiosGetErrorsResponse = AxiosGetErrorsSuccessResponse | AxiosGetErrorsErrorResponse
-export async function getErrors(data: GetErrorsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetErrorsResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/admin/getErrors"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosGetErrorsSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosGetErrorsErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
-Get all pending shipments that need to be confirmed
-*/
-export type AxiosAdminGetPendingShipmentsSuccessResponse = (AxiosResponse<AdminGetPendingShipments200ResponseSchema> & { status: 200 })
-export type AxiosAdminGetPendingShipmentsErrorResponse = ((AxiosResponse<AdminGetPendingShipments400ResponseSchema> & { status: 400 }) | (AxiosResponse<AdminGetPendingShipments405ResponseSchema> & { status: 405 }) | (AxiosResponse<AdminGetPendingShipments415ResponseSchema> & { status: 415 }) | (AxiosResponse<AdminGetPendingShipments429ResponseSchema> & { status: 429 }) | (AxiosResponse<AdminGetPendingShipments500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/adminGetPendingShipments" }
-export type AxiosAdminGetPendingShipmentsResponse = AxiosAdminGetPendingShipmentsSuccessResponse | AxiosAdminGetPendingShipmentsErrorResponse
-export async function adminGetPendingShipments(data: AdminGetPendingShipmentsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminGetPendingShipmentsResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/admin/adminGetPendingShipments"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosAdminGetPendingShipmentsSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosAdminGetPendingShipmentsErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
-Delete a user session so that the user will have to login again
-*/
-export type AxiosDeleteUserSessionSuccessResponse = (AxiosResponse<DeleteUserSession200ResponseSchema> & { status: 200 })
-export type AxiosDeleteUserSessionErrorResponse = ((AxiosResponse<DeleteUserSession400ResponseSchema> & { status: 400 }) | (AxiosResponse<DeleteUserSession404ResponseSchema> & { status: 404 }) | (AxiosResponse<DeleteUserSession405ResponseSchema> & { status: 405 }) | (AxiosResponse<DeleteUserSession415ResponseSchema> & { status: 415 }) | (AxiosResponse<DeleteUserSession429ResponseSchema> & { status: 429 }) | (AxiosResponse<DeleteUserSession500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/deleteUserSession" }
-export type AxiosDeleteUserSessionResponse = AxiosDeleteUserSessionSuccessResponse | AxiosDeleteUserSessionErrorResponse
-export async function deleteUserSession(data: DeleteUserSessionRequestSchema, config?: AxiosRequestConfig): Promise<AxiosDeleteUserSessionResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "404": {
-      "code": [
-        "NOT_FOUND"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/admin/deleteUserSession"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosDeleteUserSessionSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosDeleteUserSessionErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
-Update a system error status
-*/
-export type AxiosUpdateErrorSuccessResponse = (AxiosResponse<UpdateError200ResponseSchema> & { status: 200 })
-export type AxiosUpdateErrorErrorResponse = ((AxiosResponse<UpdateError400ResponseSchema> & { status: 400 }) | (AxiosResponse<UpdateError404ResponseSchema> & { status: 404 }) | (AxiosResponse<UpdateError405ResponseSchema> & { status: 405 }) | (AxiosResponse<UpdateError415ResponseSchema> & { status: 415 }) | (AxiosResponse<UpdateError429ResponseSchema> & { status: 429 }) | (AxiosResponse<UpdateError500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/updateError" }
-export type AxiosUpdateErrorResponse = AxiosUpdateErrorSuccessResponse | AxiosUpdateErrorErrorResponse
-export async function updateError(data: UpdateErrorRequestSchema, config?: AxiosRequestConfig): Promise<AxiosUpdateErrorResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "404": {
-      "code": [
-        "NOT_FOUND"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/admin/updateError"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosUpdateErrorSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosUpdateErrorErrorResponse
     } else {
       throw e
     }
@@ -3515,6 +3181,144 @@ export async function updateNormalShipmentStatus(data: UpdateNormalShipmentStatu
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
       return res as AxiosUpdateNormalShipmentStatusErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+Get normal shipmentby id 
+*/
+export type AxiosAdminGetNormalShipmentSuccessResponse = (AxiosResponse<AdminGetNormalShipment200ResponseSchema> & { status: 200 })
+export type AxiosAdminGetNormalShipmentErrorResponse = ((AxiosResponse<AdminGetNormalShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<AdminGetNormalShipment401ResponseSchema> & { status: 401 }) | (AxiosResponse<AdminGetNormalShipment403ResponseSchema> & { status: 403 }) | (AxiosResponse<AdminGetNormalShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<AdminGetNormalShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<AdminGetNormalShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<AdminGetNormalShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<AdminGetNormalShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/adminGetNormalShipment" }
+export type AxiosAdminGetNormalShipmentResponse = AxiosAdminGetNormalShipmentSuccessResponse | AxiosAdminGetNormalShipmentErrorResponse
+export async function adminGetNormalShipment(data: AdminGetNormalShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminGetNormalShipmentResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "UNAUTHENTICATED"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/admin/adminGetNormalShipment"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosAdminGetNormalShipmentSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosAdminGetNormalShipmentErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+Get pending shipment by id
+*/
+export type AxiosAdminGetPendingShipmentSuccessResponse = (AxiosResponse<AdminGetPendingShipment200ResponseSchema> & { status: 200 })
+export type AxiosAdminGetPendingShipmentErrorResponse = ((AxiosResponse<AdminGetPendingShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<AdminGetPendingShipment401ResponseSchema> & { status: 401 }) | (AxiosResponse<AdminGetPendingShipment403ResponseSchema> & { status: 403 }) | (AxiosResponse<AdminGetPendingShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<AdminGetPendingShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<AdminGetPendingShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<AdminGetPendingShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<AdminGetPendingShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/adminGetPendingShipment" }
+export type AxiosAdminGetPendingShipmentResponse = AxiosAdminGetPendingShipmentSuccessResponse | AxiosAdminGetPendingShipmentErrorResponse
+export async function adminGetPendingShipment(data: AdminGetPendingShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminGetPendingShipmentResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "UNAUTHENTICATED"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/admin/adminGetPendingShipment"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosAdminGetPendingShipmentSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosAdminGetPendingShipmentErrorResponse
     } else {
       throw e
     }
@@ -7286,23 +7090,6 @@ export type StripeIntentSchema = {
   [k: string]: unknown
 }
 
-export type GetUsers200ResponseSchema = UserDetailSchema[]
-
-export type GetUsers400ResponseSchema = ValidationErrorResponseSchema
-
-export type GetUsers405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type GetUsers415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type GetUsers429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type GetUsers500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type GetUsersRequestSchema = {
-  status?: "ACTIVE" | "DELETED"
-  [k: string]: unknown
-}
-
 export type GetHelpRequests200ResponseSchema = HelpRequestSchema[]
 
 export type GetHelpRequests400ResponseSchema = ValidationErrorResponseSchema
@@ -7321,108 +7108,6 @@ export type GetHelpRequestsRequestSchema = {
   search?: string
   category?: ("travelCreation" | "general" | "payment")[]
   importance?: ("low" | "medium" | "high")[]
-  [k: string]: unknown
-}
-
-export type AdminGetNormalShipments200ResponseSchema = {
-  outwardShipment: SingleCompleteNormalShipmentSchema
-  returnShipment?: SingleCompleteNormalShipmentSchema
-  [k: string]: unknown
-}[]
-
-export type AdminGetNormalShipments400ResponseSchema = ValidationErrorResponseSchema
-
-export type AdminGetNormalShipments405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type AdminGetNormalShipments415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type AdminGetNormalShipments429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type AdminGetNormalShipments500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type AdminGetNormalShipmentsRequestSchema = {
-  users?: string[]
-  status?: string[]
-  search?: string
-  searchField?: "DESTINATION" | "ORIGIN"
-  [k: string]: unknown
-}
-
-export type GetErrors200ResponseSchema = ErrorSchema[]
-
-export type GetErrors400ResponseSchema = ValidationErrorResponseSchema
-
-export type GetErrors405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type GetErrors415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type GetErrors429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type GetErrors500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type GetErrorsRequestSchema = {
-  startDate?: string
-  endDate?: string
-  [k: string]: unknown
-}
-
-export type AdminGetPendingShipments200ResponseSchema = {
-  outwardShipment: SinglePendingShipmentSchema
-  returnShipment?: SinglePendingShipmentSchema
-  [k: string]: unknown
-}[]
-
-export type AdminGetPendingShipments400ResponseSchema = ValidationErrorResponseSchema
-
-export type AdminGetPendingShipments405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type AdminGetPendingShipments415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type AdminGetPendingShipments429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type AdminGetPendingShipments500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type AdminGetPendingShipmentsRequestSchema = {
-  dateSort?: "ASC" | "DESC"
-  [k: string]: unknown
-}
-
-export type DeleteUserSession200ResponseSchema = OkResponseSchema
-
-export type DeleteUserSession400ResponseSchema = ValidationErrorResponseSchema
-
-export type DeleteUserSession404ResponseSchema = SessionNotFoundErrorResponseSchema
-
-export type DeleteUserSession405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type DeleteUserSession415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type DeleteUserSession429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type DeleteUserSession500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type DeleteUserSessionRequestSchema = {
-  userId: UuidSchema
-  [k: string]: unknown
-}
-
-export type UpdateError200ResponseSchema = OkResponseSchema
-
-export type UpdateError400ResponseSchema = ValidationErrorResponseSchema
-
-export type UpdateError404ResponseSchema = GenericNotFoundErrorResponseSchema
-
-export type UpdateError405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type UpdateError415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type UpdateError429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type UpdateError500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type UpdateErrorRequestSchema = {
-  id: UuidSchema
-  status: "PENDING" | "RESOLVED"
   [k: string]: unknown
 }
 
@@ -7598,6 +7283,52 @@ export type UpdateNormalShipmentStatus500ResponseSchema = UnexpectedErrorRespons
 export type UpdateNormalShipmentStatusRequestSchema = {
   id: UuidSchema
   status: "CREATED" | "CONFIRMED" | "PENDING_OUTWARD" | "COMPLETED"
+  [k: string]: unknown
+}
+
+export type AdminGetNormalShipment200ResponseSchema = GetNormalShipmentResponseSchema
+
+export type AdminGetNormalShipment400ResponseSchema = ValidationErrorResponseSchema
+
+export type AdminGetNormalShipment401ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type AdminGetNormalShipment403ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type AdminGetNormalShipment404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type AdminGetNormalShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type AdminGetNormalShipment415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type AdminGetNormalShipment429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type AdminGetNormalShipment500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type AdminGetNormalShipmentRequestSchema = {
+  id: UuidSchema
+  [k: string]: unknown
+}
+
+export type AdminGetPendingShipment200ResponseSchema = GetPendingShipmentResponseSchema
+
+export type AdminGetPendingShipment400ResponseSchema = ValidationErrorResponseSchema
+
+export type AdminGetPendingShipment401ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type AdminGetPendingShipment403ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type AdminGetPendingShipment404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type AdminGetPendingShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type AdminGetPendingShipment415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type AdminGetPendingShipment429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type AdminGetPendingShipment500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type AdminGetPendingShipmentRequestSchema = {
+  id: UuidSchema
   [k: string]: unknown
 }
 
