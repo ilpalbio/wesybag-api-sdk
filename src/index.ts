@@ -1323,6 +1323,60 @@ export async function getClosestPlace(data: GetClosestPlaceRequestSchema, config
 }
 
 /**
+Get available normal shipment status
+*/
+export type AxiosGetAvailableShipmentStatusSuccessResponse = (AxiosResponse<GetAvailableShipmentStatus200ResponseSchema> & { status: 200 })
+export type AxiosGetAvailableShipmentStatusErrorResponse = ((AxiosResponse<GetAvailableShipmentStatus400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetAvailableShipmentStatus405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetAvailableShipmentStatus415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetAvailableShipmentStatus429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetAvailableShipmentStatus500ResponseSchema> & { status: 500 })) & { path: "/v1/base/getAvailableShipmentStatus" }
+export type AxiosGetAvailableShipmentStatusResponse = AxiosGetAvailableShipmentStatusSuccessResponse | AxiosGetAvailableShipmentStatusErrorResponse
+export async function getAvailableShipmentStatus(config?: AxiosRequestConfig): Promise<AxiosGetAvailableShipmentStatusResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/base/getAvailableShipmentStatus"), null, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosGetAvailableShipmentStatusSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosGetAvailableShipmentStatusErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Return user settings
 */
 export type AxiosGetUserSettingsSuccessResponse = (AxiosResponse<GetUserSettings200ResponseSchema> & { status: 200 })
@@ -6585,6 +6639,18 @@ export type GetClosestPlaceRequestSchema = {
   coordinates: CoordinatesRequestSchema
   [k: string]: unknown
 }
+
+export type GetAvailableShipmentStatus200ResponseSchema = ("CREATED" | "CONFIRMED" | "PENDING_OUTWARD" | "COMPLETED")[]
+
+export type GetAvailableShipmentStatus400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetAvailableShipmentStatus405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type GetAvailableShipmentStatus415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type GetAvailableShipmentStatus429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type GetAvailableShipmentStatus500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type ConfirmUserRequestSchema = {
   code: string
