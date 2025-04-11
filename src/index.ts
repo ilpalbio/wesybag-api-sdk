@@ -3390,6 +3390,70 @@ export async function adminGetPendingShipment(data: AdminGetPendingShipmentReque
 }
 
 /**
+Cancel a shipment by cancellation request
+*/
+export type AxiosAdminCancelShipmentSuccessResponse = (AxiosResponse<AdminCancelShipment200ResponseSchema> & { status: 200 })
+export type AxiosAdminCancelShipmentErrorResponse = ((AxiosResponse<AdminCancelShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<AdminCancelShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<AdminCancelShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<AdminCancelShipment409ResponseSchema> & { status: 409 }) | (AxiosResponse<AdminCancelShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<AdminCancelShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<AdminCancelShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/adminCancelShipment" }
+export type AxiosAdminCancelShipmentResponse = AxiosAdminCancelShipmentSuccessResponse | AxiosAdminCancelShipmentErrorResponse
+export async function adminCancelShipment(data: AdminCancelShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminCancelShipmentResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "409": {
+      "code": [
+        "CONFLICT"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/admin/adminCancelShipment"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosAdminCancelShipmentSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosAdminCancelShipmentErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Verify user credentials
 */
 export type AxiosVerifyUserCredentialsSuccessResponse = (AxiosResponse<VerifyUserCredentials200ResponseSchema> & { status: 200 })
@@ -7414,6 +7478,27 @@ export type AdminGetPendingShipment500ResponseSchema = UnexpectedErrorResponseSc
 
 export type AdminGetPendingShipmentRequestSchema = {
   id: UuidSchema
+  [k: string]: unknown
+}
+
+export type AdminCancelShipment200ResponseSchema = OkResponseSchema
+
+export type AdminCancelShipment400ResponseSchema = ValidationErrorResponseSchema
+
+export type AdminCancelShipment404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type AdminCancelShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type AdminCancelShipment409ResponseSchema = ConflictErrorResponseSchema
+
+export type AdminCancelShipment415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type AdminCancelShipment429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type AdminCancelShipment500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type AdminCancelShipmentRequestSchema = {
+  cancellationRequestId: number
   [k: string]: unknown
 }
 
