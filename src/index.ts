@@ -7005,19 +7005,13 @@ export type ResendResetPasswordRequestSchema = {
 }
 
 export type GetUserShipments200ResponseSchema = {
-  pendingShipments: {
-    outwardShipment: SinglePendingShipmentSchema
-    returnShipment?: SinglePendingShipmentSchema
-    [k: string]: unknown
-  }[]
-  normalShipments: {
-    accepted?: GetNormalShipmentResponseSchema[]
-    inProgress: GetNormalShipmentResponseSchema[]
-    completed: GetNormalShipmentResponseSchema[]
-    all: GetNormalShipmentResponseSchema[]
-    [k: string]: unknown
-  }
+  pagination: ListingPaginationResponseSchema
+  pendingShipments: GetPendingShipmentResponseSchema[]
+  acceptedShipments: GetNormalShipmentResponseSchema[]
+  inProgressShipments: GetNormalShipmentResponseSchema[]
+  completedShipments: GetNormalShipmentResponseSchema[]
   cancelledShipments: GetNormalShipmentResponseSchema[]
+  allNormalShipments: GetNormalShipmentResponseSchema[]
   [k: string]: unknown
 }
 
@@ -7034,7 +7028,8 @@ export type GetUserShipments500ResponseSchema = UnexpectedErrorResponseSchema
 export type GetUserShipmentsRequestSchema = {
   search?: string
   field?: "origin" | "destination" | "all"
-  limit?: number
+  pagination?: ListingPaginationSchema
+  shipmentType?: "ACCEPTED" | "IN_PROGRESS" | "COMPLETED" | "PENDING" | "ALL" | "CANCELLED"
   [k: string]: unknown
 }
 
