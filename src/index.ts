@@ -6736,7 +6736,7 @@ export type GetClosestPlaceRequestSchema = {
   [k: string]: unknown
 }
 
-export type GetAvailableShipmentStatus200ResponseSchema = ("CREATED" | "CONFIRMED" | "PENDING_OUTWARD" | "COMPLETED")[]
+export type GetAvailableShipmentStatus200ResponseSchema = ("ACCEPTED" | "IN_PROGRESS" | "COMPLETED")[]
 
 export type GetAvailableShipmentStatus400ResponseSchema = ValidationErrorResponseSchema
 
@@ -7011,13 +7011,13 @@ export type GetUserShipments200ResponseSchema = {
     [k: string]: unknown
   }[]
   normalShipments: {
-    notConfirmed: GetNormalShipmentResponseSchema[]
+    accepted?: GetNormalShipmentResponseSchema[]
     inProgress: GetNormalShipmentResponseSchema[]
     completed: GetNormalShipmentResponseSchema[]
-    cancelled: GetNormalShipmentResponseSchema[]
     all: GetNormalShipmentResponseSchema[]
     [k: string]: unknown
   }
+  cancelledShipments: GetNormalShipmentResponseSchema[]
   [k: string]: unknown
 }
 
@@ -7574,7 +7574,7 @@ export type UpdateNormalShipmentStatus500ResponseSchema = UnexpectedErrorRespons
 
 export type UpdateNormalShipmentStatusRequestSchema = {
   id: UuidSchema
-  status: "CREATED" | "CONFIRMED" | "PENDING_OUTWARD" | "COMPLETED"
+  status: "ACCEPTED" | "IN_PROGRESS" | "COMPLETED"
   [k: string]: unknown
 }
 
