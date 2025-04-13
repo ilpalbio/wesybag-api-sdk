@@ -6736,7 +6736,7 @@ export type GetClosestPlaceRequestSchema = {
   [k: string]: unknown
 }
 
-export type GetAvailableShipmentStatus200ResponseSchema = ("CREATED" | "CONFIRMED" | "PENDING_OUTWARD" | "COMPLETED")[]
+export type GetAvailableShipmentStatus200ResponseSchema = ("ACCEPTED" | "IN_PROGRESS" | "COMPLETED")[]
 
 export type GetAvailableShipmentStatus400ResponseSchema = ValidationErrorResponseSchema
 
@@ -7005,19 +7005,13 @@ export type ResendResetPasswordRequestSchema = {
 }
 
 export type GetUserShipments200ResponseSchema = {
-  pendingShipments: {
-    outwardShipment: SinglePendingShipmentSchema
-    returnShipment?: SinglePendingShipmentSchema
-    [k: string]: unknown
-  }[]
-  normalShipments: {
-    notConfirmed: GetNormalShipmentResponseSchema[]
-    inProgress: GetNormalShipmentResponseSchema[]
-    completed: GetNormalShipmentResponseSchema[]
-    cancelled: GetNormalShipmentResponseSchema[]
-    all: GetNormalShipmentResponseSchema[]
-    [k: string]: unknown
-  }
+  pagination: ListingPaginationResponseSchema
+  pendingShipments: GetPendingShipmentResponseSchema[]
+  acceptedShipments: GetNormalShipmentResponseSchema[]
+  inProgressShipments: GetNormalShipmentResponseSchema[]
+  completedShipments: GetNormalShipmentResponseSchema[]
+  cancelledShipments: GetNormalShipmentResponseSchema[]
+  allNormalShipments: GetNormalShipmentResponseSchema[]
   [k: string]: unknown
 }
 
@@ -7034,7 +7028,8 @@ export type GetUserShipments500ResponseSchema = UnexpectedErrorResponseSchema
 export type GetUserShipmentsRequestSchema = {
   search?: string
   field?: "origin" | "destination" | "all"
-  limit?: number
+  pagination?: ListingPaginationSchema
+  shipmentType?: "ACCEPTED" | "IN_PROGRESS" | "COMPLETED" | "PENDING" | "ALL" | "CANCELLED"
   [k: string]: unknown
 }
 
@@ -7574,7 +7569,7 @@ export type UpdateNormalShipmentStatus500ResponseSchema = UnexpectedErrorRespons
 
 export type UpdateNormalShipmentStatusRequestSchema = {
   id: UuidSchema
-  status: "CREATED" | "CONFIRMED" | "PENDING_OUTWARD" | "COMPLETED"
+  status: "ACCEPTED" | "IN_PROGRESS" | "COMPLETED"
   [k: string]: unknown
 }
 
