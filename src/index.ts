@@ -7026,8 +7026,6 @@ export type GetUserShipments429ResponseSchema = ThrottlingErrorResponseSchema
 export type GetUserShipments500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetUserShipmentsRequestSchema = {
-  search?: string
-  field?: "origin" | "destination" | "all"
   pagination?: ListingPaginationSchema
   shipmentType?: "ACCEPTED" | "IN_PROGRESS" | "COMPLETED" | "PENDING" | "ALL" | "CANCELLED"
   [k: string]: unknown
