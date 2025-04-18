@@ -2722,10 +2722,10 @@ export async function capturePaymentIntent(data: CapturePaymentIntentRequestSche
 /**
 Get all help requests in the system
 */
-export type AxiosGetHelpRequestsSuccessResponse = (AxiosResponse<GetHelpRequests200ResponseSchema> & { status: 200 })
-export type AxiosGetHelpRequestsErrorResponse = ((AxiosResponse<GetHelpRequests400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetHelpRequests405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetHelpRequests415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetHelpRequests429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetHelpRequests500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/getHelpRequests" }
-export type AxiosGetHelpRequestsResponse = AxiosGetHelpRequestsSuccessResponse | AxiosGetHelpRequestsErrorResponse
-export async function getHelpRequests(data: GetHelpRequestsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetHelpRequestsResponse> {
+export type AxiosListHelpRequestsSuccessResponse = (AxiosResponse<ListHelpRequests200ResponseSchema> & { status: 200 })
+export type AxiosListHelpRequestsErrorResponse = ((AxiosResponse<ListHelpRequests400ResponseSchema> & { status: 400 }) | (AxiosResponse<ListHelpRequests405ResponseSchema> & { status: 405 }) | (AxiosResponse<ListHelpRequests415ResponseSchema> & { status: 415 }) | (AxiosResponse<ListHelpRequests429ResponseSchema> & { status: 429 }) | (AxiosResponse<ListHelpRequests500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/listHelpRequests" }
+export type AxiosListHelpRequestsResponse = AxiosListHelpRequestsSuccessResponse | AxiosListHelpRequestsErrorResponse
+export async function listHelpRequests(data: ListHelpRequestsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosListHelpRequestsResponse> {
   _checkSetup()
   const securityParams: AxiosRequestConfig = {}
   const handledResponses = {
@@ -2759,14 +2759,14 @@ export async function getHelpRequests(data: GetHelpRequestsRequestSchema, config
     }
   }
   try {
-    const res = await axios!.post(_getFnUrl("/v1/admin/getHelpRequests"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    const res = await axios!.post(_getFnUrl("/v1/admin/listHelpRequests"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
     _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosGetHelpRequestsSuccessResponse
+    return res as AxiosListHelpRequestsSuccessResponse
   } catch (e) {
     const { response: res } = e as AxiosError
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosGetHelpRequestsErrorResponse
+      return res as AxiosListHelpRequestsErrorResponse
     } else {
       throw e
     }
@@ -7375,24 +7375,32 @@ export type StripeIntentSchema = {
   [k: string]: unknown
 }
 
-export type GetHelpRequests200ResponseSchema = HelpRequestSchema[]
+export type ListHelpRequests200ResponseSchema = {
+  requests: HelpRequestSchema[]
+  pagination: ListingPaginationResponseSchema
+  [k: string]: unknown
+}
 
-export type GetHelpRequests400ResponseSchema = ValidationErrorResponseSchema
+export type ListHelpRequests400ResponseSchema = ValidationErrorResponseSchema
 
-export type GetHelpRequests405ResponseSchema = MethodNotAllowedErrorResponseSchema
+export type ListHelpRequests405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
-export type GetHelpRequests415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+export type ListHelpRequests415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
 
-export type GetHelpRequests429ResponseSchema = ThrottlingErrorResponseSchema
+export type ListHelpRequests429ResponseSchema = ThrottlingErrorResponseSchema
 
-export type GetHelpRequests500ResponseSchema = UnexpectedErrorResponseSchema
+export type ListHelpRequests500ResponseSchema = UnexpectedErrorResponseSchema
 
-export type GetHelpRequestsRequestSchema = {
-  status?: ("OPEN" | "CLOSED")[]
-  users?: string[]
-  search?: string
-  category?: ("travelCreation" | "general" | "payment")[]
-  importance?: ("low" | "medium" | "high")[]
+export type ListHelpRequestsRequestSchema = {
+  fitlers?: {
+    status?: ("OPEN" | "CLOSED")[]
+    users?: string[]
+    search?: string
+    category?: ("travelCreation" | "general" | "payment")[]
+    importance?: ("low" | "medium" | "high")[]
+    [k: string]: unknown
+  }
+  pagination?: ListingPaginationSchema
   [k: string]: unknown
 }
 
