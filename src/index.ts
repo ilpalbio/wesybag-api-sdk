@@ -7472,8 +7472,8 @@ export type RejectPendingShipmentRequestSchema = {
 }
 
 export type ListPendingShipments200ResponseSchema = {
-  shipments?: GetPendingShipmentResponseSchema[]
-  pagination?: ListingPaginationResponseSchema
+  shipments: GetPendingShipmentResponseSchema[]
+  pagination: ListingPaginationResponseSchema
   [k: string]: unknown
 }
 
