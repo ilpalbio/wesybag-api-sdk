@@ -7471,7 +7471,11 @@ export type RejectPendingShipmentRequestSchema = {
   [k: string]: unknown
 }
 
-export type ListPendingShipments200ResponseSchema = GetPendingShipmentResponseSchema[]
+export type ListPendingShipments200ResponseSchema = {
+  shipments?: GetPendingShipmentResponseSchema[]
+  pagination?: ListingPaginationResponseSchema
+  [k: string]: unknown
+}
 
 export type ListPendingShipments400ResponseSchema = ValidationErrorResponseSchema
 
@@ -7776,8 +7780,6 @@ export type HelpRequestSchema = {
 
 export type ListShipmentFilterSchema = {
   users?: UuidSchema[]
-  originSearch?: string
-  destinationSearch?: string
   deliveryDate?: DateSchema
   ids?: UuidSchema[]
   [k: string]: unknown
