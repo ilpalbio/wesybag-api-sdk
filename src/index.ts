@@ -3597,6 +3597,80 @@ export async function discardShipmentCancellationRequest(data: DiscardShipmentCa
 }
 
 /**
+Close help request without a response
+*/
+export type AxiosCloseHelpRequestSuccessResponse = (AxiosResponse<CloseHelpRequest200ResponseSchema> & { status: 200 })
+export type AxiosCloseHelpRequestErrorResponse = ((AxiosResponse<CloseHelpRequest400ResponseSchema> & { status: 400 }) | (AxiosResponse<CloseHelpRequest401ResponseSchema> & { status: 401 }) | (AxiosResponse<CloseHelpRequest403ResponseSchema> & { status: 403 }) | (AxiosResponse<CloseHelpRequest404ResponseSchema> & { status: 404 }) | (AxiosResponse<CloseHelpRequest405ResponseSchema> & { status: 405 }) | (AxiosResponse<CloseHelpRequest409ResponseSchema> & { status: 409 }) | (AxiosResponse<CloseHelpRequest415ResponseSchema> & { status: 415 }) | (AxiosResponse<CloseHelpRequest429ResponseSchema> & { status: 429 }) | (AxiosResponse<CloseHelpRequest500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/closeHelpRequest" }
+export type AxiosCloseHelpRequestResponse = AxiosCloseHelpRequestSuccessResponse | AxiosCloseHelpRequestErrorResponse
+export async function closeHelpRequest(data: CloseHelpRequestRequestSchema, config?: AxiosRequestConfig): Promise<AxiosCloseHelpRequestResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "409": {
+      "code": [
+        "CONFLICT"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/admin/closeHelpRequest"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosCloseHelpRequestSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosCloseHelpRequestErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Verify user credentials
 */
 export type AxiosVerifyUserCredentialsSuccessResponse = (AxiosResponse<VerifyUserCredentials200ResponseSchema> & { status: 200 })
@@ -7697,6 +7771,31 @@ export type DiscardShipmentCancellationRequest500ResponseSchema = UnexpectedErro
 export type DiscardShipmentCancellationRequestRequestSchema = {
   requestId: number
   cascade?: boolean
+  [k: string]: unknown
+}
+
+export type CloseHelpRequest200ResponseSchema = OkResponseSchema
+
+export type CloseHelpRequest400ResponseSchema = ValidationErrorResponseSchema
+
+export type CloseHelpRequest401ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type CloseHelpRequest403ResponseSchema = UnauthorizedUserErrorResponseSchema
+
+export type CloseHelpRequest404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type CloseHelpRequest405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type CloseHelpRequest409ResponseSchema = ConflictErrorResponseSchema
+
+export type CloseHelpRequest415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type CloseHelpRequest429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type CloseHelpRequest500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type CloseHelpRequestRequestSchema = {
+  requestId: UuidSchema
   [k: string]: unknown
 }
 
