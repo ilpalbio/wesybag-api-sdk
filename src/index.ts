@@ -3600,7 +3600,7 @@ export async function discardShipmentCancellationRequest(data: DiscardShipmentCa
 Close help request without a response
 */
 export type AxiosCloseHelpRequestSuccessResponse = (AxiosResponse<CloseHelpRequest200ResponseSchema> & { status: 200 })
-export type AxiosCloseHelpRequestErrorResponse = ((AxiosResponse<CloseHelpRequest400ResponseSchema> & { status: 400 }) | (AxiosResponse<CloseHelpRequest401ResponseSchema> & { status: 401 }) | (AxiosResponse<CloseHelpRequest403ResponseSchema> & { status: 403 }) | (AxiosResponse<CloseHelpRequest405ResponseSchema> & { status: 405 }) | (AxiosResponse<CloseHelpRequest409ResponseSchema> & { status: 409 }) | (AxiosResponse<CloseHelpRequest415ResponseSchema> & { status: 415 }) | (AxiosResponse<CloseHelpRequest429ResponseSchema> & { status: 429 }) | (AxiosResponse<CloseHelpRequest500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/closeHelpRequest" }
+export type AxiosCloseHelpRequestErrorResponse = ((AxiosResponse<CloseHelpRequest400ResponseSchema> & { status: 400 }) | (AxiosResponse<CloseHelpRequest401ResponseSchema> & { status: 401 }) | (AxiosResponse<CloseHelpRequest403ResponseSchema> & { status: 403 }) | (AxiosResponse<CloseHelpRequest404ResponseSchema> & { status: 404 }) | (AxiosResponse<CloseHelpRequest405ResponseSchema> & { status: 405 }) | (AxiosResponse<CloseHelpRequest409ResponseSchema> & { status: 409 }) | (AxiosResponse<CloseHelpRequest415ResponseSchema> & { status: 415 }) | (AxiosResponse<CloseHelpRequest429ResponseSchema> & { status: 429 }) | (AxiosResponse<CloseHelpRequest500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/closeHelpRequest" }
 export type AxiosCloseHelpRequestResponse = AxiosCloseHelpRequestSuccessResponse | AxiosCloseHelpRequestErrorResponse
 export async function closeHelpRequest(data: CloseHelpRequestRequestSchema, config?: AxiosRequestConfig): Promise<AxiosCloseHelpRequestResponse> {
   _checkSetup()
@@ -3622,6 +3622,11 @@ export async function closeHelpRequest(data: CloseHelpRequestRequestSchema, conf
     "403": {
       "code": [
         "UNAUTHORIZED"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
       ]
     },
     "405": {
@@ -7776,6 +7781,8 @@ export type CloseHelpRequest400ResponseSchema = ValidationErrorResponseSchema
 export type CloseHelpRequest401ResponseSchema = UnauthenticatedErrorResponseSchema
 
 export type CloseHelpRequest403ResponseSchema = UnauthorizedUserErrorResponseSchema
+
+export type CloseHelpRequest404ResponseSchema = GenericNotFoundErrorResponseSchema
 
 export type CloseHelpRequest405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
