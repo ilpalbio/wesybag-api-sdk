@@ -2777,7 +2777,7 @@ export async function listHelpRequests(data: ListHelpRequestsRequestSchema, conf
 Send help response to a client request
 */
 export type AxiosSendHelpResponseSuccessResponse = (AxiosResponse<SendHelpResponse200ResponseSchema> & { status: 200 })
-export type AxiosSendHelpResponseErrorResponse = ((AxiosResponse<SendHelpResponse400ResponseSchema> & { status: 400 }) | (AxiosResponse<SendHelpResponse401ResponseSchema> & { status: 401 }) | (AxiosResponse<SendHelpResponse404ResponseSchema> & { status: 404 }) | (AxiosResponse<SendHelpResponse405ResponseSchema> & { status: 405 }) | (AxiosResponse<SendHelpResponse410ResponseSchema> & { status: 410 }) | (AxiosResponse<SendHelpResponse415ResponseSchema> & { status: 415 }) | (AxiosResponse<SendHelpResponse429ResponseSchema> & { status: 429 }) | (AxiosResponse<SendHelpResponse500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/sendHelpResponse" }
+export type AxiosSendHelpResponseErrorResponse = ((AxiosResponse<SendHelpResponse400ResponseSchema> & { status: 400 }) | (AxiosResponse<SendHelpResponse401ResponseSchema> & { status: 401 }) | (AxiosResponse<SendHelpResponse404ResponseSchema> & { status: 404 }) | (AxiosResponse<SendHelpResponse405ResponseSchema> & { status: 405 }) | (AxiosResponse<SendHelpResponse409ResponseSchema> & { status: 409 }) | (AxiosResponse<SendHelpResponse415ResponseSchema> & { status: 415 }) | (AxiosResponse<SendHelpResponse429ResponseSchema> & { status: 429 }) | (AxiosResponse<SendHelpResponse500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/sendHelpResponse" }
 export type AxiosSendHelpResponseResponse = AxiosSendHelpResponseSuccessResponse | AxiosSendHelpResponseErrorResponse
 export async function sendHelpResponse(data: SendHelpResponseRequestSchema, config?: AxiosRequestConfig): Promise<AxiosSendHelpResponseResponse> {
   _checkSetup()
@@ -2806,7 +2806,7 @@ export async function sendHelpResponse(data: SendHelpResponseRequestSchema, conf
         "METHOD_NOT_ALLOWED"
       ]
     },
-    "410": {
+    "409": {
       "code": [
         "CONFLICT"
       ]
@@ -7488,7 +7488,7 @@ export type SendHelpResponse404ResponseSchema = GenericNotFoundErrorResponseSche
 
 export type SendHelpResponse405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
-export type SendHelpResponse410ResponseSchema = AlreadyClosedHelpRequestErrorResponseSchema
+export type SendHelpResponse409ResponseSchema = ConflictErrorResponseSchema
 
 export type SendHelpResponse415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
 
