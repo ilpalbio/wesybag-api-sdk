@@ -8576,16 +8576,11 @@ export type HelpRequestSingleResponsechema = {
   [k: string]: unknown
 }
 
-export type UserAssistanceRequestSchema =
-  | (UserPartialAssistanceRequestSchema & {
-      status: "OPEN"
-      [k: string]: unknown
-    })
-  | (UserPartialAssistanceRequestSchema & {
-      status: "CLOSED"
-      response: HelpRequestSingleResponsechema
-      [k: string]: unknown
-    })
+export type UserAssistanceRequestSchema = UserPartialAssistanceRequestSchema & {
+  status: "OPEN" | "CLOSED"
+  response?: HelpRequestSingleResponsechema
+  [k: string]: unknown
+}
 
 export type UserPartialAssistanceRequestSchema = {
   id: string
