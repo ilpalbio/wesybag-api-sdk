@@ -6302,6 +6302,24 @@ export type CreateShipmentSchema = {
   [k: string]: unknown
 }
 
+export type GenericShipmentOptionalSchema =
+  | {
+      type: "COURIER"
+      id: UuidSchema
+      code: "CALL_BEFORE_DELIVERY" | "SATURDAY_DELIVERY" | "EXPRESS_DELIVERY" | "INSURANCE"
+      price: number
+      perKgs?: number
+      perCm?: number
+      [k: string]: unknown
+    }
+  | {
+      type: "SHIPMENT"
+      id: number
+      code: "structureCall" | "oneDayCancellation"
+      price: number
+      [k: string]: unknown
+    }
+
 export type InsuranceSchema = {
   id: UuidSchema
   name: string
@@ -6428,6 +6446,7 @@ export type SingleCompleteNormalShipmentSchema = {
   courier: CourierSchema
   receiver?: ReceiverSchema
   statusesDetail: ShipmentStatusSchema[]
+  optionals: GenericShipmentOptionalSchema[]
   [k: string]: unknown
 }
 
@@ -6480,6 +6499,7 @@ export type SinglePendingShipmentSchema = {
   cost: CostSchema
   courier: CourierSchema
   receiver?: ReceiverSchema
+  optionals: GenericShipmentOptionalSchema[]
   [k: string]: unknown
 }
 
