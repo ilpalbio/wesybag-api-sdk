@@ -5392,6 +5392,321 @@ export async function getSeasonOffers(data: GetSeasonOffersRequestSchema, config
   }
 }
 
+/**
+Create a new coupon for a user
+*/
+export type AxiosCreateCouponSuccessResponse = (AxiosResponse<CreateCoupon200ResponseSchema> & { status: 200 })
+export type AxiosCreateCouponErrorResponse = ((AxiosResponse<CreateCoupon400ResponseSchema> & { status: 400 }) | (AxiosResponse<CreateCoupon404ResponseSchema> & { status: 404 }) | (AxiosResponse<CreateCoupon405ResponseSchema> & { status: 405 }) | (AxiosResponse<CreateCoupon415ResponseSchema> & { status: 415 }) | (AxiosResponse<CreateCoupon429ResponseSchema> & { status: 429 }) | (AxiosResponse<CreateCoupon500ResponseSchema> & { status: 500 })) & { path: "/v1/coupons/createCoupon" }
+export type AxiosCreateCouponResponse = AxiosCreateCouponSuccessResponse | AxiosCreateCouponErrorResponse
+export async function createCoupon(data: CreateCouponRequestSchema, config?: AxiosRequestConfig): Promise<AxiosCreateCouponResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/coupons/createCoupon"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosCreateCouponSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosCreateCouponErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+Remove a coupon from the user
+*/
+export type AxiosDeleteCouponSuccessResponse = (AxiosResponse<DeleteCoupon200ResponseSchema> & { status: 200 })
+export type AxiosDeleteCouponErrorResponse = ((AxiosResponse<DeleteCoupon400ResponseSchema> & { status: 400 }) | (AxiosResponse<DeleteCoupon404ResponseSchema> & { status: 404 }) | (AxiosResponse<DeleteCoupon405ResponseSchema> & { status: 405 }) | (AxiosResponse<DeleteCoupon409ResponseSchema> & { status: 409 }) | (AxiosResponse<DeleteCoupon415ResponseSchema> & { status: 415 }) | (AxiosResponse<DeleteCoupon429ResponseSchema> & { status: 429 }) | (AxiosResponse<DeleteCoupon500ResponseSchema> & { status: 500 })) & { path: "/v1/coupons/deleteCoupon" }
+export type AxiosDeleteCouponResponse = AxiosDeleteCouponSuccessResponse | AxiosDeleteCouponErrorResponse
+export async function deleteCoupon(data: DeleteCouponRequestSchema, config?: AxiosRequestConfig): Promise<AxiosDeleteCouponResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "409": {
+      "code": [
+        "CONFLICT"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/coupons/deleteCoupon"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosDeleteCouponSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosDeleteCouponErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+List all coupons of the current user
+*/
+export type AxiosListCouponsSuccessResponse = (AxiosResponse<ListCoupons200ResponseSchema> & { status: 200 })
+export type AxiosListCouponsErrorResponse = ((AxiosResponse<ListCoupons400ResponseSchema> & { status: 400 }) | (AxiosResponse<ListCoupons404ResponseSchema> & { status: 404 }) | (AxiosResponse<ListCoupons405ResponseSchema> & { status: 405 }) | (AxiosResponse<ListCoupons415ResponseSchema> & { status: 415 }) | (AxiosResponse<ListCoupons429ResponseSchema> & { status: 429 }) | (AxiosResponse<ListCoupons500ResponseSchema> & { status: 500 })) & { path: "/v1/coupons/listCoupons" }
+export type AxiosListCouponsResponse = AxiosListCouponsSuccessResponse | AxiosListCouponsErrorResponse
+export async function listCoupons(data: ListCouponsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosListCouponsResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/coupons/listCoupons"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosListCouponsSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosListCouponsErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+Remove a coupon from a payment intent
+*/
+export type AxiosRemoveCouponSuccessResponse = (AxiosResponse<RemoveCoupon200ResponseSchema> & { status: 200 })
+export type AxiosRemoveCouponErrorResponse = ((AxiosResponse<RemoveCoupon400ResponseSchema> & { status: 400 }) | (AxiosResponse<RemoveCoupon404ResponseSchema> & { status: 404 }) | (AxiosResponse<RemoveCoupon405ResponseSchema> & { status: 405 }) | (AxiosResponse<RemoveCoupon409ResponseSchema> & { status: 409 }) | (AxiosResponse<RemoveCoupon415ResponseSchema> & { status: 415 }) | (AxiosResponse<RemoveCoupon429ResponseSchema> & { status: 429 }) | (AxiosResponse<RemoveCoupon500ResponseSchema> & { status: 500 })) & { path: "/v1/coupons/removeCoupon" }
+export type AxiosRemoveCouponResponse = AxiosRemoveCouponSuccessResponse | AxiosRemoveCouponErrorResponse
+export async function removeCoupon(data: RemoveCouponRequestSchema, config?: AxiosRequestConfig): Promise<AxiosRemoveCouponResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "409": {
+      "code": [
+        "CONFLICT"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/coupons/removeCoupon"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosRemoveCouponSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosRemoveCouponErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+Use a coupon on a payment intent
+*/
+export type AxiosUseCouponSuccessResponse = (AxiosResponse<UseCoupon200ResponseSchema> & { status: 200 })
+export type AxiosUseCouponErrorResponse = ((AxiosResponse<UseCoupon400ResponseSchema> & { status: 400 }) | (AxiosResponse<UseCoupon404ResponseSchema> & { status: 404 }) | (AxiosResponse<UseCoupon405ResponseSchema> & { status: 405 }) | (AxiosResponse<UseCoupon409ResponseSchema> & { status: 409 }) | (AxiosResponse<UseCoupon410ResponseSchema> & { status: 410 }) | (AxiosResponse<UseCoupon415ResponseSchema> & { status: 415 }) | (AxiosResponse<UseCoupon429ResponseSchema> & { status: 429 }) | (AxiosResponse<UseCoupon500ResponseSchema> & { status: 500 })) & { path: "/v1/coupons/useCoupon" }
+export type AxiosUseCouponResponse = AxiosUseCouponSuccessResponse | AxiosUseCouponErrorResponse
+export async function useCoupon(data: UseCouponRequestSchema, config?: AxiosRequestConfig): Promise<AxiosUseCouponResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "409": {
+      "code": [
+        "CONFLICT"
+      ]
+    },
+    "410": {
+      "code": [
+        "GONE"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/coupons/useCoupon"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosUseCouponSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosUseCouponErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
 export type Any =
   | string
   | boolean
@@ -5600,6 +5915,14 @@ export type GenericForbiddenErrorResponseSchema = {
 export type GenericNotFoundErrorResponseSchema = {
   message: string
   code: "NOT_FOUND"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
+
+export type GoneErrorResponseSchema = {
+  message: string
+  code: "GONE"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -9007,5 +9330,153 @@ export type SeasonOfferSchema = {
   esteemCost: CostSchema
   startDate: DateSchema
   endDate?: DateSchema
+  [k: string]: unknown
+}
+
+export type CreateCoupon200ResponseSchema = {
+  coupon: CouponSchema
+  [k: string]: unknown
+}
+
+export type CreateCoupon400ResponseSchema = ValidationErrorResponseSchema
+
+export type CreateCoupon404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type CreateCoupon405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type CreateCoupon415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type CreateCoupon429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type CreateCoupon500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type CreateCouponRequestSchema = {
+  userId: UuidSchema
+  amount: CostSchema
+  name: string
+  validUntil?: DateTimeSchema
+  [k: string]: unknown
+}
+
+export type DeleteCoupon200ResponseSchema = OkResponseSchema
+
+export type DeleteCoupon400ResponseSchema = ValidationErrorResponseSchema
+
+export type DeleteCoupon404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type DeleteCoupon405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type DeleteCoupon409ResponseSchema = ConflictErrorResponseSchema
+
+export type DeleteCoupon415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type DeleteCoupon429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type DeleteCoupon500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type DeleteCouponRequestSchema = {
+  couponId: UuidSchema
+  [k: string]: unknown
+}
+
+export type ListCoupons200ResponseSchema = {
+  coupons: CouponSchema[]
+  pagination: ListingPaginationResponseSchema
+  [k: string]: unknown
+}
+
+export type ListCoupons400ResponseSchema = ValidationErrorResponseSchema
+
+export type ListCoupons404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type ListCoupons405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type ListCoupons415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type ListCoupons429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type ListCoupons500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type ListCouponsRequestSchema = {
+  ids?: UuidSchema[]
+  pagination?: ListingPaginationSchema
+  from?: DateSchema
+  to?: DateSchema
+  [k: string]: unknown
+}
+
+export type RemoveCoupon200ResponseSchema = {
+  paymentIntet: StripeIntentSchema
+  coupon: CouponSchema
+  [k: string]: unknown
+}
+
+export type RemoveCoupon400ResponseSchema = ValidationErrorResponseSchema
+
+export type RemoveCoupon404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type RemoveCoupon405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type RemoveCoupon409ResponseSchema = ConflictErrorResponseSchema
+
+export type RemoveCoupon415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type RemoveCoupon429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type RemoveCoupon500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type RemoveCouponRequestSchema = {
+  couponId: UuidSchema
+  paymentIntentId: string
+  [k: string]: unknown
+}
+
+export type UseCoupon200ResponseSchema = {
+  paymentIntent: StripeIntentSchema
+  coupon: CouponSchema
+  [k: string]: unknown
+}
+
+export type UseCoupon400ResponseSchema = ValidationErrorResponseSchema
+
+export type UseCoupon404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type UseCoupon405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type UseCoupon409ResponseSchema = ConflictErrorResponseSchema
+
+export type UseCoupon410ResponseSchema = GoneErrorResponseSchema
+
+export type UseCoupon415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type UseCoupon429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type UseCoupon500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type UseCouponRequestSchema = {
+  couponId: UuidSchema
+  paymentIntentId: string
+  [k: string]: unknown
+}
+
+export type CouponSchema = {
+  id: UuidSchema
+  amount: CostSchema
+  name: string
+  createdAt: DateSchema
+  updatedAt: DateSchema
+  validUntil: DateTimeSchema
+  code: string
+  user: CouponUserSchema
+  isValid: boolean
+  isUsed: boolean
+  [k: string]: unknown
+}
+
+export type CouponUserSchema = {
+  id: UuidSchema
+  firstName: string
+  lastName: string
+  email: string
   [k: string]: unknown
 }
