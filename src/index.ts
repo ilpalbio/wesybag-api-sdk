@@ -9402,6 +9402,7 @@ export type ListCouponsRequestSchema = {
   pagination?: ListingPaginationSchema
   from?: DateSchema
   to?: DateSchema
+  onlyValid?: boolean
   [k: string]: unknown
 }
 
