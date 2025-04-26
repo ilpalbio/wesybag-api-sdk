@@ -2846,7 +2846,7 @@ export async function sendHelpResponse(data: SendHelpResponseRequestSchema, conf
 Accept a pending shipment (admin)
 */
 export type AxiosAcceptPendingShipmentSuccessResponse = (AxiosResponse<AcceptPendingShipment200ResponseSchema> & { status: 200 })
-export type AxiosAcceptPendingShipmentErrorResponse = ((AxiosResponse<AcceptPendingShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<AcceptPendingShipment401ResponseSchema> & { status: 401 }) | (AxiosResponse<AcceptPendingShipment403ResponseSchema> & { status: 403 }) | (AxiosResponse<AcceptPendingShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<AcceptPendingShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<AcceptPendingShipment409ResponseSchema> & { status: 409 }) | (AxiosResponse<AcceptPendingShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<AcceptPendingShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<AcceptPendingShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/acceptPendingShipment" }
+export type AxiosAcceptPendingShipmentErrorResponse = ((AxiosResponse<AcceptPendingShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<AcceptPendingShipment401ResponseSchema> & { status: 401 }) | (AxiosResponse<AcceptPendingShipment403ResponseSchema> & { status: 403 }) | (AxiosResponse<AcceptPendingShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<AcceptPendingShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<AcceptPendingShipment409ResponseSchema> & { status: 409 }) | (AxiosResponse<AcceptPendingShipment410ResponseSchema> & { status: 410 }) | (AxiosResponse<AcceptPendingShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<AcceptPendingShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<AcceptPendingShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/acceptPendingShipment" }
 export type AxiosAcceptPendingShipmentResponse = AxiosAcceptPendingShipmentSuccessResponse | AxiosAcceptPendingShipmentErrorResponse
 export async function acceptPendingShipment(data: AcceptPendingShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAcceptPendingShipmentResponse> {
   _checkSetup()
@@ -2883,6 +2883,11 @@ export async function acceptPendingShipment(data: AcceptPendingShipmentRequestSc
     "409": {
       "code": [
         "CONFLICT"
+      ]
+    },
+    "410": {
+      "code": [
+        "GONE"
       ]
     },
     "415": {
@@ -7623,6 +7628,11 @@ export type SavedLuggageSchemaWithType = SavedLuggageSchema & {
 
 export type CreateIntent200ResponseSchema = {
   cost: CostSchema
+  amountDetails: {
+    outwardShipment: SingleShipmentCostSchema
+    returnShipment?: SingleShipmentCostSchema
+    [k: string]: unknown
+  }
   intent: StripeIntentSchema
   [k: string]: unknown
 }
@@ -7858,6 +7868,8 @@ export type AcceptPendingShipment404ResponseSchema = GenericNotFoundErrorRespons
 export type AcceptPendingShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
 export type AcceptPendingShipment409ResponseSchema = ConflictErrorResponseSchema
+
+export type AcceptPendingShipment410ResponseSchema = GoneErrorResponseSchema
 
 export type AcceptPendingShipment415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
 
