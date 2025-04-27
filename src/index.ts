@@ -9366,7 +9366,6 @@ export type CreateCoupon500ResponseSchema = UnexpectedErrorResponseSchema
 export type CreateCouponRequestSchema = {
   userId: UuidSchema
   amount: CostSchema
-  name: string
   validUntil?: DateTimeSchema
   [k: string]: unknown
 }
