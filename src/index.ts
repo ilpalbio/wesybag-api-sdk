@@ -8080,6 +8080,7 @@ export type AdminCancelShipment500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type AdminCancelShipmentRequestSchema = {
   cancellationRequestId: number
+  generateCoupon: boolean
   [k: string]: unknown
 }
 
