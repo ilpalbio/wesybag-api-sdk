@@ -9439,7 +9439,6 @@ export type RemoveCoupon429ResponseSchema = ThrottlingErrorResponseSchema
 export type RemoveCoupon500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type RemoveCouponRequestSchema = {
-  couponId: UuidSchema
   paymentIntentId: string
   [k: string]: unknown
 }
