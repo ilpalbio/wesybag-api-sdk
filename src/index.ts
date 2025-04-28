@@ -9420,7 +9420,6 @@ export type ListCouponsRequestSchema = {
 
 export type RemoveCoupon200ResponseSchema = {
   paymentIntent: StripeIntentSchema
-  coupon: CouponSchema
   [k: string]: unknown
 }
 
