@@ -9444,7 +9444,6 @@ export type RemoveCouponRequestSchema = {
 
 export type UseCoupon200ResponseSchema = {
   paymentIntent: StripeIntentSchema
-  coupon: CouponSchema
   discount: CouponDiscountSchema
   [k: string]: unknown
 }
@@ -9472,7 +9471,7 @@ export type UseCouponRequestSchema = {
 }
 
 export type CouponDiscountSchema = {
-  couponId: UuidSchema
+  coupon: CouponSchema
   amount: CostSchema
   [k: string]: unknown
 }
