@@ -9445,6 +9445,7 @@ export type RemoveCouponRequestSchema = {
 export type UseCoupon200ResponseSchema = {
   paymentIntent: StripeIntentSchema
   coupon: CouponSchema
+  discount: CouponDiscountSchema
   [k: string]: unknown
 }
 
@@ -9467,6 +9468,12 @@ export type UseCoupon500ResponseSchema = UnexpectedErrorResponseSchema
 export type UseCouponRequestSchema = {
   couponId: UuidSchema
   paymentIntentId: string
+  [k: string]: unknown
+}
+
+export type CouponDiscountSchema = {
+  couponId: UuidSchema
+  amount: CostSchema
   [k: string]: unknown
 }
 
