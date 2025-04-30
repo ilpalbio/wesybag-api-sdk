@@ -6643,7 +6643,7 @@ export type GenericShipmentOptionalSchema =
   | {
       type: "SHIPMENT"
       id: number
-      code: "structureCall" | "oneDayCancellation"
+      code: "structureCall" | "oneDayCancellation" | "shipmentRefund"
       price: number
       [k: string]: unknown
     }
@@ -6743,7 +6743,7 @@ export type ShipmentLuggageSchema = {
 
 export type ShipmentOptionalSchema = {
   id: number
-  code: "structureCall" | "oneDayCancellation"
+  code: "structureCall" | "oneDayCancellation" | "shipmentRefund"
   cost: CostSchema
   [k: string]: unknown
 }
