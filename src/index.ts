@@ -6638,6 +6638,7 @@ export type GenericShipmentOptionalSchema =
       price: number
       perKgs?: number
       perCm?: number
+      currency: CurrencySchema
       [k: string]: unknown
     }
   | {
@@ -6645,6 +6646,7 @@ export type GenericShipmentOptionalSchema =
       id: number
       code: "structureCall" | "oneDayCancellation" | "shipmentRefund"
       price: number
+      currency: CurrencySchema
       [k: string]: unknown
     }
 
@@ -6756,9 +6758,10 @@ export type GetNormalShipmentResponseSchema = {
 
 export type ShipmentStatusSchema = {
   id: UuidSchema
-  code: string
+  code: "ACCEPTED" | "PICK_UP" | "IN_PROGRESS" | "COMPLETED"
   description: string
   isCurrent: boolean
+  timestamp: DateTimeSchema
   [k: string]: unknown
 }
 
@@ -6770,11 +6773,13 @@ export type SingleCompleteNormalShipmentSchema = {
   pickupSchedule: DateTimeSchema
   deliverySchedule: DateTimeSchema
   trackDetail?: TrackDetailSchema
-  cost: CostSchema
+  cost: SingleShipmentCostSchema
   courier: CourierSchema
   receiver?: ReceiverSchema
   statusesDetail: ShipmentStatusSchema[]
   optionals: GenericShipmentOptionalSchema[]
+  coupon?: CouponSchema
+  paymentMethod: ShipmentPaymentMethodSchema
   [k: string]: unknown
 }
 
@@ -6786,10 +6791,11 @@ export type SingleNormalShipmentSchema = {
   pickupSchedule: DateTimeSchema
   deliverySchedule: DateTimeSchema
   trackDetail?: TrackDetailSchema
-  cost: CostSchema
+  cost: SingleShipmentCostSchema
   courier: CourierSchema
   shipmentType: "PENDING" | "NORMAL"
   receiver?: ReceiverSchema
+  coupon?: CouponSchema
   [k: string]: unknown
 }
 
@@ -6824,10 +6830,19 @@ export type SinglePendingShipmentSchema = {
   luggages: [CompleteLuggageSchema, ...CompleteLuggageSchema[]]
   pickupSchedule: DateTimeSchema
   deliverySchedule: DateTimeSchema
-  cost: CostSchema
+  cost: SingleShipmentCostSchema
   courier: CourierSchema
   receiver?: ReceiverSchema
   optionals: GenericShipmentOptionalSchema[]
+  coupon?: CouponSchema
+  paymentMethod: ShipmentPaymentMethodSchema
+  [k: string]: unknown
+}
+
+export type ShipmentPaymentMethodSchema = {
+  code: "CREDIT_CARD" | "KLARNA"
+  timestamp: DateTimeSchema
+  last4Digits?: string
   [k: string]: unknown
 }
 
@@ -7158,7 +7173,7 @@ export type GetClosestPlaceRequestSchema = {
   [k: string]: unknown
 }
 
-export type GetAvailableShipmentStatus200ResponseSchema = ("ACCEPTED" | "IN_PROGRESS" | "COMPLETED")[]
+export type GetAvailableShipmentStatus200ResponseSchema = ("ACCEPTED" | "PICK_UP" | "IN_PROGRESS" | "COMPLETED")[]
 
 export type GetAvailableShipmentStatus400ResponseSchema = ValidationErrorResponseSchema
 
@@ -7449,7 +7464,7 @@ export type GetUserShipments500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetUserShipmentsRequestSchema = {
   pagination?: ListingPaginationSchema
-  shipmentType?: "ACCEPTED" | "IN_PROGRESS" | "COMPLETED" | "PENDING" | "ALL" | "CANCELLED"
+  shipmentType?: "ACCEPTED" | "PICK_UP" | "IN_PROGRESS" | "COMPLETED" | "PENDING" | "ALL" | "CANCELLED"
   [k: string]: unknown
 }
 
@@ -8008,7 +8023,7 @@ export type UpdateNormalShipmentStatus500ResponseSchema = UnexpectedErrorRespons
 
 export type UpdateNormalShipmentStatusRequestSchema = {
   id: UuidSchema
-  status: "ACCEPTED" | "IN_PROGRESS" | "COMPLETED"
+  status: "ACCEPTED" | "PICK_UP" | "IN_PROGRESS" | "COMPLETED"
   [k: string]: unknown
 }
 
