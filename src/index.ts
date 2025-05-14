@@ -6780,6 +6780,7 @@ export type SingleCompleteNormalShipmentSchema = {
   optionals: GenericShipmentOptionalSchema[]
   coupon?: CouponSchema
   paymentMethod: ShipmentPaymentMethodSchema
+  createdAt: DateTimeSchema
   [k: string]: unknown
 }
 
@@ -6836,6 +6837,7 @@ export type SinglePendingShipmentSchema = {
   optionals: GenericShipmentOptionalSchema[]
   coupon?: CouponSchema
   paymentMethod: ShipmentPaymentMethodSchema
+  createdAt: DateTimeSchema
   [k: string]: unknown
 }
 
