@@ -5782,6 +5782,8 @@ export type UnexpectedErrorResponseSchema = {
   [k: string]: unknown
 }
 
+export type CapSchema = string
+
 export type CardCvcSchema = string
 
 export type CardExpirationDateSchema = string
@@ -6687,6 +6689,7 @@ export type PositionSchema = PrivatePositionSchema & {
 
 export type PrivatePositionSchema = {
   placeId: UuidSchema
+  cap: CapSchema
   address: string
   houseNumber: string
   floor?: string
@@ -8846,7 +8849,6 @@ export type AccomodationPlaceSchema = {
   region: string
   province: ProvinceSchema
   place: string
-  cap: string
   coordinates: CoordinatesRequestSchema
   [k: string]: unknown
 }
@@ -9198,7 +9200,6 @@ export type GeneralPositionSchema = {
   region: string
   province: ProvinceSchema
   city: string
-  postalCode: string
   coordinates: CoordinatesRequestSchema
   [k: string]: unknown
 }
