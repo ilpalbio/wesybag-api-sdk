@@ -6693,6 +6693,7 @@ export type PrivatePositionSchema = {
   address: string
   houseNumber: string
   floor?: string
+  notes?: string
   [k: string]: unknown
 }
 
