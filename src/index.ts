@@ -7844,7 +7844,17 @@ export type ListHelpRequestsRequestSchema = {
     status?: ("OPEN" | "CLOSED")[]
     users?: string[]
     search?: string
-    category?: ("travelCreation" | "general" | "payment")[]
+    category?: (
+      | "DELIVERY_DELAY"
+      | "DAMAGED_LUGGAGE"
+      | "TRACKING_ISSUE"
+      | "LOST_LUGGAGE"
+      | "DELIVERY_ISSUE"
+      | "PLATFORM_ISSUE"
+      | "ACCOUNT_ISSUE"
+      | "PAYMENT_ERROR"
+      | "GENERAL"
+    )[]
     importance?: ("low" | "medium" | "high")[]
     [k: string]: unknown
   }
@@ -8255,7 +8265,16 @@ export type HelpRequestSchema = {
   description: string
   status: "OPEN" | "CLOSED"
   importance: "low" | "medium" | "high"
-  category: "travelCreation" | "general" | "payment"
+  category:
+    | "DELIVERY_DELAY"
+    | "DAMAGED_LUGGAGE"
+    | "TRACKING_ISSUE"
+    | "LOST_LUGGAGE"
+    | "DELIVERY_ISSUE"
+    | "PLATFORM_ISSUE"
+    | "ACCOUNT_ISSUE"
+    | "PAYMENT_ERROR"
+    | "GENERAL"
   response?: HelpRequestResponseSchema
   timestamp: DateTimeSchema
   user: BaseUserSchema
@@ -8889,8 +8908,18 @@ export type SendHelpRequest429ResponseSchema = ThrottlingErrorResponseSchema
 export type SendHelpRequest500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type SendHelpRequestRequestSchema = {
-  category: "travelCreation" | "general" | "payment"
+  category:
+    | "DELIVERY_DELAY"
+    | "DAMAGED_LUGGAGE"
+    | "TRACKING_ISSUE"
+    | "LOST_LUGGAGE"
+    | "DELIVERY_ISSUE"
+    | "PLATFORM_ISSUE"
+    | "ACCOUNT_ISSUE"
+    | "PAYMENT_ERROR"
+    | "GENERAL"
   importance: "low" | "medium" | "high"
+  shipmentId?: string
   title: string
   description: string
   [k: string]: unknown
@@ -8962,8 +8991,18 @@ export type UserPartialAssistanceRequestSchema = {
   id: string
   title: string
   description: string
-  category: "travelCreation" | "general" | "payment"
+  category:
+    | "DELIVERY_DELAY"
+    | "DAMAGED_LUGGAGE"
+    | "TRACKING_ISSUE"
+    | "LOST_LUGGAGE"
+    | "DELIVERY_ISSUE"
+    | "PLATFORM_ISSUE"
+    | "ACCOUNT_ISSUE"
+    | "PAYMENT_ERROR"
+    | "GENERAL"
   importance: "low" | "medium" | "high"
+  shipmentId?: string
   creationTimestamp: string
   [k: string]: unknown
 }
