@@ -8951,7 +8951,11 @@ export type AcceptHelpRequestRequestSchema = {
   [k: string]: unknown
 }
 
-export type GetAssistanceRequest200ResponseSchema = UserAssistanceRequestSchema[]
+export type GetAssistanceRequest200ResponseSchema = {
+  requests: UserAssistanceRequestSchema[]
+  pagination: ListingPaginationResponseSchema
+  [k: string]: unknown
+}
 
 export type GetAssistanceRequest400ResponseSchema = ValidationErrorResponseSchema
 
@@ -8968,6 +8972,7 @@ export type GetAssistanceRequest500ResponseSchema = UnexpectedErrorResponseSchem
 export type GetAssistanceRequestRequestSchema = {
   from?: string
   to?: string
+  pagination?: ListingPaginationSchema
   [k: string]: unknown
 }
 
