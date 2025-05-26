@@ -8278,6 +8278,7 @@ export type HelpRequestSchema = {
   response?: HelpRequestResponseSchema
   timestamp: DateTimeSchema
   user: BaseUserSchema
+  shipmentId?: string
   [k: string]: unknown
 }
 
