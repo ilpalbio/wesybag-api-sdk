@@ -8399,6 +8399,8 @@ export type AdminNormalShipmentSchema = {
   courier: CourierSchema
   optionals: GenericShipmentOptionalSchema[]
   paymentMethod: ShipmentPaymentMethodSchema
+  differentReceiver?: ReceiverSchema
+  coupon?: CouponSchema
   [k: string]: unknown
 }
 
@@ -8442,6 +8444,8 @@ export type AdminPendingShipmentSchema = {
   courier: CourierSchema
   optionals: GenericShipmentOptionalSchema[]
   paymentMethod: ShipmentPaymentMethodSchema
+  differentReceiver?: ReceiverSchema
+  coupon?: CouponSchema
   [k: string]: unknown
 }
 
