@@ -8043,7 +8043,7 @@ export type UpdateNormalShipmentStatusRequestSchema = {
   [k: string]: unknown
 }
 
-export type AdminGetNormalShipment200ResponseSchema = GetNormalShipmentResponseSchema
+export type AdminGetNormalShipment200ResponseSchema = AdminCompleteNormalShipmentSchema
 
 export type AdminGetNormalShipment400ResponseSchema = ValidationErrorResponseSchema
 
@@ -8066,7 +8066,7 @@ export type AdminGetNormalShipmentRequestSchema = {
   [k: string]: unknown
 }
 
-export type AdminGetPendingShipment200ResponseSchema = GetPendingShipmentResponseSchema
+export type AdminGetPendingShipment200ResponseSchema = AdminCompletePendingShipmentSchema
 
 export type AdminGetPendingShipment400ResponseSchema = ValidationErrorResponseSchema
 
@@ -8387,7 +8387,7 @@ export type AdminNormalShipmentSchema = {
   id: UuidSchema
   creationTimestamp: DateTimeSchema
   user: AdminShrinkUserSchema
-  statuses: ShipmentStatusSchema
+  statuses: ShipmentStatusSchema[]
   origin: CompletePositionSchema
   destination: CompletePositionSchema
   pickupSchedule: DateTimeSchema
@@ -8417,9 +8417,31 @@ export type AdminShrinkNormalShipmentSchema = {
   [k: string]: unknown
 }
 
+export type AdminCompletePendingShipmentSchema = {
+  outwardShipment: AdminPendingShipmentSchema
+  returnShipment?: AdminPendingShipmentSchema
+  [k: string]: unknown
+}
+
 export type AdminCompleteShrinkPendingShipmentSchema = {
   outwardShipment: AdminShrinkPendingShipmentSchema
   returnShipment?: AdminShrinkPendingShipmentSchema
+  [k: string]: unknown
+}
+
+export type AdminPendingShipmentSchema = {
+  id: UuidSchema
+  creationTimestamp: DateTimeSchema
+  user: AdminShrinkUserSchema
+  origin: CompletePositionSchema
+  destination: CompletePositionSchema
+  pickupSchedule: DateTimeSchema
+  deliverySchedule: DateTimeSchema
+  luggages: CompleteLuggageSchema[]
+  cost: SingleShipmentCostSchema
+  courier: CourierSchema
+  optionals: GenericShipmentOptionalSchema[]
+  paymentMethod: ShipmentPaymentMethodSchema
   [k: string]: unknown
 }
 
