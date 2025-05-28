@@ -6582,7 +6582,7 @@ export type CompleteLuggageSchema = {
   weightUnit: "kg"
   height: number
   width: number
-  length: number
+  lenght?: number
   dimensionUnit: "cm"
   /**
    * @minItems 1
@@ -7940,7 +7940,7 @@ export type RejectPendingShipmentRequestSchema = {
 }
 
 export type ListPendingShipments200ResponseSchema = {
-  shipments: GetPendingShipmentResponseSchema[]
+  shipments: AdminCompleteShrinkPendingShipmentSchema[]
   pagination: ListingPaginationResponseSchema
   [k: string]: unknown
 }
@@ -7966,7 +7966,7 @@ export type ListPendingShipmentsRequestSchema = {
 }
 
 export type ListNormalShipments200ResponseSchema = {
-  shipments: GetNormalShipmentResponseSchema[]
+  shipments: AdminCompleteShrinkNormalShipmentSchema[]
   pagination: ListingPaginationResponseSchema
   [k: string]: unknown
 }
@@ -8043,7 +8043,7 @@ export type UpdateNormalShipmentStatusRequestSchema = {
   [k: string]: unknown
 }
 
-export type AdminGetNormalShipment200ResponseSchema = GetNormalShipmentResponseSchema
+export type AdminGetNormalShipment200ResponseSchema = AdminCompleteNormalShipmentSchema
 
 export type AdminGetNormalShipment400ResponseSchema = ValidationErrorResponseSchema
 
@@ -8066,7 +8066,7 @@ export type AdminGetNormalShipmentRequestSchema = {
   [k: string]: unknown
 }
 
-export type AdminGetPendingShipment200ResponseSchema = GetPendingShipmentResponseSchema
+export type AdminGetPendingShipment200ResponseSchema = AdminCompletePendingShipmentSchema
 
 export type AdminGetPendingShipment400ResponseSchema = ValidationErrorResponseSchema
 
@@ -8368,6 +8368,111 @@ export type UserDetailSchema = {
   completePhone: string
   shipments: BaseShipmentSchema[]
   helpRequests: BaseHelpRequestSchema[]
+  [k: string]: unknown
+}
+
+export type AdminCompleteNormalShipmentSchema = {
+  outwardShipment: AdminNormalShipmentSchema
+  returnShipment?: AdminNormalShipmentSchema
+  [k: string]: unknown
+}
+
+export type AdminCompleteShrinkNormalShipmentSchema = {
+  outwardShipment: AdminShrinkNormalShipmentSchema
+  returnShipment?: AdminShrinkNormalShipmentSchema
+  [k: string]: unknown
+}
+
+export type AdminNormalShipmentSchema = {
+  id: UuidSchema
+  creationTimestamp: DateTimeSchema
+  user: AdminShrinkUserSchema
+  statuses: ShipmentStatusSchema[]
+  origin: CompletePositionSchema
+  destination: CompletePositionSchema
+  pickupSchedule: DateTimeSchema
+  deliverySchedule: DateTimeSchema
+  luggages: CompleteLuggageSchema[]
+  cost: SingleShipmentCostSchema
+  cancellationRequests: number[]
+  trackDetails: TrackDetailSchema
+  courier: CourierSchema
+  optionals: GenericShipmentOptionalSchema[]
+  paymentMethod: ShipmentPaymentMethodSchema
+  differentReceiver?: ReceiverSchema
+  coupon?: CouponSchema
+  [k: string]: unknown
+}
+
+export type AdminShrinkNormalShipmentSchema = {
+  id: UuidSchema
+  creationTimestamp: DateTimeSchema
+  user: AdminShrinkUserSchema
+  activeStatus: ShipmentStatusSchema
+  origin: CompletePositionSchema
+  destination: CompletePositionSchema
+  pickupSchedule: DateTimeSchema
+  deliverySchedule: DateTimeSchema
+  luggages: CompleteLuggageSchema[]
+  cost: SingleShipmentCostSchema
+  cancellationRequests: number[]
+  [k: string]: unknown
+}
+
+export type AdminCompletePendingShipmentSchema = {
+  outwardShipment: AdminPendingShipmentSchema
+  returnShipment?: AdminPendingShipmentSchema
+  [k: string]: unknown
+}
+
+export type AdminCompleteShrinkPendingShipmentSchema = {
+  outwardShipment: AdminShrinkPendingShipmentSchema
+  returnShipment?: AdminShrinkPendingShipmentSchema
+  [k: string]: unknown
+}
+
+export type AdminPendingShipmentSchema = {
+  id: UuidSchema
+  creationTimestamp: DateTimeSchema
+  user: AdminShrinkUserSchema
+  origin: CompletePositionSchema
+  destination: CompletePositionSchema
+  pickupSchedule: DateTimeSchema
+  deliverySchedule: DateTimeSchema
+  luggages: CompleteLuggageSchema[]
+  cost: SingleShipmentCostSchema
+  courier: CourierSchema
+  optionals: GenericShipmentOptionalSchema[]
+  paymentMethod: ShipmentPaymentMethodSchema
+  differentReceiver?: ReceiverSchema
+  coupon?: CouponSchema
+  [k: string]: unknown
+}
+
+export type AdminShrinkPendingShipmentSchema = {
+  id: UuidSchema
+  creationTimestamp: DateTimeSchema
+  user: AdminShrinkUserSchema
+  origin: CompletePositionSchema
+  destination: CompletePositionSchema
+  pickupSchedule: DateTimeSchema
+  deliverySchedule: DateTimeSchema
+  luggages: CompleteLuggageSchema[]
+  cost: SingleShipmentCostSchema
+  [k: string]: unknown
+}
+
+export type AdminShrinkUserSchema = {
+  id: UuidSchema
+  firstName: string
+  lastName: string
+  email: EmailSchema
+  completePhone: PhoneNumberSchema
+  [k: string]: unknown
+}
+
+export type AdminTrackDetailSchema = {
+  trackId: string
   [k: string]: unknown
 }
 
