@@ -5818,6 +5818,8 @@ export type PhoneNumberSchema = {
   [k: string]: unknown
 }
 
+export type ShipmentCancellationIdSchema = number
+
 export type StrongPasswordSchema = string
 
 export type TimeSchema = string
@@ -8134,6 +8136,7 @@ export type ListShipmentCancellationRequests500ResponseSchema = UnexpectedErrorR
 export type ListShipmentCancellationRequestsRequestSchema = {
   from?: DateSchema
   to?: DateSchema
+  ids?: ShipmentCancellationIdSchema[]
   [k: string]: unknown
 }
 
