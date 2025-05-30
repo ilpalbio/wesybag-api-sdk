@@ -6584,7 +6584,7 @@ export type CompleteLuggageSchema = {
   weightUnit: "kg"
   height: number
   width: number
-  lenght?: number
+  length: number
   dimensionUnit: "cm"
   /**
    * @minItems 1
