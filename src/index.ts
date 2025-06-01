@@ -85,8 +85,8 @@ export class ResponseError<T> extends Error {
 }
 
 export const serverUrls: { [env in Env]: string } = {
-  "local": "http://localhost:3000",
-  "staging": "http://localhost:3000"
+  "local": "http://localhost:undefined",
+  "staging": "http://localhost:undefined"
 }
 
 function _getFnUrl(endpoint: string, options?: { path?: { [key: string]: any }, params?: { [key: string]: any } }): string {
