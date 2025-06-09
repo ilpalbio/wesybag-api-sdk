@@ -8479,6 +8479,67 @@ export type AdminTrackDetailSchema = {
   [k: string]: unknown
 }
 
+export type DateRangeFilterSchema = {
+  from?: DateSchema
+  to?: DateSchema
+  [k: string]: unknown
+}
+
+export type CouponFiltersSchema = {
+  ids?: UuidSchema[]
+  users?: UuidSchema[]
+  name?: string
+  code?: string
+  validUntil?: DateRangeFilterSchema
+  isUsed?: boolean
+  creationDate?: DateRangeFilterSchema
+  [k: string]: unknown
+}
+
+export type GenericShipmentFiltersSchema = {
+  ids?: UuidSchema[]
+  pickupDate?: DateRangeFilterSchema
+  deliveryDate?: DateRangeFilterSchema
+  users?: UuidSchema[]
+  optionals?: (
+    | {
+        type: "SHIPMENT"
+        id: number
+        [k: string]: unknown
+      }
+    | {
+        type: "COURIER"
+        id: UuidSchema
+        [k: string]: unknown
+      }
+  )[]
+  [k: string]: unknown
+}
+
+export type HelpRequestFiltersSchema = {
+  ids?: UuidSchema[]
+  creationDate?: DateRangeFilterSchema
+  statuses?: ("OPEN" | "CLOSED" | "CANCELED")[]
+  users?: UuidSchema[]
+  [k: string]: unknown
+}
+
+export type NormalShipmentAdditionalFiltersSchema = {
+  statuses?: ["ACCEPTED", "PICK_UP", "IN_PROGRESS", "COMPLETED"][]
+  [k: string]: unknown
+}
+
+export type UserFiltersSchema = {
+  ids?: UuidSchema[]
+  firstName?: string
+  lastName?: string
+  email?: string
+  phone?: string
+  statuses?: ("ACTIVE" | "CANCELLED")[]
+  isAdmin?: boolean
+  [k: string]: unknown
+}
+
 export type VerifyUserCredentials200ResponseSchema = OkResponseSchema
 
 export type VerifyUserCredentials400ResponseSchema = ValidationErrorResponseSchema
