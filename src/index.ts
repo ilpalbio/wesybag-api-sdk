@@ -7962,7 +7962,7 @@ export type ListPendingShipments429ResponseSchema = ThrottlingErrorResponseSchem
 export type ListPendingShipments500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type ListPendingShipmentsRequestSchema = {
-  filters?: ListShipmentFilterSchema
+  filters?: GenericShipmentFiltersSchema
   pagination?: ListingPaginationSchema
   [k: string]: unknown
 }
