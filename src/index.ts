@@ -3676,6 +3676,336 @@ export async function closeHelpRequest(data: CloseHelpRequestRequestSchema, conf
 }
 
 /**
+List all users in the system
+*/
+export type AxiosAdminListUsersSuccessResponse = (AxiosResponse<AdminListUsers200ResponseSchema> & { status: 200 })
+export type AxiosAdminListUsersErrorResponse = ((AxiosResponse<AdminListUsers400ResponseSchema> & { status: 400 }) | (AxiosResponse<AdminListUsers401ResponseSchema> & { status: 401 }) | (AxiosResponse<AdminListUsers403ResponseSchema> & { status: 403 }) | (AxiosResponse<AdminListUsers405ResponseSchema> & { status: 405 }) | (AxiosResponse<AdminListUsers415ResponseSchema> & { status: 415 }) | (AxiosResponse<AdminListUsers429ResponseSchema> & { status: 429 }) | (AxiosResponse<AdminListUsers500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/adminListUsers" }
+export type AxiosAdminListUsersResponse = AxiosAdminListUsersSuccessResponse | AxiosAdminListUsersErrorResponse
+export async function adminListUsers(data: AdminListUsersRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminListUsersResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/admin/adminListUsers"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosAdminListUsersSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosAdminListUsersErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+List all coupons in the system
+*/
+export type AxiosAdminListCouponsSuccessResponse = (AxiosResponse<AdminListCoupons200ResponseSchema> & { status: 200 })
+export type AxiosAdminListCouponsErrorResponse = ((AxiosResponse<AdminListCoupons400ResponseSchema> & { status: 400 }) | (AxiosResponse<AdminListCoupons401ResponseSchema> & { status: 401 }) | (AxiosResponse<AdminListCoupons403ResponseSchema> & { status: 403 }) | (AxiosResponse<AdminListCoupons405ResponseSchema> & { status: 405 }) | (AxiosResponse<AdminListCoupons415ResponseSchema> & { status: 415 }) | (AxiosResponse<AdminListCoupons429ResponseSchema> & { status: 429 }) | (AxiosResponse<AdminListCoupons500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/adminListCoupons" }
+export type AxiosAdminListCouponsResponse = AxiosAdminListCouponsSuccessResponse | AxiosAdminListCouponsErrorResponse
+export async function adminListCoupons(data: AdminListCouponsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminListCouponsResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/admin/adminListCoupons"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosAdminListCouponsSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosAdminListCouponsErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+Create new coupon
+*/
+export type AxiosAdminCreateCouponSuccessResponse = (AxiosResponse<AdminCreateCoupon200ResponseSchema> & { status: 200 })
+export type AxiosAdminCreateCouponErrorResponse = ((AxiosResponse<AdminCreateCoupon400ResponseSchema> & { status: 400 }) | (AxiosResponse<AdminCreateCoupon401ResponseSchema> & { status: 401 }) | (AxiosResponse<AdminCreateCoupon403ResponseSchema> & { status: 403 }) | (AxiosResponse<AdminCreateCoupon405ResponseSchema> & { status: 405 }) | (AxiosResponse<AdminCreateCoupon415ResponseSchema> & { status: 415 }) | (AxiosResponse<AdminCreateCoupon429ResponseSchema> & { status: 429 }) | (AxiosResponse<AdminCreateCoupon500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/adminCreateCoupon" }
+export type AxiosAdminCreateCouponResponse = AxiosAdminCreateCouponSuccessResponse | AxiosAdminCreateCouponErrorResponse
+export async function adminCreateCoupon(data: AdminCreateCouponRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminCreateCouponResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/admin/adminCreateCoupon"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosAdminCreateCouponSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosAdminCreateCouponErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+Update an existing coupon
+*/
+export type AxiosAdminUpdateCouponSuccessResponse = (AxiosResponse<AdminUpdateCoupon200ResponseSchema> & { status: 200 })
+export type AxiosAdminUpdateCouponErrorResponse = ((AxiosResponse<AdminUpdateCoupon400ResponseSchema> & { status: 400 }) | (AxiosResponse<AdminUpdateCoupon401ResponseSchema> & { status: 401 }) | (AxiosResponse<AdminUpdateCoupon403ResponseSchema> & { status: 403 }) | (AxiosResponse<AdminUpdateCoupon404ResponseSchema> & { status: 404 }) | (AxiosResponse<AdminUpdateCoupon405ResponseSchema> & { status: 405 }) | (AxiosResponse<AdminUpdateCoupon415ResponseSchema> & { status: 415 }) | (AxiosResponse<AdminUpdateCoupon429ResponseSchema> & { status: 429 }) | (AxiosResponse<AdminUpdateCoupon500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/adminUpdateCoupon" }
+export type AxiosAdminUpdateCouponResponse = AxiosAdminUpdateCouponSuccessResponse | AxiosAdminUpdateCouponErrorResponse
+export async function adminUpdateCoupon(data: AdminUpdateCouponRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminUpdateCouponResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/admin/adminUpdateCoupon"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosAdminUpdateCouponSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosAdminUpdateCouponErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+Delete an existing coupon completely from the system
+*/
+export type AxiosAdminDeleteCouponSuccessResponse = (AxiosResponse<AdminDeleteCoupon200ResponseSchema> & { status: 200 })
+export type AxiosAdminDeleteCouponErrorResponse = ((AxiosResponse<AdminDeleteCoupon400ResponseSchema> & { status: 400 }) | (AxiosResponse<AdminDeleteCoupon401ResponseSchema> & { status: 401 }) | (AxiosResponse<AdminDeleteCoupon403ResponseSchema> & { status: 403 }) | (AxiosResponse<AdminDeleteCoupon404ResponseSchema> & { status: 404 }) | (AxiosResponse<AdminDeleteCoupon405ResponseSchema> & { status: 405 }) | (AxiosResponse<AdminDeleteCoupon415ResponseSchema> & { status: 415 }) | (AxiosResponse<AdminDeleteCoupon429ResponseSchema> & { status: 429 }) | (AxiosResponse<AdminDeleteCoupon500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/adminDeleteCoupon" }
+export type AxiosAdminDeleteCouponResponse = AxiosAdminDeleteCouponSuccessResponse | AxiosAdminDeleteCouponErrorResponse
+export async function adminDeleteCoupon(data: AdminDeleteCouponRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminDeleteCouponResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/admin/adminDeleteCoupon"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosAdminDeleteCouponSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosAdminDeleteCouponErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Verify user credentials
 */
 export type AxiosVerifyUserCredentialsSuccessResponse = (AxiosResponse<VerifyUserCredentials200ResponseSchema> & { status: 200 })
@@ -7962,7 +8292,7 @@ export type ListPendingShipments429ResponseSchema = ThrottlingErrorResponseSchem
 export type ListPendingShipments500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type ListPendingShipmentsRequestSchema = {
-  filters?: ListShipmentFilterSchema
+  filters?: GenericShipmentFiltersSchema
   pagination?: ListingPaginationSchema
   [k: string]: unknown
 }
@@ -7988,7 +8318,7 @@ export type ListNormalShipments429ResponseSchema = ThrottlingErrorResponseSchema
 export type ListNormalShipments500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type ListNormalShipmentsRequestSchema = {
-  filters?: ListShipmentFilterSchema
+  filters?: GenericShipmentFiltersSchema & NormalShipmentAdditionalFiltersSchema
   pagination?: ListingPaginationSchema
   [k: string]: unknown
 }
@@ -8189,67 +8519,195 @@ export type CloseHelpRequestRequestSchema = {
   [k: string]: unknown
 }
 
-export type BaseHelpRequestSchema = {
-  id: string
-  name: string
-  status: "OPEN" | "CLOSED"
+export type AdminListUsers200ResponseSchema = {
+  users: AdminListingUserSchema[]
+  pagination: ListingPaginationResponseSchema
   [k: string]: unknown
 }
 
-export type ErrorSchema = {
-  datetime: string
-  message: string
-  code?: string
-  stack?: string
-  status: "PENDING" | "RESOLVED"
+export type AdminListUsers400ResponseSchema = ValidationErrorResponseSchema
+
+export type AdminListUsers401ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type AdminListUsers403ResponseSchema = UnauthorizedUserErrorResponseSchema
+
+export type AdminListUsers405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type AdminListUsers415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type AdminListUsers429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type AdminListUsers500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type AdminListUsersRequestSchema = {
+  filters?: UserFiltersSchema
+  pagination?: ListingPaginationSchema
   [k: string]: unknown
 }
 
-export type HelpRequestResponseSchema = {
-  id: string
-  description: string
-  operator: OperatorSchema
+export type AdminListCoupons200ResponseSchema = {
+  coupons: AdminCouponSchema[]
+  pagination: ListingPaginationResponseSchema
   [k: string]: unknown
 }
 
-export type OperatorSchema = {
-  type: "CLIENT" | "OPERATOR"
+export type AdminListCoupons400ResponseSchema = ValidationErrorResponseSchema
+
+export type AdminListCoupons401ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type AdminListCoupons403ResponseSchema = UnauthorizedUserErrorResponseSchema
+
+export type AdminListCoupons405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type AdminListCoupons415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type AdminListCoupons429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type AdminListCoupons500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type AdminListCouponsRequestSchema = {
+  filters?: CouponFiltersSchema
+  pagination?: ListingPaginationSchema
+  [k: string]: unknown
+}
+
+export type AdminCreateCoupon200ResponseSchema = AdminCouponSchema
+
+export type AdminCreateCoupon400ResponseSchema = ValidationErrorResponseSchema
+
+export type AdminCreateCoupon401ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type AdminCreateCoupon403ResponseSchema = UnauthorizedUserErrorResponseSchema
+
+export type AdminCreateCoupon405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type AdminCreateCoupon415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type AdminCreateCoupon429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type AdminCreateCoupon500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type AdminCreateCouponRequestSchema = {
+  userId: UuidSchema
+  amount: CostSchema
+  [k: string]: unknown
+}
+
+export type AdminUpdateCoupon200ResponseSchema = AdminCouponSchema
+
+export type AdminUpdateCoupon400ResponseSchema = ValidationErrorResponseSchema
+
+export type AdminUpdateCoupon401ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type AdminUpdateCoupon403ResponseSchema = UnauthorizedUserErrorResponseSchema
+
+export type AdminUpdateCoupon404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type AdminUpdateCoupon405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type AdminUpdateCoupon415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type AdminUpdateCoupon429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type AdminUpdateCoupon500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type AdminUpdateCouponRequestSchema = {
+  id: UuidSchema
+  name?: string
+  amount?: CostSchema
+  [k: string]: unknown
+}
+
+export type AdminDeleteCoupon200ResponseSchema = OkResponseSchema
+
+export type AdminDeleteCoupon400ResponseSchema = ValidationErrorResponseSchema
+
+export type AdminDeleteCoupon401ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type AdminDeleteCoupon403ResponseSchema = UnauthorizedUserErrorResponseSchema
+
+export type AdminDeleteCoupon404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type AdminDeleteCoupon405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type AdminDeleteCoupon415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type AdminDeleteCoupon429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type AdminDeleteCoupon500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type AdminDeleteCouponRequestSchema = {
+  id: UuidSchema
+  [k: string]: unknown
+}
+
+export type AdminAdminUserSchema = {
+  id: UuidSchema
   firstName: string
   lastName: string
+  email: string
+  phone: PhoneNumberSchema
+  isAdmin: true
+  createdAt: DateTimeSchema
+  lastUpdateAt: DateTimeSchema
+  isDeleted: boolean
   [k: string]: unknown
 }
 
-export type TravelSchemaWithCompleteUser = ShipmentSchema & {
-  user: UserDetailSchema
+export type AdminCouponSchema = {
+  id: UuidSchema
+  name: string
+  code: string
+  creationTimestamp: DateTimeSchema
+  lastUpdateTimestamp: DateTimeSchema
+  validUntilTimestamp: DateTimeSchema
+  isUsed: boolean
+  user: AdminShrinkUserSchema
+  transactions: AdminCouponTransactionSchema[]
   [k: string]: unknown
 }
 
-export type TravelSchemaWithStatus = ShipmentSchemaWithBaseUser & {
-  status: StatusSchema[]
+export type AdminCouponTransactionSchema = {
+  id: number
+  alias: string
+  code: string
+  amount: CostSchema
+  timestamp: DateTimeSchema
+  paymentIntendId?: string
   [k: string]: unknown
 }
 
-export type AdminPlaceSchema = {
-  detailedName: string
-  structure?: {
-    name: string
+export type AdminListingUserSchema = AdminNormalUserSchema | AdminAdminUserSchema
+
+export type AdminNormalUserSchema = {
+  id: UuidSchema
+  firstName: string
+  lastName: string
+  email: string
+  phone: PhoneNumberSchema
+  isAdmin: false
+  stripeDetails?: {
+    customerId: string
     [k: string]: unknown
   }
-  [k: string]: unknown
-}
-
-export type AdminTimeSchema = {
-  pickupDatetime: string
-  deliveryDatetime: string
-  [k: string]: unknown
-}
-
-export type BaseShipmentSchema = {
-  id: string
-  completeDestination: AdminPlaceSchema
-  completeOrigin: AdminPlaceSchema
-  status: StatusSchema
-  luggagesNumber: number
+  shipmentsDetails: {
+    totalShipments: number
+    pendingShipments: UuidSchema[]
+    /**
+     * List of confirmed/in-progress shipments
+     */
+    confirmedShipments: UuidSchema[]
+    completedShipments: UuidSchema[]
+    [k: string]: unknown
+  }
+  helpRequestsDetails: {
+    closedHelpRequests: UuidSchema[]
+    openHelpRequests: UuidSchema[]
+    [k: string]: unknown
+  }
+  createdAt: DateTimeSchema
+  lastUpdateAt: DateTimeSchema
+  isDeleted: boolean
   [k: string]: unknown
 }
 
@@ -8259,6 +8717,13 @@ export type BaseUserSchema = {
   email: string
   completePhone: string
   id: string
+  [k: string]: unknown
+}
+
+export type HelpRequestResponseSchema = {
+  id: string
+  description: string
+  operator: OperatorSchema
   [k: string]: unknown
 }
 
@@ -8308,69 +8773,16 @@ export type ListingPaginationSchema = {
   [k: string]: unknown
 }
 
-export type LuggageSchema = {
-  content: string
-  weight: string
-  width: string
-  height: string
-  length: string
-  dimensionUnit: string
-  weightUnit: string
-  [k: string]: unknown
-}
-
-export type PendingShipmentSchema = ShipmentSchemaWithBaseUser
-
-export type ShipmentAdditionalSchema = {
-  differentReceiver?: {
-    firstName: string
-    lastName: string
-    email: string
-    completePhone: string
-    [k: string]: unknown
-  }
+export type OperatorSchema = {
+  type: "CLIENT" | "OPERATOR"
+  firstName: string
+  lastName: string
   [k: string]: unknown
 }
 
 export type ShipmentCancellationRequestSchema = {
   id: number
   shipments: GetNormalShipmentResponseSchema
-  [k: string]: unknown
-}
-
-export type ShipmentSchema = {
-  id: string
-  destination: AdminPlaceSchema
-  origin: AdminPlaceSchema
-  luggages: CompleteLuggageSchema[]
-  outwardTime: AdminTimeSchema
-  returnTime?: AdminTimeSchema
-  additional?: ShipmentAdditionalSchema
-  [k: string]: unknown
-}
-
-export type ShipmentSchemaWithBaseUser = ShipmentSchema & {
-  user: BaseUserSchema
-  [k: string]: unknown
-}
-
-export type StatusSchema = {
-  code: string
-  description: string
-  creationTimestamp: DateTimeSchema
-  isActive: boolean
-  [k: string]: unknown
-}
-
-export type UserDetailSchema = {
-  id: string
-  firstName: string
-  lastName: string
-  email: string
-  status: "ACTIVE" | "DELETED"
-  completePhone: string
-  shipments: BaseShipmentSchema[]
-  helpRequests: BaseHelpRequestSchema[]
   [k: string]: unknown
 }
 
@@ -8476,6 +8888,79 @@ export type AdminShrinkUserSchema = {
 
 export type AdminTrackDetailSchema = {
   trackId: string
+  [k: string]: unknown
+}
+
+export type DateRangeFilterSchema = {
+  from?: DateSchema
+  to?: DateSchema
+  [k: string]: unknown
+}
+
+export type CouponFiltersSchema = {
+  ids?: UuidSchema[]
+  users?: UuidSchema[]
+  name?: string
+  code?: string
+  validUntil?: DateRangeFilterSchema
+  isUsed?: boolean
+  creationDate?: DateRangeFilterSchema
+  [k: string]: unknown
+}
+
+export type GenericShipmentFiltersSchema = {
+  ids?: UuidSchema[]
+  pickupDate?: DateRangeFilterSchema
+  deliveryDate?: DateRangeFilterSchema
+  users?: UuidSchema[]
+  optionals?: (
+    | {
+        type: "SHIPMENT"
+        id: number
+        [k: string]: unknown
+      }
+    | {
+        type: "COURIER"
+        id: UuidSchema
+        [k: string]: unknown
+      }
+  )[]
+  [k: string]: unknown
+}
+
+export type HelpRequestFiltersSchema = {
+  ids?: UuidSchema[]
+  creationDate?: DateRangeFilterSchema
+  statuses?: ("OPEN" | "CLOSED" | "CANCELED")[]
+  users?: UuidSchema[]
+  categories?: (
+    | "DELIVERY_DELAY"
+    | "DAMAGED_LUGGAGE"
+    | "TRACKING_ISSUE"
+    | "LOST_LUGGAGE"
+    | "DELIVERY_ISSUE"
+    | "PLATFORM_ISSUE"
+    | "ACCOUNT_ISSUE"
+    | "PAYMENT_ERROR"
+    | "GENERAL"
+  )[]
+  importances?: ("low" | "medium" | "high")[]
+  [k: string]: unknown
+}
+
+export type NormalShipmentAdditionalFiltersSchema = {
+  statuses?: ("ACCEPTED" | "PICK_UP" | "IN_PROGRESS" | "COMPLETED")[]
+  [k: string]: unknown
+}
+
+export type UserFiltersSchema = {
+  ids?: UuidSchema[]
+  firstName?: string
+  lastName?: string
+  email?: string
+  phone?: string
+  statuses?: ("ACTIVE" | "CANCELLED")[]
+  isAdmin?: boolean
   [k: string]: unknown
 }
 
