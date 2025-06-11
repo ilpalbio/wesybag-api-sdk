@@ -7988,7 +7988,7 @@ export type ListNormalShipments429ResponseSchema = ThrottlingErrorResponseSchema
 export type ListNormalShipments500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type ListNormalShipmentsRequestSchema = {
-  filters?: ListShipmentFilterSchema
+  filters?: GenericShipmentFiltersSchema & NormalShipmentAdditionalFiltersSchema
   pagination?: ListingPaginationSchema
   [k: string]: unknown
 }
