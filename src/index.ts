@@ -8589,7 +8589,6 @@ export type AdminCreateCoupon500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type AdminCreateCouponRequestSchema = {
   userId: UuidSchema
-  name: string
   amount: CostSchema
   [k: string]: unknown
 }
@@ -8642,46 +8641,6 @@ export type AdminDeleteCouponRequestSchema = {
   [k: string]: unknown
 }
 
-export type BaseHelpRequestSchema = {
-  id: string
-  name: string
-  status: "OPEN" | "CLOSED"
-  [k: string]: unknown
-}
-
-export type ErrorSchema = {
-  datetime: string
-  message: string
-  code?: string
-  stack?: string
-  status: "PENDING" | "RESOLVED"
-  [k: string]: unknown
-}
-
-export type HelpRequestResponseSchema = {
-  id: string
-  description: string
-  operator: OperatorSchema
-  [k: string]: unknown
-}
-
-export type OperatorSchema = {
-  type: "CLIENT" | "OPERATOR"
-  firstName: string
-  lastName: string
-  [k: string]: unknown
-}
-
-export type TravelSchemaWithCompleteUser = ShipmentSchema & {
-  user: UserDetailSchema
-  [k: string]: unknown
-}
-
-export type TravelSchemaWithStatus = ShipmentSchemaWithBaseUser & {
-  status: StatusSchema[]
-  [k: string]: unknown
-}
-
 export type AdminAdminUserSchema = {
   id: UuidSchema
   firstName: string
@@ -8714,7 +8673,7 @@ export type AdminCouponTransactionSchema = {
   code: string
   amount: CostSchema
   timestamp: DateTimeSchema
-  paymentIntendId: string
+  paymentIntendId?: string
   [k: string]: unknown
 }
 
@@ -8752,36 +8711,19 @@ export type AdminNormalUserSchema = {
   [k: string]: unknown
 }
 
-export type AdminPlaceSchema = {
-  detailedName: string
-  structure?: {
-    name: string
-    [k: string]: unknown
-  }
-  [k: string]: unknown
-}
-
-export type AdminTimeSchema = {
-  pickupDatetime: string
-  deliveryDatetime: string
-  [k: string]: unknown
-}
-
-export type BaseShipmentSchema = {
-  id: string
-  completeDestination: AdminPlaceSchema
-  completeOrigin: AdminPlaceSchema
-  status: StatusSchema
-  luggagesNumber: number
-  [k: string]: unknown
-}
-
 export type BaseUserSchema = {
   firstName: string
   lastName: string
   email: string
   completePhone: string
   id: string
+  [k: string]: unknown
+}
+
+export type HelpRequestResponseSchema = {
+  id: string
+  description: string
+  operator: OperatorSchema
   [k: string]: unknown
 }
 
@@ -8831,69 +8773,16 @@ export type ListingPaginationSchema = {
   [k: string]: unknown
 }
 
-export type LuggageSchema = {
-  content: string
-  weight: string
-  width: string
-  height: string
-  length: string
-  dimensionUnit: string
-  weightUnit: string
-  [k: string]: unknown
-}
-
-export type PendingShipmentSchema = ShipmentSchemaWithBaseUser
-
-export type ShipmentAdditionalSchema = {
-  differentReceiver?: {
-    firstName: string
-    lastName: string
-    email: string
-    completePhone: string
-    [k: string]: unknown
-  }
+export type OperatorSchema = {
+  type: "CLIENT" | "OPERATOR"
+  firstName: string
+  lastName: string
   [k: string]: unknown
 }
 
 export type ShipmentCancellationRequestSchema = {
   id: number
   shipments: GetNormalShipmentResponseSchema
-  [k: string]: unknown
-}
-
-export type ShipmentSchema = {
-  id: string
-  destination: AdminPlaceSchema
-  origin: AdminPlaceSchema
-  luggages: CompleteLuggageSchema[]
-  outwardTime: AdminTimeSchema
-  returnTime?: AdminTimeSchema
-  additional?: ShipmentAdditionalSchema
-  [k: string]: unknown
-}
-
-export type ShipmentSchemaWithBaseUser = ShipmentSchema & {
-  user: BaseUserSchema
-  [k: string]: unknown
-}
-
-export type StatusSchema = {
-  code: string
-  description: string
-  creationTimestamp: DateTimeSchema
-  isActive: boolean
-  [k: string]: unknown
-}
-
-export type UserDetailSchema = {
-  id: string
-  firstName: string
-  lastName: string
-  email: string
-  status: "ACTIVE" | "DELETED"
-  completePhone: string
-  shipments: BaseShipmentSchema[]
-  helpRequests: BaseHelpRequestSchema[]
   [k: string]: unknown
 }
 
