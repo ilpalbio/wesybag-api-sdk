@@ -8521,11 +8521,23 @@ export type HelpRequestFiltersSchema = {
   creationDate?: DateRangeFilterSchema
   statuses?: ("OPEN" | "CLOSED" | "CANCELED")[]
   users?: UuidSchema[]
+  categories?: (
+    | "DELIVERY_DELAY"
+    | "DAMAGED_LUGGAGE"
+    | "TRACKING_ISSUE"
+    | "LOST_LUGGAGE"
+    | "DELIVERY_ISSUE"
+    | "PLATFORM_ISSUE"
+    | "ACCOUNT_ISSUE"
+    | "PAYMENT_ERROR"
+    | "GENERAL"
+  )[]
+  importances?: ("low" | "medium" | "high")[]
   [k: string]: unknown
 }
 
 export type NormalShipmentAdditionalFiltersSchema = {
-  statuses?: ["ACCEPTED", "PICK_UP", "IN_PROGRESS", "COMPLETED"][]
+  statuses?: ("ACCEPTED" | "PICK_UP" | "IN_PROGRESS" | "COMPLETED")[]
   [k: string]: unknown
 }
 
