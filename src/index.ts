@@ -4070,6 +4070,134 @@ export async function listUserDropdown(data: ListUserDropdownRequestSchema, conf
 }
 
 /**
+Get courier's optionals of all couriers (admin)
+*/
+export type AxiosListCourierOptionalsDropdownSuccessResponse = (AxiosResponse<ListCourierOptionalsDropdown200ResponseSchema> & { status: 200 })
+export type AxiosListCourierOptionalsDropdownErrorResponse = ((AxiosResponse<ListCourierOptionalsDropdown400ResponseSchema> & { status: 400 }) | (AxiosResponse<ListCourierOptionalsDropdown401ResponseSchema> & { status: 401 }) | (AxiosResponse<ListCourierOptionalsDropdown403ResponseSchema> & { status: 403 }) | (AxiosResponse<ListCourierOptionalsDropdown405ResponseSchema> & { status: 405 }) | (AxiosResponse<ListCourierOptionalsDropdown415ResponseSchema> & { status: 415 }) | (AxiosResponse<ListCourierOptionalsDropdown429ResponseSchema> & { status: 429 }) | (AxiosResponse<ListCourierOptionalsDropdown500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/listCourierOptionalsDropdown" }
+export type AxiosListCourierOptionalsDropdownResponse = AxiosListCourierOptionalsDropdownSuccessResponse | AxiosListCourierOptionalsDropdownErrorResponse
+export async function listCourierOptionalsDropdown(config?: AxiosRequestConfig): Promise<AxiosListCourierOptionalsDropdownResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "UNAUTHENTICATED"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/admin/listCourierOptionalsDropdown"), null, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosListCourierOptionalsDropdownSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosListCourierOptionalsDropdownErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+List shipment's optionals (admin)
+*/
+export type AxiosListShipmentOptionalsDropdownSuccessResponse = (AxiosResponse<ListShipmentOptionalsDropdown200ResponseSchema> & { status: 200 })
+export type AxiosListShipmentOptionalsDropdownErrorResponse = ((AxiosResponse<ListShipmentOptionalsDropdown400ResponseSchema> & { status: 400 }) | (AxiosResponse<ListShipmentOptionalsDropdown401ResponseSchema> & { status: 401 }) | (AxiosResponse<ListShipmentOptionalsDropdown403ResponseSchema> & { status: 403 }) | (AxiosResponse<ListShipmentOptionalsDropdown405ResponseSchema> & { status: 405 }) | (AxiosResponse<ListShipmentOptionalsDropdown415ResponseSchema> & { status: 415 }) | (AxiosResponse<ListShipmentOptionalsDropdown429ResponseSchema> & { status: 429 }) | (AxiosResponse<ListShipmentOptionalsDropdown500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/listShipmentOptionalsDropdown" }
+export type AxiosListShipmentOptionalsDropdownResponse = AxiosListShipmentOptionalsDropdownSuccessResponse | AxiosListShipmentOptionalsDropdownErrorResponse
+export async function listShipmentOptionalsDropdown(config?: AxiosRequestConfig): Promise<AxiosListShipmentOptionalsDropdownResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/admin/listShipmentOptionalsDropdown"), null, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosListShipmentOptionalsDropdownSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosListShipmentOptionalsDropdownErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Verify user credentials
 */
 export type AxiosVerifyUserCredentialsSuccessResponse = (AxiosResponse<VerifyUserCredentials200ResponseSchema> & { status: 200 })
@@ -8728,6 +8856,38 @@ export type ListUserDropdownRequestSchema = {
   [k: string]: unknown
 }
 
+export type ListCourierOptionalsDropdown200ResponseSchema = DropdwnCourierOptionalSchema[]
+
+export type ListCourierOptionalsDropdown400ResponseSchema = ValidationErrorResponseSchema
+
+export type ListCourierOptionalsDropdown401ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type ListCourierOptionalsDropdown403ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type ListCourierOptionalsDropdown405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type ListCourierOptionalsDropdown415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type ListCourierOptionalsDropdown429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type ListCourierOptionalsDropdown500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type ListShipmentOptionalsDropdown200ResponseSchema = DropdownShipmentOptionalSchema[]
+
+export type ListShipmentOptionalsDropdown400ResponseSchema = ValidationErrorResponseSchema
+
+export type ListShipmentOptionalsDropdown401ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type ListShipmentOptionalsDropdown403ResponseSchema = UnauthorizedUserErrorResponseSchema
+
+export type ListShipmentOptionalsDropdown405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type ListShipmentOptionalsDropdown415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type ListShipmentOptionalsDropdown429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type ListShipmentOptionalsDropdown500ResponseSchema = UnexpectedErrorResponseSchema
+
 export type AdminAdminUserSchema = {
   id: UuidSchema
   firstName: string
@@ -9051,12 +9211,24 @@ export type UserFiltersSchema = {
   [k: string]: unknown
 }
 
+export type DropdwnCourierOptionalSchema = {
+  id: UuidSchema
+  code: "CALL_BEFORE_DELIVERY" | "SATURDAY_DELIVERY" | "EXPRESS_DELIVERY" | "INSURANCE"
+  [k: string]: unknown
+}
+
 export type DropdownUserSchema = {
   id: UuidSchema
   firstName: string
   lastName: string
   email: string
   phone: PhoneNumberSchema
+  [k: string]: unknown
+}
+
+export type DropdownShipmentOptionalSchema = {
+  id: number
+  code: "STRUCTURE_CALL" | "ONE_DAY_CANCELLATION" | "SHIPMENT_REFUND"
   [k: string]: unknown
 }
 
