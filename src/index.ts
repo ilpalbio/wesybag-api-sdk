@@ -8364,7 +8364,7 @@ export type ListHelpRequests429ResponseSchema = ThrottlingErrorResponseSchema
 export type ListHelpRequests500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type ListHelpRequestsRequestSchema = {
-  fitlers?: {
+  filters?: {
     status?: ("OPEN" | "CLOSED")[]
     users?: string[]
     search?: string
