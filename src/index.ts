@@ -4006,6 +4006,70 @@ export async function adminDeleteCoupon(data: AdminDeleteCouponRequestSchema, co
 }
 
 /**
+List users used in async select in frontend (Admin)
+*/
+export type AxiosListUserDropdownSuccessResponse = (AxiosResponse<ListUserDropdown200ResponseSchema> & { status: 200 })
+export type AxiosListUserDropdownErrorResponse = ((AxiosResponse<ListUserDropdown400ResponseSchema> & { status: 400 }) | (AxiosResponse<ListUserDropdown401ResponseSchema> & { status: 401 }) | (AxiosResponse<ListUserDropdown403ResponseSchema> & { status: 403 }) | (AxiosResponse<ListUserDropdown405ResponseSchema> & { status: 405 }) | (AxiosResponse<ListUserDropdown415ResponseSchema> & { status: 415 }) | (AxiosResponse<ListUserDropdown429ResponseSchema> & { status: 429 }) | (AxiosResponse<ListUserDropdown500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/listUserDropdown" }
+export type AxiosListUserDropdownResponse = AxiosListUserDropdownSuccessResponse | AxiosListUserDropdownErrorResponse
+export async function listUserDropdown(data: ListUserDropdownRequestSchema, config?: AxiosRequestConfig): Promise<AxiosListUserDropdownResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/admin/listUserDropdown"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosListUserDropdownSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosListUserDropdownErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Verify user credentials
 */
 export type AxiosVerifyUserCredentialsSuccessResponse = (AxiosResponse<VerifyUserCredentials200ResponseSchema> & { status: 200 })
@@ -8641,6 +8705,29 @@ export type AdminDeleteCouponRequestSchema = {
   [k: string]: unknown
 }
 
+export type ListUserDropdown200ResponseSchema = DropdownUserSchema[]
+
+export type ListUserDropdown400ResponseSchema = ValidationErrorResponseSchema
+
+export type ListUserDropdown401ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type ListUserDropdown403ResponseSchema = UnauthorizedUserErrorResponseSchema
+
+export type ListUserDropdown405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type ListUserDropdown415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type ListUserDropdown429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type ListUserDropdown500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type ListUserDropdownRequestSchema = {
+  search?: string
+  limit?: number
+  includeAdmin?: boolean
+  [k: string]: unknown
+}
+
 export type AdminAdminUserSchema = {
   id: UuidSchema
   firstName: string
@@ -8961,6 +9048,15 @@ export type UserFiltersSchema = {
   phone?: string
   statuses?: ("ACTIVE" | "CANCELLED")[]
   isAdmin?: boolean
+  [k: string]: unknown
+}
+
+export type DropdownUserSchema = {
+  id: UuidSchema
+  firstName: string
+  lastName: string
+  email: string
+  phone: PhoneNumberSchema
   [k: string]: unknown
 }
 
