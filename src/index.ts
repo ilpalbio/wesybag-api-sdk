@@ -8364,24 +8364,7 @@ export type ListHelpRequests429ResponseSchema = ThrottlingErrorResponseSchema
 export type ListHelpRequests500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type ListHelpRequestsRequestSchema = {
-  filters?: {
-    status?: ("OPEN" | "CLOSED")[]
-    users?: string[]
-    search?: string
-    category?: (
-      | "DELIVERY_DELAY"
-      | "DAMAGED_LUGGAGE"
-      | "TRACKING_ISSUE"
-      | "LOST_LUGGAGE"
-      | "DELIVERY_ISSUE"
-      | "PLATFORM_ISSUE"
-      | "ACCOUNT_ISSUE"
-      | "PAYMENT_ERROR"
-      | "GENERAL"
-    )[]
-    importance?: ("low" | "medium" | "high")[]
-    [k: string]: unknown
-  }
+  filters?: HelpRequestFiltersSchema
   pagination?: ListingPaginationSchema
   [k: string]: unknown
 }
