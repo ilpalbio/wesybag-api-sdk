@@ -9031,6 +9031,7 @@ export type AdminCompleteShrinkNormalShipmentSchema = {
 export type AdminNormalShipmentSchema = {
   id: UuidSchema
   creationTimestamp: DateTimeSchema
+  isDeleted: boolean
   user: AdminShrinkUserSchema
   statuses: ShipmentStatusSchema[]
   origin: CompletePositionSchema
@@ -9052,6 +9053,7 @@ export type AdminNormalShipmentSchema = {
 export type AdminShrinkNormalShipmentSchema = {
   id: UuidSchema
   creationTimestamp: DateTimeSchema
+  isDeleted: boolean
   user: AdminShrinkUserSchema
   activeStatus: ShipmentStatusSchema
   origin: CompletePositionSchema
@@ -9079,6 +9081,8 @@ export type AdminCompleteShrinkPendingShipmentSchema = {
 export type AdminPendingShipmentSchema = {
   id: UuidSchema
   creationTimestamp: DateTimeSchema
+  isDeleted: boolean
+  isRejected: boolean
   user: AdminShrinkUserSchema
   origin: CompletePositionSchema
   destination: CompletePositionSchema
@@ -9097,6 +9101,8 @@ export type AdminPendingShipmentSchema = {
 export type AdminShrinkPendingShipmentSchema = {
   id: UuidSchema
   creationTimestamp: DateTimeSchema
+  isDeleted: boolean
+  isRejected: boolean
   user: AdminShrinkUserSchema
   origin: CompletePositionSchema
   destination: CompletePositionSchema
@@ -9139,7 +9145,9 @@ export type CouponFiltersSchema = {
 }
 
 export type GenericShipmentFiltersSchema = {
-  ids?: UuidSchema[]
+  id?: string
+  isDeleted?: boolean
+  isRejected?: boolean
   pickupDate?: DateRangeFilterSchema
   deliveryDate?: DateRangeFilterSchema
   users?: UuidSchema[]
