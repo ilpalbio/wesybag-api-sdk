@@ -9184,7 +9184,7 @@ export type NormalShipmentAdditionalFiltersSchema = {
 }
 
 export type UserFiltersSchema = {
-  ids?: UuidSchema[]
+  id?: string
   firstName?: string
   lastName?: string
   email?: string
