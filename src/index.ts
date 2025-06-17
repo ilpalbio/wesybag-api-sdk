@@ -3257,7 +3257,7 @@ export async function updateNormalShipmentStatus(data: UpdateNormalShipmentStatu
 }
 
 /**
-Get normal shipmentby id 
+Get normal shipmentby id
 */
 export type AxiosAdminGetNormalShipmentSuccessResponse = (AxiosResponse<AdminGetNormalShipment200ResponseSchema> & { status: 200 })
 export type AxiosAdminGetNormalShipmentErrorResponse = ((AxiosResponse<AdminGetNormalShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<AdminGetNormalShipment401ResponseSchema> & { status: 401 }) | (AxiosResponse<AdminGetNormalShipment403ResponseSchema> & { status: 403 }) | (AxiosResponse<AdminGetNormalShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<AdminGetNormalShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<AdminGetNormalShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<AdminGetNormalShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<AdminGetNormalShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/adminGetNormalShipment" }
