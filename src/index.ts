@@ -9134,7 +9134,7 @@ export type DateRangeFilterSchema = {
 }
 
 export type CouponFiltersSchema = {
-  ids?: UuidSchema[]
+  id?: string
   users?: UuidSchema[]
   name?: string
   code?: string
