@@ -6726,6 +6726,228 @@ export async function adminRejectReview(data: AdminRejectReviewRequestSchema, co
   }
 }
 
+/**
+Republic 'requires_review' review
+*/
+export type AxiosAdminRepublishBlockedReviewSuccessResponse = (AxiosResponse<AdminRepublishBlockedReview200ResponseSchema> & { status: 200 })
+export type AxiosAdminRepublishBlockedReviewErrorResponse = ((AxiosResponse<AdminRepublishBlockedReview400ResponseSchema> & { status: 400 }) | (AxiosResponse<AdminRepublishBlockedReview401ResponseSchema> & { status: 401 }) | (AxiosResponse<AdminRepublishBlockedReview403ResponseSchema> & { status: 403 }) | (AxiosResponse<AdminRepublishBlockedReview404ResponseSchema> & { status: 404 }) | (AxiosResponse<AdminRepublishBlockedReview405ResponseSchema> & { status: 405 }) | (AxiosResponse<AdminRepublishBlockedReview409ResponseSchema> & { status: 409 }) | (AxiosResponse<AdminRepublishBlockedReview415ResponseSchema> & { status: 415 }) | (AxiosResponse<AdminRepublishBlockedReview429ResponseSchema> & { status: 429 }) | (AxiosResponse<AdminRepublishBlockedReview500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/adminRepublishBlockedReview" }
+export type AxiosAdminRepublishBlockedReviewResponse = AxiosAdminRepublishBlockedReviewSuccessResponse | AxiosAdminRepublishBlockedReviewErrorResponse
+export async function adminRepublishBlockedReview(data: AdminRepublishBlockedReviewRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminRepublishBlockedReviewResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "409": {
+      "code": [
+        "CONFLICT"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/admin/adminRepublishBlockedReview"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosAdminRepublishBlockedReviewSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosAdminRepublishBlockedReviewErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+Remove from db 'requires_review' review
+*/
+export type AxiosAdminDeleteBlockedReviewSuccessResponse = (AxiosResponse<AdminDeleteBlockedReview200ResponseSchema> & { status: 200 })
+export type AxiosAdminDeleteBlockedReviewErrorResponse = ((AxiosResponse<AdminDeleteBlockedReview400ResponseSchema> & { status: 400 }) | (AxiosResponse<AdminDeleteBlockedReview401ResponseSchema> & { status: 401 }) | (AxiosResponse<AdminDeleteBlockedReview403ResponseSchema> & { status: 403 }) | (AxiosResponse<AdminDeleteBlockedReview404ResponseSchema> & { status: 404 }) | (AxiosResponse<AdminDeleteBlockedReview405ResponseSchema> & { status: 405 }) | (AxiosResponse<AdminDeleteBlockedReview409ResponseSchema> & { status: 409 }) | (AxiosResponse<AdminDeleteBlockedReview415ResponseSchema> & { status: 415 }) | (AxiosResponse<AdminDeleteBlockedReview429ResponseSchema> & { status: 429 }) | (AxiosResponse<AdminDeleteBlockedReview500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/adminDeleteBlockedReview" }
+export type AxiosAdminDeleteBlockedReviewResponse = AxiosAdminDeleteBlockedReviewSuccessResponse | AxiosAdminDeleteBlockedReviewErrorResponse
+export async function adminDeleteBlockedReview(data: AdminDeleteBlockedReviewRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminDeleteBlockedReviewResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "409": {
+      "code": [
+        "CONFLICT"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/admin/adminDeleteBlockedReview"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosAdminDeleteBlockedReviewSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosAdminDeleteBlockedReviewErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+Block published review, the review will have status 'requires_review'
+*/
+export type AxiosAdminBlockPublishedReviewSuccessResponse = (AxiosResponse<AdminBlockPublishedReview200ResponseSchema> & { status: 200 })
+export type AxiosAdminBlockPublishedReviewErrorResponse = ((AxiosResponse<AdminBlockPublishedReview400ResponseSchema> & { status: 400 }) | (AxiosResponse<AdminBlockPublishedReview401ResponseSchema> & { status: 401 }) | (AxiosResponse<AdminBlockPublishedReview403ResponseSchema> & { status: 403 }) | (AxiosResponse<AdminBlockPublishedReview404ResponseSchema> & { status: 404 }) | (AxiosResponse<AdminBlockPublishedReview405ResponseSchema> & { status: 405 }) | (AxiosResponse<AdminBlockPublishedReview409ResponseSchema> & { status: 409 }) | (AxiosResponse<AdminBlockPublishedReview415ResponseSchema> & { status: 415 }) | (AxiosResponse<AdminBlockPublishedReview429ResponseSchema> & { status: 429 }) | (AxiosResponse<AdminBlockPublishedReview500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/adminBlockPublishedReview" }
+export type AxiosAdminBlockPublishedReviewResponse = AxiosAdminBlockPublishedReviewSuccessResponse | AxiosAdminBlockPublishedReviewErrorResponse
+export async function adminBlockPublishedReview(data: AdminBlockPublishedReviewRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminBlockPublishedReviewResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "409": {
+      "code": [
+        "CONFLICT"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/admin/adminBlockPublishedReview"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosAdminBlockPublishedReviewSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosAdminBlockPublishedReviewErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
 export type Any =
   | string
   | boolean
@@ -10767,6 +10989,83 @@ export type AdminRejectReview429ResponseSchema = ThrottlingErrorResponseSchema
 export type AdminRejectReview500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type AdminRejectReviewRequestSchema = {
+  id: number
+  motivation: string
+  [k: string]: unknown
+}
+
+export type AdminRepublishBlockedReview200ResponseSchema = OkResponseSchema
+
+export type AdminRepublishBlockedReview400ResponseSchema = ValidationErrorResponseSchema
+
+export type AdminRepublishBlockedReview401ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type AdminRepublishBlockedReview403ResponseSchema = UnauthorizedUserErrorResponseSchema
+
+export type AdminRepublishBlockedReview404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type AdminRepublishBlockedReview405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type AdminRepublishBlockedReview409ResponseSchema = ConflictErrorResponseSchema
+
+export type AdminRepublishBlockedReview415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type AdminRepublishBlockedReview429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type AdminRepublishBlockedReview500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type AdminRepublishBlockedReviewRequestSchema = {
+  id: number
+  [k: string]: unknown
+}
+
+export type AdminDeleteBlockedReview200ResponseSchema = OkResponseSchema
+
+export type AdminDeleteBlockedReview400ResponseSchema = ValidationErrorResponseSchema
+
+export type AdminDeleteBlockedReview401ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type AdminDeleteBlockedReview403ResponseSchema = UnauthorizedUserErrorResponseSchema
+
+export type AdminDeleteBlockedReview404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type AdminDeleteBlockedReview405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type AdminDeleteBlockedReview409ResponseSchema = ConflictErrorResponseSchema
+
+export type AdminDeleteBlockedReview415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type AdminDeleteBlockedReview429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type AdminDeleteBlockedReview500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type AdminDeleteBlockedReviewRequestSchema = {
+  id: number
+  motivation: string
+  [k: string]: unknown
+}
+
+export type AdminBlockPublishedReview200ResponseSchema = OkResponseSchema
+
+export type AdminBlockPublishedReview400ResponseSchema = ValidationErrorResponseSchema
+
+export type AdminBlockPublishedReview401ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type AdminBlockPublishedReview403ResponseSchema = UnauthorizedUserErrorResponseSchema
+
+export type AdminBlockPublishedReview404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type AdminBlockPublishedReview405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type AdminBlockPublishedReview409ResponseSchema = ConflictErrorResponseSchema
+
+export type AdminBlockPublishedReview415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type AdminBlockPublishedReview429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type AdminBlockPublishedReview500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type AdminBlockPublishedReviewRequestSchema = {
   id: number
   motivation: string
   [k: string]: unknown
