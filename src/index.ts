@@ -4924,6 +4924,129 @@ export async function listBestReviews(data: ListBestReviewsRequestSchema, config
 }
 
 /**
+Report a review, this action can be made by auth users or guests
+*/
+export type AxiosReportReviewSuccessResponse = (AxiosResponse<ReportReview200ResponseSchema> & { status: 200 })
+export type AxiosReportReviewErrorResponse = ((AxiosResponse<ReportReview400ResponseSchema> & { status: 400 }) | (AxiosResponse<ReportReview404ResponseSchema> & { status: 404 }) | (AxiosResponse<ReportReview405ResponseSchema> & { status: 405 }) | (AxiosResponse<ReportReview415ResponseSchema> & { status: 415 }) | (AxiosResponse<ReportReview429ResponseSchema> & { status: 429 }) | (AxiosResponse<ReportReview500ResponseSchema> & { status: 500 })) & { path: "/v1/review/reportReview" }
+export type AxiosReportReviewResponse = AxiosReportReviewSuccessResponse | AxiosReportReviewErrorResponse
+export async function reportReview(data: ReportReviewRequestSchema, config?: AxiosRequestConfig): Promise<AxiosReportReviewResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/review/reportReview"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosReportReviewSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosReportReviewErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+Add like to a review, this action can be made by auth user or guest
+*/
+export type AxiosAddLikeToReviewSuccessResponse = (AxiosResponse<AddLikeToReview200ResponseSchema> & { status: 200 })
+export type AxiosAddLikeToReviewErrorResponse = ((AxiosResponse<AddLikeToReview400ResponseSchema> & { status: 400 }) | (AxiosResponse<AddLikeToReview404ResponseSchema> & { status: 404 }) | (AxiosResponse<AddLikeToReview405ResponseSchema> & { status: 405 }) | (AxiosResponse<AddLikeToReview409ResponseSchema> & { status: 409 }) | (AxiosResponse<AddLikeToReview415ResponseSchema> & { status: 415 }) | (AxiosResponse<AddLikeToReview429ResponseSchema> & { status: 429 }) | (AxiosResponse<AddLikeToReview500ResponseSchema> & { status: 500 })) & { path: "/v1/review/addLikeToReview" }
+export type AxiosAddLikeToReviewResponse = AxiosAddLikeToReviewSuccessResponse | AxiosAddLikeToReviewErrorResponse
+export async function addLikeToReview(data: AddLikeToReviewRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAddLikeToReviewResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "409": {
+      "code": [
+        "CONFLICT"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/review/addLikeToReview"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosAddLikeToReviewSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosAddLikeToReviewErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Get all help requests in the system
 */
 export type AxiosListHelpRequestsSuccessResponse = (AxiosResponse<ListHelpRequests200ResponseSchema> & { status: 200 })
@@ -9976,6 +10099,54 @@ export type ListBestReviews500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type ListBestReviewsRequestSchema = {
   pagination?: ListingPaginationSchema
+  [k: string]: unknown
+}
+
+export type ReportReview200ResponseSchema = ReviewSchema
+
+export type ReportReview400ResponseSchema = ValidationErrorResponseSchema
+
+export type ReportReview404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type ReportReview405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type ReportReview415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type ReportReview429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type ReportReview500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type ReportReviewRequestSchema = {
+  id: number
+  /**
+   *           The fingerprint is used for decouple a guest           so that the reports have different weights
+   */
+  fingerprint?: string
+  [k: string]: unknown
+}
+
+export type AddLikeToReview200ResponseSchema = ReviewSchema
+
+export type AddLikeToReview400ResponseSchema = ValidationErrorResponseSchema
+
+export type AddLikeToReview404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type AddLikeToReview405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type AddLikeToReview409ResponseSchema = ConflictErrorResponseSchema
+
+export type AddLikeToReview415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type AddLikeToReview429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type AddLikeToReview500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type AddLikeToReviewRequestSchema = {
+  id: number
+  /**
+   *           The fingerprint used for decouple a guest           so that the like can have different weight
+   */
+  fingerpring?: string
   [k: string]: unknown
 }
 
