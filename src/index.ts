@@ -5047,6 +5047,60 @@ export async function addLikeToReview(data: AddLikeToReviewRequestSchema, config
 }
 
 /**
+Get platform statistics such as: avarage review stars, users number, ecc...
+*/
+export type AxiosGetStatisticsSuccessResponse = (AxiosResponse<GetStatistics200ResponseSchema> & { status: 200 })
+export type AxiosGetStatisticsErrorResponse = ((AxiosResponse<GetStatistics400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetStatistics405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetStatistics415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetStatistics429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetStatistics500ResponseSchema> & { status: 500 })) & { path: "/v1/review/getStatistics" }
+export type AxiosGetStatisticsResponse = AxiosGetStatisticsSuccessResponse | AxiosGetStatisticsErrorResponse
+export async function getStatistics(config?: AxiosRequestConfig): Promise<AxiosGetStatisticsResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/review/getStatistics"), null, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosGetStatisticsSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosGetStatisticsErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Get all help requests in the system
 */
 export type AxiosListHelpRequestsSuccessResponse = (AxiosResponse<ListHelpRequests200ResponseSchema> & { status: 200 })
@@ -10372,6 +10426,18 @@ export type AddLikeToReviewRequestSchema = {
   [k: string]: unknown
 }
 
+export type GetStatistics200ResponseSchema = StatisticSchema[]
+
+export type GetStatistics400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetStatistics405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type GetStatistics415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type GetStatistics429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type GetStatistics500ResponseSchema = UnexpectedErrorResponseSchema
+
 export type ReviewFeedbackSchema = {
   id: number
   type: "LIKE" | "REPORT"
@@ -10387,6 +10453,18 @@ export type ReviewSchema = {
   isAnonymous: boolean
   creationTimestamp: DateTimeSchema
   feedbacks: ReviewFeedbackSchema[]
+  alreadyLiked: boolean
+  alreadyReported: boolean
+  [k: string]: unknown
+}
+
+export type StatisticSchema = {
+  code: "AVARAGE_REVIEW_STARS" | "USERS_NUMBER" | "PROMPT_DELIVERIES"
+  value: number
+  /**
+   *         it is used to understand the         value es. number or percentage
+   */
+  valueType: "VALUE" | "PERCENTAGE"
   [k: string]: unknown
 }
 
