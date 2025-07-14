@@ -10394,10 +10394,6 @@ export type ReportReview500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type ReportReviewRequestSchema = {
   id: number
-  /**
-   *           The fingerprint is used for decouple a guest           so that the reports have different weights
-   */
-  fingerprint?: string
   [k: string]: unknown
 }
 
@@ -10419,10 +10415,6 @@ export type AddLikeToReview500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type AddLikeToReviewRequestSchema = {
   id: number
-  /**
-   *           The fingerprint used for decouple a guest           so that the like can have different weight
-   */
-  fingerpring?: string
   [k: string]: unknown
 }
 
@@ -11231,7 +11223,6 @@ export type AdminNormalUserSchema = {
 export type AdminReviewFeedbackSchema = {
   id: number
   user?: AdminShrinkUserSchema
-  fingerprint?: string
   type: "LIKE" | "REPORT"
   timestamp: DateTimeSchema
   [k: string]: unknown
