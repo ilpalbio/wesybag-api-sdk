@@ -11258,7 +11258,7 @@ export type BaseUserSchema = {
 
 export type CouponPaymentIntentTransactionSchema = {
   paymentIntentId: string
-  amount: number
+  amount: CostSchema
   timestamp: DateTimeSchema
   [k: string]: unknown
 }
