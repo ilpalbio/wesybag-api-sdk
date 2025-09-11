@@ -11163,7 +11163,7 @@ export type AdminCouponSchema = {
   validUntilTimestamp: DateTimeSchema
   isUsed: boolean
   user: AdminShrinkUserSchema
-  transactions: AdminCouponTransactionSchema[]
+  couponPaymentIntentTransaction?: CouponPaymentIntentTransactionSchema
   [k: string]: unknown
 }
 
@@ -11253,6 +11253,13 @@ export type BaseUserSchema = {
   email: string
   completePhone: string
   id: string
+  [k: string]: unknown
+}
+
+export type CouponPaymentIntentTransactionSchema = {
+  paymentIntentId: string
+  amount: number
+  timestamp: DateTimeSchema
   [k: string]: unknown
 }
 
