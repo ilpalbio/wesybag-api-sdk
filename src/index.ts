@@ -10232,6 +10232,7 @@ export type ListCouponsRequestSchema = {
   from?: DateSchema
   to?: DateSchema
   onlyValid?: boolean
+  isUsed?: boolean
   [k: string]: unknown
 }
 
