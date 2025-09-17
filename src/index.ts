@@ -4757,6 +4757,80 @@ export async function useCoupon(data: UseCouponRequestSchema, config?: AxiosRequ
 }
 
 /**
+Redeem new general coupon using a code
+*/
+export type AxiosRedeemCouponSuccessResponse = (AxiosResponse<RedeemCoupon200ResponseSchema> & { status: 200 })
+export type AxiosRedeemCouponErrorResponse = ((AxiosResponse<RedeemCoupon400ResponseSchema> & { status: 400 }) | (AxiosResponse<RedeemCoupon401ResponseSchema> & { status: 401 }) | (AxiosResponse<RedeemCoupon404ResponseSchema> & { status: 404 }) | (AxiosResponse<RedeemCoupon405ResponseSchema> & { status: 405 }) | (AxiosResponse<RedeemCoupon409ResponseSchema> & { status: 409 }) | (AxiosResponse<RedeemCoupon410ResponseSchema> & { status: 410 }) | (AxiosResponse<RedeemCoupon415ResponseSchema> & { status: 415 }) | (AxiosResponse<RedeemCoupon429ResponseSchema> & { status: 429 }) | (AxiosResponse<RedeemCoupon500ResponseSchema> & { status: 500 })) & { path: "/v1/coupons/redeemCoupon" }
+export type AxiosRedeemCouponResponse = AxiosRedeemCouponSuccessResponse | AxiosRedeemCouponErrorResponse
+export async function redeemCoupon(data: RedeemCouponRequestSchema, config?: AxiosRequestConfig): Promise<AxiosRedeemCouponResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHENTICATED"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "409": {
+      "code": [
+        "CONFLICT"
+      ]
+    },
+    "410": {
+      "code": [
+        "GONE"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/coupons/redeemCoupon"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosRedeemCouponSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosRedeemCouponErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Create new review from client that will be saved as pending
 */
 export type AxiosCreateReviewSuccessResponse = (AxiosResponse<CreateReview200ResponseSchema> & { status: 200 })
@@ -10285,6 +10359,31 @@ export type UseCoupon500ResponseSchema = UnexpectedErrorResponseSchema
 export type UseCouponRequestSchema = {
   couponId: UuidSchema
   paymentIntentId: string
+  [k: string]: unknown
+}
+
+export type RedeemCoupon200ResponseSchema = OkResponseSchema
+
+export type RedeemCoupon400ResponseSchema = ValidationErrorResponseSchema
+
+export type RedeemCoupon401ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type RedeemCoupon404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type RedeemCoupon405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type RedeemCoupon409ResponseSchema = ConflictErrorResponseSchema
+
+export type RedeemCoupon410ResponseSchema = GoneErrorResponseSchema
+
+export type RedeemCoupon415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type RedeemCoupon429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type RedeemCoupon500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type RedeemCouponRequestSchema = {
+  code: string
   [k: string]: unknown
 }
 
