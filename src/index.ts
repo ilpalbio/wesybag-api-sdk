@@ -45,7 +45,7 @@ export const API_VERSION = "1.0.0"
 
 export let axios: AxiosStatic | AxiosInstance | undefined
 
-export type Env = "local" | "staging" | string
+export type Env = "local" | "staging" | "production" | string
 
 export let env: Env | undefined
 
@@ -86,7 +86,8 @@ export class ResponseError<T> extends Error {
 
 export const serverUrls: { [env in Env]: string } = {
   "local": "http://localhost:3000",
-  "staging": "http://localhost:3000"
+  "staging": "http://localhost:3000",
+  "production": "http://localhost:3000"
 }
 
 function _getFnUrl(endpoint: string, options?: { path?: { [key: string]: any }, params?: { [key: string]: any } }): string {
