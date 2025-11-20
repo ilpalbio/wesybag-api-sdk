@@ -4718,11 +4718,11 @@ export async function verify2FaId(data: Verify2FaIdRequestSchema, config?: Axios
 Update the security settings of the user
 */
 export type AxiosUpdateSecuritySettingsSuccessResponse = (AxiosResponse<UpdateSecuritySettings200ResponseSchema> & { status: 200 })
-export type AxiosUpdateSecuritySettingsErrorResponse = ((AxiosResponse<UpdateSecuritySettings400ResponseSchema> & { status: 400 }) | (AxiosResponse<UpdateSecuritySettings401ResponseSchema> & { status: 401 }) | (AxiosResponse<UpdateSecuritySettings405ResponseSchema> & { status: 405 }) | (AxiosResponse<UpdateSecuritySettings415ResponseSchema> & { status: 415 }) | (AxiosResponse<UpdateSecuritySettings429ResponseSchema> & { status: 429 }) | (AxiosResponse<UpdateSecuritySettings500ResponseSchema> & { status: 500 })) & { path: "/v1/mfa/updateSecuritySettings" }
+export type AxiosUpdateSecuritySettingsErrorResponse = ((AxiosResponse<UpdateSecuritySettings400ResponseSchema> & { status: 400 }) | (AxiosResponse<UpdateSecuritySettings401ResponseSchema> & { status: 401 }) | (AxiosResponse<UpdateSecuritySettings403ResponseSchema> & { status: 403 }) | (AxiosResponse<UpdateSecuritySettings405ResponseSchema> & { status: 405 }) | (AxiosResponse<UpdateSecuritySettings415ResponseSchema> & { status: 415 }) | (AxiosResponse<UpdateSecuritySettings429ResponseSchema> & { status: 429 }) | (AxiosResponse<UpdateSecuritySettings500ResponseSchema> & { status: 500 })) & { path: "/v1/mfa/updateSecuritySettings" }
 export type AxiosUpdateSecuritySettingsResponse = AxiosUpdateSecuritySettingsSuccessResponse | AxiosUpdateSecuritySettingsErrorResponse
 export async function updateSecuritySettings(data: UpdateSecuritySettingsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosUpdateSecuritySettingsResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -4735,6 +4735,11 @@ export async function updateSecuritySettings(data: UpdateSecuritySettingsRequest
     "401": {
       "code": [
         "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "405": {
@@ -10935,6 +10940,8 @@ export type UpdateSecuritySettings200ResponseSchema = OkResponseSchema
 export type UpdateSecuritySettings400ResponseSchema = ValidationErrorResponseSchema
 
 export type UpdateSecuritySettings401ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type UpdateSecuritySettings403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type UpdateSecuritySettings405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
