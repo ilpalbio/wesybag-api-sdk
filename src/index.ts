@@ -87,8 +87,8 @@ function _getAuth(keys: Set<string>): { headers: { [key: string]: string }, para
   const headers: { [key: string]: string } = {}
   const params = new URLSearchParams()
   if (keys.has("SessionToken") && _auth["SessionToken"]) {
-    headers["x-session-id"] = _auth["SessionToken"]
-  }
+      headers.Authorization = `Bearer ${_auth["SessionToken"]}`
+    }
   return { headers, params, withCredentials: true }
 }
 
@@ -3260,6 +3260,70 @@ export async function verifyAuthentication(config?: AxiosRequestConfig): Promise
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
       return res as AxiosVerifyAuthenticationErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+Verify that a session token is valid
+*/
+export type AxiosVerifySessionTokenSuccessResponse = (AxiosResponse<VerifySessionToken200ResponseSchema> & { status: 200 })
+export type AxiosVerifySessionTokenErrorResponse = ((AxiosResponse<VerifySessionToken400ResponseSchema> & { status: 400 }) | (AxiosResponse<VerifySessionToken401ResponseSchema> & { status: 401 }) | (AxiosResponse<VerifySessionToken405ResponseSchema> & { status: 405 }) | (AxiosResponse<VerifySessionToken410ResponseSchema> & { status: 410 }) | (AxiosResponse<VerifySessionToken415ResponseSchema> & { status: 415 }) | (AxiosResponse<VerifySessionToken429ResponseSchema> & { status: 429 }) | (AxiosResponse<VerifySessionToken500ResponseSchema> & { status: 500 })) & { path: "/v1/auth/verifySessionToken" }
+export type AxiosVerifySessionTokenResponse = AxiosVerifySessionTokenSuccessResponse | AxiosVerifySessionTokenErrorResponse
+export async function verifySessionToken(data: VerifySessionTokenRequestSchema, config?: AxiosRequestConfig): Promise<AxiosVerifySessionTokenResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHENTICATED"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "410": {
+      "code": [
+        "SESSION EXPIRED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/auth/verifySessionToken"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosVerifySessionTokenSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosVerifySessionTokenErrorResponse
     } else {
       throw e
     }
@@ -9993,6 +10057,40 @@ export type VerifyAuthentication415ResponseSchema = UnsupportedMediaTypeErrorRes
 export type VerifyAuthentication429ResponseSchema = ThrottlingErrorResponseSchema
 
 export type VerifyAuthentication500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type VerifySessionToken200ResponseSchema = {
+  valid: boolean
+  sessionId: UuidSchema
+  user: {
+    id: UuidSchema
+    firstName: string
+    lastName: string
+    email: EmailSchema
+    phone: PhoneNumberSchema
+    isAssistant: boolean
+    [k: string]: unknown
+  }
+  [k: string]: unknown
+}
+
+export type VerifySessionToken400ResponseSchema = ValidationErrorResponseSchema
+
+export type VerifySessionToken401ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type VerifySessionToken405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type VerifySessionToken410ResponseSchema = ExpiredSession
+
+export type VerifySessionToken415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type VerifySessionToken429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type VerifySessionToken500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type VerifySessionTokenRequestSchema = {
+  sessionId?: UuidSchema
+  [k: string]: unknown
+}
 
 export type VerifyAssistant200ResponseSchema = {
   firstName: string
