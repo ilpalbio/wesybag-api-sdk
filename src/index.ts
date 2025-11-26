@@ -49,6 +49,15 @@ export type Env = "local" | "staging" | "production" | string
 
 export let env: Env | undefined
 
+const _auth: { "SessionToken": string | null } = { "SessionToken": null }
+
+export function setAuth(securitySchemaName: keyof typeof _auth, value: string | null): void {
+  if (typeof _auth[securitySchemaName] === "undefined") {
+    throw new Error(`Invalid security schema name: ${securitySchemaName}`)
+  }
+  _auth[securitySchemaName] = value
+}
+
 export type HandledResponses = { [status: string]: { code: string[] | null } }
 
 const _throwOnUnexpectedResponse = (handledResponses: HandledResponses, response: AxiosResponse): void => {
@@ -71,6 +80,16 @@ const _throwOnUnexpectedResponse = (handledResponses: HandledResponses, response
       response
     })
   }
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function _getAuth(keys: Set<string>): { headers: { [key: string]: string }, params: URLSearchParams, withCredentials: boolean } {
+  const headers: { [key: string]: string } = {}
+  const params = new URLSearchParams()
+  if (keys.has("SessionToken") && _auth["SessionToken"]) {
+      headers.Authorization = `Bearer ${_auth["SessionToken"]}`
+    }
+  return { headers, params, withCredentials: true }
 }
 
 export class ResponseError<T> extends Error {
@@ -142,11 +161,11 @@ const _checkSetup = (): void => {
 Delete normal shipment by id
 */
 export type AxiosDeleteNormalShipmentSuccessResponse = (AxiosResponse<DeleteNormalShipment200ResponseSchema> & { status: 200 })
-export type AxiosDeleteNormalShipmentErrorResponse = ((AxiosResponse<DeleteNormalShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<DeleteNormalShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<DeleteNormalShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<DeleteNormalShipment409ResponseSchema> & { status: 409 }) | (AxiosResponse<DeleteNormalShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<DeleteNormalShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<DeleteNormalShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/deleteNormalShipment" }
+export type AxiosDeleteNormalShipmentErrorResponse = ((AxiosResponse<DeleteNormalShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<DeleteNormalShipment401ResponseSchema> & { status: 401 }) | (AxiosResponse<DeleteNormalShipment403ResponseSchema> & { status: 403 }) | (AxiosResponse<DeleteNormalShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<DeleteNormalShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<DeleteNormalShipment409ResponseSchema> & { status: 409 }) | (AxiosResponse<DeleteNormalShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<DeleteNormalShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<DeleteNormalShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/deleteNormalShipment" }
 export type AxiosDeleteNormalShipmentResponse = AxiosDeleteNormalShipmentSuccessResponse | AxiosDeleteNormalShipmentErrorResponse
 export async function deleteNormalShipment(data: DeleteNormalShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosDeleteNormalShipmentResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -154,6 +173,16 @@ export async function deleteNormalShipment(data: DeleteNormalShipmentRequestSche
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -206,11 +235,11 @@ export async function deleteNormalShipment(data: DeleteNormalShipmentRequestSche
 Get shipment by id/ids
 */
 export type AxiosGetNormalShipmentSuccessResponse = (AxiosResponse<GetNormalShipment200ResponseSchema> & { status: 200 })
-export type AxiosGetNormalShipmentErrorResponse = ((AxiosResponse<GetNormalShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetNormalShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetNormalShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetNormalShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetNormalShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetNormalShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getNormalShipment" }
+export type AxiosGetNormalShipmentErrorResponse = ((AxiosResponse<GetNormalShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetNormalShipment401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetNormalShipment403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetNormalShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetNormalShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetNormalShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetNormalShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetNormalShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getNormalShipment" }
 export type AxiosGetNormalShipmentResponse = AxiosGetNormalShipmentSuccessResponse | AxiosGetNormalShipmentErrorResponse
 export async function getNormalShipment(data: GetNormalShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetNormalShipmentResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -218,6 +247,16 @@ export async function getNormalShipment(data: GetNormalShipmentRequestSchema, co
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -265,11 +304,11 @@ export async function getNormalShipment(data: GetNormalShipmentRequestSchema, co
 Send cancel shipment request only for normal shipments
 */
 export type AxiosSendCancelShipmentRequestSuccessResponse = (AxiosResponse<SendCancelShipmentRequest200ResponseSchema> & { status: 200 })
-export type AxiosSendCancelShipmentRequestErrorResponse = ((AxiosResponse<SendCancelShipmentRequest400ResponseSchema> & { status: 400 }) | (AxiosResponse<SendCancelShipmentRequest404ResponseSchema> & { status: 404 }) | (AxiosResponse<SendCancelShipmentRequest405ResponseSchema> & { status: 405 }) | (AxiosResponse<SendCancelShipmentRequest409ResponseSchema> & { status: 409 }) | (AxiosResponse<SendCancelShipmentRequest415ResponseSchema> & { status: 415 }) | (AxiosResponse<SendCancelShipmentRequest429ResponseSchema> & { status: 429 }) | (AxiosResponse<SendCancelShipmentRequest500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/sendCancelShipmentRequest" }
+export type AxiosSendCancelShipmentRequestErrorResponse = ((AxiosResponse<SendCancelShipmentRequest400ResponseSchema> & { status: 400 }) | (AxiosResponse<SendCancelShipmentRequest401ResponseSchema> & { status: 401 }) | (AxiosResponse<SendCancelShipmentRequest403ResponseSchema> & { status: 403 }) | (AxiosResponse<SendCancelShipmentRequest404ResponseSchema> & { status: 404 }) | (AxiosResponse<SendCancelShipmentRequest405ResponseSchema> & { status: 405 }) | (AxiosResponse<SendCancelShipmentRequest409ResponseSchema> & { status: 409 }) | (AxiosResponse<SendCancelShipmentRequest415ResponseSchema> & { status: 415 }) | (AxiosResponse<SendCancelShipmentRequest429ResponseSchema> & { status: 429 }) | (AxiosResponse<SendCancelShipmentRequest500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/sendCancelShipmentRequest" }
 export type AxiosSendCancelShipmentRequestResponse = AxiosSendCancelShipmentRequestSuccessResponse | AxiosSendCancelShipmentRequestErrorResponse
 export async function sendCancelShipmentRequest(data: SendCancelShipmentRequestRequestSchema, config?: AxiosRequestConfig): Promise<AxiosSendCancelShipmentRequestResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -277,6 +316,16 @@ export async function sendCancelShipmentRequest(data: SendCancelShipmentRequestR
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -329,11 +378,11 @@ export async function sendCancelShipmentRequest(data: SendCancelShipmentRequestR
 Create new pending shipment by draft
 */
 export type AxiosCreatePendingShipmentSuccessResponse = (AxiosResponse<CreatePendingShipment200ResponseSchema> & { status: 200 })
-export type AxiosCreatePendingShipmentErrorResponse = ((AxiosResponse<CreatePendingShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<CreatePendingShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<CreatePendingShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<CreatePendingShipment409ResponseSchema> & { status: 409 }) | (AxiosResponse<CreatePendingShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<CreatePendingShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<CreatePendingShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/createPendingShipment" }
+export type AxiosCreatePendingShipmentErrorResponse = ((AxiosResponse<CreatePendingShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<CreatePendingShipment401ResponseSchema> & { status: 401 }) | (AxiosResponse<CreatePendingShipment403ResponseSchema> & { status: 403 }) | (AxiosResponse<CreatePendingShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<CreatePendingShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<CreatePendingShipment409ResponseSchema> & { status: 409 }) | (AxiosResponse<CreatePendingShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<CreatePendingShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<CreatePendingShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/createPendingShipment" }
 export type AxiosCreatePendingShipmentResponse = AxiosCreatePendingShipmentSuccessResponse | AxiosCreatePendingShipmentErrorResponse
 export async function createPendingShipment(data: CreatePendingShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosCreatePendingShipmentResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -341,6 +390,16 @@ export async function createPendingShipment(data: CreatePendingShipmentRequestSc
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -393,11 +452,11 @@ export async function createPendingShipment(data: CreatePendingShipmentRequestSc
 Get pending shipment by id/ids
 */
 export type AxiosGetPendingShipmentSuccessResponse = (AxiosResponse<GetPendingShipment200ResponseSchema> & { status: 200 })
-export type AxiosGetPendingShipmentErrorResponse = ((AxiosResponse<GetPendingShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetPendingShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetPendingShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetPendingShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetPendingShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetPendingShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getPendingShipment" }
+export type AxiosGetPendingShipmentErrorResponse = ((AxiosResponse<GetPendingShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetPendingShipment401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetPendingShipment403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetPendingShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetPendingShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetPendingShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetPendingShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetPendingShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getPendingShipment" }
 export type AxiosGetPendingShipmentResponse = AxiosGetPendingShipmentSuccessResponse | AxiosGetPendingShipmentErrorResponse
 export async function getPendingShipment(data: GetPendingShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetPendingShipmentResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -405,6 +464,16 @@ export async function getPendingShipment(data: GetPendingShipmentRequestSchema, 
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -452,11 +521,11 @@ export async function getPendingShipment(data: GetPendingShipmentRequestSchema, 
 Delete pending shipment by id
 */
 export type AxiosDeletePendingShipmentSuccessResponse = (AxiosResponse<DeletePendingShipment200ResponseSchema> & { status: 200 })
-export type AxiosDeletePendingShipmentErrorResponse = ((AxiosResponse<DeletePendingShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<DeletePendingShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<DeletePendingShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<DeletePendingShipment409ResponseSchema> & { status: 409 }) | (AxiosResponse<DeletePendingShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<DeletePendingShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<DeletePendingShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/deletePendingShipment" }
+export type AxiosDeletePendingShipmentErrorResponse = ((AxiosResponse<DeletePendingShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<DeletePendingShipment401ResponseSchema> & { status: 401 }) | (AxiosResponse<DeletePendingShipment403ResponseSchema> & { status: 403 }) | (AxiosResponse<DeletePendingShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<DeletePendingShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<DeletePendingShipment409ResponseSchema> & { status: 409 }) | (AxiosResponse<DeletePendingShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<DeletePendingShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<DeletePendingShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/deletePendingShipment" }
 export type AxiosDeletePendingShipmentResponse = AxiosDeletePendingShipmentSuccessResponse | AxiosDeletePendingShipmentErrorResponse
 export async function deletePendingShipment(data: DeletePendingShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosDeletePendingShipmentResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -464,6 +533,16 @@ export async function deletePendingShipment(data: DeletePendingShipmentRequestSc
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -516,11 +595,11 @@ export async function deletePendingShipment(data: DeletePendingShipmentRequestSc
 Calculate an estimate cost of a shipment
 */
 export type AxiosGetCostEstimateSuccessResponse = (AxiosResponse<GetCostEstimate200ResponseSchema> & { status: 200 })
-export type AxiosGetCostEstimateErrorResponse = ((AxiosResponse<GetCostEstimate400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetCostEstimate404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetCostEstimate405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetCostEstimate415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetCostEstimate429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetCostEstimate500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getCostEstimate" }
+export type AxiosGetCostEstimateErrorResponse = ((AxiosResponse<GetCostEstimate400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetCostEstimate401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetCostEstimate403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetCostEstimate404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetCostEstimate405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetCostEstimate415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetCostEstimate429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetCostEstimate500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getCostEstimate" }
 export type AxiosGetCostEstimateResponse = AxiosGetCostEstimateSuccessResponse | AxiosGetCostEstimateErrorResponse
 export async function getCostEstimate(data: GetCostEstimateRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetCostEstimateResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -528,6 +607,16 @@ export async function getCostEstimate(data: GetCostEstimateRequestSchema, config
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -575,11 +664,11 @@ export async function getCostEstimate(data: GetCostEstimateRequestSchema, config
 Get the pickup schedule of a shipment
 */
 export type AxiosGetPickupScheduleSuccessResponse = (AxiosResponse<GetPickupSchedule200ResponseSchema> & { status: 200 })
-export type AxiosGetPickupScheduleErrorResponse = ((AxiosResponse<GetPickupSchedule400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetPickupSchedule404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetPickupSchedule405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetPickupSchedule415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetPickupSchedule429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetPickupSchedule500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getPickupSchedule" }
+export type AxiosGetPickupScheduleErrorResponse = ((AxiosResponse<GetPickupSchedule400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetPickupSchedule401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetPickupSchedule403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetPickupSchedule404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetPickupSchedule405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetPickupSchedule415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetPickupSchedule429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetPickupSchedule500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getPickupSchedule" }
 export type AxiosGetPickupScheduleResponse = AxiosGetPickupScheduleSuccessResponse | AxiosGetPickupScheduleErrorResponse
 export async function getPickupSchedule(data: GetPickupScheduleRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetPickupScheduleResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -587,6 +676,16 @@ export async function getPickupSchedule(data: GetPickupScheduleRequestSchema, co
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -634,11 +733,11 @@ export async function getPickupSchedule(data: GetPickupScheduleRequestSchema, co
 Get delivery schedule for a shipment
 */
 export type AxiosGetDeliveryScheduleSuccessResponse = (AxiosResponse<GetDeliverySchedule200ResponseSchema> & { status: 200 })
-export type AxiosGetDeliveryScheduleErrorResponse = ((AxiosResponse<GetDeliverySchedule400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetDeliverySchedule404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetDeliverySchedule405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetDeliverySchedule415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetDeliverySchedule429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetDeliverySchedule500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getDeliverySchedule" }
+export type AxiosGetDeliveryScheduleErrorResponse = ((AxiosResponse<GetDeliverySchedule400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetDeliverySchedule401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetDeliverySchedule403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetDeliverySchedule404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetDeliverySchedule405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetDeliverySchedule415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetDeliverySchedule429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetDeliverySchedule500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getDeliverySchedule" }
 export type AxiosGetDeliveryScheduleResponse = AxiosGetDeliveryScheduleSuccessResponse | AxiosGetDeliveryScheduleErrorResponse
 export async function getDeliverySchedule(data: GetDeliveryScheduleRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetDeliveryScheduleResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -646,6 +745,16 @@ export async function getDeliverySchedule(data: GetDeliveryScheduleRequestSchema
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -693,11 +802,11 @@ export async function getDeliverySchedule(data: GetDeliveryScheduleRequestSchema
 Get shipments by id without knowing if it is pending or normal
 */
 export type AxiosGetGenericShipmentSuccessResponse = (AxiosResponse<GetGenericShipment200ResponseSchema> & { status: 200 })
-export type AxiosGetGenericShipmentErrorResponse = ((AxiosResponse<GetGenericShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetGenericShipment401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetGenericShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetGenericShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetGenericShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetGenericShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetGenericShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getGenericShipment" }
+export type AxiosGetGenericShipmentErrorResponse = ((AxiosResponse<GetGenericShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetGenericShipment401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetGenericShipment403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetGenericShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetGenericShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetGenericShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetGenericShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetGenericShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getGenericShipment" }
 export type AxiosGetGenericShipmentResponse = AxiosGetGenericShipmentSuccessResponse | AxiosGetGenericShipmentErrorResponse
 export async function getGenericShipment(data: GetGenericShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetGenericShipmentResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -710,6 +819,11 @@ export async function getGenericShipment(data: GetGenericShipmentRequestSchema, 
     "401": {
       "code": [
         "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -757,11 +871,11 @@ export async function getGenericShipment(data: GetGenericShipmentRequestSchema, 
 Get the optimal courier for a shipment based on position and luggages
 */
 export type AxiosGetOptimalCourierSuccessResponse = (AxiosResponse<GetOptimalCourier200ResponseSchema> & { status: 200 })
-export type AxiosGetOptimalCourierErrorResponse = ((AxiosResponse<GetOptimalCourier400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetOptimalCourier404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetOptimalCourier405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetOptimalCourier415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetOptimalCourier429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetOptimalCourier500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getOptimalCourier" }
+export type AxiosGetOptimalCourierErrorResponse = ((AxiosResponse<GetOptimalCourier400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetOptimalCourier401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetOptimalCourier403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetOptimalCourier404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetOptimalCourier405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetOptimalCourier415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetOptimalCourier429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetOptimalCourier500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getOptimalCourier" }
 export type AxiosGetOptimalCourierResponse = AxiosGetOptimalCourierSuccessResponse | AxiosGetOptimalCourierErrorResponse
 export async function getOptimalCourier(data: GetOptimalCourierRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetOptimalCourierResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -769,6 +883,16 @@ export async function getOptimalCourier(data: GetOptimalCourierRequestSchema, co
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -816,11 +940,11 @@ export async function getOptimalCourier(data: GetOptimalCourierRequestSchema, co
 Get courier additional options such as insurance, cash on delivery, etc.
 */
 export type AxiosGetCourierAdditionalsSuccessResponse = (AxiosResponse<GetCourierAdditionals200ResponseSchema> & { status: 200 })
-export type AxiosGetCourierAdditionalsErrorResponse = ((AxiosResponse<GetCourierAdditionals400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetCourierAdditionals404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetCourierAdditionals405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetCourierAdditionals415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetCourierAdditionals429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetCourierAdditionals500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getCourierAdditionals" }
+export type AxiosGetCourierAdditionalsErrorResponse = ((AxiosResponse<GetCourierAdditionals400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetCourierAdditionals401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetCourierAdditionals403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetCourierAdditionals404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetCourierAdditionals405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetCourierAdditionals415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetCourierAdditionals429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetCourierAdditionals500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getCourierAdditionals" }
 export type AxiosGetCourierAdditionalsResponse = AxiosGetCourierAdditionalsSuccessResponse | AxiosGetCourierAdditionalsErrorResponse
 export async function getCourierAdditionals(data: GetCourierAdditionalsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetCourierAdditionalsResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -828,6 +952,16 @@ export async function getCourierAdditionals(data: GetCourierAdditionalsRequestSc
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -875,11 +1009,11 @@ export async function getCourierAdditionals(data: GetCourierAdditionalsRequestSc
 Get all shipment optionals available
 */
 export type AxiosGetShipmentOptionalsSuccessResponse = (AxiosResponse<GetShipmentOptionals200ResponseSchema> & { status: 200 })
-export type AxiosGetShipmentOptionalsErrorResponse = ((AxiosResponse<GetShipmentOptionals400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetShipmentOptionals405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetShipmentOptionals415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetShipmentOptionals429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetShipmentOptionals500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getShipmentOptionals" }
+export type AxiosGetShipmentOptionalsErrorResponse = ((AxiosResponse<GetShipmentOptionals400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetShipmentOptionals401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetShipmentOptionals403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetShipmentOptionals405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetShipmentOptionals415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetShipmentOptionals429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetShipmentOptionals500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/getShipmentOptionals" }
 export type AxiosGetShipmentOptionalsResponse = AxiosGetShipmentOptionalsSuccessResponse | AxiosGetShipmentOptionalsErrorResponse
 export async function getShipmentOptionals(config?: AxiosRequestConfig): Promise<AxiosGetShipmentOptionalsResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -887,6 +1021,16 @@ export async function getShipmentOptionals(config?: AxiosRequestConfig): Promise
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "405": {
@@ -929,11 +1073,11 @@ export async function getShipmentOptionals(config?: AxiosRequestConfig): Promise
 Get luggages packages
 */
 export type AxiosGetLuggagesPackagesSuccessResponse = (AxiosResponse<GetLuggagesPackages200ResponseSchema> & { status: 200 })
-export type AxiosGetLuggagesPackagesErrorResponse = ((AxiosResponse<GetLuggagesPackages400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetLuggagesPackages404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetLuggagesPackages405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetLuggagesPackages415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetLuggagesPackages429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetLuggagesPackages500ResponseSchema> & { status: 500 })) & { path: "/v1/packages/getLuggagesPackages" }
+export type AxiosGetLuggagesPackagesErrorResponse = ((AxiosResponse<GetLuggagesPackages400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetLuggagesPackages401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetLuggagesPackages403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetLuggagesPackages404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetLuggagesPackages405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetLuggagesPackages415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetLuggagesPackages429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetLuggagesPackages500ResponseSchema> & { status: 500 })) & { path: "/v1/packages/getLuggagesPackages" }
 export type AxiosGetLuggagesPackagesResponse = AxiosGetLuggagesPackagesSuccessResponse | AxiosGetLuggagesPackagesErrorResponse
 export async function getLuggagesPackages(data: GetLuggagesPackagesRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetLuggagesPackagesResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -941,6 +1085,16 @@ export async function getLuggagesPackages(data: GetLuggagesPackagesRequestSchema
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -988,11 +1142,11 @@ export async function getLuggagesPackages(data: GetLuggagesPackagesRequestSchema
 Get available hotel offers available
 */
 export type AxiosGetHotelOffersSuccessResponse = (AxiosResponse<GetHotelOffers200ResponseSchema> & { status: 200 })
-export type AxiosGetHotelOffersErrorResponse = ((AxiosResponse<GetHotelOffers400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetHotelOffers405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetHotelOffers415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetHotelOffers429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetHotelOffers500ResponseSchema> & { status: 500 })) & { path: "/v1/packages/getHotelOffers" }
+export type AxiosGetHotelOffersErrorResponse = ((AxiosResponse<GetHotelOffers400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetHotelOffers401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetHotelOffers403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetHotelOffers405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetHotelOffers415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetHotelOffers429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetHotelOffers500ResponseSchema> & { status: 500 })) & { path: "/v1/packages/getHotelOffers" }
 export type AxiosGetHotelOffersResponse = AxiosGetHotelOffersSuccessResponse | AxiosGetHotelOffersErrorResponse
 export async function getHotelOffers(config?: AxiosRequestConfig): Promise<AxiosGetHotelOffersResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -1000,6 +1154,16 @@ export async function getHotelOffers(config?: AxiosRequestConfig): Promise<Axios
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "405": {
@@ -1042,11 +1206,11 @@ export async function getHotelOffers(config?: AxiosRequestConfig): Promise<Axios
 Get hotel products by id of the hotel
 */
 export type AxiosGetHotelProductsSuccessResponse = (AxiosResponse<GetHotelProducts200ResponseSchema> & { status: 200 })
-export type AxiosGetHotelProductsErrorResponse = ((AxiosResponse<GetHotelProducts400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetHotelProducts404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetHotelProducts405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetHotelProducts415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetHotelProducts429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetHotelProducts500ResponseSchema> & { status: 500 })) & { path: "/v1/packages/getHotelProducts" }
+export type AxiosGetHotelProductsErrorResponse = ((AxiosResponse<GetHotelProducts400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetHotelProducts401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetHotelProducts403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetHotelProducts404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetHotelProducts405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetHotelProducts415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetHotelProducts429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetHotelProducts500ResponseSchema> & { status: 500 })) & { path: "/v1/packages/getHotelProducts" }
 export type AxiosGetHotelProductsResponse = AxiosGetHotelProductsSuccessResponse | AxiosGetHotelProductsErrorResponse
 export async function getHotelProducts(data: GetHotelProductsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetHotelProductsResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -1054,6 +1218,16 @@ export async function getHotelProducts(data: GetHotelProductsRequestSchema, conf
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -1219,11 +1393,11 @@ export async function verifyRememberToken(data: VerifyRememberTokenRequestSchema
 Get all available structures by ids
 */
 export type AxiosGetStructuresSuccessResponse = (AxiosResponse<GetStructures200ResponseSchema> & { status: 200 })
-export type AxiosGetStructuresErrorResponse = ((AxiosResponse<GetStructures400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetStructures404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetStructures405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetStructures415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetStructures429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetStructures500ResponseSchema> & { status: 500 })) & { path: "/v1/base/getStructures" }
+export type AxiosGetStructuresErrorResponse = ((AxiosResponse<GetStructures400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetStructures401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetStructures403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetStructures404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetStructures405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetStructures415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetStructures429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetStructures500ResponseSchema> & { status: 500 })) & { path: "/v1/base/getStructures" }
 export type AxiosGetStructuresResponse = AxiosGetStructuresSuccessResponse | AxiosGetStructuresErrorResponse
 export async function getStructures(data: GetStructuresRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetStructuresResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -1231,6 +1405,16 @@ export async function getStructures(data: GetStructuresRequestSchema, config?: A
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -1278,11 +1462,11 @@ export async function getStructures(data: GetStructuresRequestSchema, config?: A
 Get available luggage contents
 */
 export type AxiosGetLuggageContentsSuccessResponse = (AxiosResponse<GetLuggageContents200ResponseSchema> & { status: 200 })
-export type AxiosGetLuggageContentsErrorResponse = ((AxiosResponse<GetLuggageContents400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetLuggageContents404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetLuggageContents405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetLuggageContents415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetLuggageContents429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetLuggageContents500ResponseSchema> & { status: 500 })) & { path: "/v1/base/getLuggageContents" }
+export type AxiosGetLuggageContentsErrorResponse = ((AxiosResponse<GetLuggageContents400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetLuggageContents401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetLuggageContents403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetLuggageContents404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetLuggageContents405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetLuggageContents415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetLuggageContents429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetLuggageContents500ResponseSchema> & { status: 500 })) & { path: "/v1/base/getLuggageContents" }
 export type AxiosGetLuggageContentsResponse = AxiosGetLuggageContentsSuccessResponse | AxiosGetLuggageContentsErrorResponse
 export async function getLuggageContents(data: GetLuggageContentsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetLuggageContentsResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -1290,6 +1474,16 @@ export async function getLuggageContents(data: GetLuggageContentsRequestSchema, 
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -1337,11 +1531,11 @@ export async function getLuggageContents(data: GetLuggageContentsRequestSchema, 
 Get the closest place given the coordinates and the accuracy
 */
 export type AxiosGetClosestPlaceSuccessResponse = (AxiosResponse<GetClosestPlace200ResponseSchema> & { status: 200 })
-export type AxiosGetClosestPlaceErrorResponse = ((AxiosResponse<GetClosestPlace400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetClosestPlace405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetClosestPlace415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetClosestPlace429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetClosestPlace500ResponseSchema> & { status: 500 })) & { path: "/v1/base/getClosestPlace" }
+export type AxiosGetClosestPlaceErrorResponse = ((AxiosResponse<GetClosestPlace400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetClosestPlace401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetClosestPlace403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetClosestPlace405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetClosestPlace415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetClosestPlace429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetClosestPlace500ResponseSchema> & { status: 500 })) & { path: "/v1/base/getClosestPlace" }
 export type AxiosGetClosestPlaceResponse = AxiosGetClosestPlaceSuccessResponse | AxiosGetClosestPlaceErrorResponse
 export async function getClosestPlace(data: GetClosestPlaceRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetClosestPlaceResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -1349,6 +1543,16 @@ export async function getClosestPlace(data: GetClosestPlaceRequestSchema, config
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "405": {
@@ -1391,11 +1595,11 @@ export async function getClosestPlace(data: GetClosestPlaceRequestSchema, config
 Get available normal shipment status
 */
 export type AxiosGetAvailableShipmentStatusSuccessResponse = (AxiosResponse<GetAvailableShipmentStatus200ResponseSchema> & { status: 200 })
-export type AxiosGetAvailableShipmentStatusErrorResponse = ((AxiosResponse<GetAvailableShipmentStatus400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetAvailableShipmentStatus405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetAvailableShipmentStatus415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetAvailableShipmentStatus429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetAvailableShipmentStatus500ResponseSchema> & { status: 500 })) & { path: "/v1/base/getAvailableShipmentStatus" }
+export type AxiosGetAvailableShipmentStatusErrorResponse = ((AxiosResponse<GetAvailableShipmentStatus400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetAvailableShipmentStatus401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetAvailableShipmentStatus403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetAvailableShipmentStatus405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetAvailableShipmentStatus415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetAvailableShipmentStatus429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetAvailableShipmentStatus500ResponseSchema> & { status: 500 })) & { path: "/v1/base/getAvailableShipmentStatus" }
 export type AxiosGetAvailableShipmentStatusResponse = AxiosGetAvailableShipmentStatusSuccessResponse | AxiosGetAvailableShipmentStatusErrorResponse
 export async function getAvailableShipmentStatus(config?: AxiosRequestConfig): Promise<AxiosGetAvailableShipmentStatusResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -1403,6 +1607,16 @@ export async function getAvailableShipmentStatus(config?: AxiosRequestConfig): P
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "405": {
@@ -1445,11 +1659,11 @@ export async function getAvailableShipmentStatus(config?: AxiosRequestConfig): P
 Return user settings
 */
 export type AxiosGetUserSettingsSuccessResponse = (AxiosResponse<GetUserSettings200ResponseSchema> & { status: 200 })
-export type AxiosGetUserSettingsErrorResponse = ((AxiosResponse<GetUserSettings400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetUserSettings404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetUserSettings405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetUserSettings415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetUserSettings429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetUserSettings500ResponseSchema> & { status: 500 })) & { path: "/v1/user/getUserSettings" }
+export type AxiosGetUserSettingsErrorResponse = ((AxiosResponse<GetUserSettings400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetUserSettings401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetUserSettings403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetUserSettings404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetUserSettings405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetUserSettings415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetUserSettings429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetUserSettings500ResponseSchema> & { status: 500 })) & { path: "/v1/user/getUserSettings" }
 export type AxiosGetUserSettingsResponse = AxiosGetUserSettingsSuccessResponse | AxiosGetUserSettingsErrorResponse
 export async function getUserSettings(config?: AxiosRequestConfig): Promise<AxiosGetUserSettingsResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -1457,6 +1671,16 @@ export async function getUserSettings(config?: AxiosRequestConfig): Promise<Axio
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -1504,11 +1728,11 @@ export async function getUserSettings(config?: AxiosRequestConfig): Promise<Axio
 Delete user
 */
 export type AxiosDeleteUserSuccessResponse = (AxiosResponse<DeleteUser200ResponseSchema> & { status: 200 })
-export type AxiosDeleteUserErrorResponse = ((AxiosResponse<DeleteUser400ResponseSchema> & { status: 400 }) | (AxiosResponse<DeleteUser404ResponseSchema> & { status: 404 }) | (AxiosResponse<DeleteUser405ResponseSchema> & { status: 405 }) | (AxiosResponse<DeleteUser409ResponseSchema> & { status: 409 }) | (AxiosResponse<DeleteUser415ResponseSchema> & { status: 415 }) | (AxiosResponse<DeleteUser429ResponseSchema> & { status: 429 }) | (AxiosResponse<DeleteUser500ResponseSchema> & { status: 500 })) & { path: "/v1/user/deleteUser" }
+export type AxiosDeleteUserErrorResponse = ((AxiosResponse<DeleteUser400ResponseSchema> & { status: 400 }) | (AxiosResponse<DeleteUser401ResponseSchema> & { status: 401 }) | (AxiosResponse<DeleteUser403ResponseSchema> & { status: 403 }) | (AxiosResponse<DeleteUser404ResponseSchema> & { status: 404 }) | (AxiosResponse<DeleteUser405ResponseSchema> & { status: 405 }) | (AxiosResponse<DeleteUser409ResponseSchema> & { status: 409 }) | (AxiosResponse<DeleteUser415ResponseSchema> & { status: 415 }) | (AxiosResponse<DeleteUser429ResponseSchema> & { status: 429 }) | (AxiosResponse<DeleteUser500ResponseSchema> & { status: 500 })) & { path: "/v1/user/deleteUser" }
 export type AxiosDeleteUserResponse = AxiosDeleteUserSuccessResponse | AxiosDeleteUserErrorResponse
 export async function deleteUser(config?: AxiosRequestConfig): Promise<AxiosDeleteUserResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -1516,6 +1740,16 @@ export async function deleteUser(config?: AxiosRequestConfig): Promise<AxiosDele
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -1568,11 +1802,11 @@ export async function deleteUser(config?: AxiosRequestConfig): Promise<AxiosDele
 Delete user saved card
 */
 export type AxiosDeleteSavedCardSuccessResponse = (AxiosResponse<DeleteSavedCard200ResponseSchema> & { status: 200 })
-export type AxiosDeleteSavedCardErrorResponse = ((AxiosResponse<DeleteSavedCard400ResponseSchema> & { status: 400 }) | (AxiosResponse<DeleteSavedCard404ResponseSchema> & { status: 404 }) | (AxiosResponse<DeleteSavedCard405ResponseSchema> & { status: 405 }) | (AxiosResponse<DeleteSavedCard415ResponseSchema> & { status: 415 }) | (AxiosResponse<DeleteSavedCard429ResponseSchema> & { status: 429 }) | (AxiosResponse<DeleteSavedCard500ResponseSchema> & { status: 500 })) & { path: "/v1/user/deleteSavedCard" }
+export type AxiosDeleteSavedCardErrorResponse = ((AxiosResponse<DeleteSavedCard400ResponseSchema> & { status: 400 }) | (AxiosResponse<DeleteSavedCard401ResponseSchema> & { status: 401 }) | (AxiosResponse<DeleteSavedCard403ResponseSchema> & { status: 403 }) | (AxiosResponse<DeleteSavedCard404ResponseSchema> & { status: 404 }) | (AxiosResponse<DeleteSavedCard405ResponseSchema> & { status: 405 }) | (AxiosResponse<DeleteSavedCard415ResponseSchema> & { status: 415 }) | (AxiosResponse<DeleteSavedCard429ResponseSchema> & { status: 429 }) | (AxiosResponse<DeleteSavedCard500ResponseSchema> & { status: 500 })) & { path: "/v1/user/deleteSavedCard" }
 export type AxiosDeleteSavedCardResponse = AxiosDeleteSavedCardSuccessResponse | AxiosDeleteSavedCardErrorResponse
 export async function deleteSavedCard(data: DeleteSavedCardRequestSchema, config?: AxiosRequestConfig): Promise<AxiosDeleteSavedCardResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -1580,6 +1814,16 @@ export async function deleteSavedCard(data: DeleteSavedCardRequestSchema, config
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -1627,11 +1871,11 @@ export async function deleteSavedCard(data: DeleteSavedCardRequestSchema, config
 Modify user settings
 */
 export type AxiosModifySettingsSuccessResponse = (AxiosResponse<ModifySettings200ResponseSchema> & { status: 200 })
-export type AxiosModifySettingsErrorResponse = ((AxiosResponse<ModifySettings400ResponseSchema> & { status: 400 }) | (AxiosResponse<ModifySettings405ResponseSchema> & { status: 405 }) | (AxiosResponse<ModifySettings415ResponseSchema> & { status: 415 }) | (AxiosResponse<ModifySettings429ResponseSchema> & { status: 429 }) | (AxiosResponse<ModifySettings500ResponseSchema> & { status: 500 })) & { path: "/v1/user/modifySettings" }
+export type AxiosModifySettingsErrorResponse = ((AxiosResponse<ModifySettings400ResponseSchema> & { status: 400 }) | (AxiosResponse<ModifySettings401ResponseSchema> & { status: 401 }) | (AxiosResponse<ModifySettings403ResponseSchema> & { status: 403 }) | (AxiosResponse<ModifySettings405ResponseSchema> & { status: 405 }) | (AxiosResponse<ModifySettings415ResponseSchema> & { status: 415 }) | (AxiosResponse<ModifySettings429ResponseSchema> & { status: 429 }) | (AxiosResponse<ModifySettings500ResponseSchema> & { status: 500 })) & { path: "/v1/user/modifySettings" }
 export type AxiosModifySettingsResponse = AxiosModifySettingsSuccessResponse | AxiosModifySettingsErrorResponse
 export async function modifySettings(data: ModifySettingsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosModifySettingsResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -1639,6 +1883,16 @@ export async function modifySettings(data: ModifySettingsRequestSchema, config?:
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "405": {
@@ -1878,11 +2132,11 @@ export async function checkChangePasswordToken(data: CheckChangePasswordTokenReq
 Return list of user communications
 */
 export type AxiosGetUserCommunicationsSuccessResponse = (AxiosResponse<GetUserCommunications200ResponseSchema> & { status: 200 })
-export type AxiosGetUserCommunicationsErrorResponse = ((AxiosResponse<GetUserCommunications400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetUserCommunications404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetUserCommunications405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetUserCommunications415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetUserCommunications429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetUserCommunications500ResponseSchema> & { status: 500 })) & { path: "/v1/user/getUserCommunications" }
+export type AxiosGetUserCommunicationsErrorResponse = ((AxiosResponse<GetUserCommunications400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetUserCommunications401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetUserCommunications403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetUserCommunications404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetUserCommunications405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetUserCommunications415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetUserCommunications429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetUserCommunications500ResponseSchema> & { status: 500 })) & { path: "/v1/user/getUserCommunications" }
 export type AxiosGetUserCommunicationsResponse = AxiosGetUserCommunicationsSuccessResponse | AxiosGetUserCommunicationsErrorResponse
 export async function getUserCommunications(data: GetUserCommunicationsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetUserCommunicationsResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -1890,6 +2144,16 @@ export async function getUserCommunications(data: GetUserCommunicationsRequestSc
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -1937,11 +2201,11 @@ export async function getUserCommunications(data: GetUserCommunicationsRequestSc
 logout the user
 */
 export type AxiosLogoutSuccessResponse = (AxiosResponse<Logout200ResponseSchema> & { status: 200 })
-export type AxiosLogoutErrorResponse = ((AxiosResponse<Logout400ResponseSchema> & { status: 400 }) | (AxiosResponse<Logout401ResponseSchema> & { status: 401 }) | (AxiosResponse<Logout405ResponseSchema> & { status: 405 }) | (AxiosResponse<Logout415ResponseSchema> & { status: 415 }) | (AxiosResponse<Logout429ResponseSchema> & { status: 429 }) | (AxiosResponse<Logout500ResponseSchema> & { status: 500 })) & { path: "/v1/user/logout" }
+export type AxiosLogoutErrorResponse = ((AxiosResponse<Logout400ResponseSchema> & { status: 400 }) | (AxiosResponse<Logout401ResponseSchema> & { status: 401 }) | (AxiosResponse<Logout403ResponseSchema> & { status: 403 }) | (AxiosResponse<Logout405ResponseSchema> & { status: 405 }) | (AxiosResponse<Logout415ResponseSchema> & { status: 415 }) | (AxiosResponse<Logout429ResponseSchema> & { status: 429 }) | (AxiosResponse<Logout500ResponseSchema> & { status: 500 })) & { path: "/v1/user/logout" }
 export type AxiosLogoutResponse = AxiosLogoutSuccessResponse | AxiosLogoutErrorResponse
 export async function logout(config?: AxiosRequestConfig): Promise<AxiosLogoutResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -1954,6 +2218,11 @@ export async function logout(config?: AxiosRequestConfig): Promise<AxiosLogoutRe
     "401": {
       "code": [
         "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "405": {
@@ -2055,11 +2324,11 @@ export async function resendResetPassword(data: ResendResetPasswordRequestSchema
 Get user shipments
 */
 export type AxiosGetUserShipmentsSuccessResponse = (AxiosResponse<GetUserShipments200ResponseSchema> & { status: 200 })
-export type AxiosGetUserShipmentsErrorResponse = ((AxiosResponse<GetUserShipments400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetUserShipments405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetUserShipments415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetUserShipments429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetUserShipments500ResponseSchema> & { status: 500 })) & { path: "/v1/user/getUserShipments" }
+export type AxiosGetUserShipmentsErrorResponse = ((AxiosResponse<GetUserShipments400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetUserShipments401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetUserShipments403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetUserShipments405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetUserShipments415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetUserShipments429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetUserShipments500ResponseSchema> & { status: 500 })) & { path: "/v1/user/getUserShipments" }
 export type AxiosGetUserShipmentsResponse = AxiosGetUserShipmentsSuccessResponse | AxiosGetUserShipmentsErrorResponse
 export async function getUserShipments(data: GetUserShipmentsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetUserShipmentsResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -2067,6 +2336,16 @@ export async function getUserShipments(data: GetUserShipmentsRequestSchema, conf
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "405": {
@@ -2109,11 +2388,11 @@ export async function getUserShipments(data: GetUserShipmentsRequestSchema, conf
 save luggages package
 */
 export type AxiosSaveLuggageSuccessResponse = (AxiosResponse<SaveLuggage200ResponseSchema> & { status: 200 })
-export type AxiosSaveLuggageErrorResponse = ((AxiosResponse<SaveLuggage400ResponseSchema> & { status: 400 }) | (AxiosResponse<SaveLuggage401ResponseSchema> & { status: 401 }) | (AxiosResponse<SaveLuggage405ResponseSchema> & { status: 405 }) | (AxiosResponse<SaveLuggage415ResponseSchema> & { status: 415 }) | (AxiosResponse<SaveLuggage429ResponseSchema> & { status: 429 }) | (AxiosResponse<SaveLuggage500ResponseSchema> & { status: 500 })) & { path: "/v1/user/saveLuggage" }
+export type AxiosSaveLuggageErrorResponse = ((AxiosResponse<SaveLuggage400ResponseSchema> & { status: 400 }) | (AxiosResponse<SaveLuggage401ResponseSchema> & { status: 401 }) | (AxiosResponse<SaveLuggage403ResponseSchema> & { status: 403 }) | (AxiosResponse<SaveLuggage405ResponseSchema> & { status: 405 }) | (AxiosResponse<SaveLuggage415ResponseSchema> & { status: 415 }) | (AxiosResponse<SaveLuggage429ResponseSchema> & { status: 429 }) | (AxiosResponse<SaveLuggage500ResponseSchema> & { status: 500 })) & { path: "/v1/user/saveLuggage" }
 export type AxiosSaveLuggageResponse = AxiosSaveLuggageSuccessResponse | AxiosSaveLuggageErrorResponse
 export async function saveLuggage(data: SaveLuggageRequestSchema, config?: AxiosRequestConfig): Promise<AxiosSaveLuggageResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -2126,6 +2405,11 @@ export async function saveLuggage(data: SaveLuggageRequestSchema, config?: Axios
     "401": {
       "code": [
         "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "405": {
@@ -2168,11 +2452,11 @@ export async function saveLuggage(data: SaveLuggageRequestSchema, config?: Axios
 get single luggages package
 */
 export type AxiosGetSavedLuggageSuccessResponse = (AxiosResponse<GetSavedLuggage200ResponseSchema> & { status: 200 })
-export type AxiosGetSavedLuggageErrorResponse = ((AxiosResponse<GetSavedLuggage400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetSavedLuggage401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetSavedLuggage404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetSavedLuggage405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetSavedLuggage415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetSavedLuggage429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetSavedLuggage500ResponseSchema> & { status: 500 })) & { path: "/v1/user/getSavedLuggage" }
+export type AxiosGetSavedLuggageErrorResponse = ((AxiosResponse<GetSavedLuggage400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetSavedLuggage401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetSavedLuggage403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetSavedLuggage404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetSavedLuggage405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetSavedLuggage415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetSavedLuggage429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetSavedLuggage500ResponseSchema> & { status: 500 })) & { path: "/v1/user/getSavedLuggage" }
 export type AxiosGetSavedLuggageResponse = AxiosGetSavedLuggageSuccessResponse | AxiosGetSavedLuggageErrorResponse
 export async function getSavedLuggage(data: GetSavedLuggageRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetSavedLuggageResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -2185,6 +2469,11 @@ export async function getSavedLuggage(data: GetSavedLuggageRequestSchema, config
     "401": {
       "code": [
         "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -2232,11 +2521,11 @@ export async function getSavedLuggage(data: GetSavedLuggageRequestSchema, config
 delete luggages package
 */
 export type AxiosDeleteSavedLuggageSuccessResponse = (AxiosResponse<DeleteSavedLuggage200ResponseSchema> & { status: 200 })
-export type AxiosDeleteSavedLuggageErrorResponse = ((AxiosResponse<DeleteSavedLuggage400ResponseSchema> & { status: 400 }) | (AxiosResponse<DeleteSavedLuggage404ResponseSchema> & { status: 404 }) | (AxiosResponse<DeleteSavedLuggage405ResponseSchema> & { status: 405 }) | (AxiosResponse<DeleteSavedLuggage415ResponseSchema> & { status: 415 }) | (AxiosResponse<DeleteSavedLuggage429ResponseSchema> & { status: 429 }) | (AxiosResponse<DeleteSavedLuggage500ResponseSchema> & { status: 500 })) & { path: "/v1/user/deleteSavedLuggage" }
+export type AxiosDeleteSavedLuggageErrorResponse = ((AxiosResponse<DeleteSavedLuggage400ResponseSchema> & { status: 400 }) | (AxiosResponse<DeleteSavedLuggage401ResponseSchema> & { status: 401 }) | (AxiosResponse<DeleteSavedLuggage403ResponseSchema> & { status: 403 }) | (AxiosResponse<DeleteSavedLuggage404ResponseSchema> & { status: 404 }) | (AxiosResponse<DeleteSavedLuggage405ResponseSchema> & { status: 405 }) | (AxiosResponse<DeleteSavedLuggage415ResponseSchema> & { status: 415 }) | (AxiosResponse<DeleteSavedLuggage429ResponseSchema> & { status: 429 }) | (AxiosResponse<DeleteSavedLuggage500ResponseSchema> & { status: 500 })) & { path: "/v1/user/deleteSavedLuggage" }
 export type AxiosDeleteSavedLuggageResponse = AxiosDeleteSavedLuggageSuccessResponse | AxiosDeleteSavedLuggageErrorResponse
 export async function deleteSavedLuggage(data: DeleteSavedLuggageRequestSchema, config?: AxiosRequestConfig): Promise<AxiosDeleteSavedLuggageResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -2244,6 +2533,16 @@ export async function deleteSavedLuggage(data: DeleteSavedLuggageRequestSchema, 
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -2291,11 +2590,11 @@ export async function deleteSavedLuggage(data: DeleteSavedLuggageRequestSchema, 
 Add a company to an already registered user
 */
 export type AxiosAddUserCompanySuccessResponse = (AxiosResponse<AddUserCompany200ResponseSchema> & { status: 200 })
-export type AxiosAddUserCompanyErrorResponse = ((AxiosResponse<AddUserCompany400ResponseSchema> & { status: 400 }) | (AxiosResponse<AddUserCompany401ResponseSchema> & { status: 401 }) | (AxiosResponse<AddUserCompany405ResponseSchema> & { status: 405 }) | (AxiosResponse<AddUserCompany409ResponseSchema> & { status: 409 }) | (AxiosResponse<AddUserCompany415ResponseSchema> & { status: 415 }) | (AxiosResponse<AddUserCompany429ResponseSchema> & { status: 429 }) | (AxiosResponse<AddUserCompany500ResponseSchema> & { status: 500 })) & { path: "/v1/user/addUserCompany" }
+export type AxiosAddUserCompanyErrorResponse = ((AxiosResponse<AddUserCompany400ResponseSchema> & { status: 400 }) | (AxiosResponse<AddUserCompany401ResponseSchema> & { status: 401 }) | (AxiosResponse<AddUserCompany403ResponseSchema> & { status: 403 }) | (AxiosResponse<AddUserCompany405ResponseSchema> & { status: 405 }) | (AxiosResponse<AddUserCompany409ResponseSchema> & { status: 409 }) | (AxiosResponse<AddUserCompany415ResponseSchema> & { status: 415 }) | (AxiosResponse<AddUserCompany429ResponseSchema> & { status: 429 }) | (AxiosResponse<AddUserCompany500ResponseSchema> & { status: 500 })) & { path: "/v1/user/addUserCompany" }
 export type AxiosAddUserCompanyResponse = AxiosAddUserCompanySuccessResponse | AxiosAddUserCompanyErrorResponse
 export async function addUserCompany(data: AddUserCompanyRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAddUserCompanyResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -2308,6 +2607,11 @@ export async function addUserCompany(data: AddUserCompanyRequestSchema, config?:
     "401": {
       "code": [
         "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "405": {
@@ -2355,11 +2659,11 @@ export async function addUserCompany(data: AddUserCompanyRequestSchema, config?:
 Create a new stripe payment intent from price or shipment details
 */
 export type AxiosCreateIntentSuccessResponse = (AxiosResponse<CreateIntent200ResponseSchema> & { status: 200 })
-export type AxiosCreateIntentErrorResponse = ((AxiosResponse<CreateIntent400ResponseSchema> & { status: 400 }) | (AxiosResponse<CreateIntent404ResponseSchema> & { status: 404 }) | (AxiosResponse<CreateIntent405ResponseSchema> & { status: 405 }) | (AxiosResponse<CreateIntent415ResponseSchema> & { status: 415 }) | (AxiosResponse<CreateIntent429ResponseSchema> & { status: 429 }) | (AxiosResponse<CreateIntent500ResponseSchema> & { status: 500 })) & { path: "/v1/payments/createIntent" }
+export type AxiosCreateIntentErrorResponse = ((AxiosResponse<CreateIntent400ResponseSchema> & { status: 400 }) | (AxiosResponse<CreateIntent401ResponseSchema> & { status: 401 }) | (AxiosResponse<CreateIntent403ResponseSchema> & { status: 403 }) | (AxiosResponse<CreateIntent404ResponseSchema> & { status: 404 }) | (AxiosResponse<CreateIntent405ResponseSchema> & { status: 405 }) | (AxiosResponse<CreateIntent415ResponseSchema> & { status: 415 }) | (AxiosResponse<CreateIntent429ResponseSchema> & { status: 429 }) | (AxiosResponse<CreateIntent500ResponseSchema> & { status: 500 })) & { path: "/v1/payments/createIntent" }
 export type AxiosCreateIntentResponse = AxiosCreateIntentSuccessResponse | AxiosCreateIntentErrorResponse
 export async function createIntent(data: CreateIntentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosCreateIntentResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -2367,6 +2671,16 @@ export async function createIntent(data: CreateIntentRequestSchema, config?: Axi
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -2414,11 +2728,11 @@ export async function createIntent(data: CreateIntentRequestSchema, config?: Axi
 Update the payment intent
 */
 export type AxiosUpdatePaymentIntentSuccessResponse = (AxiosResponse<UpdatePaymentIntent200ResponseSchema> & { status: 200 })
-export type AxiosUpdatePaymentIntentErrorResponse = ((AxiosResponse<UpdatePaymentIntent400ResponseSchema> & { status: 400 }) | (AxiosResponse<UpdatePaymentIntent404ResponseSchema> & { status: 404 }) | (AxiosResponse<UpdatePaymentIntent405ResponseSchema> & { status: 405 }) | (AxiosResponse<UpdatePaymentIntent415ResponseSchema> & { status: 415 }) | (AxiosResponse<UpdatePaymentIntent429ResponseSchema> & { status: 429 }) | (AxiosResponse<UpdatePaymentIntent500ResponseSchema> & { status: 500 })) & { path: "/v1/payments/updatePaymentIntent" }
+export type AxiosUpdatePaymentIntentErrorResponse = ((AxiosResponse<UpdatePaymentIntent400ResponseSchema> & { status: 400 }) | (AxiosResponse<UpdatePaymentIntent401ResponseSchema> & { status: 401 }) | (AxiosResponse<UpdatePaymentIntent403ResponseSchema> & { status: 403 }) | (AxiosResponse<UpdatePaymentIntent404ResponseSchema> & { status: 404 }) | (AxiosResponse<UpdatePaymentIntent405ResponseSchema> & { status: 405 }) | (AxiosResponse<UpdatePaymentIntent415ResponseSchema> & { status: 415 }) | (AxiosResponse<UpdatePaymentIntent429ResponseSchema> & { status: 429 }) | (AxiosResponse<UpdatePaymentIntent500ResponseSchema> & { status: 500 })) & { path: "/v1/payments/updatePaymentIntent" }
 export type AxiosUpdatePaymentIntentResponse = AxiosUpdatePaymentIntentSuccessResponse | AxiosUpdatePaymentIntentErrorResponse
 export async function updatePaymentIntent(data: UpdatePaymentIntentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosUpdatePaymentIntentResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -2426,6 +2740,16 @@ export async function updatePaymentIntent(data: UpdatePaymentIntentRequestSchema
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -2473,11 +2797,11 @@ export async function updatePaymentIntent(data: UpdatePaymentIntentRequestSchema
 Cancel a payment intent
 */
 export type AxiosCancelPaymentIntentSuccessResponse = (AxiosResponse<CancelPaymentIntent200ResponseSchema> & { status: 200 })
-export type AxiosCancelPaymentIntentErrorResponse = ((AxiosResponse<CancelPaymentIntent400ResponseSchema> & { status: 400 }) | (AxiosResponse<CancelPaymentIntent404ResponseSchema> & { status: 404 }) | (AxiosResponse<CancelPaymentIntent405ResponseSchema> & { status: 405 }) | (AxiosResponse<CancelPaymentIntent409ResponseSchema> & { status: 409 }) | (AxiosResponse<CancelPaymentIntent415ResponseSchema> & { status: 415 }) | (AxiosResponse<CancelPaymentIntent429ResponseSchema> & { status: 429 }) | (AxiosResponse<CancelPaymentIntent500ResponseSchema> & { status: 500 })) & { path: "/v1/payments/cancelPaymentIntent" }
+export type AxiosCancelPaymentIntentErrorResponse = ((AxiosResponse<CancelPaymentIntent400ResponseSchema> & { status: 400 }) | (AxiosResponse<CancelPaymentIntent401ResponseSchema> & { status: 401 }) | (AxiosResponse<CancelPaymentIntent403ResponseSchema> & { status: 403 }) | (AxiosResponse<CancelPaymentIntent404ResponseSchema> & { status: 404 }) | (AxiosResponse<CancelPaymentIntent405ResponseSchema> & { status: 405 }) | (AxiosResponse<CancelPaymentIntent409ResponseSchema> & { status: 409 }) | (AxiosResponse<CancelPaymentIntent415ResponseSchema> & { status: 415 }) | (AxiosResponse<CancelPaymentIntent429ResponseSchema> & { status: 429 }) | (AxiosResponse<CancelPaymentIntent500ResponseSchema> & { status: 500 })) & { path: "/v1/payments/cancelPaymentIntent" }
 export type AxiosCancelPaymentIntentResponse = AxiosCancelPaymentIntentSuccessResponse | AxiosCancelPaymentIntentErrorResponse
 export async function cancelPaymentIntent(data: CancelPaymentIntentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosCancelPaymentIntentResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -2485,6 +2809,16 @@ export async function cancelPaymentIntent(data: CancelPaymentIntentRequestSchema
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -2537,11 +2871,11 @@ export async function cancelPaymentIntent(data: CancelPaymentIntentRequestSchema
 Retrieve information about user payment intent
 */
 export type AxiosRetrievePaymentIntentSuccessResponse = (AxiosResponse<RetrievePaymentIntent200ResponseSchema> & { status: 200 })
-export type AxiosRetrievePaymentIntentErrorResponse = ((AxiosResponse<RetrievePaymentIntent400ResponseSchema> & { status: 400 }) | (AxiosResponse<RetrievePaymentIntent404ResponseSchema> & { status: 404 }) | (AxiosResponse<RetrievePaymentIntent405ResponseSchema> & { status: 405 }) | (AxiosResponse<RetrievePaymentIntent415ResponseSchema> & { status: 415 }) | (AxiosResponse<RetrievePaymentIntent429ResponseSchema> & { status: 429 }) | (AxiosResponse<RetrievePaymentIntent500ResponseSchema> & { status: 500 })) & { path: "/v1/payments/retrievePaymentIntent" }
+export type AxiosRetrievePaymentIntentErrorResponse = ((AxiosResponse<RetrievePaymentIntent400ResponseSchema> & { status: 400 }) | (AxiosResponse<RetrievePaymentIntent401ResponseSchema> & { status: 401 }) | (AxiosResponse<RetrievePaymentIntent403ResponseSchema> & { status: 403 }) | (AxiosResponse<RetrievePaymentIntent404ResponseSchema> & { status: 404 }) | (AxiosResponse<RetrievePaymentIntent405ResponseSchema> & { status: 405 }) | (AxiosResponse<RetrievePaymentIntent415ResponseSchema> & { status: 415 }) | (AxiosResponse<RetrievePaymentIntent429ResponseSchema> & { status: 429 }) | (AxiosResponse<RetrievePaymentIntent500ResponseSchema> & { status: 500 })) & { path: "/v1/payments/retrievePaymentIntent" }
 export type AxiosRetrievePaymentIntentResponse = AxiosRetrievePaymentIntentSuccessResponse | AxiosRetrievePaymentIntentErrorResponse
 export async function retrievePaymentIntent(data: RetrievePaymentIntentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosRetrievePaymentIntentResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -2549,6 +2883,16 @@ export async function retrievePaymentIntent(data: RetrievePaymentIntentRequestSc
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -2596,11 +2940,11 @@ export async function retrievePaymentIntent(data: RetrievePaymentIntentRequestSc
 Verify that a payment intent exists
 */
 export type AxiosVerifyPaymentIntentSuccessResponse = (AxiosResponse<VerifyPaymentIntent200ResponseSchema> & { status: 200 })
-export type AxiosVerifyPaymentIntentErrorResponse = ((AxiosResponse<VerifyPaymentIntent400ResponseSchema> & { status: 400 }) | (AxiosResponse<VerifyPaymentIntent403ResponseSchema> & { status: 403 }) | (AxiosResponse<VerifyPaymentIntent404ResponseSchema> & { status: 404 }) | (AxiosResponse<VerifyPaymentIntent405ResponseSchema> & { status: 405 }) | (AxiosResponse<VerifyPaymentIntent409ResponseSchema> & { status: 409 }) | (AxiosResponse<VerifyPaymentIntent415ResponseSchema> & { status: 415 }) | (AxiosResponse<VerifyPaymentIntent429ResponseSchema> & { status: 429 }) | (AxiosResponse<VerifyPaymentIntent500ResponseSchema> & { status: 500 })) & { path: "/v1/payments/verifyPaymentIntent" }
+export type AxiosVerifyPaymentIntentErrorResponse = ((AxiosResponse<VerifyPaymentIntent400ResponseSchema> & { status: 400 }) | (AxiosResponse<VerifyPaymentIntent401ResponseSchema> & { status: 401 }) | (AxiosResponse<VerifyPaymentIntent403ResponseSchema> & { status: 403 }) | (AxiosResponse<VerifyPaymentIntent404ResponseSchema> & { status: 404 }) | (AxiosResponse<VerifyPaymentIntent405ResponseSchema> & { status: 405 }) | (AxiosResponse<VerifyPaymentIntent409ResponseSchema> & { status: 409 }) | (AxiosResponse<VerifyPaymentIntent415ResponseSchema> & { status: 415 }) | (AxiosResponse<VerifyPaymentIntent429ResponseSchema> & { status: 429 }) | (AxiosResponse<VerifyPaymentIntent500ResponseSchema> & { status: 500 })) & { path: "/v1/payments/verifyPaymentIntent" }
 export type AxiosVerifyPaymentIntentResponse = AxiosVerifyPaymentIntentSuccessResponse | AxiosVerifyPaymentIntentErrorResponse
 export async function verifyPaymentIntent(data: VerifyPaymentIntentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosVerifyPaymentIntentResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -2608,6 +2952,11 @@ export async function verifyPaymentIntent(data: VerifyPaymentIntentRequestSchema
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
       ]
     },
     "403": {
@@ -2665,11 +3014,11 @@ export async function verifyPaymentIntent(data: VerifyPaymentIntentRequestSchema
 Capture a payment intent
 */
 export type AxiosCapturePaymentIntentSuccessResponse = (AxiosResponse<CapturePaymentIntent200ResponseSchema> & { status: 200 })
-export type AxiosCapturePaymentIntentErrorResponse = ((AxiosResponse<CapturePaymentIntent400ResponseSchema> & { status: 400 }) | (AxiosResponse<CapturePaymentIntent404ResponseSchema> & { status: 404 }) | (AxiosResponse<CapturePaymentIntent405ResponseSchema> & { status: 405 }) | (AxiosResponse<CapturePaymentIntent415ResponseSchema> & { status: 415 }) | (AxiosResponse<CapturePaymentIntent429ResponseSchema> & { status: 429 }) | (AxiosResponse<CapturePaymentIntent500ResponseSchema> & { status: 500 })) & { path: "/v1/payments/capturePaymentIntent" }
+export type AxiosCapturePaymentIntentErrorResponse = ((AxiosResponse<CapturePaymentIntent400ResponseSchema> & { status: 400 }) | (AxiosResponse<CapturePaymentIntent401ResponseSchema> & { status: 401 }) | (AxiosResponse<CapturePaymentIntent403ResponseSchema> & { status: 403 }) | (AxiosResponse<CapturePaymentIntent404ResponseSchema> & { status: 404 }) | (AxiosResponse<CapturePaymentIntent405ResponseSchema> & { status: 405 }) | (AxiosResponse<CapturePaymentIntent415ResponseSchema> & { status: 415 }) | (AxiosResponse<CapturePaymentIntent429ResponseSchema> & { status: 429 }) | (AxiosResponse<CapturePaymentIntent500ResponseSchema> & { status: 500 })) & { path: "/v1/payments/capturePaymentIntent" }
 export type AxiosCapturePaymentIntentResponse = AxiosCapturePaymentIntentSuccessResponse | AxiosCapturePaymentIntentErrorResponse
 export async function capturePaymentIntent(data: CapturePaymentIntentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosCapturePaymentIntentResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -2677,6 +3026,16 @@ export async function capturePaymentIntent(data: CapturePaymentIntentRequestSche
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -2847,11 +3206,11 @@ export async function verifyEmailToken(data: VerifyEmailTokenRequestSchema, conf
 Verify the user authentication
 */
 export type AxiosVerifyAuthenticationSuccessResponse = (AxiosResponse<VerifyAuthentication200ResponseSchema> & { status: 200 })
-export type AxiosVerifyAuthenticationErrorResponse = ((AxiosResponse<VerifyAuthentication400ResponseSchema> & { status: 400 }) | (AxiosResponse<VerifyAuthentication401ResponseSchema> & { status: 401 }) | (AxiosResponse<VerifyAuthentication405ResponseSchema> & { status: 405 }) | (AxiosResponse<VerifyAuthentication415ResponseSchema> & { status: 415 }) | (AxiosResponse<VerifyAuthentication429ResponseSchema> & { status: 429 }) | (AxiosResponse<VerifyAuthentication500ResponseSchema> & { status: 500 })) & { path: "/v1/auth/verifyAuthentication" }
+export type AxiosVerifyAuthenticationErrorResponse = ((AxiosResponse<VerifyAuthentication400ResponseSchema> & { status: 400 }) | (AxiosResponse<VerifyAuthentication401ResponseSchema> & { status: 401 }) | (AxiosResponse<VerifyAuthentication403ResponseSchema> & { status: 403 }) | (AxiosResponse<VerifyAuthentication405ResponseSchema> & { status: 405 }) | (AxiosResponse<VerifyAuthentication415ResponseSchema> & { status: 415 }) | (AxiosResponse<VerifyAuthentication429ResponseSchema> & { status: 429 }) | (AxiosResponse<VerifyAuthentication500ResponseSchema> & { status: 500 })) & { path: "/v1/auth/verifyAuthentication" }
 export type AxiosVerifyAuthenticationResponse = AxiosVerifyAuthenticationSuccessResponse | AxiosVerifyAuthenticationErrorResponse
 export async function verifyAuthentication(config?: AxiosRequestConfig): Promise<AxiosVerifyAuthenticationResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -2864,6 +3223,11 @@ export async function verifyAuthentication(config?: AxiosRequestConfig): Promise
     "401": {
       "code": [
         "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "405": {
@@ -2903,12 +3267,12 @@ export async function verifyAuthentication(config?: AxiosRequestConfig): Promise
 }
 
 /**
-Verify that the authenticated user is an admin
+Verify that a session token is valid
 */
-export type AxiosVerifyAssistantSuccessResponse = (AxiosResponse<VerifyAssistant200ResponseSchema> & { status: 200 })
-export type AxiosVerifyAssistantErrorResponse = ((AxiosResponse<VerifyAssistant400ResponseSchema> & { status: 400 }) | (AxiosResponse<VerifyAssistant403ResponseSchema> & { status: 403 }) | (AxiosResponse<VerifyAssistant405ResponseSchema> & { status: 405 }) | (AxiosResponse<VerifyAssistant415ResponseSchema> & { status: 415 }) | (AxiosResponse<VerifyAssistant429ResponseSchema> & { status: 429 }) | (AxiosResponse<VerifyAssistant500ResponseSchema> & { status: 500 })) & { path: "/v1/auth/verifyAssistant" }
-export type AxiosVerifyAssistantResponse = AxiosVerifyAssistantSuccessResponse | AxiosVerifyAssistantErrorResponse
-export async function verifyAssistant(config?: AxiosRequestConfig): Promise<AxiosVerifyAssistantResponse> {
+export type AxiosVerifySessionTokenSuccessResponse = (AxiosResponse<VerifySessionToken200ResponseSchema> & { status: 200 })
+export type AxiosVerifySessionTokenErrorResponse = ((AxiosResponse<VerifySessionToken400ResponseSchema> & { status: 400 }) | (AxiosResponse<VerifySessionToken401ResponseSchema> & { status: 401 }) | (AxiosResponse<VerifySessionToken405ResponseSchema> & { status: 405 }) | (AxiosResponse<VerifySessionToken410ResponseSchema> & { status: 410 }) | (AxiosResponse<VerifySessionToken415ResponseSchema> & { status: 415 }) | (AxiosResponse<VerifySessionToken429ResponseSchema> & { status: 429 }) | (AxiosResponse<VerifySessionToken500ResponseSchema> & { status: 500 })) & { path: "/v1/auth/verifySessionToken" }
+export type AxiosVerifySessionTokenResponse = AxiosVerifySessionTokenSuccessResponse | AxiosVerifySessionTokenErrorResponse
+export async function verifySessionToken(data: VerifySessionTokenRequestSchema, config?: AxiosRequestConfig): Promise<AxiosVerifySessionTokenResponse> {
   _checkSetup()
   const securityParams: AxiosRequestConfig = {}
   const handledResponses = {
@@ -2918,6 +3282,75 @@ export async function verifyAssistant(config?: AxiosRequestConfig): Promise<Axio
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHENTICATED"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "410": {
+      "code": [
+        "SESSION EXPIRED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/auth/verifySessionToken"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosVerifySessionTokenSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosVerifySessionTokenErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+Verify that the authenticated user is an admin
+*/
+export type AxiosVerifyAssistantSuccessResponse = (AxiosResponse<VerifyAssistant200ResponseSchema> & { status: 200 })
+export type AxiosVerifyAssistantErrorResponse = ((AxiosResponse<VerifyAssistant400ResponseSchema> & { status: 400 }) | (AxiosResponse<VerifyAssistant401ResponseSchema> & { status: 401 }) | (AxiosResponse<VerifyAssistant403ResponseSchema> & { status: 403 }) | (AxiosResponse<VerifyAssistant405ResponseSchema> & { status: 405 }) | (AxiosResponse<VerifyAssistant415ResponseSchema> & { status: 415 }) | (AxiosResponse<VerifyAssistant429ResponseSchema> & { status: 429 }) | (AxiosResponse<VerifyAssistant500ResponseSchema> & { status: 500 })) & { path: "/v1/auth/verifyAssistant" }
+export type AxiosVerifyAssistantResponse = AxiosVerifyAssistantSuccessResponse | AxiosVerifyAssistantErrorResponse
+export async function verifyAssistant(config?: AxiosRequestConfig): Promise<AxiosVerifyAssistantResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
       ]
     },
     "403": {
@@ -3019,11 +3452,11 @@ export async function isPhoneUnique(data: IsPhoneUniqueRequestSchema, config?: A
 Get available accomodations basic information
 */
 export type AxiosGetAvailableAccomodationsSuccessResponse = (AxiosResponse<GetAvailableAccomodations200ResponseSchema> & { status: 200 })
-export type AxiosGetAvailableAccomodationsErrorResponse = ((AxiosResponse<GetAvailableAccomodations400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetAvailableAccomodations404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetAvailableAccomodations405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetAvailableAccomodations415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetAvailableAccomodations429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetAvailableAccomodations500ResponseSchema> & { status: 500 })) & { path: "/v1/accomodations/getAvailableAccomodations" }
+export type AxiosGetAvailableAccomodationsErrorResponse = ((AxiosResponse<GetAvailableAccomodations400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetAvailableAccomodations401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetAvailableAccomodations403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetAvailableAccomodations404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetAvailableAccomodations405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetAvailableAccomodations415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetAvailableAccomodations429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetAvailableAccomodations500ResponseSchema> & { status: 500 })) & { path: "/v1/accomodations/getAvailableAccomodations" }
 export type AxiosGetAvailableAccomodationsResponse = AxiosGetAvailableAccomodationsSuccessResponse | AxiosGetAvailableAccomodationsErrorResponse
 export async function getAvailableAccomodations(data: GetAvailableAccomodationsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetAvailableAccomodationsResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -3031,6 +3464,16 @@ export async function getAvailableAccomodations(data: GetAvailableAccomodationsR
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -3078,11 +3521,11 @@ export async function getAvailableAccomodations(data: GetAvailableAccomodationsR
 Get accomodation details
 */
 export type AxiosGetAccomodationDetailsSuccessResponse = (AxiosResponse<GetAccomodationDetails200ResponseSchema> & { status: 200 })
-export type AxiosGetAccomodationDetailsErrorResponse = ((AxiosResponse<GetAccomodationDetails400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetAccomodationDetails404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetAccomodationDetails405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetAccomodationDetails415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetAccomodationDetails429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetAccomodationDetails500ResponseSchema> & { status: 500 })) & { path: "/v1/accomodations/getAccomodationDetails" }
+export type AxiosGetAccomodationDetailsErrorResponse = ((AxiosResponse<GetAccomodationDetails400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetAccomodationDetails401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetAccomodationDetails403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetAccomodationDetails404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetAccomodationDetails405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetAccomodationDetails415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetAccomodationDetails429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetAccomodationDetails500ResponseSchema> & { status: 500 })) & { path: "/v1/accomodations/getAccomodationDetails" }
 export type AxiosGetAccomodationDetailsResponse = AxiosGetAccomodationDetailsSuccessResponse | AxiosGetAccomodationDetailsErrorResponse
 export async function getAccomodationDetails(data: GetAccomodationDetailsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetAccomodationDetailsResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -3090,6 +3533,16 @@ export async function getAccomodationDetails(data: GetAccomodationDetailsRequest
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -3137,11 +3590,11 @@ export async function getAccomodationDetails(data: GetAccomodationDetailsRequest
 Get all the constants needed for the accomodations
 */
 export type AxiosGetConstantsSuccessResponse = (AxiosResponse<GetConstants200ResponseSchema> & { status: 200 })
-export type AxiosGetConstantsErrorResponse = ((AxiosResponse<GetConstants400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetConstants405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetConstants415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetConstants429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetConstants500ResponseSchema> & { status: 500 })) & { path: "/v1/accomodations/getConstants" }
+export type AxiosGetConstantsErrorResponse = ((AxiosResponse<GetConstants400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetConstants401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetConstants403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetConstants405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetConstants415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetConstants429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetConstants500ResponseSchema> & { status: 500 })) & { path: "/v1/accomodations/getConstants" }
 export type AxiosGetConstantsResponse = AxiosGetConstantsSuccessResponse | AxiosGetConstantsErrorResponse
 export async function getConstants(data: GetConstantsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetConstantsResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -3149,6 +3602,16 @@ export async function getConstants(data: GetConstantsRequestSchema, config?: Axi
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "405": {
@@ -3191,11 +3654,11 @@ export async function getConstants(data: GetConstantsRequestSchema, config?: Axi
 Get the best accomodations
 */
 export type AxiosGetBestAccomodationsSuccessResponse = (AxiosResponse<GetBestAccomodations200ResponseSchema> & { status: 200 })
-export type AxiosGetBestAccomodationsErrorResponse = ((AxiosResponse<GetBestAccomodations400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetBestAccomodations405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetBestAccomodations415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetBestAccomodations429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetBestAccomodations500ResponseSchema> & { status: 500 })) & { path: "/v1/accomodations/getBestAccomodations" }
+export type AxiosGetBestAccomodationsErrorResponse = ((AxiosResponse<GetBestAccomodations400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetBestAccomodations401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetBestAccomodations403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetBestAccomodations405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetBestAccomodations415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetBestAccomodations429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetBestAccomodations500ResponseSchema> & { status: 500 })) & { path: "/v1/accomodations/getBestAccomodations" }
 export type AxiosGetBestAccomodationsResponse = AxiosGetBestAccomodationsSuccessResponse | AxiosGetBestAccomodationsErrorResponse
 export async function getBestAccomodations(data: GetBestAccomodationsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetBestAccomodationsResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -3203,6 +3666,16 @@ export async function getBestAccomodations(data: GetBestAccomodationsRequestSche
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "405": {
@@ -3245,11 +3718,11 @@ export async function getBestAccomodations(data: GetBestAccomodationsRequestSche
 Send assistance request
 */
 export type AxiosSendGeneralHelpRequestSuccessResponse = (AxiosResponse<SendGeneralHelpRequest200ResponseSchema> & { status: 200 })
-export type AxiosSendGeneralHelpRequestErrorResponse = ((AxiosResponse<SendGeneralHelpRequest400ResponseSchema> & { status: 400 }) | (AxiosResponse<SendGeneralHelpRequest405ResponseSchema> & { status: 405 }) | (AxiosResponse<SendGeneralHelpRequest415ResponseSchema> & { status: 415 }) | (AxiosResponse<SendGeneralHelpRequest429ResponseSchema> & { status: 429 }) | (AxiosResponse<SendGeneralHelpRequest500ResponseSchema> & { status: 500 })) & { path: "/v1/assistance/sendGeneralHelpRequest" }
+export type AxiosSendGeneralHelpRequestErrorResponse = ((AxiosResponse<SendGeneralHelpRequest400ResponseSchema> & { status: 400 }) | (AxiosResponse<SendGeneralHelpRequest401ResponseSchema> & { status: 401 }) | (AxiosResponse<SendGeneralHelpRequest403ResponseSchema> & { status: 403 }) | (AxiosResponse<SendGeneralHelpRequest405ResponseSchema> & { status: 405 }) | (AxiosResponse<SendGeneralHelpRequest415ResponseSchema> & { status: 415 }) | (AxiosResponse<SendGeneralHelpRequest429ResponseSchema> & { status: 429 }) | (AxiosResponse<SendGeneralHelpRequest500ResponseSchema> & { status: 500 })) & { path: "/v1/assistance/sendGeneralHelpRequest" }
 export type AxiosSendGeneralHelpRequestResponse = AxiosSendGeneralHelpRequestSuccessResponse | AxiosSendGeneralHelpRequestErrorResponse
 export async function sendGeneralHelpRequest(data: SendGeneralHelpRequestRequestSchema, config?: AxiosRequestConfig): Promise<AxiosSendGeneralHelpRequestResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -3257,6 +3730,16 @@ export async function sendGeneralHelpRequest(data: SendGeneralHelpRequestRequest
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "405": {
@@ -3299,11 +3782,11 @@ export async function sendGeneralHelpRequest(data: SendGeneralHelpRequestRequest
 Send a help request to the assistance page
 */
 export type AxiosSendHelpRequestSuccessResponse = (AxiosResponse<SendHelpRequest200ResponseSchema> & { status: 200 })
-export type AxiosSendHelpRequestErrorResponse = ((AxiosResponse<SendHelpRequest400ResponseSchema> & { status: 400 }) | (AxiosResponse<SendHelpRequest405ResponseSchema> & { status: 405 }) | (AxiosResponse<SendHelpRequest415ResponseSchema> & { status: 415 }) | (AxiosResponse<SendHelpRequest429ResponseSchema> & { status: 429 }) | (AxiosResponse<SendHelpRequest500ResponseSchema> & { status: 500 })) & { path: "/v1/assistance/sendHelpRequest" }
+export type AxiosSendHelpRequestErrorResponse = ((AxiosResponse<SendHelpRequest400ResponseSchema> & { status: 400 }) | (AxiosResponse<SendHelpRequest401ResponseSchema> & { status: 401 }) | (AxiosResponse<SendHelpRequest403ResponseSchema> & { status: 403 }) | (AxiosResponse<SendHelpRequest405ResponseSchema> & { status: 405 }) | (AxiosResponse<SendHelpRequest415ResponseSchema> & { status: 415 }) | (AxiosResponse<SendHelpRequest429ResponseSchema> & { status: 429 }) | (AxiosResponse<SendHelpRequest500ResponseSchema> & { status: 500 })) & { path: "/v1/assistance/sendHelpRequest" }
 export type AxiosSendHelpRequestResponse = AxiosSendHelpRequestSuccessResponse | AxiosSendHelpRequestErrorResponse
 export async function sendHelpRequest(data: SendHelpRequestRequestSchema, config?: AxiosRequestConfig): Promise<AxiosSendHelpRequestResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -3311,6 +3794,16 @@ export async function sendHelpRequest(data: SendHelpRequestRequestSchema, config
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "405": {
@@ -3357,7 +3850,7 @@ export type AxiosAcceptHelpRequestErrorResponse = ((AxiosResponse<AcceptHelpRequ
 export type AxiosAcceptHelpRequestResponse = AxiosAcceptHelpRequestSuccessResponse | AxiosAcceptHelpRequestErrorResponse
 export async function acceptHelpRequest(data: AcceptHelpRequestRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAcceptHelpRequestResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -3427,11 +3920,11 @@ export async function acceptHelpRequest(data: AcceptHelpRequestRequestSchema, co
 Get all the assistance requests send by a specific user
 */
 export type AxiosGetAssistanceRequestSuccessResponse = (AxiosResponse<GetAssistanceRequest200ResponseSchema> & { status: 200 })
-export type AxiosGetAssistanceRequestErrorResponse = ((AxiosResponse<GetAssistanceRequest400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetAssistanceRequest401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetAssistanceRequest405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetAssistanceRequest415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetAssistanceRequest429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetAssistanceRequest500ResponseSchema> & { status: 500 })) & { path: "/v1/assistance/getAssistanceRequest" }
+export type AxiosGetAssistanceRequestErrorResponse = ((AxiosResponse<GetAssistanceRequest400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetAssistanceRequest401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetAssistanceRequest403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetAssistanceRequest405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetAssistanceRequest415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetAssistanceRequest429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetAssistanceRequest500ResponseSchema> & { status: 500 })) & { path: "/v1/assistance/getAssistanceRequest" }
 export type AxiosGetAssistanceRequestResponse = AxiosGetAssistanceRequestSuccessResponse | AxiosGetAssistanceRequestErrorResponse
 export async function getAssistanceRequest(data: GetAssistanceRequestRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetAssistanceRequestResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -3444,6 +3937,11 @@ export async function getAssistanceRequest(data: GetAssistanceRequestRequestSche
     "401": {
       "code": [
         "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "405": {
@@ -3900,11 +4398,11 @@ export async function validateVat(data: ValidateVatRequestSchema, config?: Axios
 Admin authentication for using the staging environment
 */
 export type AxiosAuthAdminSuccessResponse = (AxiosResponse<AuthAdmin200ResponseSchema> & { status: 200 })
-export type AxiosAuthAdminErrorResponse = ((AxiosResponse<AuthAdmin400ResponseSchema> & { status: 400 }) | (AxiosResponse<AuthAdmin401ResponseSchema> & { status: 401 }) | (AxiosResponse<AuthAdmin405ResponseSchema> & { status: 405 }) | (AxiosResponse<AuthAdmin415ResponseSchema> & { status: 415 }) | (AxiosResponse<AuthAdmin429ResponseSchema> & { status: 429 }) | (AxiosResponse<AuthAdmin500ResponseSchema> & { status: 500 })) & { path: "/v1/staging/authAdmin" }
+export type AxiosAuthAdminErrorResponse = ((AxiosResponse<AuthAdmin400ResponseSchema> & { status: 400 }) | (AxiosResponse<AuthAdmin401ResponseSchema> & { status: 401 }) | (AxiosResponse<AuthAdmin403ResponseSchema> & { status: 403 }) | (AxiosResponse<AuthAdmin405ResponseSchema> & { status: 405 }) | (AxiosResponse<AuthAdmin415ResponseSchema> & { status: 415 }) | (AxiosResponse<AuthAdmin429ResponseSchema> & { status: 429 }) | (AxiosResponse<AuthAdmin500ResponseSchema> & { status: 500 })) & { path: "/v1/staging/authAdmin" }
 export type AxiosAuthAdminResponse = AxiosAuthAdminSuccessResponse | AxiosAuthAdminErrorResponse
 export async function authAdmin(data: AuthAdminRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAuthAdminResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -3917,6 +4415,11 @@ export async function authAdmin(data: AuthAdminRequestSchema, config?: AxiosRequ
     "401": {
       "code": [
         "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "405": {
@@ -3959,11 +4462,11 @@ export async function authAdmin(data: AuthAdminRequestSchema, config?: AxiosRequ
 Verify the staging token
 */
 export type AxiosVerifyStagingTokenSuccessResponse = (AxiosResponse<VerifyStagingToken200ResponseSchema> & { status: 200 })
-export type AxiosVerifyStagingTokenErrorResponse = ((AxiosResponse<VerifyStagingToken400ResponseSchema> & { status: 400 }) | (AxiosResponse<VerifyStagingToken401ResponseSchema> & { status: 401 }) | (AxiosResponse<VerifyStagingToken405ResponseSchema> & { status: 405 }) | (AxiosResponse<VerifyStagingToken415ResponseSchema> & { status: 415 }) | (AxiosResponse<VerifyStagingToken429ResponseSchema> & { status: 429 }) | (AxiosResponse<VerifyStagingToken500ResponseSchema> & { status: 500 })) & { path: "/v1/staging/verifyStagingToken" }
+export type AxiosVerifyStagingTokenErrorResponse = ((AxiosResponse<VerifyStagingToken400ResponseSchema> & { status: 400 }) | (AxiosResponse<VerifyStagingToken401ResponseSchema> & { status: 401 }) | (AxiosResponse<VerifyStagingToken403ResponseSchema> & { status: 403 }) | (AxiosResponse<VerifyStagingToken405ResponseSchema> & { status: 405 }) | (AxiosResponse<VerifyStagingToken415ResponseSchema> & { status: 415 }) | (AxiosResponse<VerifyStagingToken429ResponseSchema> & { status: 429 }) | (AxiosResponse<VerifyStagingToken500ResponseSchema> & { status: 500 })) & { path: "/v1/staging/verifyStagingToken" }
 export type AxiosVerifyStagingTokenResponse = AxiosVerifyStagingTokenSuccessResponse | AxiosVerifyStagingTokenErrorResponse
 export async function verifyStagingToken(data: VerifyStagingTokenRequestSchema, config?: AxiosRequestConfig): Promise<AxiosVerifyStagingTokenResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -3976,6 +4479,11 @@ export async function verifyStagingToken(data: VerifyStagingTokenRequestSchema, 
     "401": {
       "code": [
         "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "405": {
@@ -4018,11 +4526,11 @@ export async function verifyStagingToken(data: VerifyStagingTokenRequestSchema, 
 get all available cities with filters
 */
 export type AxiosGetCitiesSuccessResponse = (AxiosResponse<GetCities200ResponseSchema> & { status: 200 })
-export type AxiosGetCitiesErrorResponse = ((AxiosResponse<GetCities400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetCities405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetCities415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetCities429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetCities500ResponseSchema> & { status: 500 })) & { path: "/v1/cities/getCities" }
+export type AxiosGetCitiesErrorResponse = ((AxiosResponse<GetCities400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetCities401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetCities403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetCities405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetCities415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetCities429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetCities500ResponseSchema> & { status: 500 })) & { path: "/v1/cities/getCities" }
 export type AxiosGetCitiesResponse = AxiosGetCitiesSuccessResponse | AxiosGetCitiesErrorResponse
 export async function getCities(data: GetCitiesRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetCitiesResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -4030,6 +4538,16 @@ export async function getCities(data: GetCitiesRequestSchema, config?: AxiosRequ
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "405": {
@@ -4264,11 +4782,11 @@ export async function verify2FaId(data: Verify2FaIdRequestSchema, config?: Axios
 Update the security settings of the user
 */
 export type AxiosUpdateSecuritySettingsSuccessResponse = (AxiosResponse<UpdateSecuritySettings200ResponseSchema> & { status: 200 })
-export type AxiosUpdateSecuritySettingsErrorResponse = ((AxiosResponse<UpdateSecuritySettings400ResponseSchema> & { status: 400 }) | (AxiosResponse<UpdateSecuritySettings401ResponseSchema> & { status: 401 }) | (AxiosResponse<UpdateSecuritySettings405ResponseSchema> & { status: 405 }) | (AxiosResponse<UpdateSecuritySettings415ResponseSchema> & { status: 415 }) | (AxiosResponse<UpdateSecuritySettings429ResponseSchema> & { status: 429 }) | (AxiosResponse<UpdateSecuritySettings500ResponseSchema> & { status: 500 })) & { path: "/v1/mfa/updateSecuritySettings" }
+export type AxiosUpdateSecuritySettingsErrorResponse = ((AxiosResponse<UpdateSecuritySettings400ResponseSchema> & { status: 400 }) | (AxiosResponse<UpdateSecuritySettings401ResponseSchema> & { status: 401 }) | (AxiosResponse<UpdateSecuritySettings403ResponseSchema> & { status: 403 }) | (AxiosResponse<UpdateSecuritySettings405ResponseSchema> & { status: 405 }) | (AxiosResponse<UpdateSecuritySettings415ResponseSchema> & { status: 415 }) | (AxiosResponse<UpdateSecuritySettings429ResponseSchema> & { status: 429 }) | (AxiosResponse<UpdateSecuritySettings500ResponseSchema> & { status: 500 })) & { path: "/v1/mfa/updateSecuritySettings" }
 export type AxiosUpdateSecuritySettingsResponse = AxiosUpdateSecuritySettingsSuccessResponse | AxiosUpdateSecuritySettingsErrorResponse
 export async function updateSecuritySettings(data: UpdateSecuritySettingsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosUpdateSecuritySettingsResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -4281,6 +4799,11 @@ export async function updateSecuritySettings(data: UpdateSecuritySettingsRequest
     "401": {
       "code": [
         "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "405": {
@@ -4387,11 +4910,11 @@ export async function resend2FaCode(data: Resend2FaCodeRequestSchema, config?: A
 Get all offers for the current season
 */
 export type AxiosGetSeasonOffersSuccessResponse = (AxiosResponse<GetSeasonOffers200ResponseSchema> & { status: 200 })
-export type AxiosGetSeasonOffersErrorResponse = ((AxiosResponse<GetSeasonOffers400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetSeasonOffers404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetSeasonOffers405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetSeasonOffers415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetSeasonOffers429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetSeasonOffers500ResponseSchema> & { status: 500 })) & { path: "/v1/offers/getSeasonOffers" }
+export type AxiosGetSeasonOffersErrorResponse = ((AxiosResponse<GetSeasonOffers400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetSeasonOffers401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetSeasonOffers403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetSeasonOffers404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetSeasonOffers405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetSeasonOffers415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetSeasonOffers429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetSeasonOffers500ResponseSchema> & { status: 500 })) & { path: "/v1/offers/getSeasonOffers" }
 export type AxiosGetSeasonOffersResponse = AxiosGetSeasonOffersSuccessResponse | AxiosGetSeasonOffersErrorResponse
 export async function getSeasonOffers(data: GetSeasonOffersRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetSeasonOffersResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -4399,6 +4922,16 @@ export async function getSeasonOffers(data: GetSeasonOffersRequestSchema, config
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -4446,11 +4979,11 @@ export async function getSeasonOffers(data: GetSeasonOffersRequestSchema, config
 Create a new coupon for a user
 */
 export type AxiosCreateCouponSuccessResponse = (AxiosResponse<CreateCoupon200ResponseSchema> & { status: 200 })
-export type AxiosCreateCouponErrorResponse = ((AxiosResponse<CreateCoupon400ResponseSchema> & { status: 400 }) | (AxiosResponse<CreateCoupon404ResponseSchema> & { status: 404 }) | (AxiosResponse<CreateCoupon405ResponseSchema> & { status: 405 }) | (AxiosResponse<CreateCoupon415ResponseSchema> & { status: 415 }) | (AxiosResponse<CreateCoupon429ResponseSchema> & { status: 429 }) | (AxiosResponse<CreateCoupon500ResponseSchema> & { status: 500 })) & { path: "/v1/coupons/createCoupon" }
+export type AxiosCreateCouponErrorResponse = ((AxiosResponse<CreateCoupon400ResponseSchema> & { status: 400 }) | (AxiosResponse<CreateCoupon401ResponseSchema> & { status: 401 }) | (AxiosResponse<CreateCoupon403ResponseSchema> & { status: 403 }) | (AxiosResponse<CreateCoupon404ResponseSchema> & { status: 404 }) | (AxiosResponse<CreateCoupon405ResponseSchema> & { status: 405 }) | (AxiosResponse<CreateCoupon415ResponseSchema> & { status: 415 }) | (AxiosResponse<CreateCoupon429ResponseSchema> & { status: 429 }) | (AxiosResponse<CreateCoupon500ResponseSchema> & { status: 500 })) & { path: "/v1/coupons/createCoupon" }
 export type AxiosCreateCouponResponse = AxiosCreateCouponSuccessResponse | AxiosCreateCouponErrorResponse
 export async function createCoupon(data: CreateCouponRequestSchema, config?: AxiosRequestConfig): Promise<AxiosCreateCouponResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -4458,6 +4991,16 @@ export async function createCoupon(data: CreateCouponRequestSchema, config?: Axi
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -4505,11 +5048,11 @@ export async function createCoupon(data: CreateCouponRequestSchema, config?: Axi
 Remove a coupon from the user
 */
 export type AxiosDeleteCouponSuccessResponse = (AxiosResponse<DeleteCoupon200ResponseSchema> & { status: 200 })
-export type AxiosDeleteCouponErrorResponse = ((AxiosResponse<DeleteCoupon400ResponseSchema> & { status: 400 }) | (AxiosResponse<DeleteCoupon404ResponseSchema> & { status: 404 }) | (AxiosResponse<DeleteCoupon405ResponseSchema> & { status: 405 }) | (AxiosResponse<DeleteCoupon409ResponseSchema> & { status: 409 }) | (AxiosResponse<DeleteCoupon415ResponseSchema> & { status: 415 }) | (AxiosResponse<DeleteCoupon429ResponseSchema> & { status: 429 }) | (AxiosResponse<DeleteCoupon500ResponseSchema> & { status: 500 })) & { path: "/v1/coupons/deleteCoupon" }
+export type AxiosDeleteCouponErrorResponse = ((AxiosResponse<DeleteCoupon400ResponseSchema> & { status: 400 }) | (AxiosResponse<DeleteCoupon401ResponseSchema> & { status: 401 }) | (AxiosResponse<DeleteCoupon403ResponseSchema> & { status: 403 }) | (AxiosResponse<DeleteCoupon404ResponseSchema> & { status: 404 }) | (AxiosResponse<DeleteCoupon405ResponseSchema> & { status: 405 }) | (AxiosResponse<DeleteCoupon409ResponseSchema> & { status: 409 }) | (AxiosResponse<DeleteCoupon415ResponseSchema> & { status: 415 }) | (AxiosResponse<DeleteCoupon429ResponseSchema> & { status: 429 }) | (AxiosResponse<DeleteCoupon500ResponseSchema> & { status: 500 })) & { path: "/v1/coupons/deleteCoupon" }
 export type AxiosDeleteCouponResponse = AxiosDeleteCouponSuccessResponse | AxiosDeleteCouponErrorResponse
 export async function deleteCoupon(data: DeleteCouponRequestSchema, config?: AxiosRequestConfig): Promise<AxiosDeleteCouponResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -4517,6 +5060,16 @@ export async function deleteCoupon(data: DeleteCouponRequestSchema, config?: Axi
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -4569,11 +5122,11 @@ export async function deleteCoupon(data: DeleteCouponRequestSchema, config?: Axi
 List all coupons of the current user
 */
 export type AxiosListCouponsSuccessResponse = (AxiosResponse<ListCoupons200ResponseSchema> & { status: 200 })
-export type AxiosListCouponsErrorResponse = ((AxiosResponse<ListCoupons400ResponseSchema> & { status: 400 }) | (AxiosResponse<ListCoupons404ResponseSchema> & { status: 404 }) | (AxiosResponse<ListCoupons405ResponseSchema> & { status: 405 }) | (AxiosResponse<ListCoupons415ResponseSchema> & { status: 415 }) | (AxiosResponse<ListCoupons429ResponseSchema> & { status: 429 }) | (AxiosResponse<ListCoupons500ResponseSchema> & { status: 500 })) & { path: "/v1/coupons/listCoupons" }
+export type AxiosListCouponsErrorResponse = ((AxiosResponse<ListCoupons400ResponseSchema> & { status: 400 }) | (AxiosResponse<ListCoupons401ResponseSchema> & { status: 401 }) | (AxiosResponse<ListCoupons403ResponseSchema> & { status: 403 }) | (AxiosResponse<ListCoupons404ResponseSchema> & { status: 404 }) | (AxiosResponse<ListCoupons405ResponseSchema> & { status: 405 }) | (AxiosResponse<ListCoupons415ResponseSchema> & { status: 415 }) | (AxiosResponse<ListCoupons429ResponseSchema> & { status: 429 }) | (AxiosResponse<ListCoupons500ResponseSchema> & { status: 500 })) & { path: "/v1/coupons/listCoupons" }
 export type AxiosListCouponsResponse = AxiosListCouponsSuccessResponse | AxiosListCouponsErrorResponse
 export async function listCoupons(data: ListCouponsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosListCouponsResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -4581,6 +5134,16 @@ export async function listCoupons(data: ListCouponsRequestSchema, config?: Axios
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -4628,11 +5191,11 @@ export async function listCoupons(data: ListCouponsRequestSchema, config?: Axios
 Remove a coupon from a payment intent
 */
 export type AxiosRemoveCouponSuccessResponse = (AxiosResponse<RemoveCoupon200ResponseSchema> & { status: 200 })
-export type AxiosRemoveCouponErrorResponse = ((AxiosResponse<RemoveCoupon400ResponseSchema> & { status: 400 }) | (AxiosResponse<RemoveCoupon404ResponseSchema> & { status: 404 }) | (AxiosResponse<RemoveCoupon405ResponseSchema> & { status: 405 }) | (AxiosResponse<RemoveCoupon409ResponseSchema> & { status: 409 }) | (AxiosResponse<RemoveCoupon415ResponseSchema> & { status: 415 }) | (AxiosResponse<RemoveCoupon429ResponseSchema> & { status: 429 }) | (AxiosResponse<RemoveCoupon500ResponseSchema> & { status: 500 })) & { path: "/v1/coupons/removeCoupon" }
+export type AxiosRemoveCouponErrorResponse = ((AxiosResponse<RemoveCoupon400ResponseSchema> & { status: 400 }) | (AxiosResponse<RemoveCoupon401ResponseSchema> & { status: 401 }) | (AxiosResponse<RemoveCoupon403ResponseSchema> & { status: 403 }) | (AxiosResponse<RemoveCoupon404ResponseSchema> & { status: 404 }) | (AxiosResponse<RemoveCoupon405ResponseSchema> & { status: 405 }) | (AxiosResponse<RemoveCoupon409ResponseSchema> & { status: 409 }) | (AxiosResponse<RemoveCoupon415ResponseSchema> & { status: 415 }) | (AxiosResponse<RemoveCoupon429ResponseSchema> & { status: 429 }) | (AxiosResponse<RemoveCoupon500ResponseSchema> & { status: 500 })) & { path: "/v1/coupons/removeCoupon" }
 export type AxiosRemoveCouponResponse = AxiosRemoveCouponSuccessResponse | AxiosRemoveCouponErrorResponse
 export async function removeCoupon(data: RemoveCouponRequestSchema, config?: AxiosRequestConfig): Promise<AxiosRemoveCouponResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -4640,6 +5203,16 @@ export async function removeCoupon(data: RemoveCouponRequestSchema, config?: Axi
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -4692,11 +5265,11 @@ export async function removeCoupon(data: RemoveCouponRequestSchema, config?: Axi
 Use a coupon on a payment intent
 */
 export type AxiosUseCouponSuccessResponse = (AxiosResponse<UseCoupon200ResponseSchema> & { status: 200 })
-export type AxiosUseCouponErrorResponse = ((AxiosResponse<UseCoupon400ResponseSchema> & { status: 400 }) | (AxiosResponse<UseCoupon404ResponseSchema> & { status: 404 }) | (AxiosResponse<UseCoupon405ResponseSchema> & { status: 405 }) | (AxiosResponse<UseCoupon409ResponseSchema> & { status: 409 }) | (AxiosResponse<UseCoupon410ResponseSchema> & { status: 410 }) | (AxiosResponse<UseCoupon415ResponseSchema> & { status: 415 }) | (AxiosResponse<UseCoupon429ResponseSchema> & { status: 429 }) | (AxiosResponse<UseCoupon500ResponseSchema> & { status: 500 })) & { path: "/v1/coupons/useCoupon" }
+export type AxiosUseCouponErrorResponse = ((AxiosResponse<UseCoupon400ResponseSchema> & { status: 400 }) | (AxiosResponse<UseCoupon401ResponseSchema> & { status: 401 }) | (AxiosResponse<UseCoupon403ResponseSchema> & { status: 403 }) | (AxiosResponse<UseCoupon404ResponseSchema> & { status: 404 }) | (AxiosResponse<UseCoupon405ResponseSchema> & { status: 405 }) | (AxiosResponse<UseCoupon409ResponseSchema> & { status: 409 }) | (AxiosResponse<UseCoupon410ResponseSchema> & { status: 410 }) | (AxiosResponse<UseCoupon415ResponseSchema> & { status: 415 }) | (AxiosResponse<UseCoupon429ResponseSchema> & { status: 429 }) | (AxiosResponse<UseCoupon500ResponseSchema> & { status: 500 })) & { path: "/v1/coupons/useCoupon" }
 export type AxiosUseCouponResponse = AxiosUseCouponSuccessResponse | AxiosUseCouponErrorResponse
 export async function useCoupon(data: UseCouponRequestSchema, config?: AxiosRequestConfig): Promise<AxiosUseCouponResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -4704,6 +5277,16 @@ export async function useCoupon(data: UseCouponRequestSchema, config?: AxiosRequ
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -4761,11 +5344,11 @@ export async function useCoupon(data: UseCouponRequestSchema, config?: AxiosRequ
 Redeem new general coupon using a code
 */
 export type AxiosRedeemCouponSuccessResponse = (AxiosResponse<RedeemCoupon200ResponseSchema> & { status: 200 })
-export type AxiosRedeemCouponErrorResponse = ((AxiosResponse<RedeemCoupon400ResponseSchema> & { status: 400 }) | (AxiosResponse<RedeemCoupon401ResponseSchema> & { status: 401 }) | (AxiosResponse<RedeemCoupon404ResponseSchema> & { status: 404 }) | (AxiosResponse<RedeemCoupon405ResponseSchema> & { status: 405 }) | (AxiosResponse<RedeemCoupon409ResponseSchema> & { status: 409 }) | (AxiosResponse<RedeemCoupon410ResponseSchema> & { status: 410 }) | (AxiosResponse<RedeemCoupon415ResponseSchema> & { status: 415 }) | (AxiosResponse<RedeemCoupon429ResponseSchema> & { status: 429 }) | (AxiosResponse<RedeemCoupon500ResponseSchema> & { status: 500 })) & { path: "/v1/coupons/redeemCoupon" }
+export type AxiosRedeemCouponErrorResponse = ((AxiosResponse<RedeemCoupon400ResponseSchema> & { status: 400 }) | (AxiosResponse<RedeemCoupon401ResponseSchema> & { status: 401 }) | (AxiosResponse<RedeemCoupon403ResponseSchema> & { status: 403 }) | (AxiosResponse<RedeemCoupon404ResponseSchema> & { status: 404 }) | (AxiosResponse<RedeemCoupon405ResponseSchema> & { status: 405 }) | (AxiosResponse<RedeemCoupon409ResponseSchema> & { status: 409 }) | (AxiosResponse<RedeemCoupon410ResponseSchema> & { status: 410 }) | (AxiosResponse<RedeemCoupon415ResponseSchema> & { status: 415 }) | (AxiosResponse<RedeemCoupon429ResponseSchema> & { status: 429 }) | (AxiosResponse<RedeemCoupon500ResponseSchema> & { status: 500 })) & { path: "/v1/coupons/redeemCoupon" }
 export type AxiosRedeemCouponResponse = AxiosRedeemCouponSuccessResponse | AxiosRedeemCouponErrorResponse
 export async function redeemCoupon(data: RedeemCouponRequestSchema, config?: AxiosRequestConfig): Promise<AxiosRedeemCouponResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -4778,6 +5361,11 @@ export async function redeemCoupon(data: RedeemCouponRequestSchema, config?: Axi
     "401": {
       "code": [
         "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -4835,11 +5423,11 @@ export async function redeemCoupon(data: RedeemCouponRequestSchema, config?: Axi
 Create new review from client that will be saved as pending
 */
 export type AxiosCreateReviewSuccessResponse = (AxiosResponse<CreateReview200ResponseSchema> & { status: 200 })
-export type AxiosCreateReviewErrorResponse = ((AxiosResponse<CreateReview400ResponseSchema> & { status: 400 }) | (AxiosResponse<CreateReview401ResponseSchema> & { status: 401 }) | (AxiosResponse<CreateReview405ResponseSchema> & { status: 405 }) | (AxiosResponse<CreateReview415ResponseSchema> & { status: 415 }) | (AxiosResponse<CreateReview429ResponseSchema> & { status: 429 }) | (AxiosResponse<CreateReview500ResponseSchema> & { status: 500 })) & { path: "/v1/review/createReview" }
+export type AxiosCreateReviewErrorResponse = ((AxiosResponse<CreateReview400ResponseSchema> & { status: 400 }) | (AxiosResponse<CreateReview401ResponseSchema> & { status: 401 }) | (AxiosResponse<CreateReview403ResponseSchema> & { status: 403 }) | (AxiosResponse<CreateReview405ResponseSchema> & { status: 405 }) | (AxiosResponse<CreateReview415ResponseSchema> & { status: 415 }) | (AxiosResponse<CreateReview429ResponseSchema> & { status: 429 }) | (AxiosResponse<CreateReview500ResponseSchema> & { status: 500 })) & { path: "/v1/review/createReview" }
 export type AxiosCreateReviewResponse = AxiosCreateReviewSuccessResponse | AxiosCreateReviewErrorResponse
 export async function createReview(data: CreateReviewRequestSchema, config?: AxiosRequestConfig): Promise<AxiosCreateReviewResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -4852,6 +5440,11 @@ export async function createReview(data: CreateReviewRequestSchema, config?: Axi
     "401": {
       "code": [
         "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "405": {
@@ -4894,11 +5487,11 @@ export async function createReview(data: CreateReviewRequestSchema, config?: Axi
 List all published reviews / landing page reviews
 */
 export type AxiosListPublishdReviewsSuccessResponse = (AxiosResponse<ListPublishdReviews200ResponseSchema> & { status: 200 })
-export type AxiosListPublishdReviewsErrorResponse = ((AxiosResponse<ListPublishdReviews400ResponseSchema> & { status: 400 }) | (AxiosResponse<ListPublishdReviews405ResponseSchema> & { status: 405 }) | (AxiosResponse<ListPublishdReviews415ResponseSchema> & { status: 415 }) | (AxiosResponse<ListPublishdReviews429ResponseSchema> & { status: 429 }) | (AxiosResponse<ListPublishdReviews500ResponseSchema> & { status: 500 })) & { path: "/v1/review/listPublishdReviews" }
+export type AxiosListPublishdReviewsErrorResponse = ((AxiosResponse<ListPublishdReviews400ResponseSchema> & { status: 400 }) | (AxiosResponse<ListPublishdReviews401ResponseSchema> & { status: 401 }) | (AxiosResponse<ListPublishdReviews403ResponseSchema> & { status: 403 }) | (AxiosResponse<ListPublishdReviews405ResponseSchema> & { status: 405 }) | (AxiosResponse<ListPublishdReviews415ResponseSchema> & { status: 415 }) | (AxiosResponse<ListPublishdReviews429ResponseSchema> & { status: 429 }) | (AxiosResponse<ListPublishdReviews500ResponseSchema> & { status: 500 })) & { path: "/v1/review/listPublishdReviews" }
 export type AxiosListPublishdReviewsResponse = AxiosListPublishdReviewsSuccessResponse | AxiosListPublishdReviewsErrorResponse
 export async function listPublishdReviews(data: ListPublishdReviewsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosListPublishdReviewsResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -4906,6 +5499,16 @@ export async function listPublishdReviews(data: ListPublishdReviewsRequestSchema
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "405": {
@@ -4948,11 +5551,11 @@ export async function listPublishdReviews(data: ListPublishdReviewsRequestSchema
 List published reviews with the best ranking
 */
 export type AxiosListBestReviewsSuccessResponse = (AxiosResponse<ListBestReviews200ResponseSchema> & { status: 200 })
-export type AxiosListBestReviewsErrorResponse = ((AxiosResponse<ListBestReviews400ResponseSchema> & { status: 400 }) | (AxiosResponse<ListBestReviews405ResponseSchema> & { status: 405 }) | (AxiosResponse<ListBestReviews415ResponseSchema> & { status: 415 }) | (AxiosResponse<ListBestReviews429ResponseSchema> & { status: 429 }) | (AxiosResponse<ListBestReviews500ResponseSchema> & { status: 500 })) & { path: "/v1/review/listBestReviews" }
+export type AxiosListBestReviewsErrorResponse = ((AxiosResponse<ListBestReviews400ResponseSchema> & { status: 400 }) | (AxiosResponse<ListBestReviews401ResponseSchema> & { status: 401 }) | (AxiosResponse<ListBestReviews403ResponseSchema> & { status: 403 }) | (AxiosResponse<ListBestReviews405ResponseSchema> & { status: 405 }) | (AxiosResponse<ListBestReviews415ResponseSchema> & { status: 415 }) | (AxiosResponse<ListBestReviews429ResponseSchema> & { status: 429 }) | (AxiosResponse<ListBestReviews500ResponseSchema> & { status: 500 })) & { path: "/v1/review/listBestReviews" }
 export type AxiosListBestReviewsResponse = AxiosListBestReviewsSuccessResponse | AxiosListBestReviewsErrorResponse
 export async function listBestReviews(data: ListBestReviewsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosListBestReviewsResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -4960,6 +5563,16 @@ export async function listBestReviews(data: ListBestReviewsRequestSchema, config
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "405": {
@@ -5002,11 +5615,11 @@ export async function listBestReviews(data: ListBestReviewsRequestSchema, config
 Report a review, this action can be made by auth users or guests
 */
 export type AxiosReportReviewSuccessResponse = (AxiosResponse<ReportReview200ResponseSchema> & { status: 200 })
-export type AxiosReportReviewErrorResponse = ((AxiosResponse<ReportReview400ResponseSchema> & { status: 400 }) | (AxiosResponse<ReportReview404ResponseSchema> & { status: 404 }) | (AxiosResponse<ReportReview405ResponseSchema> & { status: 405 }) | (AxiosResponse<ReportReview415ResponseSchema> & { status: 415 }) | (AxiosResponse<ReportReview429ResponseSchema> & { status: 429 }) | (AxiosResponse<ReportReview500ResponseSchema> & { status: 500 })) & { path: "/v1/review/reportReview" }
+export type AxiosReportReviewErrorResponse = ((AxiosResponse<ReportReview400ResponseSchema> & { status: 400 }) | (AxiosResponse<ReportReview401ResponseSchema> & { status: 401 }) | (AxiosResponse<ReportReview403ResponseSchema> & { status: 403 }) | (AxiosResponse<ReportReview404ResponseSchema> & { status: 404 }) | (AxiosResponse<ReportReview405ResponseSchema> & { status: 405 }) | (AxiosResponse<ReportReview415ResponseSchema> & { status: 415 }) | (AxiosResponse<ReportReview429ResponseSchema> & { status: 429 }) | (AxiosResponse<ReportReview500ResponseSchema> & { status: 500 })) & { path: "/v1/review/reportReview" }
 export type AxiosReportReviewResponse = AxiosReportReviewSuccessResponse | AxiosReportReviewErrorResponse
 export async function reportReview(data: ReportReviewRequestSchema, config?: AxiosRequestConfig): Promise<AxiosReportReviewResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -5014,6 +5627,16 @@ export async function reportReview(data: ReportReviewRequestSchema, config?: Axi
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -5061,11 +5684,11 @@ export async function reportReview(data: ReportReviewRequestSchema, config?: Axi
 Add like to a review, this action can be made by auth user or guest
 */
 export type AxiosAddLikeToReviewSuccessResponse = (AxiosResponse<AddLikeToReview200ResponseSchema> & { status: 200 })
-export type AxiosAddLikeToReviewErrorResponse = ((AxiosResponse<AddLikeToReview400ResponseSchema> & { status: 400 }) | (AxiosResponse<AddLikeToReview404ResponseSchema> & { status: 404 }) | (AxiosResponse<AddLikeToReview405ResponseSchema> & { status: 405 }) | (AxiosResponse<AddLikeToReview409ResponseSchema> & { status: 409 }) | (AxiosResponse<AddLikeToReview415ResponseSchema> & { status: 415 }) | (AxiosResponse<AddLikeToReview429ResponseSchema> & { status: 429 }) | (AxiosResponse<AddLikeToReview500ResponseSchema> & { status: 500 })) & { path: "/v1/review/addLikeToReview" }
+export type AxiosAddLikeToReviewErrorResponse = ((AxiosResponse<AddLikeToReview400ResponseSchema> & { status: 400 }) | (AxiosResponse<AddLikeToReview401ResponseSchema> & { status: 401 }) | (AxiosResponse<AddLikeToReview403ResponseSchema> & { status: 403 }) | (AxiosResponse<AddLikeToReview404ResponseSchema> & { status: 404 }) | (AxiosResponse<AddLikeToReview405ResponseSchema> & { status: 405 }) | (AxiosResponse<AddLikeToReview409ResponseSchema> & { status: 409 }) | (AxiosResponse<AddLikeToReview415ResponseSchema> & { status: 415 }) | (AxiosResponse<AddLikeToReview429ResponseSchema> & { status: 429 }) | (AxiosResponse<AddLikeToReview500ResponseSchema> & { status: 500 })) & { path: "/v1/review/addLikeToReview" }
 export type AxiosAddLikeToReviewResponse = AxiosAddLikeToReviewSuccessResponse | AxiosAddLikeToReviewErrorResponse
 export async function addLikeToReview(data: AddLikeToReviewRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAddLikeToReviewResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -5073,6 +5696,16 @@ export async function addLikeToReview(data: AddLikeToReviewRequestSchema, config
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -5125,11 +5758,11 @@ export async function addLikeToReview(data: AddLikeToReviewRequestSchema, config
 Get platform statistics such as: avarage review stars, users number, ecc...
 */
 export type AxiosGetStatisticsSuccessResponse = (AxiosResponse<GetStatistics200ResponseSchema> & { status: 200 })
-export type AxiosGetStatisticsErrorResponse = ((AxiosResponse<GetStatistics400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetStatistics405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetStatistics415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetStatistics429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetStatistics500ResponseSchema> & { status: 500 })) & { path: "/v1/review/getStatistics" }
+export type AxiosGetStatisticsErrorResponse = ((AxiosResponse<GetStatistics400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetStatistics401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetStatistics403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetStatistics405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetStatistics415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetStatistics429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetStatistics500ResponseSchema> & { status: 500 })) & { path: "/v1/review/getStatistics" }
 export type AxiosGetStatisticsResponse = AxiosGetStatisticsSuccessResponse | AxiosGetStatisticsErrorResponse
 export async function getStatistics(config?: AxiosRequestConfig): Promise<AxiosGetStatisticsResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -5137,6 +5770,16 @@ export async function getStatistics(config?: AxiosRequestConfig): Promise<AxiosG
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "405": {
@@ -5179,11 +5822,11 @@ export async function getStatistics(config?: AxiosRequestConfig): Promise<AxiosG
 Get all help requests in the system
 */
 export type AxiosListHelpRequestsSuccessResponse = (AxiosResponse<ListHelpRequests200ResponseSchema> & { status: 200 })
-export type AxiosListHelpRequestsErrorResponse = ((AxiosResponse<ListHelpRequests400ResponseSchema> & { status: 400 }) | (AxiosResponse<ListHelpRequests405ResponseSchema> & { status: 405 }) | (AxiosResponse<ListHelpRequests415ResponseSchema> & { status: 415 }) | (AxiosResponse<ListHelpRequests429ResponseSchema> & { status: 429 }) | (AxiosResponse<ListHelpRequests500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/listHelpRequests" }
+export type AxiosListHelpRequestsErrorResponse = ((AxiosResponse<ListHelpRequests400ResponseSchema> & { status: 400 }) | (AxiosResponse<ListHelpRequests401ResponseSchema> & { status: 401 }) | (AxiosResponse<ListHelpRequests403ResponseSchema> & { status: 403 }) | (AxiosResponse<ListHelpRequests405ResponseSchema> & { status: 405 }) | (AxiosResponse<ListHelpRequests415ResponseSchema> & { status: 415 }) | (AxiosResponse<ListHelpRequests429ResponseSchema> & { status: 429 }) | (AxiosResponse<ListHelpRequests500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/listHelpRequests" }
 export type AxiosListHelpRequestsResponse = AxiosListHelpRequestsSuccessResponse | AxiosListHelpRequestsErrorResponse
 export async function listHelpRequests(data: ListHelpRequestsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosListHelpRequestsResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -5191,6 +5834,16 @@ export async function listHelpRequests(data: ListHelpRequestsRequestSchema, conf
     "400": {
       "code": [
         "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "405": {
@@ -5233,11 +5886,11 @@ export async function listHelpRequests(data: ListHelpRequestsRequestSchema, conf
 Send help response to a client request
 */
 export type AxiosSendHelpResponseSuccessResponse = (AxiosResponse<SendHelpResponse200ResponseSchema> & { status: 200 })
-export type AxiosSendHelpResponseErrorResponse = ((AxiosResponse<SendHelpResponse400ResponseSchema> & { status: 400 }) | (AxiosResponse<SendHelpResponse401ResponseSchema> & { status: 401 }) | (AxiosResponse<SendHelpResponse404ResponseSchema> & { status: 404 }) | (AxiosResponse<SendHelpResponse405ResponseSchema> & { status: 405 }) | (AxiosResponse<SendHelpResponse409ResponseSchema> & { status: 409 }) | (AxiosResponse<SendHelpResponse415ResponseSchema> & { status: 415 }) | (AxiosResponse<SendHelpResponse429ResponseSchema> & { status: 429 }) | (AxiosResponse<SendHelpResponse500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/sendHelpResponse" }
+export type AxiosSendHelpResponseErrorResponse = ((AxiosResponse<SendHelpResponse400ResponseSchema> & { status: 400 }) | (AxiosResponse<SendHelpResponse401ResponseSchema> & { status: 401 }) | (AxiosResponse<SendHelpResponse403ResponseSchema> & { status: 403 }) | (AxiosResponse<SendHelpResponse404ResponseSchema> & { status: 404 }) | (AxiosResponse<SendHelpResponse405ResponseSchema> & { status: 405 }) | (AxiosResponse<SendHelpResponse409ResponseSchema> & { status: 409 }) | (AxiosResponse<SendHelpResponse415ResponseSchema> & { status: 415 }) | (AxiosResponse<SendHelpResponse429ResponseSchema> & { status: 429 }) | (AxiosResponse<SendHelpResponse500ResponseSchema> & { status: 500 })) & { path: "/v1/admin/sendHelpResponse" }
 export type AxiosSendHelpResponseResponse = AxiosSendHelpResponseSuccessResponse | AxiosSendHelpResponseErrorResponse
 export async function sendHelpResponse(data: SendHelpResponseRequestSchema, config?: AxiosRequestConfig): Promise<AxiosSendHelpResponseResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -5250,6 +5903,11 @@ export async function sendHelpResponse(data: SendHelpResponseRequestSchema, conf
     "401": {
       "code": [
         "UNAUTHENTICATED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
       ]
     },
     "404": {
@@ -5306,7 +5964,7 @@ export type AxiosAcceptPendingShipmentErrorResponse = ((AxiosResponse<AcceptPend
 export type AxiosAcceptPendingShipmentResponse = AxiosAcceptPendingShipmentSuccessResponse | AxiosAcceptPendingShipmentErrorResponse
 export async function acceptPendingShipment(data: AcceptPendingShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAcceptPendingShipmentResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -5385,7 +6043,7 @@ export type AxiosRejectPendingShipmentErrorResponse = ((AxiosResponse<RejectPend
 export type AxiosRejectPendingShipmentResponse = AxiosRejectPendingShipmentSuccessResponse | AxiosRejectPendingShipmentErrorResponse
 export async function rejectPendingShipment(data: RejectPendingShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosRejectPendingShipmentResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -5454,7 +6112,7 @@ export type AxiosListPendingShipmentsErrorResponse = ((AxiosResponse<ListPending
 export type AxiosListPendingShipmentsResponse = AxiosListPendingShipmentsSuccessResponse | AxiosListPendingShipmentsErrorResponse
 export async function listPendingShipments(data: ListPendingShipmentsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosListPendingShipmentsResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -5518,7 +6176,7 @@ export type AxiosListNormalShipmentsErrorResponse = ((AxiosResponse<ListNormalSh
 export type AxiosListNormalShipmentsResponse = AxiosListNormalShipmentsSuccessResponse | AxiosListNormalShipmentsErrorResponse
 export async function listNormalShipments(data: ListNormalShipmentsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosListNormalShipmentsResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -5582,7 +6240,7 @@ export type AxiosCreateAssistantErrorResponse = ((AxiosResponse<CreateAssistant4
 export type AxiosCreateAssistantResponse = AxiosCreateAssistantSuccessResponse | AxiosCreateAssistantErrorResponse
 export async function createAssistant(data: CreateAssistantRequestSchema, config?: AxiosRequestConfig): Promise<AxiosCreateAssistantResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -5651,7 +6309,7 @@ export type AxiosUpdateNormalShipmentStatusErrorResponse = ((AxiosResponse<Updat
 export type AxiosUpdateNormalShipmentStatusResponse = AxiosUpdateNormalShipmentStatusSuccessResponse | AxiosUpdateNormalShipmentStatusErrorResponse
 export async function updateNormalShipmentStatus(data: UpdateNormalShipmentStatusRequestSchema, config?: AxiosRequestConfig): Promise<AxiosUpdateNormalShipmentStatusResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -5720,7 +6378,7 @@ export type AxiosAdminGetNormalShipmentErrorResponse = ((AxiosResponse<AdminGetN
 export type AxiosAdminGetNormalShipmentResponse = AxiosAdminGetNormalShipmentSuccessResponse | AxiosAdminGetNormalShipmentErrorResponse
 export async function adminGetNormalShipment(data: AdminGetNormalShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminGetNormalShipmentResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -5789,7 +6447,7 @@ export type AxiosAdminGetPendingShipmentErrorResponse = ((AxiosResponse<AdminGet
 export type AxiosAdminGetPendingShipmentResponse = AxiosAdminGetPendingShipmentSuccessResponse | AxiosAdminGetPendingShipmentErrorResponse
 export async function adminGetPendingShipment(data: AdminGetPendingShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminGetPendingShipmentResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -5858,7 +6516,7 @@ export type AxiosAdminCancelShipmentErrorResponse = ((AxiosResponse<AdminCancelS
 export type AxiosAdminCancelShipmentResponse = AxiosAdminCancelShipmentSuccessResponse | AxiosAdminCancelShipmentErrorResponse
 export async function adminCancelShipment(data: AdminCancelShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminCancelShipmentResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -5932,7 +6590,7 @@ export type AxiosListShipmentCancellationRequestsErrorResponse = ((AxiosResponse
 export type AxiosListShipmentCancellationRequestsResponse = AxiosListShipmentCancellationRequestsSuccessResponse | AxiosListShipmentCancellationRequestsErrorResponse
 export async function listShipmentCancellationRequests(data: ListShipmentCancellationRequestsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosListShipmentCancellationRequestsResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -5996,7 +6654,7 @@ export type AxiosDiscardShipmentCancellationRequestErrorResponse = ((AxiosRespon
 export type AxiosDiscardShipmentCancellationRequestResponse = AxiosDiscardShipmentCancellationRequestSuccessResponse | AxiosDiscardShipmentCancellationRequestErrorResponse
 export async function discardShipmentCancellationRequest(data: DiscardShipmentCancellationRequestRequestSchema, config?: AxiosRequestConfig): Promise<AxiosDiscardShipmentCancellationRequestResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -6065,7 +6723,7 @@ export type AxiosCloseHelpRequestErrorResponse = ((AxiosResponse<CloseHelpReques
 export type AxiosCloseHelpRequestResponse = AxiosCloseHelpRequestSuccessResponse | AxiosCloseHelpRequestErrorResponse
 export async function closeHelpRequest(data: CloseHelpRequestRequestSchema, config?: AxiosRequestConfig): Promise<AxiosCloseHelpRequestResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -6139,7 +6797,7 @@ export type AxiosAdminListUsersErrorResponse = ((AxiosResponse<AdminListUsers400
 export type AxiosAdminListUsersResponse = AxiosAdminListUsersSuccessResponse | AxiosAdminListUsersErrorResponse
 export async function adminListUsers(data: AdminListUsersRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminListUsersResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -6203,7 +6861,7 @@ export type AxiosAdminListCouponsErrorResponse = ((AxiosResponse<AdminListCoupon
 export type AxiosAdminListCouponsResponse = AxiosAdminListCouponsSuccessResponse | AxiosAdminListCouponsErrorResponse
 export async function adminListCoupons(data: AdminListCouponsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminListCouponsResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -6267,7 +6925,7 @@ export type AxiosAdminCreateCouponErrorResponse = ((AxiosResponse<AdminCreateCou
 export type AxiosAdminCreateCouponResponse = AxiosAdminCreateCouponSuccessResponse | AxiosAdminCreateCouponErrorResponse
 export async function adminCreateCoupon(data: AdminCreateCouponRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminCreateCouponResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -6331,7 +6989,7 @@ export type AxiosAdminUpdateCouponErrorResponse = ((AxiosResponse<AdminUpdateCou
 export type AxiosAdminUpdateCouponResponse = AxiosAdminUpdateCouponSuccessResponse | AxiosAdminUpdateCouponErrorResponse
 export async function adminUpdateCoupon(data: AdminUpdateCouponRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminUpdateCouponResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -6400,7 +7058,7 @@ export type AxiosAdminDeleteCouponErrorResponse = ((AxiosResponse<AdminDeleteCou
 export type AxiosAdminDeleteCouponResponse = AxiosAdminDeleteCouponSuccessResponse | AxiosAdminDeleteCouponErrorResponse
 export async function adminDeleteCoupon(data: AdminDeleteCouponRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminDeleteCouponResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -6469,7 +7127,7 @@ export type AxiosListUserDropdownErrorResponse = ((AxiosResponse<ListUserDropdow
 export type AxiosListUserDropdownResponse = AxiosListUserDropdownSuccessResponse | AxiosListUserDropdownErrorResponse
 export async function listUserDropdown(data: ListUserDropdownRequestSchema, config?: AxiosRequestConfig): Promise<AxiosListUserDropdownResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -6533,7 +7191,7 @@ export type AxiosListCourierOptionalsDropdownErrorResponse = ((AxiosResponse<Lis
 export type AxiosListCourierOptionalsDropdownResponse = AxiosListCourierOptionalsDropdownSuccessResponse | AxiosListCourierOptionalsDropdownErrorResponse
 export async function listCourierOptionalsDropdown(config?: AxiosRequestConfig): Promise<AxiosListCourierOptionalsDropdownResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -6597,7 +7255,7 @@ export type AxiosListShipmentOptionalsDropdownErrorResponse = ((AxiosResponse<Li
 export type AxiosListShipmentOptionalsDropdownResponse = AxiosListShipmentOptionalsDropdownSuccessResponse | AxiosListShipmentOptionalsDropdownErrorResponse
 export async function listShipmentOptionalsDropdown(config?: AxiosRequestConfig): Promise<AxiosListShipmentOptionalsDropdownResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -6661,7 +7319,7 @@ export type AxiosAdminListReviewsErrorResponse = ((AxiosResponse<AdminListReview
 export type AxiosAdminListReviewsResponse = AxiosAdminListReviewsSuccessResponse | AxiosAdminListReviewsErrorResponse
 export async function adminListReviews(data: AdminListReviewsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminListReviewsResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -6725,7 +7383,7 @@ export type AxiosAdminAcceptReviewErrorResponse = ((AxiosResponse<AdminAcceptRev
 export type AxiosAdminAcceptReviewResponse = AxiosAdminAcceptReviewSuccessResponse | AxiosAdminAcceptReviewErrorResponse
 export async function adminAcceptReview(data: AdminAcceptReviewRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminAcceptReviewResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -6794,7 +7452,7 @@ export type AxiosAdminRejectReviewErrorResponse = ((AxiosResponse<AdminRejectRev
 export type AxiosAdminRejectReviewResponse = AxiosAdminRejectReviewSuccessResponse | AxiosAdminRejectReviewErrorResponse
 export async function adminRejectReview(data: AdminRejectReviewRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminRejectReviewResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -6863,7 +7521,7 @@ export type AxiosAdminRepublishBlockedReviewErrorResponse = ((AxiosResponse<Admi
 export type AxiosAdminRepublishBlockedReviewResponse = AxiosAdminRepublishBlockedReviewSuccessResponse | AxiosAdminRepublishBlockedReviewErrorResponse
 export async function adminRepublishBlockedReview(data: AdminRepublishBlockedReviewRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminRepublishBlockedReviewResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -6937,7 +7595,7 @@ export type AxiosAdminDeleteBlockedReviewErrorResponse = ((AxiosResponse<AdminDe
 export type AxiosAdminDeleteBlockedReviewResponse = AxiosAdminDeleteBlockedReviewSuccessResponse | AxiosAdminDeleteBlockedReviewErrorResponse
 export async function adminDeleteBlockedReview(data: AdminDeleteBlockedReviewRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminDeleteBlockedReviewResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -7011,7 +7669,7 @@ export type AxiosAdminBlockPublishedReviewErrorResponse = ((AxiosResponse<AdminB
 export type AxiosAdminBlockPublishedReviewResponse = AxiosAdminBlockPublishedReviewSuccessResponse | AxiosAdminBlockPublishedReviewErrorResponse
 export async function adminBlockPublishedReview(data: AdminBlockPublishedReviewRequestSchema, config?: AxiosRequestConfig): Promise<AxiosAdminBlockPublishedReviewResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = {}
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
   const handledResponses = {
     "200": {
       "code": null
@@ -7602,6 +8260,10 @@ export type DeleteNormalShipment200ResponseSchema = OkResponseSchema
 
 export type DeleteNormalShipment400ResponseSchema = ValidationErrorResponseSchema
 
+export type DeleteNormalShipment401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type DeleteNormalShipment403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type DeleteNormalShipment404ResponseSchema = GenericNotFoundErrorResponseSchema
 
 export type DeleteNormalShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
@@ -7624,6 +8286,10 @@ export type GetNormalShipment200ResponseSchema = GetNormalShipmentResponseSchema
 
 export type GetNormalShipment400ResponseSchema = ValidationErrorResponseSchema
 
+export type GetNormalShipment401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type GetNormalShipment403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type GetNormalShipment404ResponseSchema = GenericNotFoundErrorResponseSchema
 
 export type GetNormalShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
@@ -7642,6 +8308,10 @@ export type GetNormalShipmentRequestSchema = {
 export type SendCancelShipmentRequest200ResponseSchema = OkResponseSchema
 
 export type SendCancelShipmentRequest400ResponseSchema = ValidationErrorResponseSchema
+
+export type SendCancelShipmentRequest401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type SendCancelShipmentRequest403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type SendCancelShipmentRequest404ResponseSchema = GenericNotFoundErrorResponseSchema
 
@@ -7668,6 +8338,10 @@ export type CreatePendingShipment200ResponseSchema = {
 
 export type CreatePendingShipment400ResponseSchema = ValidationErrorResponseSchema
 
+export type CreatePendingShipment401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type CreatePendingShipment403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type CreatePendingShipment404ResponseSchema = GenericNotFoundErrorResponseSchema
 
 export type CreatePendingShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
@@ -7689,6 +8363,10 @@ export type GetPendingShipment200ResponseSchema = GetPendingShipmentResponseSche
 
 export type GetPendingShipment400ResponseSchema = ValidationErrorResponseSchema
 
+export type GetPendingShipment401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type GetPendingShipment403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type GetPendingShipment404ResponseSchema = GenericNotFoundErrorResponseSchema
 
 export type GetPendingShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
@@ -7707,6 +8385,10 @@ export type GetPendingShipmentRequestSchema = {
 export type DeletePendingShipment200ResponseSchema = OkResponseSchema
 
 export type DeletePendingShipment400ResponseSchema = ValidationErrorResponseSchema
+
+export type DeletePendingShipment401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type DeletePendingShipment403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type DeletePendingShipment404ResponseSchema = GenericNotFoundErrorResponseSchema
 
@@ -7738,6 +8420,10 @@ export type GetCostEstimate200ResponseSchema = {
 }
 
 export type GetCostEstimate400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetCostEstimate401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type GetCostEstimate403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type GetCostEstimate404ResponseSchema = GenericNotFoundErrorResponseSchema
 
@@ -7784,6 +8470,10 @@ export type GetPickupSchedule200ResponseSchema = {
 
 export type GetPickupSchedule400ResponseSchema = ValidationErrorResponseSchema
 
+export type GetPickupSchedule401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type GetPickupSchedule403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type GetPickupSchedule404ResponseSchema = GenericNotFoundErrorResponseSchema
 
 export type GetPickupSchedule405ResponseSchema = MethodNotAllowedErrorResponseSchema
@@ -7809,6 +8499,10 @@ export type GetDeliverySchedule200ResponseSchema = {
 }
 
 export type GetDeliverySchedule400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetDeliverySchedule401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type GetDeliverySchedule403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type GetDeliverySchedule404ResponseSchema = GenericNotFoundErrorResponseSchema
 
@@ -7842,6 +8536,8 @@ export type GetGenericShipment400ResponseSchema = ValidationErrorResponseSchema
 
 export type GetGenericShipment401ResponseSchema = UnauthenticatedErrorResponseSchema
 
+export type GetGenericShipment403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type GetGenericShipment404ResponseSchema = GenericNotFoundErrorResponseSchema
 
 export type GetGenericShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
@@ -7867,6 +8563,10 @@ export type GetOptimalCourier200ResponseSchema = {
 }
 
 export type GetOptimalCourier400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetOptimalCourier401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type GetOptimalCourier403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type GetOptimalCourier404ResponseSchema = GenericNotFoundErrorResponseSchema
 
@@ -7898,6 +8598,10 @@ export type GetCourierAdditionals200ResponseSchema = {
 
 export type GetCourierAdditionals400ResponseSchema = ValidationErrorResponseSchema
 
+export type GetCourierAdditionals401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type GetCourierAdditionals403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type GetCourierAdditionals404ResponseSchema = GenericNotFoundErrorResponseSchema
 
 export type GetCourierAdditionals405ResponseSchema = MethodNotAllowedErrorResponseSchema
@@ -7920,6 +8624,10 @@ export type GetShipmentOptionals200ResponseSchema = {
 }
 
 export type GetShipmentOptionals400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetShipmentOptionals401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type GetShipmentOptionals403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type GetShipmentOptionals405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
@@ -8243,6 +8951,10 @@ export type GetLuggagesPackages200ResponseSchema = {
 
 export type GetLuggagesPackages400ResponseSchema = ValidationErrorResponseSchema
 
+export type GetLuggagesPackages401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type GetLuggagesPackages403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type GetLuggagesPackages404ResponseSchema = GenericNotFoundErrorResponseSchema
 
 export type GetLuggagesPackages405ResponseSchema = MethodNotAllowedErrorResponseSchema
@@ -8265,6 +8977,10 @@ export type GetHotelOffers200ResponseSchema = SingleOfferSchema[]
 
 export type GetHotelOffers400ResponseSchema = ValidationErrorResponseSchema
 
+export type GetHotelOffers401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type GetHotelOffers403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type GetHotelOffers405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
 export type GetHotelOffers415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
@@ -8276,6 +8992,10 @@ export type GetHotelOffers500ResponseSchema = UnexpectedErrorResponseSchema
 export type GetHotelProducts200ResponseSchema = HotelProductSchema[]
 
 export type GetHotelProducts400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetHotelProducts401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type GetHotelProducts403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type GetHotelProducts404ResponseSchema = GenericNotFoundErrorResponseSchema
 
@@ -8479,6 +9199,10 @@ export type GetStructures200ResponseSchema = StructureSchema[]
 
 export type GetStructures400ResponseSchema = ValidationErrorResponseSchema
 
+export type GetStructures401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type GetStructures403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type GetStructures404ResponseSchema = GenericNotFoundErrorResponseSchema
 
 export type GetStructures405ResponseSchema = MethodNotAllowedErrorResponseSchema
@@ -8511,6 +9235,10 @@ export type GetLuggageContents200ResponseSchema = LuggageContentSchema[]
 
 export type GetLuggageContents400ResponseSchema = ValidationErrorResponseSchema
 
+export type GetLuggageContents401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type GetLuggageContents403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type GetLuggageContents404ResponseSchema = GenericNotFoundErrorResponseSchema
 
 export type GetLuggageContents405ResponseSchema = MethodNotAllowedErrorResponseSchema
@@ -8533,6 +9261,10 @@ export type GetClosestPlace200ResponseSchema = {
 
 export type GetClosestPlace400ResponseSchema = ValidationErrorResponseSchema
 
+export type GetClosestPlace401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type GetClosestPlace403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type GetClosestPlace405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
 export type GetClosestPlace415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
@@ -8549,6 +9281,10 @@ export type GetClosestPlaceRequestSchema = {
 export type GetAvailableShipmentStatus200ResponseSchema = ("ACCEPTED" | "PICK_UP" | "IN_PROGRESS" | "COMPLETED")[]
 
 export type GetAvailableShipmentStatus400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetAvailableShipmentStatus401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type GetAvailableShipmentStatus403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type GetAvailableShipmentStatus405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
@@ -8628,6 +9364,10 @@ export type GetUserSettings200ResponseSchema = UserSettingsResponseSchema
 
 export type GetUserSettings400ResponseSchema = ValidationErrorResponseSchema
 
+export type GetUserSettings401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type GetUserSettings403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type GetUserSettings404ResponseSchema = UserNotFoundErrorResponseSchema
 
 export type GetUserSettings405ResponseSchema = MethodNotAllowedErrorResponseSchema
@@ -8641,6 +9381,10 @@ export type GetUserSettings500ResponseSchema = UnexpectedErrorResponseSchema
 export type DeleteUser200ResponseSchema = OkResponseSchema
 
 export type DeleteUser400ResponseSchema = ValidationErrorResponseSchema
+
+export type DeleteUser401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type DeleteUser403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type DeleteUser404ResponseSchema = UserNotFoundErrorResponseSchema
 
@@ -8657,6 +9401,10 @@ export type DeleteUser500ResponseSchema = UnexpectedErrorResponseSchema
 export type DeleteSavedCard200ResponseSchema = OkResponseSchema
 
 export type DeleteSavedCard400ResponseSchema = ValidationErrorResponseSchema
+
+export type DeleteSavedCard401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type DeleteSavedCard403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type DeleteSavedCard404ResponseSchema = UserSavedCardNotFoundErrorResponseSchema
 
@@ -8676,6 +9424,10 @@ export type DeleteSavedCardRequestSchema = {
 export type ModifySettings200ResponseSchema = OkResponseSchema
 
 export type ModifySettings400ResponseSchema = ValidationErrorResponseSchema
+
+export type ModifySettings401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type ModifySettings403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type ModifySettings405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
@@ -8764,6 +9516,10 @@ export type GetUserCommunications200ResponseSchema = GetUserCommunicationsRespon
 
 export type GetUserCommunications400ResponseSchema = ValidationErrorResponseSchema
 
+export type GetUserCommunications401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type GetUserCommunications403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type GetUserCommunications404ResponseSchema = UserNotFoundErrorResponseSchema
 
 export type GetUserCommunications405ResponseSchema = MethodNotAllowedErrorResponseSchema
@@ -8786,6 +9542,8 @@ export type Logout200ResponseSchema = OkResponseSchema
 export type Logout400ResponseSchema = ValidationErrorResponseSchema
 
 export type Logout401ResponseSchema = UserNotLoggedErrorResponseSchema
+
+export type Logout403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type Logout405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
@@ -8827,6 +9585,10 @@ export type GetUserShipments200ResponseSchema = {
 
 export type GetUserShipments400ResponseSchema = ValidationErrorResponseSchema
 
+export type GetUserShipments401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type GetUserShipments403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type GetUserShipments405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
 export type GetUserShipments415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
@@ -8847,6 +9609,8 @@ export type SaveLuggage400ResponseSchema = ValidationErrorResponseSchema
 
 export type SaveLuggage401ResponseSchema = UnauthenticatedErrorResponseSchema
 
+export type SaveLuggage403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type SaveLuggage405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
 export type SaveLuggage415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
@@ -8866,6 +9630,8 @@ export type GetSavedLuggage400ResponseSchema = ValidationErrorResponseSchema
 
 export type GetSavedLuggage401ResponseSchema = UnauthenticatedErrorResponseSchema
 
+export type GetSavedLuggage403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type GetSavedLuggage404ResponseSchema = LuggageNotFoundErrorResponseSchema
 
 export type GetSavedLuggage405ResponseSchema = MethodNotAllowedErrorResponseSchema
@@ -8884,6 +9650,10 @@ export type GetSavedLuggageRequestSchema = {
 export type DeleteSavedLuggage200ResponseSchema = OkResponseSchema
 
 export type DeleteSavedLuggage400ResponseSchema = ValidationErrorResponseSchema
+
+export type DeleteSavedLuggage401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type DeleteSavedLuggage403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type DeleteSavedLuggage404ResponseSchema = LuggageNotFoundErrorResponseSchema
 
@@ -8905,6 +9675,8 @@ export type AddUserCompany200ResponseSchema = OkResponseSchema
 export type AddUserCompany400ResponseSchema = ValidationErrorResponseSchema
 
 export type AddUserCompany401ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type AddUserCompany403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type AddUserCompany405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
@@ -9036,6 +9808,10 @@ export type CreateIntent200ResponseSchema = {
 
 export type CreateIntent400ResponseSchema = ValidationErrorResponseSchema
 
+export type CreateIntent401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type CreateIntent403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type CreateIntent404ResponseSchema = UserNotFoundErrorResponseSchema
 
 export type CreateIntent405ResponseSchema = MethodNotAllowedErrorResponseSchema
@@ -9063,6 +9839,10 @@ export type UpdatePaymentIntent200ResponseSchema = {
 
 export type UpdatePaymentIntent400ResponseSchema = ValidationErrorResponseSchema
 
+export type UpdatePaymentIntent401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type UpdatePaymentIntent403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type UpdatePaymentIntent404ResponseSchema = StripePaymentIntentNotFoundErrorResponseSchema
 
 export type UpdatePaymentIntent405ResponseSchema = MethodNotAllowedErrorResponseSchema
@@ -9082,6 +9862,10 @@ export type UpdatePaymentIntentRequestSchema = {
 export type CancelPaymentIntent200ResponseSchema = OkResponseSchema
 
 export type CancelPaymentIntent400ResponseSchema = ValidationErrorResponseSchema
+
+export type CancelPaymentIntent401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type CancelPaymentIntent403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type CancelPaymentIntent404ResponseSchema = StripePaymentIntentNotFoundErrorResponseSchema
 
@@ -9109,6 +9893,10 @@ export type RetrievePaymentIntent200ResponseSchema = {
 
 export type RetrievePaymentIntent400ResponseSchema = ValidationErrorResponseSchema
 
+export type RetrievePaymentIntent401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type RetrievePaymentIntent403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type RetrievePaymentIntent404ResponseSchema = StripePaymentIntentNotFoundErrorResponseSchema
 
 export type RetrievePaymentIntent405ResponseSchema = MethodNotAllowedErrorResponseSchema
@@ -9124,6 +9912,8 @@ export type RetrievePaymentIntentRequestSchema = RetrieveStripePaymentIntentRequ
 export type VerifyPaymentIntent200ResponseSchema = OkResponseSchema
 
 export type VerifyPaymentIntent400ResponseSchema = ValidationErrorResponseSchema
+
+export type VerifyPaymentIntent401ResponseSchema = UnauthorizedErrorResponseSchema
 
 export type VerifyPaymentIntent403ResponseSchema = UserForbiddenErrorResponseSchema
 
@@ -9148,6 +9938,10 @@ export type VerifyPaymentIntentRequestSchema = {
 export type CapturePaymentIntent200ResponseSchema = OkResponseSchema
 
 export type CapturePaymentIntent400ResponseSchema = ValidationErrorResponseSchema
+
+export type CapturePaymentIntent401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type CapturePaymentIntent403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type CapturePaymentIntent404ResponseSchema = StripePaymentIntentNotFoundErrorResponseSchema
 
@@ -9254,6 +10048,8 @@ export type VerifyAuthentication400ResponseSchema = ValidationErrorResponseSchem
 
 export type VerifyAuthentication401ResponseSchema = UnauthenticatedErrorResponseSchema
 
+export type VerifyAuthentication403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type VerifyAuthentication405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
 export type VerifyAuthentication415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
@@ -9261,6 +10057,40 @@ export type VerifyAuthentication415ResponseSchema = UnsupportedMediaTypeErrorRes
 export type VerifyAuthentication429ResponseSchema = ThrottlingErrorResponseSchema
 
 export type VerifyAuthentication500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type VerifySessionToken200ResponseSchema = {
+  valid: boolean
+  sessionId: UuidSchema
+  user: {
+    id: UuidSchema
+    firstName: string
+    lastName: string
+    email: EmailSchema
+    phone: PhoneNumberSchema
+    isAssistant: boolean
+    [k: string]: unknown
+  }
+  [k: string]: unknown
+}
+
+export type VerifySessionToken400ResponseSchema = ValidationErrorResponseSchema
+
+export type VerifySessionToken401ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type VerifySessionToken405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type VerifySessionToken410ResponseSchema = ExpiredSession
+
+export type VerifySessionToken415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type VerifySessionToken429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type VerifySessionToken500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type VerifySessionTokenRequestSchema = {
+  sessionId?: UuidSchema
+  [k: string]: unknown
+}
 
 export type VerifyAssistant200ResponseSchema = {
   firstName: string
@@ -9272,6 +10102,8 @@ export type VerifyAssistant200ResponseSchema = {
 }
 
 export type VerifyAssistant400ResponseSchema = ValidationErrorResponseSchema
+
+export type VerifyAssistant401ResponseSchema = UnauthorizedErrorResponseSchema
 
 export type VerifyAssistant403ResponseSchema = GenericForbiddenErrorResponseSchema
 
@@ -9314,6 +10146,10 @@ export type GetAvailableAccomodations200ResponseSchema = {
 
 export type GetAvailableAccomodations400ResponseSchema = ValidationErrorResponseSchema
 
+export type GetAvailableAccomodations401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type GetAvailableAccomodations403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type GetAvailableAccomodations404ResponseSchema = GenericNotFoundErrorResponseSchema
 
 export type GetAvailableAccomodations405ResponseSchema = MethodNotAllowedErrorResponseSchema
@@ -9343,6 +10179,10 @@ export type GetAccomodationDetails200ResponseSchema = {
 }
 
 export type GetAccomodationDetails400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetAccomodationDetails401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type GetAccomodationDetails403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type GetAccomodationDetails404ResponseSchema = StructureNotFoundErrorResponseSchema
 
@@ -9397,6 +10237,10 @@ export type GetConstants200ResponseSchema = {
 
 export type GetConstants400ResponseSchema = ValidationErrorResponseSchema
 
+export type GetConstants401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type GetConstants403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type GetConstants405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
 export type GetConstants415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
@@ -9423,6 +10267,10 @@ export type GetConstantsRequestSchema = {
 export type GetBestAccomodations200ResponseSchema = BestAccomodatioDetailSchema[]
 
 export type GetBestAccomodations400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetBestAccomodations401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type GetBestAccomodations403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type GetBestAccomodations405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
@@ -9706,6 +10554,10 @@ export type SendGeneralHelpRequest200ResponseSchema = OkResponseSchema
 
 export type SendGeneralHelpRequest400ResponseSchema = ValidationErrorResponseSchema
 
+export type SendGeneralHelpRequest401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type SendGeneralHelpRequest403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type SendGeneralHelpRequest405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
 export type SendGeneralHelpRequest415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
@@ -9727,6 +10579,10 @@ export type SendGeneralHelpRequestRequestSchema = {
 export type SendHelpRequest200ResponseSchema = OkResponseSchema
 
 export type SendHelpRequest400ResponseSchema = ValidationErrorResponseSchema
+
+export type SendHelpRequest401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type SendHelpRequest403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type SendHelpRequest405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
@@ -9788,6 +10644,8 @@ export type GetAssistanceRequest200ResponseSchema = {
 export type GetAssistanceRequest400ResponseSchema = ValidationErrorResponseSchema
 
 export type GetAssistanceRequest401ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type GetAssistanceRequest403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type GetAssistanceRequest405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
@@ -10015,6 +10873,8 @@ export type AuthAdmin400ResponseSchema = ValidationErrorResponseSchema
 
 export type AuthAdmin401ResponseSchema = UnauthenticatedErrorResponseSchema
 
+export type AuthAdmin403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type AuthAdmin405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
 export type AuthAdmin415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
@@ -10035,6 +10895,8 @@ export type VerifyStagingToken400ResponseSchema = ValidationErrorResponseSchema
 
 export type VerifyStagingToken401ResponseSchema = UnauthenticatedErrorResponseSchema
 
+export type VerifyStagingToken403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type VerifyStagingToken405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
 export type VerifyStagingToken415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
@@ -10051,6 +10913,10 @@ export type VerifyStagingTokenRequestSchema = {
 export type GetCities200ResponseSchema = GeneralPositionSchema[]
 
 export type GetCities400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetCities401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type GetCities403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type GetCities405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
@@ -10173,6 +11039,8 @@ export type UpdateSecuritySettings400ResponseSchema = ValidationErrorResponseSch
 
 export type UpdateSecuritySettings401ResponseSchema = UnauthenticatedErrorResponseSchema
 
+export type UpdateSecuritySettings403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type UpdateSecuritySettings405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
 export type UpdateSecuritySettings415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
@@ -10211,6 +11079,10 @@ export type GetSeasonOffers200ResponseSchema = SeasonOfferSchema[]
 
 export type GetSeasonOffers400ResponseSchema = ValidationErrorResponseSchema
 
+export type GetSeasonOffers401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type GetSeasonOffers403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type GetSeasonOffers404ResponseSchema = GenericNotFoundErrorResponseSchema
 
 export type GetSeasonOffers405ResponseSchema = MethodNotAllowedErrorResponseSchema
@@ -10245,6 +11117,10 @@ export type CreateCoupon200ResponseSchema = {
 
 export type CreateCoupon400ResponseSchema = ValidationErrorResponseSchema
 
+export type CreateCoupon401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type CreateCoupon403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type CreateCoupon404ResponseSchema = GenericNotFoundErrorResponseSchema
 
 export type CreateCoupon405ResponseSchema = MethodNotAllowedErrorResponseSchema
@@ -10265,6 +11141,10 @@ export type CreateCouponRequestSchema = {
 export type DeleteCoupon200ResponseSchema = OkResponseSchema
 
 export type DeleteCoupon400ResponseSchema = ValidationErrorResponseSchema
+
+export type DeleteCoupon401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type DeleteCoupon403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type DeleteCoupon404ResponseSchema = GenericNotFoundErrorResponseSchema
 
@@ -10290,6 +11170,10 @@ export type ListCoupons200ResponseSchema = {
 }
 
 export type ListCoupons400ResponseSchema = ValidationErrorResponseSchema
+
+export type ListCoupons401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type ListCoupons403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type ListCoupons404ResponseSchema = GenericNotFoundErrorResponseSchema
 
@@ -10318,6 +11202,10 @@ export type RemoveCoupon200ResponseSchema = {
 
 export type RemoveCoupon400ResponseSchema = ValidationErrorResponseSchema
 
+export type RemoveCoupon401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type RemoveCoupon403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type RemoveCoupon404ResponseSchema = GenericNotFoundErrorResponseSchema
 
 export type RemoveCoupon405ResponseSchema = MethodNotAllowedErrorResponseSchema
@@ -10342,6 +11230,10 @@ export type UseCoupon200ResponseSchema = {
 }
 
 export type UseCoupon400ResponseSchema = ValidationErrorResponseSchema
+
+export type UseCoupon401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type UseCoupon403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type UseCoupon404ResponseSchema = GenericNotFoundErrorResponseSchema
 
@@ -10368,6 +11260,8 @@ export type RedeemCoupon200ResponseSchema = OkResponseSchema
 export type RedeemCoupon400ResponseSchema = ValidationErrorResponseSchema
 
 export type RedeemCoupon401ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type RedeemCoupon403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type RedeemCoupon404ResponseSchema = GenericNotFoundErrorResponseSchema
 
@@ -10422,6 +11316,8 @@ export type CreateReview400ResponseSchema = ValidationErrorResponseSchema
 
 export type CreateReview401ResponseSchema = UnauthenticatedErrorResponseSchema
 
+export type CreateReview403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type CreateReview405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
 export type CreateReview415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
@@ -10445,6 +11341,10 @@ export type ListPublishdReviews200ResponseSchema = {
 
 export type ListPublishdReviews400ResponseSchema = ValidationErrorResponseSchema
 
+export type ListPublishdReviews401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type ListPublishdReviews403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type ListPublishdReviews405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
 export type ListPublishdReviews415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
@@ -10466,6 +11366,10 @@ export type ListBestReviews200ResponseSchema = {
 
 export type ListBestReviews400ResponseSchema = ValidationErrorResponseSchema
 
+export type ListBestReviews401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type ListBestReviews403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type ListBestReviews405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
 export type ListBestReviews415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
@@ -10482,6 +11386,10 @@ export type ListBestReviewsRequestSchema = {
 export type ReportReview200ResponseSchema = ReviewSchema
 
 export type ReportReview400ResponseSchema = ValidationErrorResponseSchema
+
+export type ReportReview401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type ReportReview403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type ReportReview404ResponseSchema = GenericNotFoundErrorResponseSchema
 
@@ -10501,6 +11409,10 @@ export type ReportReviewRequestSchema = {
 export type AddLikeToReview200ResponseSchema = ReviewSchema
 
 export type AddLikeToReview400ResponseSchema = ValidationErrorResponseSchema
+
+export type AddLikeToReview401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type AddLikeToReview403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type AddLikeToReview404ResponseSchema = GenericNotFoundErrorResponseSchema
 
@@ -10522,6 +11434,10 @@ export type AddLikeToReviewRequestSchema = {
 export type GetStatistics200ResponseSchema = StatisticSchema[]
 
 export type GetStatistics400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetStatistics401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type GetStatistics403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type GetStatistics405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
@@ -10569,6 +11485,10 @@ export type ListHelpRequests200ResponseSchema = {
 
 export type ListHelpRequests400ResponseSchema = ValidationErrorResponseSchema
 
+export type ListHelpRequests401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type ListHelpRequests403ResponseSchema = ForbiddenErrorResponseSchema
+
 export type ListHelpRequests405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
 export type ListHelpRequests415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
@@ -10588,6 +11508,8 @@ export type SendHelpResponse200ResponseSchema = OkResponseSchema
 export type SendHelpResponse400ResponseSchema = ValidationErrorResponseSchema
 
 export type SendHelpResponse401ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type SendHelpResponse403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type SendHelpResponse404ResponseSchema = GenericNotFoundErrorResponseSchema
 
