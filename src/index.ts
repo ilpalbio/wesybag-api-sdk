@@ -1070,6 +1070,79 @@ export async function getShipmentOptionals(config?: AxiosRequestConfig): Promise
 }
 
 /**
+
+  Validate shipment fields before creating.
+  Returns validation errors if any field is invalid.
+
+  Possible fields to validate:
+    - pickup/delivery details
+    - luggages
+    - schedules
+    - optionals
+
+*/
+export type AxiosValidateShipmentFieldsSuccessResponse = (AxiosResponse<ValidateShipmentFields200ResponseSchema> & { status: 200 })
+export type AxiosValidateShipmentFieldsErrorResponse = ((AxiosResponse<ValidateShipmentFields400ResponseSchema> & { status: 400 }) | (AxiosResponse<ValidateShipmentFields401ResponseSchema> & { status: 401 }) | (AxiosResponse<ValidateShipmentFields403ResponseSchema> & { status: 403 }) | (AxiosResponse<ValidateShipmentFields405ResponseSchema> & { status: 405 }) | (AxiosResponse<ValidateShipmentFields415ResponseSchema> & { status: 415 }) | (AxiosResponse<ValidateShipmentFields429ResponseSchema> & { status: 429 }) | (AxiosResponse<ValidateShipmentFields500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/validateShipmentFields" }
+export type AxiosValidateShipmentFieldsResponse = AxiosValidateShipmentFieldsSuccessResponse | AxiosValidateShipmentFieldsErrorResponse
+export async function validateShipmentFields(data: ValidateShipmentFieldsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosValidateShipmentFieldsResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/shipments/validateShipmentFields"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosValidateShipmentFieldsSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosValidateShipmentFieldsErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Get luggages packages
 */
 export type AxiosGetLuggagesPackagesSuccessResponse = (AxiosResponse<GetLuggagesPackages200ResponseSchema> & { status: 200 })
@@ -8637,6 +8710,28 @@ export type GetShipmentOptionals429ResponseSchema = ThrottlingErrorResponseSchem
 
 export type GetShipmentOptionals500ResponseSchema = UnexpectedErrorResponseSchema
 
+export type ValidateShipmentFields200ResponseSchema = OkResponseSchema
+
+export type ValidateShipmentFields400ResponseSchema = ValidationErrorResponseSchema
+
+export type ValidateShipmentFields401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type ValidateShipmentFields403ResponseSchema = ForbiddenErrorResponseSchema
+
+export type ValidateShipmentFields405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type ValidateShipmentFields415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type ValidateShipmentFields429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type ValidateShipmentFields500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type ValidateShipmentFieldsRequestSchema =
+  | PositionValidationFieldSchema
+  | LuggageValidationFieldSchema
+  | SchedulesValidationFieldSchema
+  | OptionalsValidationFieldSchema
+
 export type AdditionalOptionsSchema = {
   courier: CourierAdditionalOptionsSchema
   shipment: number[]
@@ -8917,6 +9012,33 @@ export type SinglePendingShipmentSchema = {
   coupon?: CouponSchema
   paymentMethod: ShipmentPaymentMethodSchema
   createdAt: DateTimeSchema
+  [k: string]: unknown
+}
+
+export type LuggageValidationFieldSchema = {
+  fieldType: "LUGGAGE"
+  luggages: ShipmentLuggageSchema[]
+  [k: string]: unknown
+}
+
+export type OptionalsValidationFieldSchema = {
+  fieldType: "EXTRAS"
+  optionals: UuidSchema[]
+  shipmentOptionals: number[]
+  [k: string]: unknown
+}
+
+export type PositionValidationFieldSchema = {
+  fieldType: "POSITION"
+  placeId: UuidSchema
+  [k: string]: unknown
+}
+
+export type SchedulesValidationFieldSchema = {
+  fieldType: "SCHEDULES"
+  deliverySchedule: DateTimeSchema
+  pickupSchedule: DateTimeSchema
+  optionals?: UuidSchema[]
   [k: string]: unknown
 }
 
