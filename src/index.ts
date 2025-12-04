@@ -1423,7 +1423,7 @@ export async function verifyRememberToken(data: VerifyRememberTokenRequestSchema
     },
     "401": {
       "code": [
-        "INVALID TOKEN"
+        "UNAUTHENTICATED"
       ]
     },
     "405": {
@@ -2039,7 +2039,7 @@ export async function changePassword(data: ChangePasswordRequestSchema, config?:
     },
     "410": {
       "code": [
-        "TOKEN_EXPIRED"
+        "GONE"
       ]
     },
     "415": {
@@ -2152,7 +2152,7 @@ export async function checkChangePasswordToken(data: CheckChangePasswordTokenReq
     },
     "401": {
       "code": [
-        "INVALID TOKEN"
+        "UNAUTHENTICATED"
       ]
     },
     "404": {
@@ -2167,7 +2167,7 @@ export async function checkChangePasswordToken(data: CheckChangePasswordTokenReq
     },
     "410": {
       "code": [
-        "TOKEN_EXPIRED"
+        "GONE"
       ]
     },
     "415": {
@@ -3231,7 +3231,7 @@ export async function verifyEmailToken(data: VerifyEmailTokenRequestSchema, conf
     },
     "404": {
       "code": [
-        "TOKEN_EXPIRED"
+        "GONE"
       ]
     },
     "405": {
@@ -3241,7 +3241,7 @@ export async function verifyEmailToken(data: VerifyEmailTokenRequestSchema, conf
     },
     "410": {
       "code": [
-        "TOKEN_EXPIRED"
+        "GONE"
       ]
     },
     "415": {
@@ -3369,7 +3369,7 @@ export async function verifySessionToken(data: VerifySessionTokenRequestSchema, 
     },
     "410": {
       "code": [
-        "SESSION EXPIRED"
+        "GONE"
       ]
     },
     "415": {
@@ -4191,7 +4191,7 @@ export async function sendEmailConfirmationCode(data: SendEmailConfirmationCodeR
     },
     "410": {
       "code": [
-        "SESSION EXPIRED"
+        "GONE"
       ]
     },
     "415": {
@@ -4245,7 +4245,7 @@ export async function verifyEmailCodeToken(data: VerifyEmailCodeTokenRequestSche
     },
     "401": {
       "code": [
-        "INVALID TOKEN"
+        "UNAUTHENTICATED"
       ]
     },
     "405": {
@@ -4255,7 +4255,7 @@ export async function verifyEmailCodeToken(data: VerifyEmailCodeTokenRequestSche
     },
     "410": {
       "code": [
-        "TOKEN_EXPIRED"
+        "GONE"
       ]
     },
     "415": {
@@ -4309,7 +4309,7 @@ export async function verifyEmailConfirmationCode(data: VerifyEmailConfirmationC
     },
     "401": {
       "code": [
-        "INVALID_CODE",
+        "UNAUTHENTICATED",
         "UNAUTHORIZED"
       ]
     },
@@ -4320,7 +4320,7 @@ export async function verifyEmailConfirmationCode(data: VerifyEmailConfirmationC
     },
     "410": {
       "code": [
-        "SESSION EXPIRED"
+        "GONE"
       ]
     },
     "415": {
@@ -4679,7 +4679,7 @@ export async function verify2FaCode(data: Verify2FaCodeRequestSchema, config?: A
     },
     "401": {
       "code": [
-        "INVALID_CODE"
+        "UNAUTHENTICATED"
       ]
     },
     "404": {
@@ -4694,7 +4694,7 @@ export async function verify2FaCode(data: Verify2FaCodeRequestSchema, config?: A
     },
     "410": {
       "code": [
-        "CODE_EXPIRED"
+        "GONE"
       ]
     },
     "415": {
@@ -4758,7 +4758,7 @@ export async function update2FaCode(data: Update2FaCodeRequestSchema, config?: A
     },
     "410": {
       "code": [
-        "CODE_EXPIRED"
+        "GONE"
       ]
     },
     "415": {
@@ -4945,7 +4945,7 @@ export async function resend2FaCode(data: Resend2FaCodeRequestSchema, config?: A
     },
     "410": {
       "code": [
-        "CODE_EXPIRED"
+        "GONE"
       ]
     },
     "415": {
@@ -7947,7 +7947,7 @@ export type AlreadyClosedHelpRequestErrorResponseSchema = {
 
 export type ChangePasswordTokenIsExpiredErrorResponseSchema = {
   message: string
-  code: "TOKEN_EXPIRED"
+  code: "GONE"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -7963,7 +7963,7 @@ export type ChangePasswordTOkenNotFoundErrorResponseSchema = {
 
 export type ConfirmUserPhoneTokenIsExpiredErrorResponseSchema = {
   message: string
-  code: "TOKEN_EXPIRED"
+  code: "GONE"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -7987,7 +7987,7 @@ export type ConflictErrorResponseSchema = {
 
 export type ExpiredRememberTokenErrorResponseSchema = {
   message: string
-  code: "TOKEN_EXPIRED"
+  code: "GONE"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -7995,7 +7995,7 @@ export type ExpiredRememberTokenErrorResponseSchema = {
 
 export type ExpiredSession = {
   message: string
-  code: "SESSION EXPIRED"
+  code: "GONE"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8067,7 +8067,7 @@ export type InitSignupInformationConflictResponseSchema = {
 
 export type InvalidChangePasswordTokenErrorResponseSchema = {
   message: string
-  code: "INVALID TOKEN"
+  code: "UNAUTHENTICATED"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8075,7 +8075,7 @@ export type InvalidChangePasswordTokenErrorResponseSchema = {
 
 export type InvalidConfirmEmailCodeTokenErrorResponseSchema = {
   message: string
-  code: "INVALID TOKEN"
+  code: "UNAUTHENTICATED"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8083,7 +8083,7 @@ export type InvalidConfirmEmailCodeTokenErrorResponseSchema = {
 
 export type InvalidConfirmUserCodeErrorResponseSchema = {
   message: string
-  code: "INVALID_CODE" | "UNAUTHORIZED"
+  code: "UNAUTHENTICATED" | "UNAUTHORIZED"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8091,7 +8091,7 @@ export type InvalidConfirmUserCodeErrorResponseSchema = {
 
 export type InvalidPaymentCardCredentialsErrorResponseSchema = {
   message: string
-  code: "INVALID_PAYMENT_CARD_CREDENTIALS"
+  code: "VALIDATION_ERROR"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8099,7 +8099,7 @@ export type InvalidPaymentCardCredentialsErrorResponseSchema = {
 
 export type InvalidRememberTokenErrorResponseSchema = {
   message: string
-  code: "INVALID TOKEN"
+  code: "UNAUTHENTICATED"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8155,7 +8155,7 @@ export type SameOldAndNewPasswordErrorResponseSchema = {
 
 export type SignupSessionIdExpiredErrorResponseSchema = {
   message: string
-  code: "SESSION EXPIRED"
+  code: "GONE"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8211,7 +8211,7 @@ export type StructureNotFoundErrorResponseSchema = {
 
 export type TokenExpiredErrorResponseSchema = {
   message: string
-  code: "TOKEN_EXPIRED"
+  code: "GONE"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8227,7 +8227,7 @@ export type TokenNotFoundErrorResponseSchema = {
 
 export type TooTightDeadlinesErrorResponseSchema = {
   message: string
-  code: "TOO_TIGHT_DEADLINE"
+  code: "FORBIDDEN"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8315,7 +8315,7 @@ export type VatCodeAlreadyExistsErrorResponseSchema = {
 
 export type VerificationCodeExpiredErrorResponseSchema = {
   message: string
-  code: "CODE_EXPIRED"
+  code: "GONE"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8323,7 +8323,7 @@ export type VerificationCodeExpiredErrorResponseSchema = {
 
 export type WrongVerificationCodeErrorResponseSchema = {
   message: string
-  code: "INVALID_CODE"
+  code: "UNAUTHENTICATED"
   details?: Any
   stack?: string
   [k: string]: unknown
