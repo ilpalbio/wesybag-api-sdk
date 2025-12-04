@@ -8730,7 +8730,6 @@ export type ValidateShipmentFieldsRequestSchema =
   | PositionValidationFieldSchema
   | LuggageValidationFieldSchema
   | SchedulesValidationFieldSchema
-  | OptionalsValidationFieldSchema
 
 export type AdditionalOptionsSchema = {
   courier: CourierAdditionalOptionsSchema
@@ -9018,13 +9017,7 @@ export type SinglePendingShipmentSchema = {
 export type LuggageValidationFieldSchema = {
   fieldType: "LUGGAGE"
   luggages: ShipmentLuggageSchema[]
-  [k: string]: unknown
-}
-
-export type OptionalsValidationFieldSchema = {
-  fieldType: "EXTRAS"
-  optionals: UuidSchema[]
-  shipmentOptionals: number[]
+  courierId: UuidSchema
   [k: string]: unknown
 }
 
@@ -9039,6 +9032,9 @@ export type SchedulesValidationFieldSchema = {
   deliverySchedule: DateTimeSchema
   pickupSchedule: DateTimeSchema
   optionals?: UuidSchema[]
+  courierId: UuidSchema
+  origin: MinimalPositionSchema
+  destination: MinimalPositionSchema
   [k: string]: unknown
 }
 
