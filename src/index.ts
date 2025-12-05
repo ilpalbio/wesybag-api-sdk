@@ -2023,9 +2023,7 @@ export async function changePassword(data: ChangePasswordRequestSchema, config?:
       ]
     },
     "401": {
-      "code": [
-        "ALREADY_EXISTS"
-      ]
+      "code": null
     },
     "404": {
       "code": [
@@ -4378,9 +4376,7 @@ export async function createUser(data: CreateUserRequestSchema, config?: AxiosRe
       ]
     },
     "409": {
-      "code": [
-        "ALREADY_EXISTS"
-      ]
+      "code": null
     },
     "415": {
       "code": [
@@ -8003,7 +7999,7 @@ export type ExpiredSession = {
 
 export type FiscalCodeAlreadyExistsErrorResponseSchema = {
   message: string
-  code: "ALREADY_EXISTS"
+  code: null
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8043,7 +8039,7 @@ export type HelpRequestNotFoundErrorResponseSchema = {
 
 export type HotelAlreadyExistsErrorResponseSchema = {
   message: string
-  code: "ALREADY_EXISTS"
+  code: null
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8107,7 +8103,7 @@ export type InvalidRememberTokenErrorResponseSchema = {
 
 export type InvoiceCodeAlreadyExistsErrorResponseSchema = {
   message: string
-  code: "ALREADY_EXISTS"
+  code: null
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8139,7 +8135,7 @@ export type LuggagesPackageNotFoundErrorResponseSchema = {
 
 export type PaymentCardAlreadyExistsErrorResponseSchema = {
   message: string
-  code: "ALREADY_EXISTS"
+  code: null
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8147,7 +8143,7 @@ export type PaymentCardAlreadyExistsErrorResponseSchema = {
 
 export type SameOldAndNewPasswordErrorResponseSchema = {
   message: string
-  code: "ALREADY_EXISTS"
+  code: null
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8259,7 +8255,7 @@ export type UnauthorizedUserErrorResponseSchema = {
 
 export type UserAlreadyExistsErrorResponseSchema = {
   message: string
-  code: "ALREADY_EXISTS"
+  code: null
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8307,7 +8303,7 @@ export type UserSavedCardNotFoundErrorResponseSchema = {
 
 export type VatCodeAlreadyExistsErrorResponseSchema = {
   message: string
-  code: "ALREADY_EXISTS"
+  code: null
   details?: Any
   stack?: string
   [k: string]: unknown
