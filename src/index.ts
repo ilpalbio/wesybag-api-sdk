@@ -375,80 +375,6 @@ export async function sendCancelShipmentRequest(data: SendCancelShipmentRequestR
 }
 
 /**
-Create new pending shipment by draft
-*/
-export type AxiosCreatePendingShipmentSuccessResponse = (AxiosResponse<CreatePendingShipment200ResponseSchema> & { status: 200 })
-export type AxiosCreatePendingShipmentErrorResponse = ((AxiosResponse<CreatePendingShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<CreatePendingShipment401ResponseSchema> & { status: 401 }) | (AxiosResponse<CreatePendingShipment403ResponseSchema> & { status: 403 }) | (AxiosResponse<CreatePendingShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<CreatePendingShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<CreatePendingShipment409ResponseSchema> & { status: 409 }) | (AxiosResponse<CreatePendingShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<CreatePendingShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<CreatePendingShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/createPendingShipment" }
-export type AxiosCreatePendingShipmentResponse = AxiosCreatePendingShipmentSuccessResponse | AxiosCreatePendingShipmentErrorResponse
-export async function createPendingShipment(data: CreatePendingShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosCreatePendingShipmentResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "401": {
-      "code": [
-        "UNAUTHORIZED"
-      ]
-    },
-    "403": {
-      "code": [
-        "FORBIDDEN"
-      ]
-    },
-    "404": {
-      "code": [
-        "NOT_FOUND"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "409": {
-      "code": [
-        "CONFLICT"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/shipments/createPendingShipment"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosCreatePendingShipmentSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosCreatePendingShipmentErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
 Get pending shipment by id/ids
 */
 export type AxiosGetPendingShipmentSuccessResponse = (AxiosResponse<GetPendingShipment200ResponseSchema> & { status: 200 })
@@ -585,6 +511,80 @@ export async function deletePendingShipment(data: DeletePendingShipmentRequestSc
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
       return res as AxiosDeletePendingShipmentErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+Create new pending shipment by draft
+*/
+export type AxiosCreateDraftShipmentSuccessResponse = (AxiosResponse<CreateDraftShipment200ResponseSchema> & { status: 200 })
+export type AxiosCreateDraftShipmentErrorResponse = ((AxiosResponse<CreateDraftShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<CreateDraftShipment401ResponseSchema> & { status: 401 }) | (AxiosResponse<CreateDraftShipment403ResponseSchema> & { status: 403 }) | (AxiosResponse<CreateDraftShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<CreateDraftShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<CreateDraftShipment409ResponseSchema> & { status: 409 }) | (AxiosResponse<CreateDraftShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<CreateDraftShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<CreateDraftShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/createDraftShipment" }
+export type AxiosCreateDraftShipmentResponse = AxiosCreateDraftShipmentSuccessResponse | AxiosCreateDraftShipmentErrorResponse
+export async function createDraftShipment(data: CreateDraftShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosCreateDraftShipmentResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "409": {
+      "code": [
+        "CONFLICT"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/shipments/createDraftShipment"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosCreateDraftShipmentSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosCreateDraftShipmentErrorResponse
     } else {
       throw e
     }
@@ -2594,7 +2594,7 @@ export async function addUserCompany(data: AddUserCompanyRequestSchema, config?:
 }
 
 /**
-Create a new stripe payment intent from price or shipment details
+Create a new stripe payment intent with draft shipment id
 */
 export type AxiosCreateIntentSuccessResponse = (AxiosResponse<CreateIntent200ResponseSchema> & { status: 200 })
 export type AxiosCreateIntentErrorResponse = ((AxiosResponse<CreateIntent400ResponseSchema> & { status: 400 }) | (AxiosResponse<CreateIntent401ResponseSchema> & { status: 401 }) | (AxiosResponse<CreateIntent403ResponseSchema> & { status: 403 }) | (AxiosResponse<CreateIntent404ResponseSchema> & { status: 404 }) | (AxiosResponse<CreateIntent405ResponseSchema> & { status: 405 }) | (AxiosResponse<CreateIntent415ResponseSchema> & { status: 415 }) | (AxiosResponse<CreateIntent429ResponseSchema> & { status: 429 }) | (AxiosResponse<CreateIntent500ResponseSchema> & { status: 500 })) & { path: "/v1/payments/createIntent" }
@@ -8000,35 +8000,6 @@ export type SendCancelShipmentRequestRequestSchema = {
   [k: string]: unknown
 }
 
-export type CreatePendingShipment200ResponseSchema = {
-  outwardShipment: SinglePendingShipmentSchema
-  returnShipment?: SinglePendingShipmentSchema
-  [k: string]: unknown
-}
-
-export type CreatePendingShipment400ResponseSchema = ValidationErrorResponseSchema
-
-export type CreatePendingShipment401ResponseSchema = UnauthorizedErrorResponseSchema
-
-export type CreatePendingShipment403ResponseSchema = ForbiddenErrorResponseSchema
-
-export type CreatePendingShipment404ResponseSchema = GenericNotFoundErrorResponseSchema
-
-export type CreatePendingShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type CreatePendingShipment409ResponseSchema = ConflictErrorResponseSchema
-
-export type CreatePendingShipment415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type CreatePendingShipment429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type CreatePendingShipment500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type CreatePendingShipmentRequestSchema = CreateShipmentSchema & {
-  courierId: UuidSchema
-  [k: string]: unknown
-} & PaymentIntentSchema
-
 export type GetPendingShipment200ResponseSchema = GetPendingShipmentResponseSchema[]
 
 export type GetPendingShipment400ResponseSchema = ValidationErrorResponseSchema
@@ -8075,6 +8046,35 @@ export type DeletePendingShipment500ResponseSchema = UnexpectedErrorResponseSche
 export type DeletePendingShipmentRequestSchema = {
   id: UuidSchema
   removeReturnShipment: boolean
+  [k: string]: unknown
+}
+
+export type CreateDraftShipment200ResponseSchema = {
+  outwardShipment: SingleDraftShipmentSchema
+  returnShipment?: SingleDraftShipmentSchema
+  [k: string]: unknown
+}
+
+export type CreateDraftShipment400ResponseSchema = ValidationErrorResponseSchema
+
+export type CreateDraftShipment401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type CreateDraftShipment403ResponseSchema = ForbiddenErrorResponseSchema
+
+export type CreateDraftShipment404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type CreateDraftShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type CreateDraftShipment409ResponseSchema = ConflictErrorResponseSchema
+
+export type CreateDraftShipment415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type CreateDraftShipment429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type CreateDraftShipment500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type CreateDraftShipmentRequestSchema = CreateShipmentSchema & {
+  courierId: UuidSchema
   [k: string]: unknown
 }
 
@@ -8591,23 +8591,9 @@ export type GetPendingShipmentResponseSchema = {
   [k: string]: unknown
 }
 
-export type SinglePendingShipmentSchema = {
-  id: UuidSchema
-  origin: CompletePositionSchema
-  destination: CompletePositionSchema
-  /**
-   * @minItems 1
-   */
-  luggages: [CompleteLuggageSchema, ...CompleteLuggageSchema[]]
-  pickupSchedule: DateTimeSchema
-  deliverySchedule: DateTimeSchema
-  cost: SingleShipmentCostSchema
-  courier: CourierSchema
-  receiver?: ReceiverSchema
-  optionals: GenericShipmentOptionalSchema[]
-  coupon?: CouponSchema
+export type SinglePendingShipmentSchema = SingleDraftShipmentSchema & {
   paymentMethod: ShipmentPaymentMethodSchema
-  createdAt: DateTimeSchema
+  coupon?: CouponSchema
   [k: string]: unknown
 }
 
@@ -8650,6 +8636,24 @@ export type SingleShipmentCostSchema = {
     shipmentOptionals: ShipmentOptionalSchema[]
     [k: string]: unknown
   }
+  [k: string]: unknown
+}
+
+export type SingleDraftShipmentSchema = {
+  id: UuidSchema
+  origin: CompletePositionSchema
+  destination: CompletePositionSchema
+  /**
+   * @minItems 1
+   */
+  luggages: [CompleteLuggageSchema, ...CompleteLuggageSchema[]]
+  pickupSchedule: DateTimeSchema
+  deliverySchedule: DateTimeSchema
+  cost: SingleShipmentCostSchema
+  courier: CourierSchema
+  receiver?: ReceiverSchema
+  optionals: GenericShipmentOptionalSchema[]
+  createdAt: DateTimeSchema
   [k: string]: unknown
 }
 
@@ -9445,12 +9449,7 @@ export type CreateIntent429ResponseSchema = ThrottlingErrorResponseSchema
 export type CreateIntent500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type CreateIntentRequestSchema = {
-  courierId: UuidSchema
-  origin: RequestPositionSchema
-  destination: RequestPositionSchema
-  luggages: ShipmentLuggageSchema[]
-  type: "oneWay" | "roundTrip"
-  optionals: AdditionalOptionsSchema
+  draftShipmentId: UuidSchema
   [k: string]: unknown
 }
 
