@@ -104,9 +104,9 @@ export class ResponseError<T> extends Error {
 }
 
 export const serverUrls: { [env in Env]: string } = {
-  "local": "http://localhost:3000",
-  "staging": "http://localhost:3000",
-  "production": "http://localhost:3000"
+  "local": "http://localhost:undefined",
+  "staging": "http://localhost:undefined",
+  "production": "http://localhost:undefined"
 }
 
 function _getFnUrl(endpoint: string, options?: { path?: { [key: string]: any }, params?: { [key: string]: any } }): string {
@@ -375,80 +375,6 @@ export async function sendCancelShipmentRequest(data: SendCancelShipmentRequestR
 }
 
 /**
-Create new pending shipment by draft
-*/
-export type AxiosCreatePendingShipmentSuccessResponse = (AxiosResponse<CreatePendingShipment200ResponseSchema> & { status: 200 })
-export type AxiosCreatePendingShipmentErrorResponse = ((AxiosResponse<CreatePendingShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<CreatePendingShipment401ResponseSchema> & { status: 401 }) | (AxiosResponse<CreatePendingShipment403ResponseSchema> & { status: 403 }) | (AxiosResponse<CreatePendingShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<CreatePendingShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<CreatePendingShipment409ResponseSchema> & { status: 409 }) | (AxiosResponse<CreatePendingShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<CreatePendingShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<CreatePendingShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/createPendingShipment" }
-export type AxiosCreatePendingShipmentResponse = AxiosCreatePendingShipmentSuccessResponse | AxiosCreatePendingShipmentErrorResponse
-export async function createPendingShipment(data: CreatePendingShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosCreatePendingShipmentResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "401": {
-      "code": [
-        "UNAUTHORIZED"
-      ]
-    },
-    "403": {
-      "code": [
-        "FORBIDDEN"
-      ]
-    },
-    "404": {
-      "code": [
-        "NOT_FOUND"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "409": {
-      "code": [
-        "CONFLICT"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/shipments/createPendingShipment"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosCreatePendingShipmentSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosCreatePendingShipmentErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
 Get pending shipment by id/ids
 */
 export type AxiosGetPendingShipmentSuccessResponse = (AxiosResponse<GetPendingShipment200ResponseSchema> & { status: 200 })
@@ -585,6 +511,80 @@ export async function deletePendingShipment(data: DeletePendingShipmentRequestSc
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
       return res as AxiosDeletePendingShipmentErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+Create new pending shipment by draft
+*/
+export type AxiosCreateDraftShipmentSuccessResponse = (AxiosResponse<CreateDraftShipment200ResponseSchema> & { status: 200 })
+export type AxiosCreateDraftShipmentErrorResponse = ((AxiosResponse<CreateDraftShipment400ResponseSchema> & { status: 400 }) | (AxiosResponse<CreateDraftShipment401ResponseSchema> & { status: 401 }) | (AxiosResponse<CreateDraftShipment403ResponseSchema> & { status: 403 }) | (AxiosResponse<CreateDraftShipment404ResponseSchema> & { status: 404 }) | (AxiosResponse<CreateDraftShipment405ResponseSchema> & { status: 405 }) | (AxiosResponse<CreateDraftShipment409ResponseSchema> & { status: 409 }) | (AxiosResponse<CreateDraftShipment415ResponseSchema> & { status: 415 }) | (AxiosResponse<CreateDraftShipment429ResponseSchema> & { status: 429 }) | (AxiosResponse<CreateDraftShipment500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/createDraftShipment" }
+export type AxiosCreateDraftShipmentResponse = AxiosCreateDraftShipmentSuccessResponse | AxiosCreateDraftShipmentErrorResponse
+export async function createDraftShipment(data: CreateDraftShipmentRequestSchema, config?: AxiosRequestConfig): Promise<AxiosCreateDraftShipmentResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "409": {
+      "code": [
+        "CONFLICT"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/shipments/createDraftShipment"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosCreateDraftShipmentSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosCreateDraftShipmentErrorResponse
     } else {
       throw e
     }
@@ -1070,6 +1070,79 @@ export async function getShipmentOptionals(config?: AxiosRequestConfig): Promise
 }
 
 /**
+
+  Validate shipment fields before creating.
+  Returns validation errors if any field is invalid.
+
+  Possible fields to validate:
+    - pickup/delivery details
+    - luggages
+    - schedules
+    - optionals
+
+*/
+export type AxiosValidateShipmentFieldsSuccessResponse = (AxiosResponse<ValidateShipmentFields200ResponseSchema> & { status: 200 })
+export type AxiosValidateShipmentFieldsErrorResponse = ((AxiosResponse<ValidateShipmentFields400ResponseSchema> & { status: 400 }) | (AxiosResponse<ValidateShipmentFields401ResponseSchema> & { status: 401 }) | (AxiosResponse<ValidateShipmentFields403ResponseSchema> & { status: 403 }) | (AxiosResponse<ValidateShipmentFields405ResponseSchema> & { status: 405 }) | (AxiosResponse<ValidateShipmentFields415ResponseSchema> & { status: 415 }) | (AxiosResponse<ValidateShipmentFields429ResponseSchema> & { status: 429 }) | (AxiosResponse<ValidateShipmentFields500ResponseSchema> & { status: 500 })) & { path: "/v1/shipments/validateShipmentFields" }
+export type AxiosValidateShipmentFieldsResponse = AxiosValidateShipmentFieldsSuccessResponse | AxiosValidateShipmentFieldsErrorResponse
+export async function validateShipmentFields(data: ValidateShipmentFieldsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosValidateShipmentFieldsResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/shipments/validateShipmentFields"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosValidateShipmentFieldsSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosValidateShipmentFieldsErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
 Get luggages packages
 */
 export type AxiosGetLuggagesPackagesSuccessResponse = (AxiosResponse<GetLuggagesPackages200ResponseSchema> & { status: 200 })
@@ -1132,139 +1205,6 @@ export async function getLuggagesPackages(data: GetLuggagesPackagesRequestSchema
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
       return res as AxiosGetLuggagesPackagesErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
-Get available hotel offers available
-*/
-export type AxiosGetHotelOffersSuccessResponse = (AxiosResponse<GetHotelOffers200ResponseSchema> & { status: 200 })
-export type AxiosGetHotelOffersErrorResponse = ((AxiosResponse<GetHotelOffers400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetHotelOffers401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetHotelOffers403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetHotelOffers405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetHotelOffers415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetHotelOffers429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetHotelOffers500ResponseSchema> & { status: 500 })) & { path: "/v1/packages/getHotelOffers" }
-export type AxiosGetHotelOffersResponse = AxiosGetHotelOffersSuccessResponse | AxiosGetHotelOffersErrorResponse
-export async function getHotelOffers(config?: AxiosRequestConfig): Promise<AxiosGetHotelOffersResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "401": {
-      "code": [
-        "UNAUTHORIZED"
-      ]
-    },
-    "403": {
-      "code": [
-        "FORBIDDEN"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/packages/getHotelOffers"), null, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosGetHotelOffersSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosGetHotelOffersErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
-Get hotel products by id of the hotel
-*/
-export type AxiosGetHotelProductsSuccessResponse = (AxiosResponse<GetHotelProducts200ResponseSchema> & { status: 200 })
-export type AxiosGetHotelProductsErrorResponse = ((AxiosResponse<GetHotelProducts400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetHotelProducts401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetHotelProducts403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetHotelProducts404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetHotelProducts405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetHotelProducts415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetHotelProducts429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetHotelProducts500ResponseSchema> & { status: 500 })) & { path: "/v1/packages/getHotelProducts" }
-export type AxiosGetHotelProductsResponse = AxiosGetHotelProductsSuccessResponse | AxiosGetHotelProductsErrorResponse
-export async function getHotelProducts(data: GetHotelProductsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetHotelProductsResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "401": {
-      "code": [
-        "UNAUTHORIZED"
-      ]
-    },
-    "403": {
-      "code": [
-        "FORBIDDEN"
-      ]
-    },
-    "404": {
-      "code": [
-        "NOT_FOUND"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/packages/getHotelProducts"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosGetHotelProductsSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosGetHotelProductsErrorResponse
     } else {
       throw e
     }
@@ -1350,7 +1290,7 @@ export async function verifyRememberToken(data: VerifyRememberTokenRequestSchema
     },
     "401": {
       "code": [
-        "INVALID TOKEN"
+        "UNAUTHENTICATED"
       ]
     },
     "405": {
@@ -1950,9 +1890,7 @@ export async function changePassword(data: ChangePasswordRequestSchema, config?:
       ]
     },
     "401": {
-      "code": [
-        "ALREADY_EXISTS"
-      ]
+      "code": null
     },
     "404": {
       "code": [
@@ -1966,7 +1904,7 @@ export async function changePassword(data: ChangePasswordRequestSchema, config?:
     },
     "410": {
       "code": [
-        "TOKEN_EXPIRED"
+        "GONE"
       ]
     },
     "415": {
@@ -2079,7 +2017,7 @@ export async function checkChangePasswordToken(data: CheckChangePasswordTokenReq
     },
     "401": {
       "code": [
-        "INVALID TOKEN"
+        "UNAUTHENTICATED"
       ]
     },
     "404": {
@@ -2094,7 +2032,7 @@ export async function checkChangePasswordToken(data: CheckChangePasswordTokenReq
     },
     "410": {
       "code": [
-        "TOKEN_EXPIRED"
+        "GONE"
       ]
     },
     "415": {
@@ -2656,7 +2594,7 @@ export async function addUserCompany(data: AddUserCompanyRequestSchema, config?:
 }
 
 /**
-Create a new stripe payment intent from price or shipment details
+Create a new stripe payment intent with draft shipment id
 */
 export type AxiosCreateIntentSuccessResponse = (AxiosResponse<CreateIntent200ResponseSchema> & { status: 200 })
 export type AxiosCreateIntentErrorResponse = ((AxiosResponse<CreateIntent400ResponseSchema> & { status: 400 }) | (AxiosResponse<CreateIntent401ResponseSchema> & { status: 401 }) | (AxiosResponse<CreateIntent403ResponseSchema> & { status: 403 }) | (AxiosResponse<CreateIntent404ResponseSchema> & { status: 404 }) | (AxiosResponse<CreateIntent405ResponseSchema> & { status: 405 }) | (AxiosResponse<CreateIntent415ResponseSchema> & { status: 415 }) | (AxiosResponse<CreateIntent429ResponseSchema> & { status: 429 }) | (AxiosResponse<CreateIntent500ResponseSchema> & { status: 500 })) & { path: "/v1/payments/createIntent" }
@@ -3158,7 +3096,7 @@ export async function verifyEmailToken(data: VerifyEmailTokenRequestSchema, conf
     },
     "404": {
       "code": [
-        "TOKEN_EXPIRED"
+        "GONE"
       ]
     },
     "405": {
@@ -3168,7 +3106,7 @@ export async function verifyEmailToken(data: VerifyEmailTokenRequestSchema, conf
     },
     "410": {
       "code": [
-        "TOKEN_EXPIRED"
+        "GONE"
       ]
     },
     "415": {
@@ -3296,7 +3234,7 @@ export async function verifySessionToken(data: VerifySessionTokenRequestSchema, 
     },
     "410": {
       "code": [
-        "SESSION EXPIRED"
+        "GONE"
       ]
     },
     "415": {
@@ -3442,272 +3380,6 @@ export async function isPhoneUnique(data: IsPhoneUniqueRequestSchema, config?: A
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
       return res as AxiosIsPhoneUniqueErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
-Get available accomodations basic information
-*/
-export type AxiosGetAvailableAccomodationsSuccessResponse = (AxiosResponse<GetAvailableAccomodations200ResponseSchema> & { status: 200 })
-export type AxiosGetAvailableAccomodationsErrorResponse = ((AxiosResponse<GetAvailableAccomodations400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetAvailableAccomodations401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetAvailableAccomodations403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetAvailableAccomodations404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetAvailableAccomodations405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetAvailableAccomodations415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetAvailableAccomodations429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetAvailableAccomodations500ResponseSchema> & { status: 500 })) & { path: "/v1/accomodations/getAvailableAccomodations" }
-export type AxiosGetAvailableAccomodationsResponse = AxiosGetAvailableAccomodationsSuccessResponse | AxiosGetAvailableAccomodationsErrorResponse
-export async function getAvailableAccomodations(data: GetAvailableAccomodationsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetAvailableAccomodationsResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "401": {
-      "code": [
-        "UNAUTHORIZED"
-      ]
-    },
-    "403": {
-      "code": [
-        "FORBIDDEN"
-      ]
-    },
-    "404": {
-      "code": [
-        "NOT_FOUND"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/accomodations/getAvailableAccomodations"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosGetAvailableAccomodationsSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosGetAvailableAccomodationsErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
-Get accomodation details
-*/
-export type AxiosGetAccomodationDetailsSuccessResponse = (AxiosResponse<GetAccomodationDetails200ResponseSchema> & { status: 200 })
-export type AxiosGetAccomodationDetailsErrorResponse = ((AxiosResponse<GetAccomodationDetails400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetAccomodationDetails401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetAccomodationDetails403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetAccomodationDetails404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetAccomodationDetails405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetAccomodationDetails415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetAccomodationDetails429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetAccomodationDetails500ResponseSchema> & { status: 500 })) & { path: "/v1/accomodations/getAccomodationDetails" }
-export type AxiosGetAccomodationDetailsResponse = AxiosGetAccomodationDetailsSuccessResponse | AxiosGetAccomodationDetailsErrorResponse
-export async function getAccomodationDetails(data: GetAccomodationDetailsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetAccomodationDetailsResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "401": {
-      "code": [
-        "UNAUTHORIZED"
-      ]
-    },
-    "403": {
-      "code": [
-        "FORBIDDEN"
-      ]
-    },
-    "404": {
-      "code": [
-        "NOT_FOUND"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/accomodations/getAccomodationDetails"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosGetAccomodationDetailsSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosGetAccomodationDetailsErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
-Get all the constants needed for the accomodations
-*/
-export type AxiosGetConstantsSuccessResponse = (AxiosResponse<GetConstants200ResponseSchema> & { status: 200 })
-export type AxiosGetConstantsErrorResponse = ((AxiosResponse<GetConstants400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetConstants401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetConstants403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetConstants405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetConstants415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetConstants429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetConstants500ResponseSchema> & { status: 500 })) & { path: "/v1/accomodations/getConstants" }
-export type AxiosGetConstantsResponse = AxiosGetConstantsSuccessResponse | AxiosGetConstantsErrorResponse
-export async function getConstants(data: GetConstantsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetConstantsResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "401": {
-      "code": [
-        "UNAUTHORIZED"
-      ]
-    },
-    "403": {
-      "code": [
-        "FORBIDDEN"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/accomodations/getConstants"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosGetConstantsSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosGetConstantsErrorResponse
-    } else {
-      throw e
-    }
-  }
-}
-
-/**
-Get the best accomodations
-*/
-export type AxiosGetBestAccomodationsSuccessResponse = (AxiosResponse<GetBestAccomodations200ResponseSchema> & { status: 200 })
-export type AxiosGetBestAccomodationsErrorResponse = ((AxiosResponse<GetBestAccomodations400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetBestAccomodations401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetBestAccomodations403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetBestAccomodations405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetBestAccomodations415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetBestAccomodations429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetBestAccomodations500ResponseSchema> & { status: 500 })) & { path: "/v1/accomodations/getBestAccomodations" }
-export type AxiosGetBestAccomodationsResponse = AxiosGetBestAccomodationsSuccessResponse | AxiosGetBestAccomodationsErrorResponse
-export async function getBestAccomodations(data: GetBestAccomodationsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetBestAccomodationsResponse> {
-  _checkSetup()
-  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
-  const handledResponses = {
-    "200": {
-      "code": null
-    },
-    "400": {
-      "code": [
-        "VALIDATION_ERROR"
-      ]
-    },
-    "401": {
-      "code": [
-        "UNAUTHORIZED"
-      ]
-    },
-    "403": {
-      "code": [
-        "FORBIDDEN"
-      ]
-    },
-    "405": {
-      "code": [
-        "METHOD_NOT_ALLOWED"
-      ]
-    },
-    "415": {
-      "code": [
-        "UNSUPPORTED_MEDIA_TYPE"
-      ]
-    },
-    "429": {
-      "code": [
-        "THROTTLING"
-      ]
-    },
-    "500": {
-      "code": [
-        "UNEXPECTED_ERROR"
-      ]
-    }
-  }
-  try {
-    const res = await axios!.post(_getFnUrl("/v1/accomodations/getBestAccomodations"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
-    _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosGetBestAccomodationsSuccessResponse
-  } catch (e) {
-    const { response: res } = e as AxiosError
-    if (res) {
-      _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosGetBestAccomodationsErrorResponse
     } else {
       throw e
     }
@@ -4118,7 +3790,7 @@ export async function sendEmailConfirmationCode(data: SendEmailConfirmationCodeR
     },
     "410": {
       "code": [
-        "SESSION EXPIRED"
+        "GONE"
       ]
     },
     "415": {
@@ -4172,7 +3844,7 @@ export async function verifyEmailCodeToken(data: VerifyEmailCodeTokenRequestSche
     },
     "401": {
       "code": [
-        "INVALID TOKEN"
+        "UNAUTHENTICATED"
       ]
     },
     "405": {
@@ -4182,7 +3854,7 @@ export async function verifyEmailCodeToken(data: VerifyEmailCodeTokenRequestSche
     },
     "410": {
       "code": [
-        "TOKEN_EXPIRED"
+        "GONE"
       ]
     },
     "415": {
@@ -4236,7 +3908,7 @@ export async function verifyEmailConfirmationCode(data: VerifyEmailConfirmationC
     },
     "401": {
       "code": [
-        "INVALID_CODE",
+        "UNAUTHENTICATED",
         "UNAUTHORIZED"
       ]
     },
@@ -4247,7 +3919,7 @@ export async function verifyEmailConfirmationCode(data: VerifyEmailConfirmationC
     },
     "410": {
       "code": [
-        "SESSION EXPIRED"
+        "GONE"
       ]
     },
     "415": {
@@ -4305,9 +3977,7 @@ export async function createUser(data: CreateUserRequestSchema, config?: AxiosRe
       ]
     },
     "409": {
-      "code": [
-        "ALREADY_EXISTS"
-      ]
+      "code": null
     },
     "415": {
       "code": [
@@ -4606,7 +4276,7 @@ export async function verify2FaCode(data: Verify2FaCodeRequestSchema, config?: A
     },
     "401": {
       "code": [
-        "INVALID_CODE"
+        "UNAUTHENTICATED"
       ]
     },
     "404": {
@@ -4621,7 +4291,7 @@ export async function verify2FaCode(data: Verify2FaCodeRequestSchema, config?: A
     },
     "410": {
       "code": [
-        "CODE_EXPIRED"
+        "GONE"
       ]
     },
     "415": {
@@ -4685,7 +4355,7 @@ export async function update2FaCode(data: Update2FaCodeRequestSchema, config?: A
     },
     "410": {
       "code": [
-        "CODE_EXPIRED"
+        "GONE"
       ]
     },
     "415": {
@@ -4872,7 +4542,7 @@ export async function resend2FaCode(data: Resend2FaCodeRequestSchema, config?: A
     },
     "410": {
       "code": [
-        "CODE_EXPIRED"
+        "GONE"
       ]
     },
     "415": {
@@ -7874,7 +7544,7 @@ export type AlreadyClosedHelpRequestErrorResponseSchema = {
 
 export type ChangePasswordTokenIsExpiredErrorResponseSchema = {
   message: string
-  code: "TOKEN_EXPIRED"
+  code: "GONE"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -7890,7 +7560,7 @@ export type ChangePasswordTOkenNotFoundErrorResponseSchema = {
 
 export type ConfirmUserPhoneTokenIsExpiredErrorResponseSchema = {
   message: string
-  code: "TOKEN_EXPIRED"
+  code: "GONE"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -7914,7 +7584,7 @@ export type ConflictErrorResponseSchema = {
 
 export type ExpiredRememberTokenErrorResponseSchema = {
   message: string
-  code: "TOKEN_EXPIRED"
+  code: "GONE"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -7922,7 +7592,7 @@ export type ExpiredRememberTokenErrorResponseSchema = {
 
 export type ExpiredSession = {
   message: string
-  code: "SESSION EXPIRED"
+  code: "GONE"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -7930,7 +7600,7 @@ export type ExpiredSession = {
 
 export type FiscalCodeAlreadyExistsErrorResponseSchema = {
   message: string
-  code: "ALREADY_EXISTS"
+  code: null
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -7970,7 +7640,7 @@ export type HelpRequestNotFoundErrorResponseSchema = {
 
 export type HotelAlreadyExistsErrorResponseSchema = {
   message: string
-  code: "ALREADY_EXISTS"
+  code: null
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -7994,7 +7664,7 @@ export type InitSignupInformationConflictResponseSchema = {
 
 export type InvalidChangePasswordTokenErrorResponseSchema = {
   message: string
-  code: "INVALID TOKEN"
+  code: "UNAUTHENTICATED"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8002,7 +7672,7 @@ export type InvalidChangePasswordTokenErrorResponseSchema = {
 
 export type InvalidConfirmEmailCodeTokenErrorResponseSchema = {
   message: string
-  code: "INVALID TOKEN"
+  code: "UNAUTHENTICATED"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8010,7 +7680,7 @@ export type InvalidConfirmEmailCodeTokenErrorResponseSchema = {
 
 export type InvalidConfirmUserCodeErrorResponseSchema = {
   message: string
-  code: "INVALID_CODE" | "UNAUTHORIZED"
+  code: "UNAUTHENTICATED" | "UNAUTHORIZED"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8018,7 +7688,7 @@ export type InvalidConfirmUserCodeErrorResponseSchema = {
 
 export type InvalidPaymentCardCredentialsErrorResponseSchema = {
   message: string
-  code: "INVALID_PAYMENT_CARD_CREDENTIALS"
+  code: "VALIDATION_ERROR"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8026,7 +7696,7 @@ export type InvalidPaymentCardCredentialsErrorResponseSchema = {
 
 export type InvalidRememberTokenErrorResponseSchema = {
   message: string
-  code: "INVALID TOKEN"
+  code: "UNAUTHENTICATED"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8034,7 +7704,7 @@ export type InvalidRememberTokenErrorResponseSchema = {
 
 export type InvoiceCodeAlreadyExistsErrorResponseSchema = {
   message: string
-  code: "ALREADY_EXISTS"
+  code: null
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8066,7 +7736,7 @@ export type LuggagesPackageNotFoundErrorResponseSchema = {
 
 export type PaymentCardAlreadyExistsErrorResponseSchema = {
   message: string
-  code: "ALREADY_EXISTS"
+  code: null
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8074,7 +7744,7 @@ export type PaymentCardAlreadyExistsErrorResponseSchema = {
 
 export type SameOldAndNewPasswordErrorResponseSchema = {
   message: string
-  code: "ALREADY_EXISTS"
+  code: null
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8082,7 +7752,7 @@ export type SameOldAndNewPasswordErrorResponseSchema = {
 
 export type SignupSessionIdExpiredErrorResponseSchema = {
   message: string
-  code: "SESSION EXPIRED"
+  code: "GONE"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8138,7 +7808,7 @@ export type StructureNotFoundErrorResponseSchema = {
 
 export type TokenExpiredErrorResponseSchema = {
   message: string
-  code: "TOKEN_EXPIRED"
+  code: "GONE"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8154,7 +7824,7 @@ export type TokenNotFoundErrorResponseSchema = {
 
 export type TooTightDeadlinesErrorResponseSchema = {
   message: string
-  code: "TOO_TIGHT_DEADLINE"
+  code: "FORBIDDEN"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8186,7 +7856,7 @@ export type UnauthorizedUserErrorResponseSchema = {
 
 export type UserAlreadyExistsErrorResponseSchema = {
   message: string
-  code: "ALREADY_EXISTS"
+  code: null
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8234,7 +7904,7 @@ export type UserSavedCardNotFoundErrorResponseSchema = {
 
 export type VatCodeAlreadyExistsErrorResponseSchema = {
   message: string
-  code: "ALREADY_EXISTS"
+  code: null
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8242,7 +7912,7 @@ export type VatCodeAlreadyExistsErrorResponseSchema = {
 
 export type VerificationCodeExpiredErrorResponseSchema = {
   message: string
-  code: "CODE_EXPIRED"
+  code: "GONE"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8250,7 +7920,7 @@ export type VerificationCodeExpiredErrorResponseSchema = {
 
 export type WrongVerificationCodeErrorResponseSchema = {
   message: string
-  code: "INVALID_CODE"
+  code: "UNAUTHENTICATED"
   details?: Any
   stack?: string
   [k: string]: unknown
@@ -8330,35 +8000,6 @@ export type SendCancelShipmentRequestRequestSchema = {
   [k: string]: unknown
 }
 
-export type CreatePendingShipment200ResponseSchema = {
-  outwardShipment: SinglePendingShipmentSchema
-  returnShipment?: SinglePendingShipmentSchema
-  [k: string]: unknown
-}
-
-export type CreatePendingShipment400ResponseSchema = ValidationErrorResponseSchema
-
-export type CreatePendingShipment401ResponseSchema = UnauthorizedErrorResponseSchema
-
-export type CreatePendingShipment403ResponseSchema = ForbiddenErrorResponseSchema
-
-export type CreatePendingShipment404ResponseSchema = GenericNotFoundErrorResponseSchema
-
-export type CreatePendingShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type CreatePendingShipment409ResponseSchema = ConflictErrorResponseSchema
-
-export type CreatePendingShipment415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type CreatePendingShipment429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type CreatePendingShipment500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type CreatePendingShipmentRequestSchema = CreateShipmentSchema & {
-  courierId: UuidSchema
-  [k: string]: unknown
-} & PaymentIntentSchema
-
 export type GetPendingShipment200ResponseSchema = GetPendingShipmentResponseSchema[]
 
 export type GetPendingShipment400ResponseSchema = ValidationErrorResponseSchema
@@ -8405,6 +8046,35 @@ export type DeletePendingShipment500ResponseSchema = UnexpectedErrorResponseSche
 export type DeletePendingShipmentRequestSchema = {
   id: UuidSchema
   removeReturnShipment: boolean
+  [k: string]: unknown
+}
+
+export type CreateDraftShipment200ResponseSchema = {
+  outwardShipment: SingleDraftShipmentSchema
+  returnShipment?: SingleDraftShipmentSchema
+  [k: string]: unknown
+}
+
+export type CreateDraftShipment400ResponseSchema = ValidationErrorResponseSchema
+
+export type CreateDraftShipment401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type CreateDraftShipment403ResponseSchema = ForbiddenErrorResponseSchema
+
+export type CreateDraftShipment404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type CreateDraftShipment405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type CreateDraftShipment409ResponseSchema = ConflictErrorResponseSchema
+
+export type CreateDraftShipment415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type CreateDraftShipment429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type CreateDraftShipment500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type CreateDraftShipmentRequestSchema = CreateShipmentSchema & {
+  courierId: UuidSchema
   [k: string]: unknown
 }
 
@@ -8636,6 +8306,27 @@ export type GetShipmentOptionals415ResponseSchema = UnsupportedMediaTypeErrorRes
 export type GetShipmentOptionals429ResponseSchema = ThrottlingErrorResponseSchema
 
 export type GetShipmentOptionals500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type ValidateShipmentFields200ResponseSchema = OkResponseSchema
+
+export type ValidateShipmentFields400ResponseSchema = ValidationErrorResponseSchema
+
+export type ValidateShipmentFields401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type ValidateShipmentFields403ResponseSchema = ForbiddenErrorResponseSchema
+
+export type ValidateShipmentFields405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type ValidateShipmentFields415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type ValidateShipmentFields429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type ValidateShipmentFields500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type ValidateShipmentFieldsRequestSchema =
+  | PositionValidationFieldSchema
+  | LuggageValidationFieldSchema
+  | SchedulesValidationFieldSchema
 
 export type AdditionalOptionsSchema = {
   courier: CourierAdditionalOptionsSchema
@@ -8900,23 +8591,33 @@ export type GetPendingShipmentResponseSchema = {
   [k: string]: unknown
 }
 
-export type SinglePendingShipmentSchema = {
-  id: UuidSchema
-  origin: CompletePositionSchema
-  destination: CompletePositionSchema
-  /**
-   * @minItems 1
-   */
-  luggages: [CompleteLuggageSchema, ...CompleteLuggageSchema[]]
-  pickupSchedule: DateTimeSchema
-  deliverySchedule: DateTimeSchema
-  cost: SingleShipmentCostSchema
-  courier: CourierSchema
-  receiver?: ReceiverSchema
-  optionals: GenericShipmentOptionalSchema[]
-  coupon?: CouponSchema
+export type SinglePendingShipmentSchema = SingleDraftShipmentSchema & {
   paymentMethod: ShipmentPaymentMethodSchema
-  createdAt: DateTimeSchema
+  coupon?: CouponSchema
+  [k: string]: unknown
+}
+
+export type LuggageValidationFieldSchema = {
+  fieldType: "LUGGAGE"
+  luggages: ShipmentLuggageSchema[]
+  courierId: UuidSchema
+  [k: string]: unknown
+}
+
+export type PositionValidationFieldSchema = {
+  fieldType: "POSITION"
+  placeId: UuidSchema
+  [k: string]: unknown
+}
+
+export type SchedulesValidationFieldSchema = {
+  fieldType: "SCHEDULES"
+  deliverySchedule: DateTimeSchema
+  pickupSchedule: DateTimeSchema
+  optionals?: UuidSchema[]
+  courierId: UuidSchema
+  origin: MinimalPositionSchema
+  destination: MinimalPositionSchema
   [k: string]: unknown
 }
 
@@ -8935,6 +8636,24 @@ export type SingleShipmentCostSchema = {
     shipmentOptionals: ShipmentOptionalSchema[]
     [k: string]: unknown
   }
+  [k: string]: unknown
+}
+
+export type SingleDraftShipmentSchema = {
+  id: UuidSchema
+  origin: CompletePositionSchema
+  destination: CompletePositionSchema
+  /**
+   * @minItems 1
+   */
+  luggages: [CompleteLuggageSchema, ...CompleteLuggageSchema[]]
+  pickupSchedule: DateTimeSchema
+  deliverySchedule: DateTimeSchema
+  cost: SingleShipmentCostSchema
+  courier: CourierSchema
+  receiver?: ReceiverSchema
+  optionals: GenericShipmentOptionalSchema[]
+  createdAt: DateTimeSchema
   [k: string]: unknown
 }
 
@@ -8973,83 +8692,12 @@ export type GetLuggagesPackagesRequestSchema = {
   [k: string]: unknown
 }
 
-export type GetHotelOffers200ResponseSchema = SingleOfferSchema[]
-
-export type GetHotelOffers400ResponseSchema = ValidationErrorResponseSchema
-
-export type GetHotelOffers401ResponseSchema = UnauthorizedErrorResponseSchema
-
-export type GetHotelOffers403ResponseSchema = ForbiddenErrorResponseSchema
-
-export type GetHotelOffers405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type GetHotelOffers415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type GetHotelOffers429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type GetHotelOffers500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type GetHotelProducts200ResponseSchema = HotelProductSchema[]
-
-export type GetHotelProducts400ResponseSchema = ValidationErrorResponseSchema
-
-export type GetHotelProducts401ResponseSchema = UnauthorizedErrorResponseSchema
-
-export type GetHotelProducts403ResponseSchema = ForbiddenErrorResponseSchema
-
-export type GetHotelProducts404ResponseSchema = GenericNotFoundErrorResponseSchema
-
-export type GetHotelProducts405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type GetHotelProducts415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type GetHotelProducts429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type GetHotelProducts500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type GetHotelProductsRequestSchema = {
-  hotelId: string
-  checkin: string
-  checkout: string
-  adults: number
-  children: number
-  rooms: number
-  [k: string]: unknown
-}
-
 export type PackagesShipmentPackageOptionalSchema = {
   id: UuidSchema
   code: "CALL_BEFORE_DELIVERY" | "SATURDAY_DELIVERY" | "EXPRESS_DELIVERY" | "INSURANCE"
   name: string
   description: string
   price: PackagesOptionalPriceSchema
-  [k: string]: unknown
-}
-
-export type HotelProductSchema = {
-  occupancy: OccupancySchema
-  numberAvailableAtThisPrice: number
-  cancellationType: {
-    type: "free_cancellation" | "non_refundable" | "special_conditions"
-    availableUntil?: string
-    [k: string]: unknown
-  }
-  mealPlan: {
-    types?: ("breakfast" | "dinner" | "lunch")[]
-    plan: "all_inclusive" | "breakfast_included" | "full_board" | "half_board" | "no_plan"
-    [k: string]: unknown
-  }
-  payment: {
-    prePaymentrequired: boolean
-    timing: ("pay_at_the_property" | "pay_online_later" | "pay_online_now")[]
-    [k: string]: unknown
-  }
-  totalPrice: string
-  room: {
-    type: string
-    id: string
-    [k: string]: unknown
-  }
   [k: string]: unknown
 }
 
@@ -9063,13 +8711,6 @@ export type PackagesLuggageSchema = {
 
 export type PackagesLuggagesWithTypeSchema = PackagesLuggageSchema & {
   type: string
-  [k: string]: unknown
-}
-
-export type OccupancySchema = {
-  adults: number
-  children: number
-  total: number
   [k: string]: unknown
 }
 
@@ -9098,21 +8739,6 @@ export type PackagesPriceSchema = {
 export type PackagesPrivatePublicPositionSchema = {
   isPrivate: boolean
   id: UuidSchema
-  [k: string]: unknown
-}
-
-export type SingleOfferSchema = {
-  title: string
-  placeId: string
-  offertId: string
-  packagesNuber: number
-  basePrice: string
-  checkIn: string
-  checkOut: string
-  rooms: number
-  adults: number
-  children: number
-  imageSrc: string
   [k: string]: unknown
 }
 
@@ -9823,12 +9449,7 @@ export type CreateIntent429ResponseSchema = ThrottlingErrorResponseSchema
 export type CreateIntent500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type CreateIntentRequestSchema = {
-  courierId: UuidSchema
-  origin: RequestPositionSchema
-  destination: RequestPositionSchema
-  luggages: ShipmentLuggageSchema[]
-  type: "oneWay" | "roundTrip"
-  optionals: AdditionalOptionsSchema
+  draftShipmentId: UuidSchema
   [k: string]: unknown
 }
 
@@ -10132,421 +9753,6 @@ export type IsPhoneUnique500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type IsPhoneUniqueRequestSchema = {
   phone: PhoneNumberSchema
-  [k: string]: unknown
-}
-
-export type GetAvailableAccomodations200ResponseSchema = {
-  accomodations: BaseAccomodationSchema[]
-  request: {
-    place: AccomodationPlaceSchema
-    [k: string]: unknown
-  }
-  [k: string]: unknown
-}
-
-export type GetAvailableAccomodations400ResponseSchema = ValidationErrorResponseSchema
-
-export type GetAvailableAccomodations401ResponseSchema = UnauthorizedErrorResponseSchema
-
-export type GetAvailableAccomodations403ResponseSchema = ForbiddenErrorResponseSchema
-
-export type GetAvailableAccomodations404ResponseSchema = GenericNotFoundErrorResponseSchema
-
-export type GetAvailableAccomodations405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type GetAvailableAccomodations415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type GetAvailableAccomodations429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type GetAvailableAccomodations500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type GetAvailableAccomodationsRequestSchema = {
-  placeId: UuidSchema
-  checkIn: string
-  checkOut: string
-  guests: GuestsSchema
-  roomsNumber: number
-  filters: FiltersSchema
-  orderBy: OrderBySchema
-  [k: string]: unknown
-}
-
-export type GetAccomodationDetails200ResponseSchema = {
-  detail: DetailAccomodationSchema
-  availability: AvailabilityAccomodationSchema
-  rating: RatingDetailSchema
-  [k: string]: unknown
-}
-
-export type GetAccomodationDetails400ResponseSchema = ValidationErrorResponseSchema
-
-export type GetAccomodationDetails401ResponseSchema = UnauthorizedErrorResponseSchema
-
-export type GetAccomodationDetails403ResponseSchema = ForbiddenErrorResponseSchema
-
-export type GetAccomodationDetails404ResponseSchema = StructureNotFoundErrorResponseSchema
-
-export type GetAccomodationDetails405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type GetAccomodationDetails415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type GetAccomodationDetails429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type GetAccomodationDetails500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type GetAccomodationDetailsRequestSchema = {
-  accomodationId: string
-  checkIn: string
-  checkOut: string
-  guests: GuestsSchema
-  roomNumber: number
-  [k: string]: unknown
-}
-
-export type GetConstants200ResponseSchema = {
-  accomodationFacilities?: (BaseAccomodationConstantSchema & {
-    facilityType: number
-    [k: string]: unknown
-  })[]
-  accomodationTheme?: BaseAccomodationConstantSchema[]
-  accomodationTypes?: BaseAccomodationConstantSchema[]
-  bedTypes?: (BaseAccomodationConstantSchema & {
-    description: string
-    descriptionImperial: string
-    [k: string]: unknown
-  })[]
-  chargeType?: BaseAccomodationConstantSchema[]
-  facilityTypes?: BaseAccomodationConstantSchema[]
-  revireScores?: {
-    minScore: number
-    maxScore: number
-    [k: string]: unknown
-  }[]
-  roomFacilities?: (BaseAccomodationConstantSchema & {
-    facilityType: number
-    [k: string]: unknown
-  })[]
-  roomTypes?: BaseAccomodationConstantSchema[]
-  mealPlans: {
-    id: string
-    name: string
-    [k: string]: unknown
-  }[]
-  [k: string]: unknown
-}
-
-export type GetConstants400ResponseSchema = ValidationErrorResponseSchema
-
-export type GetConstants401ResponseSchema = UnauthorizedErrorResponseSchema
-
-export type GetConstants403ResponseSchema = ForbiddenErrorResponseSchema
-
-export type GetConstants405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type GetConstants415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type GetConstants429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type GetConstants500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type GetConstantsRequestSchema = {
-  constantsCategory: (
-    | "accommodation_facilities"
-    | "accommodation_themes"
-    | "accommodation_types"
-    | "bed_types"
-    | "charge_types"
-    | "facility_types"
-    | "review_scores"
-    | "room_facilities"
-    | "room_types"
-  )[]
-  [k: string]: unknown
-}
-
-export type GetBestAccomodations200ResponseSchema = BestAccomodatioDetailSchema[]
-
-export type GetBestAccomodations400ResponseSchema = ValidationErrorResponseSchema
-
-export type GetBestAccomodations401ResponseSchema = UnauthorizedErrorResponseSchema
-
-export type GetBestAccomodations403ResponseSchema = ForbiddenErrorResponseSchema
-
-export type GetBestAccomodations405ResponseSchema = MethodNotAllowedErrorResponseSchema
-
-export type GetBestAccomodations415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
-
-export type GetBestAccomodations429ResponseSchema = ThrottlingErrorResponseSchema
-
-export type GetBestAccomodations500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type GetBestAccomodationsRequestSchema = {
-  country: string
-  [k: string]: unknown
-}
-
-export type AvailabilityAccomodationSchema = {
-  id: string
-  currency: string
-  products: {
-    id: string
-    maxOccupancy: {
-      adults: number
-      children: number
-      total: number
-      [k: string]: unknown
-    }
-    numberAvailableAtThisPrice: number
-    policies: {
-      cancellation?: {
-        freeCancellationUntil: string
-        type: string
-        [k: string]: unknown
-      }
-      [k: string]: unknown
-    }
-    price: PriceSchema
-    room: {
-      id: string
-      type: string
-      [k: string]: unknown
-    }
-    [k: string]: unknown
-  }[]
-  url: string
-  [k: string]: unknown
-}
-
-export type BaseAccomodationConstantSchema = {
-  id: number
-  name: string
-  [k: string]: unknown
-}
-
-export type BaseAccomodationSchema = {
-  id: string
-  price: PriceWithChargesSchema
-  accomodationType: string
-  description: string
-  location: LocationSchema
-  name: string
-  mainPhotoUrl: string
-  rating: {
-    numberOfReviews: number
-    reviewScore: number
-    stars: number
-    starsType: string
-    [k: string]: unknown
-  }
-  preferredRoom: {
-    id: string
-    bedType: string
-    numberOfBeds: number
-    [k: string]: unknown
-  }
-  url: string
-  [k: string]: unknown
-}
-
-export type BestAccomodatioDetailSchema = {
-  id: number
-  title: string
-  location: {
-    city: string
-    country: string
-    [k: string]: unknown
-  }
-  basePrice: number
-  rating: {
-    stars: number
-    numberOfReviews: number
-    reviewScore: number
-    [k: string]: unknown
-  }
-  mainPhotoUrl: string
-  [k: string]: unknown
-}
-
-export type CheckInOutSchema = {
-  from: string
-  to: string
-  [k: string]: unknown
-}
-
-export type ChilrenAgesSchema = number[]
-
-export type ContactSchema = {
-  email?: string
-  phone?: string
-  [k: string]: unknown
-}
-
-export type DetailAccomodationSchema = {
-  id: string
-  brands: string[]
-  checkInOutTimes: {
-    checkin: CheckInOutSchema
-    checkout: CheckInOutSchema
-    [k: string]: unknown
-  }
-  contacts: {
-    general?: ContactSchema
-    reservation?: ContactSchema
-    [k: string]: unknown
-  }
-  currency: string
-  description: {
-    important: string
-    text: string
-    [k: string]: unknown
-  }
-  facilities: {
-    id: string
-    attributes: string
-    [k: string]: unknown
-  }[]
-  location: LocationSchema
-  name: string
-  photos: ExtendedPhotosSchema[]
-  policies: {
-    cotsAndExtraBeds: {
-      age: CheckInOutSchema
-      mode: string
-      price: number
-      type: string
-      [k: string]: unknown
-    }
-    maxCheckinAge: number
-    minCheckinAge: number
-    minGuestsAge: number
-    pets: {
-      allowed: boolean
-      [k: string]: unknown
-    }
-    [k: string]: unknown
-  }
-  rating: {
-    numberOfReviews: number
-    preferred: boolean
-    reviewScore: number
-    stars: number
-    starsType: string
-    [k: string]: unknown
-  }
-  rooms: RoomDetailSchema[]
-  url: string
-  [k: string]: unknown
-}
-
-export type ExtendedPhotosSchema = {
-  isMain: boolean
-  tags: string[]
-  url: {
-    large: string
-    standard: string
-    thumbnail: string
-    thumbnailLarge: string
-    [k: string]: unknown
-  }
-  [k: string]: unknown
-}
-
-export type FiltersSchema = {
-  facilities?: string[]
-  price?: {
-    max?: number
-    min?: number
-    [k: string]: unknown
-  }
-  mealPlan?: ("all_inclusive" | "breakfast_included" | "full_board" | "half_board" | "no_plan")[]
-  stars?: number[]
-  [k: string]: unknown
-}
-
-export type GuestsSchema = {
-  childrenAges?: ChilrenAgesSchema
-  adults: number
-  [k: string]: unknown
-}
-
-export type LocationSchema = {
-  country: string
-  city: string
-  coordinates: CoordinatesRequestSchema
-  cap: string
-  address: string
-  [k: string]: unknown
-}
-
-export type OrderBySchema = {
-  field?: "PRICE" | "STARS" | "REVIEWS" | "RECOMMENDED"
-  order?: "ASC" | "DESC"
-  [k: string]: unknown
-}
-
-export type PriceSchema = {
-  base: number
-  book: number
-  total: number
-  [k: string]: unknown
-}
-
-export type PriceWithChargesSchema = PriceSchema & {
-  extraCharges: number
-  [k: string]: unknown
-}
-
-export type RatingDetailSchema = {
-  comments: {
-    id: number
-    date: string
-    positive?: string
-    negative?: string
-    score: number
-    summary: string
-    [k: string]: unknown
-  }[]
-  scores: {
-    category: "cleanliness" | "comfort" | "facilities" | "free_wifi" | "location" | "staff" | "value_for_money"
-    score: number
-    numberOfReviews: number
-    [k: string]: unknown
-  }[]
-  [k: string]: unknown
-}
-
-export type RoomDetailSchema = {
-  id: string
-  bedOptions: {
-    configurations: {
-      bedType: string
-      numberOfBeds: number
-      [k: string]: unknown
-    }[]
-    hasBathroom: boolean
-    isBedroom: boolean
-    [k: string]: unknown
-  }
-  cotsAndExtraBeds: {
-    areAllowed: boolean
-    maxCots: number
-    maxExtraBeds: number
-    [k: string]: unknown
-  }
-  description: string
-  name: string
-  photos: ExtendedPhotosSchema[]
-  roomType: string
-  [k: string]: unknown
-}
-
-export type AccomodationPlaceSchema = {
-  id: UuidSchema
-  state: string
-  region: string
-  province: ProvinceSchema
-  place: string
-  coordinates: CoordinatesRequestSchema
   [k: string]: unknown
 }
 
