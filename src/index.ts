@@ -1146,11 +1146,11 @@ export async function validateShipmentFields(data: ValidateShipmentFieldsRequest
 Get luggages packages
 */
 export type AxiosGetLuggagesPackagesSuccessResponse = (AxiosResponse<GetLuggagesPackages200ResponseSchema> & { status: 200 })
-export type AxiosGetLuggagesPackagesErrorResponse = ((AxiosResponse<GetLuggagesPackages400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetLuggagesPackages401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetLuggagesPackages403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetLuggagesPackages404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetLuggagesPackages405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetLuggagesPackages415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetLuggagesPackages429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetLuggagesPackages500ResponseSchema> & { status: 500 })) & { path: "/v1/packages/getLuggagesPackages" }
+export type AxiosGetLuggagesPackagesErrorResponse = ((AxiosResponse<GetLuggagesPackages400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetLuggagesPackages404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetLuggagesPackages405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetLuggagesPackages415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetLuggagesPackages429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetLuggagesPackages500ResponseSchema> & { status: 500 })) & { path: "/v1/packages/getLuggagesPackages" }
 export type AxiosGetLuggagesPackagesResponse = AxiosGetLuggagesPackagesSuccessResponse | AxiosGetLuggagesPackagesErrorResponse
 export async function getLuggagesPackages(data: GetLuggagesPackagesRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetLuggagesPackagesResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
+  const securityParams: AxiosRequestConfig = {}
   const handledResponses = {
     "200": {
       "code": null
@@ -1158,16 +1158,6 @@ export async function getLuggagesPackages(data: GetLuggagesPackagesRequestSchema
     "400": {
       "code": [
         "VALIDATION_ERROR"
-      ]
-    },
-    "401": {
-      "code": [
-        "UNAUTHORIZED"
-      ]
-    },
-    "403": {
-      "code": [
-        "FORBIDDEN"
       ]
     },
     "404": {
@@ -3390,11 +3380,11 @@ export async function isPhoneUnique(data: IsPhoneUniqueRequestSchema, config?: A
 Send assistance request
 */
 export type AxiosSendGeneralHelpRequestSuccessResponse = (AxiosResponse<SendGeneralHelpRequest200ResponseSchema> & { status: 200 })
-export type AxiosSendGeneralHelpRequestErrorResponse = ((AxiosResponse<SendGeneralHelpRequest400ResponseSchema> & { status: 400 }) | (AxiosResponse<SendGeneralHelpRequest401ResponseSchema> & { status: 401 }) | (AxiosResponse<SendGeneralHelpRequest403ResponseSchema> & { status: 403 }) | (AxiosResponse<SendGeneralHelpRequest405ResponseSchema> & { status: 405 }) | (AxiosResponse<SendGeneralHelpRequest415ResponseSchema> & { status: 415 }) | (AxiosResponse<SendGeneralHelpRequest429ResponseSchema> & { status: 429 }) | (AxiosResponse<SendGeneralHelpRequest500ResponseSchema> & { status: 500 })) & { path: "/v1/assistance/sendGeneralHelpRequest" }
+export type AxiosSendGeneralHelpRequestErrorResponse = ((AxiosResponse<SendGeneralHelpRequest400ResponseSchema> & { status: 400 }) | (AxiosResponse<SendGeneralHelpRequest405ResponseSchema> & { status: 405 }) | (AxiosResponse<SendGeneralHelpRequest415ResponseSchema> & { status: 415 }) | (AxiosResponse<SendGeneralHelpRequest429ResponseSchema> & { status: 429 }) | (AxiosResponse<SendGeneralHelpRequest500ResponseSchema> & { status: 500 })) & { path: "/v1/assistance/sendGeneralHelpRequest" }
 export type AxiosSendGeneralHelpRequestResponse = AxiosSendGeneralHelpRequestSuccessResponse | AxiosSendGeneralHelpRequestErrorResponse
 export async function sendGeneralHelpRequest(data: SendGeneralHelpRequestRequestSchema, config?: AxiosRequestConfig): Promise<AxiosSendGeneralHelpRequestResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
+  const securityParams: AxiosRequestConfig = {}
   const handledResponses = {
     "200": {
       "code": null
@@ -3402,16 +3392,6 @@ export async function sendGeneralHelpRequest(data: SendGeneralHelpRequestRequest
     "400": {
       "code": [
         "VALIDATION_ERROR"
-      ]
-    },
-    "401": {
-      "code": [
-        "UNAUTHORIZED"
-      ]
-    },
-    "403": {
-      "code": [
-        "FORBIDDEN"
       ]
     },
     "405": {
@@ -4580,11 +4560,11 @@ export async function resend2FaCode(data: Resend2FaCodeRequestSchema, config?: A
 Get all offers for the current season
 */
 export type AxiosGetSeasonOffersSuccessResponse = (AxiosResponse<GetSeasonOffers200ResponseSchema> & { status: 200 })
-export type AxiosGetSeasonOffersErrorResponse = ((AxiosResponse<GetSeasonOffers400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetSeasonOffers401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetSeasonOffers403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetSeasonOffers404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetSeasonOffers405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetSeasonOffers415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetSeasonOffers429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetSeasonOffers500ResponseSchema> & { status: 500 })) & { path: "/v1/offers/getSeasonOffers" }
+export type AxiosGetSeasonOffersErrorResponse = ((AxiosResponse<GetSeasonOffers400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetSeasonOffers404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetSeasonOffers405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetSeasonOffers415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetSeasonOffers429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetSeasonOffers500ResponseSchema> & { status: 500 })) & { path: "/v1/offers/getSeasonOffers" }
 export type AxiosGetSeasonOffersResponse = AxiosGetSeasonOffersSuccessResponse | AxiosGetSeasonOffersErrorResponse
 export async function getSeasonOffers(data: GetSeasonOffersRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetSeasonOffersResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
+  const securityParams: AxiosRequestConfig = {}
   const handledResponses = {
     "200": {
       "code": null
@@ -4592,16 +4572,6 @@ export async function getSeasonOffers(data: GetSeasonOffersRequestSchema, config
     "400": {
       "code": [
         "VALIDATION_ERROR"
-      ]
-    },
-    "401": {
-      "code": [
-        "UNAUTHORIZED"
-      ]
-    },
-    "403": {
-      "code": [
-        "FORBIDDEN"
       ]
     },
     "404": {
@@ -8670,10 +8640,6 @@ export type GetLuggagesPackages200ResponseSchema = {
 
 export type GetLuggagesPackages400ResponseSchema = ValidationErrorResponseSchema
 
-export type GetLuggagesPackages401ResponseSchema = UnauthorizedErrorResponseSchema
-
-export type GetLuggagesPackages403ResponseSchema = ForbiddenErrorResponseSchema
-
 export type GetLuggagesPackages404ResponseSchema = GenericNotFoundErrorResponseSchema
 
 export type GetLuggagesPackages405ResponseSchema = MethodNotAllowedErrorResponseSchema
@@ -9760,10 +9726,6 @@ export type SendGeneralHelpRequest200ResponseSchema = OkResponseSchema
 
 export type SendGeneralHelpRequest400ResponseSchema = ValidationErrorResponseSchema
 
-export type SendGeneralHelpRequest401ResponseSchema = UnauthorizedErrorResponseSchema
-
-export type SendGeneralHelpRequest403ResponseSchema = ForbiddenErrorResponseSchema
-
 export type SendGeneralHelpRequest405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
 export type SendGeneralHelpRequest415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
@@ -10284,10 +10246,6 @@ export type Resend2FaCodeRequestSchema = {
 export type GetSeasonOffers200ResponseSchema = SeasonOfferSchema[]
 
 export type GetSeasonOffers400ResponseSchema = ValidationErrorResponseSchema
-
-export type GetSeasonOffers401ResponseSchema = UnauthorizedErrorResponseSchema
-
-export type GetSeasonOffers403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type GetSeasonOffers404ResponseSchema = GenericNotFoundErrorResponseSchema
 
