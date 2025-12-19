@@ -11824,7 +11824,7 @@ export type GetUnavailableDatesRequestSchema = {
   from?: DateSchema
   to?: DateSchema
   courierId: UuidSchema
-  hasSaturdayDelivey?: boolean
+  hasSaturdayDelivery?: boolean
   type: "pick" | "delivery"
   [k: string]: unknown
 }
