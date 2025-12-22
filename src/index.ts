@@ -10345,7 +10345,7 @@ export type SeasonOfferSchema = {
   luggages: PackagesLuggageSchema[]
   type: "FAMILY" | "COUPLE" | "FRIENDS"
   esteemCost: CostSchema
-  startDate: DateSchema
+  startDate?: DateSchema
   endDate?: DateSchema
   [k: string]: unknown
 }
