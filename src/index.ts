@@ -3198,7 +3198,7 @@ export async function verifyAuthentication(config?: AxiosRequestConfig): Promise
 Verify that a session token is valid
 */
 export type AxiosVerifySessionTokenSuccessResponse = (AxiosResponse<VerifySessionToken200ResponseSchema> & { status: 200 })
-export type AxiosVerifySessionTokenErrorResponse = ((AxiosResponse<VerifySessionToken400ResponseSchema> & { status: 400 }) | (AxiosResponse<VerifySessionToken401ResponseSchema> & { status: 401 }) | (AxiosResponse<VerifySessionToken405ResponseSchema> & { status: 405 }) | (AxiosResponse<VerifySessionToken410ResponseSchema> & { status: 410 }) | (AxiosResponse<VerifySessionToken415ResponseSchema> & { status: 415 }) | (AxiosResponse<VerifySessionToken429ResponseSchema> & { status: 429 }) | (AxiosResponse<VerifySessionToken500ResponseSchema> & { status: 500 })) & { path: "/v1/auth/verifySessionToken" }
+export type AxiosVerifySessionTokenErrorResponse = ((AxiosResponse<VerifySessionToken400ResponseSchema> & { status: 400 }) | (AxiosResponse<VerifySessionToken401ResponseSchema> & { status: 401 }) | (AxiosResponse<VerifySessionToken404ResponseSchema> & { status: 404 }) | (AxiosResponse<VerifySessionToken405ResponseSchema> & { status: 405 }) | (AxiosResponse<VerifySessionToken410ResponseSchema> & { status: 410 }) | (AxiosResponse<VerifySessionToken415ResponseSchema> & { status: 415 }) | (AxiosResponse<VerifySessionToken429ResponseSchema> & { status: 429 }) | (AxiosResponse<VerifySessionToken500ResponseSchema> & { status: 500 })) & { path: "/v1/auth/verifySessionToken" }
 export type AxiosVerifySessionTokenResponse = AxiosVerifySessionTokenSuccessResponse | AxiosVerifySessionTokenErrorResponse
 export async function verifySessionToken(data: VerifySessionTokenRequestSchema, config?: AxiosRequestConfig): Promise<AxiosVerifySessionTokenResponse> {
   _checkSetup()
@@ -3215,6 +3215,11 @@ export async function verifySessionToken(data: VerifySessionTokenRequestSchema, 
     "401": {
       "code": [
         "UNAUTHENTICATED"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
       ]
     },
     "405": {
@@ -9732,6 +9737,8 @@ export type VerifySessionToken200ResponseSchema = {
 export type VerifySessionToken400ResponseSchema = ValidationErrorResponseSchema
 
 export type VerifySessionToken401ResponseSchema = UnauthenticatedErrorResponseSchema
+
+export type VerifySessionToken404ResponseSchema = GenericNotFoundErrorResponseSchema
 
 export type VerifySessionToken405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
