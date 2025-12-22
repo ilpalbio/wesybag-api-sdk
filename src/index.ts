@@ -4181,11 +4181,11 @@ export async function verifyStagingToken(data: VerifyStagingTokenRequestSchema, 
 get all available cities with filters
 */
 export type AxiosGetCitiesSuccessResponse = (AxiosResponse<GetCities200ResponseSchema> & { status: 200 })
-export type AxiosGetCitiesErrorResponse = ((AxiosResponse<GetCities400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetCities401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetCities403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetCities405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetCities415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetCities429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetCities500ResponseSchema> & { status: 500 })) & { path: "/v1/cities/getCities" }
+export type AxiosGetCitiesErrorResponse = ((AxiosResponse<GetCities400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetCities405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetCities415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetCities429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetCities500ResponseSchema> & { status: 500 })) & { path: "/v1/cities/getCities" }
 export type AxiosGetCitiesResponse = AxiosGetCitiesSuccessResponse | AxiosGetCitiesErrorResponse
 export async function getCities(data: GetCitiesRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetCitiesResponse> {
   _checkSetup()
-  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
+  const securityParams: AxiosRequestConfig = {}
   const handledResponses = {
     "200": {
       "code": null
@@ -4193,16 +4193,6 @@ export async function getCities(data: GetCitiesRequestSchema, config?: AxiosRequ
     "400": {
       "code": [
         "VALIDATION_ERROR"
-      ]
-    },
-    "401": {
-      "code": [
-        "UNAUTHORIZED"
-      ]
-    },
-    "403": {
-      "code": [
-        "FORBIDDEN"
       ]
     },
     "405": {
@@ -10157,10 +10147,6 @@ export type VerifyStagingTokenRequestSchema = {
 export type GetCities200ResponseSchema = GeneralPositionSchema[]
 
 export type GetCities400ResponseSchema = ValidationErrorResponseSchema
-
-export type GetCities401ResponseSchema = UnauthorizedErrorResponseSchema
-
-export type GetCities403ResponseSchema = ForbiddenErrorResponseSchema
 
 export type GetCities405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
