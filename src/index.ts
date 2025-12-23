@@ -11814,10 +11814,12 @@ export type GetUnavailableDates429ResponseSchema = ThrottlingErrorResponseSchema
 export type GetUnavailableDates500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetUnavailableDatesRequestSchema = {
+  courierId: UuidSchema
+  type: "pick" | "delivery"
+  origin: MinimalPositionSchema
+  destination: MinimalPositionSchema
   from?: DateSchema
   to?: DateSchema
-  courierId: UuidSchema
   hasSaturdayDelivery?: boolean
-  type: "pick" | "delivery"
   [k: string]: unknown
 }
