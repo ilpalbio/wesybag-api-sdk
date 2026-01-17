@@ -7439,6 +7439,75 @@ export async function getUnavailableDates(data: GetUnavailableDatesRequestSchema
   }
 }
 
+/**
+Get peak days for a given courier
+*/
+export type AxiosGetPeakDaysSuccessResponse = (AxiosResponse<GetPeakDays200ResponseSchema> & { status: 200 })
+export type AxiosGetPeakDaysErrorResponse = ((AxiosResponse<GetPeakDays400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetPeakDays401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetPeakDays403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetPeakDays404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetPeakDays405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetPeakDays415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetPeakDays429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetPeakDays500ResponseSchema> & { status: 500 })) & { path: "/v1/validation/getPeakDays" }
+export type AxiosGetPeakDaysResponse = AxiosGetPeakDaysSuccessResponse | AxiosGetPeakDaysErrorResponse
+export async function getPeakDays(data: GetPeakDaysRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetPeakDaysResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = _getAuth(new Set(["SessionToken"]))
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "403": {
+      "code": [
+        "FORBIDDEN"
+      ]
+    },
+    "404": {
+      "code": [
+        "NOT_FOUND"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/validation/getPeakDays"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosGetPeakDaysSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosGetPeakDaysErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
 export type Any =
   | string
   | boolean
@@ -11821,5 +11890,42 @@ export type GetUnavailableDatesRequestSchema = {
   from?: DateSchema
   to?: DateSchema
   hasSaturdayDelivery?: boolean
+  [k: string]: unknown
+}
+
+export type GetPeakDays200ResponseSchema = {
+  courier: CourierSchema
+  peakDays: PeakDaySchema[]
+  [k: string]: unknown
+}
+
+export type GetPeakDays400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetPeakDays401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type GetPeakDays403ResponseSchema = ForbiddenErrorResponseSchema
+
+export type GetPeakDays404ResponseSchema = GenericNotFoundErrorResponseSchema
+
+export type GetPeakDays405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type GetPeakDays415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type GetPeakDays429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type GetPeakDays500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type GetPeakDaysRequestSchema = {
+  courierId: UuidSchema
+  from?: DateSchema
+  to?: DateSchema
+  [k: string]: unknown
+}
+
+export type PeakDaySchema = {
+  startsAt: DateSchema
+  endsAt: DateSchema
+  reason?: string
+  severity: "MEDIUM" | "HIGH"
   [k: string]: unknown
 }
